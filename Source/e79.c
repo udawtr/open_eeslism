@@ -57,13 +57,6 @@
 //#define MAXPOLY 50     
 /*------------------higuchi add----------------end*/
 
-char	*CONST_UNIT = "SI";
-double	CONST_PI = 3.141592654;
-double	CONST_SGM = 5.67e-8;
-double	CONST_CA = 1005.0, CONST_CV = 1846.0, CONST_ROA = 1.29, CONST_CW = 4186.0;
-double	CONST_ROW = 1000.0, CONST_RO = 2501000.;
-double	CONST_G = 9.8;
-
 int	VAV_Count_MAX ;
 char	*Fbmlist;
 double	dTM, cff_kWh;

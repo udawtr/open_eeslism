@@ -8,20 +8,10 @@ void EnterDebugMode();
 //エラー出力用ファイルポインタ
 extern FILE	*ferr;
 
-//円周率
-extern double CONST_PI;
 
 extern int	dayprn;
 
-extern double CONST_SGM;
-
 extern double  cff_kWh;
-
-extern double CONST_CA, CONST_RO;
-
-extern double dTM, CONST_RO, CONST_CA;
-
-extern double  CONST_CA, CONST_ROA;
 
 int NSTOP();
 void NSTOPOn();
@@ -36,29 +26,31 @@ extern  double  dTM;
 
 extern double  cff_kWh;
 
-extern double CONST_G;
-
 	extern double   dTM;	extern char* Fbmlist;
 	extern int	dayprn;
 	extern int	dayprn;
 	extern FILE* ferr;
 
-	extern double CONST_ROW;
-	extern double CONST_CA, CONST_CW;
-	extern double  R0, Ca, Cv, Rc, Cc, Cw, Pcnv, P;
+	extern double  Ca, Cv, Rc, Cc, Cw, Pcnv, P;
 
-	extern char* CONST_UNIT;
 	extern double P;
 	extern double Pcnv;
 	double Tabs, Pws, Temp;
-	extern char* CONST_UNIT;
 	extern double Lat, Slat, Clat, Tlat, Isc;
 	extern double Lon, Ls;
-	extern double	CONST_CA,		// 乾き空気の比熱[J/kgK]
-		CONST_RO,		// 水の蒸発潜熱[J/kg]
-		CONST_CV;	// 水蒸気の低圧比熱[J/kgK]
 	extern char	DAYweek[][4];
 	extern int	VAV_Count_MAX;
+
+#define CONST_UNIT "SI"
+#define CONST_PI 3.141592654
+#define CONST_SGM 5.67e-8
+#define CONST_CA 1005.0		// 乾き空気の比熱[J/kgK]
+#define CONST_CV 1846.0		// 水蒸気の低圧比熱[J/kgK]
+#define CONST_ROA 1.29
+#define CONST_CW 4186.0
+#define CONST_ROW 1000.0
+#define CONST_RO 2501000.	// 水の蒸発潜熱[J/kg]
+#define CONST_G 9.8
 
 // 月の末日かどうかをチェックする
 int	isEndDay(int Mon, int Day, int Dayend, int SimDayend);
