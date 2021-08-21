@@ -25,6 +25,8 @@ extern double  ca, roa;
 
 int NSTOP();
 void NSTOPOn();
+int DISPLAY_DELAY();
+void DISPLAY_DELAY_On();
 
 extern double dTM;
 

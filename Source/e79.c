@@ -71,7 +71,7 @@ int		dayprn;
 
 char	DAYweek[][4] = { "Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun", "Hol" };
 FILE	*ferr = NULL;
-int		_NSTOP = 0, DISPLAY_DELAY = 0;
+int		_NSTOP = 0, _DISPLAY_DELAY = 0;
 int		SETprint = 0;
 
 int NSTOP() {
@@ -80,6 +80,14 @@ int NSTOP() {
 
 void NSTOPOn() {
 	_NSTOP = 1;
+}
+
+int DISPLAY_DELAY() {
+	return _DISPLAY_DELAY;
+}
+
+void DISPLAY_DELAY_On() {
+	_DISPLAY_DELAY = 1;
 }
 
 int		_DEBUG_MODE_FLAG = 0;
@@ -299,7 +307,7 @@ int main(int Narg, char **File)
 			if (strcmp(File[i], "-nstop") == 0)
 				NSTOPOn();
 			else if (strcmp(File[i], "-delay") == 0)
-				DISPLAY_DELAY = 1;
+				DISPLAY_DELAY_On();
 			else if (*File[i] != '-')
 			{
 				Path = stralloc(File[i]);
@@ -322,7 +330,7 @@ int main(int Narg, char **File)
 	/*--*/
 
 	// コンソール出力の遅延を回避
-	if (DISPLAY_DELAY == 1)
+	if (DISPLAY_DELAY())
 		setvbuf(stdout, (char *)NULL, _IONBF, 0);
 
 	/* ------------------------------------------------------ */
