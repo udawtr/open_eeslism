@@ -6,3 +6,8 @@ cd build
 make
 ./eeslism
 ```
+
+# Visual Studio (Windows)
+
+* [開く]⇒[フォルダ]
+* CmakeLists.txt 右クリック⇒[ビルド]

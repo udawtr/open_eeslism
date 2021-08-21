@@ -135,7 +135,7 @@ add_executable(eeslism
     Source/lib/wdread.c
 )
 
-target_link_libraries(eeslism m)
+target_link_libraries(eeslism)
 
 set(CPACK_PROJECT_NAME ${PROJECT_NAME})
 set(CPACK_PROJECT_VERSION ${PROJECT_VERSION})
