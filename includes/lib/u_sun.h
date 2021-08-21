@@ -24,7 +24,7 @@
 
 #pragma once
 
-void Sunint(void);
+void Sunint(double Lat, double Lon, double Ls);
 int FNNday(int Mo, int Nd);
 double FNDecl(int N);
 double FNE(int N);

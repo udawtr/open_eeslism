@@ -116,7 +116,7 @@ void Weatherdt(SIMCONTL *Simc, DAYTM *Daytm, LOCAT *Loc, WDAT *Wd, EXSF *Exs, ch
 			Lat = Loc->Lat; 
 			Lon = Loc->Lon;
 			Ls  = Loc->Ls;
-			Sunint();
+			Sunint(Lat, Lon, Ls);
 			Psyint(); 
 			if (Simc->wdtype == 'H')		// HASP形式の場合
 			{

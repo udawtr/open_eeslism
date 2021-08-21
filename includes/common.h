@@ -30,8 +30,6 @@ void set_fbm_list_filename(char* fname);
 //壁体の材料定義リストのファイル名を取得
 const char* get_fbm_list_filename();
 
-extern double  Lat, Slat, Clat, Tlat, Lon, Ls;
-
 // 曜日名の配列 { "Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun", "Hol" }
 const char* DAYweek(int i);
 

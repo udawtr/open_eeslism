@@ -32,13 +32,16 @@
 
 #define CONST_ISC 1370.
 
+double _Slat, _Clat, _Tlat, _Lon, _Ls;
 
-void Sunint(void)
+void Sunint(double Lat, double Lon, double Ls)
 {
 	const double Rd = CONST_PI/180.;
-	Slat=sin(Lat*Rd);
-	Clat=cos(Lat*Rd);
-	Tlat=tan(Lat*Rd);
+	_Slat=sin(Lat*Rd);
+	_Clat=cos(Lat*Rd);
+	_Tlat=tan(Lat*Rd);
+	_Lon = Lon;
+	_Ls = Ls;
 }
 /* --------------------------------------------- */
 int FNNday(int Mo, int Nd)
@@ -65,18 +68,18 @@ double FNSro(int N)
 /*  -------------------------------------------- */
 double FNTtas(double Tt, double E)
 {
-	return( Tt+E+(Lon-Ls)/15. );
+	return( Tt+E+(_Lon-_Ls)/15. );
 }
 /*  -------------------------------------------- */
 double FNTt(double Ttas, double E)
 {
-	return( Ttas-E-(Lon-Ls)/15. );
+	return( Ttas-E-(_Lon-_Ls)/15. );
 }
 /*  -------------------------------------------- */
 double FNTtd(double Decl)
 {
 	double Cws, Ttd;
-	Cws= -Tlat*tan(Decl);
+	Cws= -_Tlat*tan(Decl);
 	if ( 1. > Cws && Cws > -1. )
 		Ttd=7.6394*acos(Cws); 
 	else
@@ -97,8 +100,8 @@ void Solpos(double Ttas, double Decl, double *Sh, double *Sw, double *Ss, double
 	if (Ttas < Ttprev) 
 	{
 		Sdecl=sin(Decl);
-		Sld=Slat*Sdecl;
-		Cld=Clat*cos(Decl);
+		Sld=_Slat*Sdecl;
+		Cld=_Clat*cos(Decl);
 	}
 	W=(Ttas-12.)*.2618;
 	*Sh = Sld + Cld*cos(W);
@@ -106,7 +109,7 @@ void Solpos(double Ttas, double Decl, double *Sh, double *Sw, double *Ss, double
 	if (*Sh > 0.) 
 	{
 		Ch=sqrt(1.-*Sh * *Sh);
-		Ca=(*Sh * Slat - Sdecl)/(Ch * Clat);
+		Ca=(*Sh * _Slat - Sdecl)/(Ch * _Clat);
 		*solA = (W > 0. ? 1.0 : -1.0)* acos(Ca) / CONST_PI*180.;
 		Sa=(W/fabs(W))*sqrt(1.-Ca*Ca);
 		*Sw=Ch*Sa;
