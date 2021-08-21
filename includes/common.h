@@ -30,7 +30,7 @@ void DISPLAY_DELAY_On();
 
 extern double dTM;
 
-extern int SETprint;
+int SETprint();
 
 extern  double  dTM;
 

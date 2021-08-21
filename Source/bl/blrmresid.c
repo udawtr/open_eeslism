@@ -95,7 +95,7 @@ void	Residata (FILE *fi, char *dsn, SCHDL *Schdl, ROOM *Room, int *pmvpri, SIMCO
 					rm->Wvsch = envptr ( s4, Simc, 0, NULL, NULL, NULL ) ;
 
 				*pmvpri = 1;
-				if (SETprint == 1)
+				if (SETprint())
 					rm->setpri = 1;
 			}
 			else

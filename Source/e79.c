@@ -72,7 +72,7 @@ int		dayprn;
 char	DAYweek[][4] = { "Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun", "Hol" };
 FILE	*ferr = NULL;
 int		_NSTOP = 0, _DISPLAY_DELAY = 0;
-int		SETprint = 0;
+int		_SETprint = 0;
 
 int NSTOP() {
 	return _NSTOP;
@@ -88,6 +88,10 @@ int DISPLAY_DELAY() {
 
 void DISPLAY_DELAY_On() {
 	_DISPLAY_DELAY = 1;
+}
+
+int SETprint() {
+	return _SETprint;
 }
 
 int		_DEBUG_MODE_FLAG = 0;
