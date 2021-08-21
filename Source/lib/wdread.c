@@ -209,14 +209,14 @@ void Weatherdt(SIMCONTL *Simc, DAYTM *Daytm, LOCAT *Loc, WDAT *Wd, EXSF *Exs, ch
 
 	if ( dayprn && ferr )
 	{
-		fprintf ( ferr, "\n\n<Weatherdt>  ***** Wdata *****\n\n=================\n" ) ;
-		fprintf ( ferr, "\tT=%.1lf\n\tx=%.4lf\n\tRH=%.0lf\n",
+		ERR_PRINT("\n\n<Weatherdt>  ***** Wdata *****\n\n=================\n" ) ;
+		ERR_PRINT("\tT=%.1lf\n\tx=%.4lf\n\tRH=%.0lf\n",
 			Wd->T, Wd->x, Wd->RH ) ;
-		fprintf ( ferr, "\tIdn=%.0lf\n\tIsky=%.0lf\n\tIhor=%.0lf\n",
+		ERR_PRINT("\tIdn=%.0lf\n\tIsky=%.0lf\n\tIhor=%.0lf\n",
 			Wd->Idn, Wd->Isky, Wd->Ihor ) ;
-		fprintf ( ferr, "\tRN=%.0lf\n\tCC=%.0lf\n\tWdre=%.0lf\n\tWv=%.1lf\n",
+		ERR_PRINT("\tRN=%.0lf\n\tCC=%.0lf\n\tWdre=%.0lf\n\tWv=%.1lf\n",
 			Wd->RN, Wd->CC, Wd->Wdre, Wd->Wv ) ;
-		fprintf ( ferr, "\th=%.0lf\n==================\n", Wd->h ) ;
+		ERR_PRINT("\th=%.0lf\n==================\n", Wd->h ) ;
 	}
 
 	ptt = tt;
@@ -298,8 +298,8 @@ void hspwdread(FILE *fp, int nday,
 		
 		if ( ferr )
 		{
-			fprintf(ferr,"\n------> <hspwdread> \n"); 
-			fprintf(ferr,"\nName=%s\tLat=%.4g\tLon=%.4g\tLs=%.4g\ta=%.4g\tb=%.4g\tc=%.4g\n",
+			ERR_PRINT("\n------> <hspwdread> \n"); 
+			ERR_PRINT("\nName=%s\tLat=%.4g\tLon=%.4g\tLs=%.4g\ta=%.4g\tb=%.4g\tc=%.4g\n",
 				Loc->name, Loc->Lat, Loc->Lon, Loc->Ls, a,b,c); 
 		}
 

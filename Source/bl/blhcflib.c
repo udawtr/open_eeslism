@@ -164,7 +164,7 @@ void Htrcf (double *alc, double *alo, char alotype, EXSF *Exs, double Tr, int N,
 		
 		if ( dayprn && ferr )
 		{
-			fprintf(ferr,"----- Htrcf n=%2d ble=%c Ts=%.1lf Tr=%.1lf alic=%.3lf alir=%.3lf rmname=%s\n",
+			ERR_PRINT("----- Htrcf n=%2d ble=%c Ts=%.1lf Tr=%.1lf alic=%.3lf alir=%.3lf rmname=%s\n",
 				n, Sd->ble, Sd->Ts, Tr, Sd->alic, Sd->alir, Sd->room->name);           
 		}
 	}

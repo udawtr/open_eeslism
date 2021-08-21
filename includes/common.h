@@ -70,3 +70,6 @@ int	isEndDay(int Mon, int Day, int Dayend, int SimDayend);
 
 //#define  ERSTR   101
 #define  ERRFMTA  "xxx %s xxx %s\n"
+
+//エラー出力用マクロ
+#define ERR_PRINT(...) if(ferr) { fprintf(ferr, "%s(L%d) %s:", __FILE__, __LINE__, __func__); fprintf(ferr, __VA_ARGS__); }

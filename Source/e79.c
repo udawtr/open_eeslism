@@ -704,7 +704,7 @@ int main(int Narg, char **File)
 	}
 
 	if (ferr)
-		fprintf(ferr, "\n<<main>> eeflopen end\n");
+		ERR_PRINT("\n<<main>> eeflopen end\n");
 
 	Tinit(Rmvls.Twallinit, Rmvls.Nroom, Rmvls.Room,
 		Rmvls.Nsrf, Rmvls.Sd, Rmvls.Nmwall, Rmvls.Mw);
@@ -715,7 +715,7 @@ int main(int Narg, char **File)
 	}
 
 	if (ferr)
-		fprintf(ferr, "\n<<main>> Tinit\n");
+		ERR_PRINT("\n<<main>> Tinit\n");
 
 
 	// ボイラ機器仕様の初期化
@@ -728,7 +728,7 @@ int main(int Narg, char **File)
 	}
 
 	if (ferr)
-		fprintf(ferr, "\n<<main>> Mecsinit\n");
+		ERR_PRINT("\n<<main>> Mecsinit\n");
 
 	/*******************
 
@@ -773,7 +773,7 @@ int main(int Narg, char **File)
 		dcnt = dcnt + 1;  // 110413 higuchi add
 
 		if (dayprn && ferr)
-			fprintf(ferr, "\n\n\t===== Dayly Loop =====\n\n");
+			ERR_PRINT("\n\n\t===== Dayly Loop =====\n\n");
 
 		// 計算する日付の決定
 		day = (nday > 365 ? nday - 365 : nday);
@@ -801,7 +801,7 @@ int main(int Narg, char **File)
 		for (mt = mta; mt <= mtb; mt++)
 		{
 			if (dayprn && ferr)
-				fprintf(ferr, "\n\n\t===== Timely Loop =====\n\n");
+				ERR_PRINT("\n\n\t===== Timely Loop =====\n\n");
 
 			//printf("dcnt=%d,nday=%d,mt=%d, mta=%d, mtb=%d, dminute=%d, mm=%d, tt=%d\n",dcnt,nday,mt,mta,mtb,dminute,mm,tt) ;
 
@@ -834,7 +834,7 @@ int main(int Narg, char **File)
 
 			if (dayprn && ferr)
 			{
-				fprintf(ferr, "\n\n\n---- date=%2d/%2d nday=%d day=%d time=%5.2lf ----\n",
+				ERR_PRINT("\n\n\n---- date=%2d/%2d nday=%d day=%d time=%5.2lf ----\n",
 					Daytm.Mon, Daytm.Day, nday, day, Daytm.time);
 			}
 
@@ -1043,7 +1043,7 @@ int main(int Narg, char **File)
 				if (DEBUG())
 					printf("\n\n====== VAV LOOP Count=%d ======\n\n\n", j);
 				if (dayprn && ferr)
-					fprintf(ferr, "\n\n====== VAV LOOP Count=%d ======\n\n\n", j);
+					ERR_PRINT("\n\n====== VAV LOOP Count=%d ======\n\n\n", j);
 
 				VAVreset = 0;
 				Valvreset = 0;
@@ -1056,7 +1056,7 @@ int main(int Narg, char **File)
 				}
 
 				if (Simc.dayprn[day] && ferr)
-					fprintf(ferr, "<<main>> Pumpflow\n");
+					ERR_PRINT("<<main>> Pumpflow\n");
 
 				Pflow(Nmpath, Mpath, &Wd);
 
@@ -1066,7 +1066,7 @@ int main(int Narg, char **File)
 				}
 
 				if (dayprn && ferr)
-					fprintf(ferr, "<<main>> Pflow\n");
+					ERR_PRINT("<<main>> Pflow\n");
 
 				/************
 				eloutprint(0, Nelout, Elout, Compnt);
@@ -1080,7 +1080,7 @@ int main(int Narg, char **File)
 				}
 
 				if (dayprn && ferr)
-					fprintf(ferr, "<<main>> Sysupv\n");
+					ERR_PRINT("<<main>> Sysupv\n");
 
 				/*****
 				elinprint(0, Ncompnt, Compnt, Elout, Elin);
@@ -1136,7 +1136,7 @@ int main(int Narg, char **File)
 
 				if (dayprn && ferr)
 				{
-					fprintf(ferr, "<<main>>  Roomvar\n");
+					ERR_PRINT("<<main>>  Roomvar\n");
 					eloutfprint(1, Nelout, Elout, Compnt);
 					elinfprint(1, Ncompnt, Compnt, Elout, Elin);
 				}
@@ -1157,7 +1157,7 @@ int main(int Narg, char **File)
 						printf("再計算が必要な機器のループ %d\n", i);
 
 					if (dayprn && ferr)
-						fprintf(ferr, "再計算が必要な機器のループ %d\n\n\n", i);
+						ERR_PRINT("再計算が必要な機器のループ %d\n\n\n", i);
 
 					LDreset = 0;
 					DWreset = 0;

@@ -54,8 +54,8 @@ void Sysupv(int Nmpath, MPATH *Mpath, RMVLS *Rmvls)
 			}
 			if ( dayprn && ferr )
 			{
-				fprintf ( ferr, "\n<<Sysupv>  i=%d  iMAX=%d\n", i, Mpath->Nlpath ) ;
-				fprintf ( ferr, "OFF_SW=%c  Plist->control=%c\n", OFF_SW, Plist->control ) ;
+				ERR_PRINT("\n<<Sysupv>  i=%d  iMAX=%d\n", i, Mpath->Nlpath ) ;
+				ERR_PRINT("OFF_SW=%c  Plist->control=%c\n", OFF_SW, Plist->control ) ;
 			}
 			
 			if (Plist->control != OFF_SW)
@@ -85,11 +85,11 @@ void Sysupv(int Nmpath, MPATH *Mpath, RMVLS *Rmvls)
 					}
 					if ( dayprn && ferr )
 					{
-						fprintf(ferr, "\n<< sysupv >> pelm=%d %s  MAX=%d\n",
+						ERR_PRINT("\n<< sysupv >> pelm=%d %s  MAX=%d\n",
 							j, Pelm->cmp->name,Plist->Nelm);
 						
 						if ( Pelm->out != NULL )
-							fprintf(ferr, "<< Sysupv >> Pelm->out->control=%c\n",
+							ERR_PRINT("<< Sysupv >> Pelm->out->control=%c\n",
 							Pelm->out->control);
 					}
 					
@@ -111,7 +111,7 @@ void Sysupv(int Nmpath, MPATH *Mpath, RMVLS *Rmvls)
 
 						if ( dayprn && ferr )
 						{
-							fprintf ( ferr, "<<<<<< Pelm->out->control=%c FLWIN_SW=%c\n",
+							ERR_PRINT("<<<<<< Pelm->out->control=%c FLWIN_SW=%c\n",
 								Pelm->out->control, FLWIN_SW ) ;
 						}
 						
@@ -127,7 +127,7 @@ void Sysupv(int Nmpath, MPATH *Mpath, RMVLS *Rmvls)
 
 							if ( dayprn && ferr )
 							{
-								fprintf ( ferr, "up->cmp->name=%s\n", up->cmp->name ) ;
+								ERR_PRINT("up->cmp->name=%s\n", up->cmp->name ) ;
 							}
 							
 							/********** Testcode ********/

@@ -122,54 +122,54 @@ void	dprschtable ( SEASN *Ssn, WKDY *Wkd, DSCH *Dh, DSCW *Dw )
 	
 	if ( ferr )
 	{
-		fprintf(ferr,"\n*** dprschtable  ***\n");
-		fprintf(ferr,"\n=== Schtable end  is=%d  iw=%d  sc=%d  sw=%d\n", Ns, Nw, Nsc, Nsw ) ;
+		ERR_PRINT("\n*** dprschtable  ***\n");
+		ERR_PRINT("\n=== Schtable end  is=%d  iw=%d  sc=%d  sw=%d\n", Ns, Nw, Nsc, Nsw ) ;
 		
 		for ( is = 0; is < Ns; is++, Seasn++ )
 		{
-			fprintf (ferr, "\n\t%s", Seasn->name ) ;
+			ERR_PRINT("\n\t%s", Seasn->name ) ;
 			
 			sday = Seasn->sday ;
 			eday = Seasn->eday ;
 			for ( js = 0; js < Seasn->N; js++, sday++, eday++ )
-				fprintf (ferr, "\t%d-%d", *sday, *eday ) ;
+				ERR_PRINT("\t%d-%d", *sday, *eday ) ;
 		}
 		
 		for ( j = 0; j < 8; j++ )
-			fprintf ( ferr, "\t%s", DAYweek(j) ) ;
+			ERR_PRINT("\t%s", DAYweek(j) ) ;
 
 		for ( iw = 0; iw < Nw; iw++, Wkdy++ )
 		{
-			fprintf (ferr, "\n%s", Wkdy->name ) ;
+			ERR_PRINT("\n%s", Wkdy->name ) ;
 			
 			wday = Wkdy->wday ;
 			for ( j = 0; j < 8; j++, wday++ )
-				fprintf (ferr, "\t%d", *wday ) ;
+				ERR_PRINT("\t%d", *wday ) ;
 		}
 		
 		for ( sc = 0; sc < Nsc; sc++, Dsch++ )
 		{
-			fprintf (ferr, "\nVL\t%s\t[%d]", Dsch->name, sc ) ;
+			ERR_PRINT("\nVL\t%s\t[%d]", Dsch->name, sc ) ;
 			
 			stime = Dsch->stime ;
 			val = Dsch->val ;
 			etime = Dsch->etime ;
 			for ( jsc = 0; jsc < Dsch->N; jsc++, stime++, val++, etime++ )
-				fprintf (ferr, "\t%d-(%.2g)-%d", *stime, *val, *etime ) ;
+				ERR_PRINT("\t%d-(%.2g)-%d", *stime, *val, *etime ) ;
 		} 
 		
 		for ( sw = 0; sw < Nsw; sw++, Dscw++ )
 		{
-			fprintf (ferr, "\nSW\t%s\t[%d]", Dscw->name, sw ) ;
+			ERR_PRINT("\nSW\t%s\t[%d]", Dscw->name, sw ) ;
 			
 			stime = Dscw->stime ;
 			mode = Dscw->mode ;
 			etime = Dscw->etime ;
 			for ( jsw = 0; jsw < Dscw->N; jsw++, stime++, mode++, etime++ )
-				fprintf (ferr, "\t%d-(%c)-%d", *stime, *mode, *etime ) ;
+				ERR_PRINT("\t%d-(%c)-%d", *stime, *mode, *etime ) ;
 		}
 
-		fprintf ( ferr, "\n\n" ) ;
+		ERR_PRINT("\n\n" ) ;
 	}
 }
 /* ----------------------------------------------------------------- */
@@ -234,12 +234,12 @@ void	dprschdata ( SCH *Sh, SCH *Sw )
 
 	if ( ferr )
 	{
-		fprintf (ferr, "\n*** dprschdata  ***\n" ) ;
-		fprintf (ferr, "\n== Sch.end=%d   Scw.end=%d\n", Nsc, Nsw ) ;
+		ERR_PRINT("\n*** dprschdata  ***\n" ) ;
+		ERR_PRINT("\n== Sch.end=%d   Scw.end=%d\n", Nsc, Nsw ) ;
 		
 		for ( i = 0; i < Nsc; i++, Sch++ )
 		{
-			fprintf(ferr,"\nSCH=%s\t[%d]\t", Sch->name, i);
+			ERR_PRINT("\nSCH=%s\t[%d]\t", Sch->name, i);
 			
 			k = 1 ;
 			day = Sch->day ;
@@ -248,16 +248,16 @@ void	dprschdata ( SCH *Sh, SCH *Sw )
 			{
 				if ( FNNday ( k, 1) == d )
 				{
-					fprintf (ferr,"\n%2d - ", k ) ;
+					ERR_PRINT("\n%2d - ", k ) ;
 					k++ ;
 				}
-				fprintf (ferr, "%2d", *day );
+				ERR_PRINT("%2d", *day );
 			}
 		}
 		
 		for ( i = 0; i < Nsw; i++, Scw++ )
 		{
-			fprintf(ferr,"\nSCW= %s (%2d) ", Scw->name, i) ;
+			ERR_PRINT("\nSCW= %s (%2d) ", Scw->name, i) ;
 			k = 1 ;
 			day = Scw->day ;
 			day++ ;
@@ -265,13 +265,13 @@ void	dprschdata ( SCH *Sh, SCH *Sw )
 			{
 				if ( FNNday ( k, 1 ) == d )
 				{
-					fprintf (ferr, "\n%2d - ", k ) ;
+					ERR_PRINT("\n%2d - ", k ) ;
 					k++ ;
 				}
-				fprintf (ferr, "%2d", *day ) ;
+				ERR_PRINT("%2d", *day ) ;
 			}
 		}
-		fprintf (ferr, "\n" ) ;
+		ERR_PRINT("\n" ) ;
 	}
 }
 /* ----------------------------------------------------------------- */
@@ -302,16 +302,16 @@ void	dprachv (int Nroom, ROOM *Room)
 	Rm = Room ;
 	if ( ferr )
 	{
-		fprintf(ferr,"\n*** dprachv***\n");
+		ERR_PRINT("\n*** dprachv***\n");
 		
 		for ( i = 0; i < Nroom; i++, Rm++ )
 		{
-			fprintf(ferr,"to rm: %-10s   from rms(sch):", Rm->name);
+			ERR_PRINT("to rm: %-10s   from rms(sch):", Rm->name);
 			
 			A = Rm->achr ;
 			for (j=0; j< Rm->Nachr; j++, A++)
-				fprintf(ferr,"  %-10s (%3d)", (Room+A->rm)->name, A->sch);
-			fprintf(ferr,"\n");
+				ERR_PRINT("  %-10s (%3d)", (Room+A->rm)->name, A->sch);
+			ERR_PRINT("\n");
 		}
 	}
 }
@@ -340,12 +340,12 @@ void	dprexsf ( EXSF *E)
 		Exs = E ;
 		if ( ferr )
 		{
-			fprintf(ferr,"\n*** dprexsf ***\n");
-			fprintf(ferr,"\tNo.\tName\ttyp\tWa\tWb\tRg\tz\tedf\n" );
+			ERR_PRINT("\n*** dprexsf ***\n");
+			ERR_PRINT("\tNo.\tName\ttyp\tWa\tWb\tRg\tz\tedf\n" );
 			
 			for ( i = 0; i < N; i++, Exs++)
 			{
-				fprintf(ferr,"\t%d\t%s\t%c\t%.4g\t%.4g\t%.2g\t%.2g\t%.2g\n",
+				ERR_PRINT("\t%d\t%s\t%c\t%.4g\t%.4g\t%.2g\t%.2g\t%.2g\n",
 					i, Exs->name, Exs->typ, Exs->Wa, Exs->Wb, Exs->Rg, Exs->Z, Exs->erdff);
 			}
 		}
@@ -398,27 +398,27 @@ void	dprwwdata(WALL *Wa, WINDOW *Wi)
 	
 	if ( ferr )
 	{
-		fprintf (ferr, "\n*** dprwwdata ***\nWALLdata\n" ) ;
+		ERR_PRINT("\n*** dprwwdata ***\nWALLdata\n" ) ;
 		
 		N = Wall->end ;
 		for ( i = 0; i < N; i++, Wall++ )
 		{
-			fprintf(ferr,"\nWall[%d]\t%s\tR=%.3g\tIP=%d\tEi=%.2g\tEo=%.2g\tas=%.2g\n", 
+			ERR_PRINT("\nWall[%d]\t%s\tR=%.3g\tIP=%d\tEi=%.2g\tEo=%.2g\tas=%.2g\n", 
 				i, Wall->name, Wall->Rwall, Wall->Ip, Wall->Ei, Wall->Eo, Wall->as ) ;
 			
-			fprintf(ferr,"\tNo.\tcode\tL\tND\n" );
+			ERR_PRINT("\tNo.\tcode\tL\tND\n" );
 			w = Wall->welm ;
 			for ( j = 0; j < Wall->N; j++, w++ )
-				fprintf(ferr,"\t%d\t%s\t%.3g\t%d\n", j, w->code, w->L, w->ND);
+				ERR_PRINT("\t%d\t%s\t%.3g\t%d\n", j, w->code, w->L, w->ND);
 		}
 		
-		fprintf (ferr, "\nWINDOWdata\n" ) ;
+		ERR_PRINT("\nWINDOWdata\n" ) ;
 		
 		N = Window->end ;
 		for ( i = 0; i < N; i++, Window++ )
 		{
-			fprintf (ferr, "windows[%d]\t%s\n", i, Window->name ) ;
-			fprintf (ferr, "\tR=%.3g\tt=%.2g\tB=%.2g\tEi=%.2g\tEo=%.2g\n", Window->Rwall,
+			ERR_PRINT("windows[%d]\t%s\n", i, Window->name ) ;
+			ERR_PRINT("\tR=%.3g\tt=%.2g\tB=%.2g\tEi=%.2g\tEo=%.2g\n", Window->Rwall,
 				Window->tgtn, Window->Bn, Window->Ei, Window->Eo);
 		}
 	}
@@ -479,14 +479,14 @@ void	dprroomdata(ROOM *R, RMSRF *S)
 
 	if ( ferr )
 	{
-		fprintf (ferr, "\n*** dprroomdata ***\n" ) ;
+		ERR_PRINT("\n*** dprroomdata ***\n" ) ;
 		
 		N = Room->end ;
 		for ( i = 0; i < N; i++, Room++ )
 		{  
-			fprintf (ferr, "\n==room=(%d)\t%s\tN=%d\tNtr=%d\tNrp=%d\tV=%.3g\tMRM=%.2g\n", 
+			ERR_PRINT("\n==room=(%d)\t%s\tN=%d\tNtr=%d\tNrp=%d\tV=%.3g\tMRM=%.2g\n", 
 				i, Room->name, Room->N, Room->Ntr, Room->Nrp, Room->VRM, Room->MRM ) ;
-			fprintf (ferr, "\tFloor_area=%.3g\tTotal_surface_area=%.2g\n",
+			ERR_PRINT("\tFloor_area=%.3g\tTotal_surface_area=%.2g\n",
 				Room->FArea, Room->Area ) ;
 				/*******************
 				printf("   tasc=(%d)  tasclow=(%d)  taschi=(%d)  xasc=(%d)   \n",
@@ -495,24 +495,24 @@ void	dprroomdata(ROOM *R, RMSRF *S)
 				Room->tascsw, Room->tascswlow, Room->tascswhi, Room->xascsw);
 			*************************/
 			
-			fprintf (ferr, "\tGve=%.2g\tGvi=%.2g\n",
+			ERR_PRINT("\tGve=%.2g\tGvi=%.2g\n",
 				Room->Gve, Room->Gvi ) ;
-			fprintf (ferr, "\tLight=%.2g\tLtyp=%c", Room->Light, Room->Ltyp ) ;
-			fprintf (ferr, "\tNhm=%.2g\n",
+			ERR_PRINT("\tLight=%.2g\tLtyp=%c", Room->Light, Room->Ltyp ) ;
+			ERR_PRINT("\tNhm=%.2g\n",
 				Room->Nhm ) ;
-			fprintf (ferr, "\tApsc=%.2g\tApsr=%.2g",
+			ERR_PRINT("\tApsc=%.2g\tApsr=%.2g",
 				Room->Apsc, Room->Apsr ) ;
-			fprintf (ferr, "\tApl=%.2g\n", Room->Apl ) ;
+			ERR_PRINT("\tApl=%.2g\n", Room->Apl ) ;
 
-			fprintf (ferr, "\tNo.\tble\ttyp\tname\texs\tnxrmd\tnxn\t" ) ;
-			fprintf (ferr, "wd\tNfn\tA\tmwside\tmwtype\tEi\tEo\n" ) ;
+			ERR_PRINT("\tNo.\tble\ttyp\tname\texs\tnxrmd\tnxn\t" ) ;
+			ERR_PRINT("wd\tNfn\tA\tmwside\tmwtype\tEi\tEo\n" ) ;
 			
 			Sdd = Sd + Room->brs ;
 			for ( j = Room->brs; j < Room->brs + Room->N; j++, Sdd++ ) 
 			{
-				fprintf (ferr, "\t%d\t%c\t%c\t%s\t%d\t%d\t%d\t",
+				ERR_PRINT("\t%d\t%c\t%c\t%s\t%d\t%d\t%d\t",
 					j, Sdd->ble, Sdd->typ, Sdd->name, Sdd->exs, Sdd->nxrm, Sdd->nxn ) ;
-				fprintf (ferr, "%d\t%d\t%.3g\t%c\t%c\t%.2lf\t%.2lf\n",
+				ERR_PRINT("%d\t%d\t%.3g\t%c\t%c\t%.2lf\t%.2lf\n",
 					Sdd->wd, Sdd->Nfn, Sdd->A, Sdd->mwside, Sdd->mwtype,
 					Sdd->Ei, Sdd->Eo ) ;
 			}
@@ -546,14 +546,14 @@ void	dprballoc ( MWALL *M, RMSRF *S )
 	Mw = M ;
 	if ( ferr )
 	{
-		fprintf ( ferr, "\n*** dprballoc ***\n" ) ;
-		fprintf (ferr, "\tNo.\tn\trm\tnxrm\twd\twall\tM\tA\n" ) ; 
+		ERR_PRINT("\n*** dprballoc ***\n" ) ;
+		ERR_PRINT("\tNo.\tn\trm\tnxrm\twd\twall\tM\tA\n" ) ; 
 
 		N = Mw->end ;
 		for ( mw = 0; mw < N; mw++, Mw++ )
 		{
 			id = ( Sd + Mw->ns )->wd ;
-			fprintf (ferr, "\t%d\t%d\t%d\t%d\t%d\t%s\t%d\t%.2g\n",
+			ERR_PRINT("\t%d\t%d\t%d\t%d\t%d\t%s\t%d\t%.2g\n",
 				mw, Mw->ns, Mw->rm, Mw->nxrm, id, Mw->wall->name, Mw->M, Mw->sd->A ) ; 
 		}
 	}

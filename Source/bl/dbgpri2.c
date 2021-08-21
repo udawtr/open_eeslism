@@ -59,27 +59,27 @@ void	xprroom ( int Nroom, ROOM *R )
 	Room = R ;
 	if ( ferr )
 	{
-		fprintf (ferr, "--- xprroom\n" ) ;
+		ERR_PRINT("--- xprroom\n" ) ;
 		for ( i = 0; i < Nroom; i++, Room++ )
 		{ 
-			fprintf (ferr,"Room:\tname=%s\tMRM=%.4g\tGRM=%.4g\n", 
+			ERR_PRINT("Room:\tname=%s\tMRM=%.4g\tGRM=%.4g\n", 
 				Room->name, Room->MRM, Room->GRM);
 			
-			fprintf (ferr,"\tRMt=%.4g\n", Room->RMt);
+			ERR_PRINT("\tRMt=%.4g\n", Room->RMt);
 			
 			ARN = Room->ARN;
 			for (j = 0; j < Room->Ntr; j++, ARN++ )
-				fprintf (ferr, "\tARN[%d]=%.4g", j, *ARN ) ;
-			fprintf (ferr, "\n" ) ;
+				ERR_PRINT("\tARN[%d]=%.4g", j, *ARN ) ;
+			ERR_PRINT("\n" ) ;
 
 			RMP = Room->RMP;
 			for ( j = 0; j < Room->Nrp; j++, RMP++ )
-				fprintf (ferr, "\tRMP[%d]=%.4g", j, *RMP ) ;
-			fprintf (ferr, "\n" ) ;
+				ERR_PRINT("\tRMP[%d]=%.4g", j, *RMP ) ;
+			ERR_PRINT("\n" ) ;
 
-			fprintf (ferr, "\tRMC=%.4g\n", Room->RMC ) ;
+			ERR_PRINT("\tRMC=%.4g\n", Room->RMC ) ;
 			
-			fprintf (ferr, "\tRMx=%.2g\t\tRMXC=%.2g\n",
+			ERR_PRINT("\tRMx=%.2g\t\tRMXC=%.2g\n",
 				Room->RMx, Room->RMXC ) ;
 		}
 	}
@@ -140,16 +140,16 @@ void	xprvent ( int Nroom, ROOM *R )
 	Room = R ;
 	if ( ferr )
 	{
-		fprintf ( ferr, "\n\n--- xprvent\n" ) ;
+		ERR_PRINT("\n\n--- xprvent\n" ) ;
 		
 		for ( i = 0; i < Nroom; i++, Room++ )
 		{ 
-			fprintf ( ferr, "\t[%d]\t%s\tGvent=%.3g\n\t\t", i, Room->name, Room->Gvent ) ;
+			ERR_PRINT("\t[%d]\t%s\tGvent=%.3g\n\t\t", i, Room->name, Room->Gvent ) ;
 			
 			A = Room->achr ;
 			for ( j = 0; j < Room->Nachr; j++, A++ )
-				fprintf ( ferr, "\t<%d>=%.2g", A->rm, A->Gvr ) ;
-			fprintf ( ferr, "\n" ) ;
+				ERR_PRINT("\t<%d>=%.2g", A->rm, A->Gvr ) ;
+			ERR_PRINT("\n" ) ;
 		}
 	}
 }

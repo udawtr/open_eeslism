@@ -366,12 +366,12 @@ void Pflow(int Nmpath, MPATH *Mpath, WDAT *Wd)
 				{
 					for ( i = 0; i < NG; i++ )
 					{
-						fprintf ( ferr, "%s\t", Mpath->cbcmp[i]->name ) ;
+						ERR_PRINT("%s\t", Mpath->cbcmp[i]->name ) ;
 						
 						for ( j = 0; j < NG; j++ )
-							fprintf ( ferr, "\t%.1g", A[i*NG+j] ) ;
+							ERR_PRINT("\t%.1g", A[i*NG+j] ) ;
 						
-						fprintf ( ferr, "\t\t%.2g\n", Y[i] ) ;
+						ERR_PRINT("\t\t%.2g\n", Y[i] ) ;
 					}
 				}
 				
@@ -393,7 +393,7 @@ void Pflow(int Nmpath, MPATH *Mpath, WDAT *Wd)
 				if ( dayprn && ferr )
 				{
 					for ( i = 0; i < NG; i++ )
-						fprintf ( ferr, "\t\t%.2g\n", X[i] ) ;
+						ERR_PRINT("\t\t%.2g\n", X[i] ) ;
 				}
 			}
 			

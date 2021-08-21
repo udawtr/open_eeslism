@@ -80,7 +80,7 @@ void Syseqv(int Nelout, ELOUT *Elout, SYSEQ *Syseq)
 
 		if ( dayprn && ferr )
 		{
-			fprintf(ferr,"xxx syseqv  Eo name=%s control=%c sysld=%c i=%d MAX=%d\n",
+			ERR_PRINT("xxx syseqv  Eo name=%s control=%c sysld=%c i=%d MAX=%d\n",
 				Elout->cmp->name, Elout->control, Elout->sysld, i, Nelout);
 		}
 		
@@ -163,7 +163,7 @@ void Syseqv(int Nelout, ELOUT *Elout, SYSEQ *Syseq)
 
 		if ( dayprn && ferr )
 		{  
-			fprintf(ferr,"xxx syseqv Elout=%d %s Ni=%d cfo=%lf\n", 
+			ERR_PRINT("xxx syseqv Elout=%d %s Ni=%d cfo=%lf\n", 
 				i, elout->cmp->name, elout->Ni, elout->coeffo);
 		}
 		
@@ -217,7 +217,7 @@ void Syseqv(int Nelout, ELOUT *Elout, SYSEQ *Syseq)
 
 				if ( dayprn && ferr )
 				{ 
-					fprintf(ferr,"xxx syseqv Elout=%d %s  in=%d elov=%s  control=%c sys=%lf\n",
+					ERR_PRINT("xxx syseqv Elout=%d %s  in=%d elov=%s  control=%c sys=%lf\n",
 						i, elout->cmp->name, j, 
 						elov->cmp->name, elov->control, elov->sysv);
 				}
@@ -238,7 +238,7 @@ void Syseqv(int Nelout, ELOUT *Elout, SYSEQ *Syseq)
 
 					if ( dayprn && ferr )
 					{   
-						fprintf(ferr,"xxx syseqv elov=%s  control=%c sys=%lf\n",
+						ERR_PRINT("xxx syseqv elov=%s  control=%c sys=%lf\n",
 							elov->cmp->name, elov->control, elov->sysv);
 					}
 					
@@ -312,9 +312,9 @@ void Syseqv(int Nelout, ELOUT *Elout, SYSEQ *Syseq)
 	{
 		st = mrk ;
 		for (i=0; i<Nsv; i++) 
-			fprintf(ferr,"Y[%d]=%6.3lf  mrk=%c  Elo=%s\n", i, Y[i], *st, elosv[i]->cmp->name);
+			ERR_PRINT("Y[%d]=%6.3lf  mrk=%c  Elo=%s\n", i, Y[i], *st, elosv[i]->cmp->name);
 		//		Syseq->mrk[i], Syseq->elosv[i]->cmp->name);
-		fprintf(ferr,"\n");
+		ERR_PRINT("\n");
 	}
 	
 	free ( sysmcf ) ;

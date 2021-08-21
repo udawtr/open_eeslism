@@ -54,22 +54,22 @@ void	xprtwallinit ( int Nmwall, MWALL *M )
 	Mw = M ;
 	if ( ferr )
 	{
-		fprintf (ferr, "--- xprtwallinit\n" ) ;
-		fprintf (ferr, "\tNo." ) ;
+		ERR_PRINT("--- xprtwallinit\n" ) ;
+		ERR_PRINT("\tNo." ) ;
 
 		for ( j = 0; j < Max; j++ )
-			fprintf (ferr, "\tT[%d]", j ) ;
-		fprintf (ferr, "\n" ) ;
+			ERR_PRINT("\tT[%d]", j ) ;
+		ERR_PRINT("\n" ) ;
 		
 		for ( j = 0; j < Nmwall; j++, Mw++ )
 		{
-			fprintf (ferr, "\t%d", j ) ;
+			ERR_PRINT("\t%d", j ) ;
 			
 			Told = Mw->Told ;
 			for ( m = 0; m < Mw->M; m++, Told++ )  
-				fprintf (ferr, "\t%.3g", *Told ) ;
+				ERR_PRINT("\t%.3g", *Told ) ;
 			
-			fprintf (ferr, "\n" ) ;
+			ERR_PRINT("\n" ) ;
 		}
 	}
 }
@@ -96,12 +96,12 @@ void	xprsolrd ( int Nexs, EXSF *E )
 	Exs = E ;
 	if ( ferr )
 	{
-		fprintf (ferr, "--- xprsolrd\n" ) ;
-		fprintf (ferr, "\tNo.\tName\tId\tIdif\tIw\tRN\tcinc\n" ) ;
+		ERR_PRINT("--- xprsolrd\n" ) ;
+		ERR_PRINT("\tNo.\tName\tId\tIdif\tIw\tRN\tcinc\n" ) ;
 
 		for ( i = 0; i < Nexs; i++, Exs++ )
 		{
-			fprintf (ferr, "\t%d\t%s\t%.0lf\t%.0lf\t%.0lf\t%.0lf\t%.3lf\n",
+			ERR_PRINT("\t%d\t%s\t%.0lf\t%.0lf\t%.0lf\t%.0lf\t%.3lf\n",
 				i, Exs->name, Exs->Idre, Exs->Idf, Exs->Iw, Exs->rn, Exs->cinc ) ;
 		}
 	}
@@ -179,35 +179,35 @@ void	xprxas ( int Nroom, ROOM *R, RMSRF *S )
 	Room = R ;
 	if ( ferr )
 	{
-		fprintf (ferr, "--- xprxas\n" ) ;
+		ERR_PRINT("--- xprxas\n" ) ;
 		
 		for ( i = 0; i < Nroom; i++, Room++ )
 		{
 			N = Room->N ;
 			brs = Room->brs ;
 			
-			fprintf (ferr, "Room=%s\tXA(i,j)\n", Room->name ) ;
+			ERR_PRINT("Room=%s\tXA(i,j)\n", Room->name ) ;
 			matfiprint ( ferr, "\t%.1g", N, Room->XA ) ;
 			
 			Sd = S + brs ;
 
 			for ( n = brs; n < brs + N; n++, Sd++ )
 			{
-				fprintf(ferr,"\n\n\t%d\tK=%.2g\talo=%.2g\tFI=%.2g\tFO=%.2g\tFP=%.2g\tCF=%.2g\t",
+				ERR_PRINT("\n\n\t%d\tK=%.2g\talo=%.2g\tFI=%.2g\tFO=%.2g\tFP=%.2g\tCF=%.2g\t",
 					n, Sd->K, Sd->alo, Sd->FI, Sd->FO, Sd->FP, Sd->CF);
-				fprintf(ferr,"\t\tWSR=%.3g\n\t", Sd->WSR ) ;
+				ERR_PRINT("\t\tWSR=%.3g\n\t", Sd->WSR ) ;
 				
 				WSRN = Sd->WSRN;
 				for ( j = 0; j < Room->Ntr; j++, WSRN++ )
-					fprintf (ferr, "\tWSRN[%d]=%.3g", j, *WSRN ) ;
-				fprintf (ferr, "\n\t" ) ;
+					ERR_PRINT("\tWSRN[%d]=%.3g", j, *WSRN ) ;
+				ERR_PRINT("\n\t" ) ;
 
 				WSPL = Sd->WSPL ;
 				for (j = 0; j < Room->Nrp; j++, WSPL++ )
-					fprintf (ferr, "\tWSPL[%d]=%.3g", j, *WSPL ) ;
-				fprintf (ferr, "\n" ) ;
+					ERR_PRINT("\tWSPL[%d]=%.3g", j, *WSPL ) ;
+				ERR_PRINT("\n" ) ;
 				
-				fprintf (ferr, "\t\tWSC=%.3g\n", Sd->WSC ) ; 
+				ERR_PRINT("\t\tWSC=%.3g\n", Sd->WSC ) ; 
 			}
 		}
 	}

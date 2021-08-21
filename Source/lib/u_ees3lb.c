@@ -341,7 +341,7 @@ void Errprint(int err, char *key, char *s)
 	{
 		printf(ERRFMTA, key, s);
 		if ( ferr )
-			fprintf(ferr, ERRFMTA, key, s);
+			ERR_PRINT(ERRFMTA, key, s);
 	}
 }
 
@@ -350,7 +350,7 @@ void Eprint(char *key, char *s)
 {
 	printf(ERRFMTA, key, s);
 	if ( ferr )
-		fprintf(ferr, ERRFMTA, key, s);
+		ERR_PRINT(ERRFMTA, key, s);
 }
 
 /*  データの記憶域確保時のエラー出力 */

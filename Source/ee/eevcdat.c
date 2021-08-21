@@ -392,10 +392,10 @@ void	Flinprt ( int N, FLIN *Fl )
 	{
 		for ( i = 0; i < N; i++, F++)
 		{
-			fprintf(ferr, "<< Flinprt >> Flin i=%d  %s %s = %.2g\n",
+			ERR_PRINT("<< Flinprt >> Flin i=%d  %s %s = %.2g\n",
 				i, F->name, F->namet, *F->vart);
 		}
 	}
 
-	fprintf ( ferr, "\n\n" ) ;
+	ERR_PRINT("\n\n" ) ;
 }

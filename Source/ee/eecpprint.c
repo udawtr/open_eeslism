@@ -70,21 +70,21 @@ void eloutfprint(int id, int N, ELOUT *E, COMPNT *cmp)
 	double  *cfin;
 	
 	if (id == 1)
-		fprintf(ferr,"ELOUT\n  n         id fld contl sysld Cmp   G      cfo    cfin\n");
+		ERR_PRINT("ELOUT\n  n         id fld contl sysld Cmp   G      cfo    cfin\n");
 	
 	for (i = 0; i < N; i++, E++)
 	{
-		fprintf(ferr,"%3d (%-6s) %c   %c   %c    %c  %4ld [%5.3lf]  %6.3lf", 
+		ERR_PRINT("%3d (%-6s) %c   %c   %c    %c  %4ld [%5.3lf]  %6.3lf", 
 			i, E->cmp->name, E->id, E->fluid, E->control, E->sysld,
 			E->cmp - cmp, E->G, E->coeffo);
 		
 		cfin = E->coeffin;
 		for (j = 0; j < E->Ni; j++, cfin++)
 		{
-			fprintf(ferr," %6.3lf", *cfin);
+			ERR_PRINT(" %6.3lf", *cfin);
 			//cfin++ ;
 		}
-		fprintf(ferr," Co=%6.4lf\n", E->Co);
+		ERR_PRINT(" Co=%6.4lf\n", E->Co);
 	}
 }
 
@@ -136,7 +136,7 @@ void elinfprint(int id, int N, COMPNT *C, ELOUT *eo, ELIN *ei)
 	int i, ii, j, o, v;
 	
 	if (id == 1)
-		fprintf(ferr,"ELIN\n  n  id   upo  upv\n");
+		ERR_PRINT("ELIN\n  n  id   upo  upv\n");
 	
 	for (i = 0; i < N; i++, C++)
 	{
@@ -158,13 +158,13 @@ void elinfprint(int id, int N, COMPNT *C, ELOUT *eo, ELIN *ei)
 				else
 					v = -999 ;
 
-				fprintf(ferr,"%3ld (%-6s) %c   %3d   %3d", 
+				ERR_PRINT("%3ld (%-6s) %c   %3d   %3d", 
 					E - ei, C->name, E->id, o, v ); 
 				if (E->upo != NULL)
-					fprintf(ferr," upo=(%-6s)", E->upo->cmp->name);
+					ERR_PRINT(" upo=(%-6s)", E->upo->cmp->name);
 				if (E->upv != NULL)
-					fprintf(ferr," upv=(%-6s)", E->upv->cmp->name);
-				fprintf(ferr,"\n");
+					ERR_PRINT(" upv=(%-6s)", E->upv->cmp->name);
+				ERR_PRINT("\n");
 			}
 		}
 	}    
