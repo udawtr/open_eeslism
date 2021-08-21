@@ -70,9 +70,17 @@ double	dTM, cff_kWh;
 int		dayprn;
 
 char	DAYweek[][4] = { "Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun", "Hol" };
-FILE	*ferr;
-int		NSTOP = 0, DISPLAY_DELAY = 0;
+FILE	*ferr = NULL;
+int		_NSTOP = 0, DISPLAY_DELAY = 0;
 int		SETprint = 0;
+
+int NSTOP() {
+	return _NSTOP;
+}
+
+void NSTOPOn() {
+	_NSTOP = 1;
+}
 
 int		_DEBUG_MODE_FLAG = 0;
 
@@ -289,7 +297,7 @@ int main(int Narg, char **File)
 		for (i = 2; i < Narg; i++)
 		{
 			if (strcmp(File[i], "-nstop") == 0)
-				NSTOP = 1;
+				NSTOPOn();
 			else if (strcmp(File[i], "-delay") == 0)
 				DISPLAY_DELAY = 1;
 			else if (*File[i] != '-')
@@ -308,7 +316,7 @@ int main(int Narg, char **File)
 				free(Path);
 			}
 			else
-				NSTOP = 1;
+				NSTOPOn();
 		}
 	}
 	/*--*/

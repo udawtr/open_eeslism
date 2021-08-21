@@ -367,7 +367,7 @@ void Ercalloc(unsigned int n, char *errkey)
 void	preexit ( void )
 {
 	printf ( "Press Hit Return Key .......\n" ) ;
-	if (NSTOP == 0)
+	if (NSTOP())
 		getchar();
 	else
 		exit(1);

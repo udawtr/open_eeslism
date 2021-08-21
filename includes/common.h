@@ -23,7 +23,8 @@ extern double dTM, ro, ca;
 
 extern double  ca, roa;
 
-extern int	NSTOP;
+int NSTOP();
+void NSTOPOn();
 
 extern double dTM;
 
