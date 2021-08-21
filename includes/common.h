@@ -33,7 +33,12 @@ const char* get_fbm_list_filename();
 extern double  Lat, Slat, Clat, Tlat, Lon, Ls;
 
 extern char	DAYweek[][4];
-extern int	VAV_Count_MAX;
+
+//VAV 計算回数の取得
+int	VAV_Count_MAX();
+
+//VAV 計算回数を設定
+void set_VAV_Count_MAX(int count);
 
 #define CONST_PI 3.141592654
 #define CONST_SGM 5.67e-8

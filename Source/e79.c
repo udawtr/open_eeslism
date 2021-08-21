@@ -57,7 +57,17 @@
 //#define MAXPOLY 50     
 /*------------------higuchi add----------------end*/
 
-int	VAV_Count_MAX ;
+int	_VAV_Count_MAX ;
+
+int	VAV_Count_MAX() {
+	return _VAV_Count_MAX;
+}
+
+void set_VAV_Count_MAX(int count) {
+	_VAV_Count_MAX = count;
+}
+
+
 char	_Fbmlist[1024];	//壁体の材料定義リストのファイル名
 double	dTM, cff_kWh;
 int		dayprn;
@@ -395,7 +405,8 @@ int main(int Narg, char **File)
 
 	// 最大収束回数のセット
 	int		LOOP_MAX;
-	LOOP_MAX = VAV_Count_MAX = Simc.MaxIterate;
+	LOOP_MAX = Simc.MaxIterate;
+	set_VAV_Count_MAX(Simc.MaxIterate);
 
 	free(Ifile);
 	//if(Rmvls.Sd->alicsch != NULL)
@@ -1022,7 +1033,7 @@ int main(int Narg, char **File)
 
 			/*---- Satoh DEBUG VAV  2000/12/6 ----*/
 			/* VAV 計算繰り返しループの開始地点 */
-			for (j = 0; j < VAV_Count_MAX; j++)
+			for (j = 0; j < VAV_Count_MAX(); j++)
 			{
 				if (DEBUG())
 					printf("\n\n====== VAV LOOP Count=%d ======\n\n\n", j);

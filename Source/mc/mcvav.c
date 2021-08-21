@@ -203,9 +203,9 @@ void VAVene(int Nvav, VAV *vav, int *VAVrest)
 				//printf("本バージョンではまだサポートされていません。\n");
 				//exit (EXIT_NONSPT) ;
 
-				if ( vav->mon == 'c' && vav->count < VAV_Count_MAX - 1 )
+				if ( vav->mon == 'c' && vav->count < VAV_Count_MAX() - 1 )
 					vav->Qrld = - vav->hcc->Qt ;
-				else if ( vav->mon == 'f' && vav->count < VAV_Count_MAX - 1 )
+				else if ( vav->mon == 'f' && vav->count < VAV_Count_MAX() - 1 )
 					vav->Qrld = - vav->rdpnl->Q ;
 				else if ( vav->mon == 'h' )
 					vav->Qrld = vav->hcld->Qt ;
