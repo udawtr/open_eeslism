@@ -11,32 +11,29 @@ extern FILE	*ferr;
 
 extern int	dayprn;
 
-extern double  cff_kWh;
+
+extern  double  dTM;
+
+extern double  cff_kWh;	//dTM / 3600. / 1000
 
 int NSTOP();
 void NSTOPOn();
 int DISPLAY_DELAY();
 void DISPLAY_DELAY_On();
 
-extern double dTM;
-
 int SETprint();
 
-extern  double  dTM;
 
-extern double  cff_kWh;
+//壁体の材料定義リストのファイル名を指定
+void set_fbm_list_filename(char* fname);
 
-	extern double   dTM;	extern char* Fbmlist;
-	extern int	dayprn;
-	extern int	dayprn;
-	extern FILE* ferr;
-
-	double Tabs, Pws, Temp;
+//壁体の材料定義リストのファイル名を取得
+const char* get_fbm_list_filename();
 
 extern double  Lat, Slat, Clat, Tlat, Lon, Ls;
 
-	extern char	DAYweek[][4];
-	extern int	VAV_Count_MAX;
+extern char	DAYweek[][4];
+extern int	VAV_Count_MAX;
 
 #define CONST_PI 3.141592654
 #define CONST_SGM 5.67e-8

@@ -234,10 +234,10 @@ void Eeinput(char *Ipath, SIMCONTL *Simc, SCHDL *Schdl,
 			sprintf(hptest, "Wallata");
 			HeapCheck(hptest);
 
-			if (Fbmlist == NULL)
+			if (strlen(get_fbm_list_filename())== 0)
 				File = stralloc("wbmlist.efl");
 			else
-				File = Fbmlist;
+				File = get_fbm_list_filename();
 
 			if ((fbmlist = fopen(File, "r")) == 0)
 			{
@@ -727,7 +727,7 @@ void Eeinput(char *Ipath, SIMCONTL *Simc, SCHDL *Schdl,
 
 	*Nflout = (int)(Flout - flo);
 
-	if (Fbmlist == NULL)
+	if (File == NULL)
 		free(File);
 
 	//////////////////////////////////////

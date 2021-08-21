@@ -131,7 +131,7 @@ void eespre(char *File, char *Ipath, int *key)
 			else
 				fscanf ( fi, "%*s" ) ;
 
-			Fbmlist = stralloc ( s + 8 ) ;
+			set_fbm_list_filename(s + 8);
 		}
 
 		else if (strcmp(s, "WEEK") == 0 )

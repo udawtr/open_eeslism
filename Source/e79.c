@@ -58,9 +58,17 @@
 /*------------------higuchi add----------------end*/
 
 int	VAV_Count_MAX ;
-char	*Fbmlist;
+char	_Fbmlist[1024];	//壁体の材料定義リストのファイル名
 double	dTM, cff_kWh;
 int		dayprn;
+
+void set_fbm_list_filename(char* fname) {
+	strcpy(_Fbmlist, fname);
+}
+
+const char* get_fbm_list_filename() {
+	return _Fbmlist;
+}
 
 char	DAYweek[][4] = { "Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun", "Hol" };
 FILE	*ferr = NULL;
@@ -284,7 +292,7 @@ int main(int Narg, char **File)
 	Exsf.Exs = NULL;
 	Soldy = NULL;
 	Loc.name = NULL;
-	Fbmlist = NULL;
+	strcpy(_Fbmlist, "");
 
 	Floutinit(Flout);
 	Rmvlsinit(&Rmvls);
@@ -1400,7 +1408,6 @@ int main(int Narg, char **File)
 	free(Solmon);
 	free(Pelm);
 	free(Elout);
-	free(Fbmlist);
 	free(Elin);
 
 	/*------------------higuchi add---------------------start*/
