@@ -35,9 +35,7 @@
 
 void Sunint(void)
 {
-	double Rd;
-	
-	Rd=CONST_PI/180.;
+	const double Rd = CONST_PI/180.;
 	Slat=sin(Lat*Rd);
 	Clat=cos(Lat*Rd);
 	Tlat=tan(Lat*Rd);
