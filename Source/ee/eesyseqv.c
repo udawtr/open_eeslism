@@ -28,8 +28,6 @@
 
 void Syseqv(int Nelout, ELOUT *Elout, SYSEQ *Syseq)
 {
-	extern int	dayprn ;
-	extern FILE	*ferr ;
 	ELOUT	*elout, *elov, **eleq, **elosv ;
 	ELIN	*elin;
 	double	*a, *b, *c, *sysmcf, *syscv, *Y;

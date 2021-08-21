@@ -379,7 +379,6 @@ void lpathschbat(double dTM,  PLIST *Plist)
 	double Tsout = 0.0, Gbat=0.0;
 	STANK *Stank;
 	PELM  *Pe, *Pelm, *Pei;
-	extern double row;
 	
 	Stank = NULL ;
 	Nelm = Plist->Nelm;

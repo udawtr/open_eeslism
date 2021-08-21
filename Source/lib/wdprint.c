@@ -28,7 +28,6 @@ void Wdtsum(int Mon, int Day, int Nday, int ttmm, WDAT *Wd, int Nexs, EXSF *Exs,
 {
 	static int oldday=0, hrs, oldMon = 0, hrsm;
 	static double  cffWh;
-	extern double  cff_kWh;
 	int		i;
 	double	*s ;
 	EXSF	*e ;

@@ -133,7 +133,6 @@ int Refadata (char *s, REFACA *Refaca, int Nrfcmp, RFCMP *Rfcmp)
 
 void Refaint(int Nrefa, REFA *Refa, WDAT *Wd, int Ncompnt, COMPNT *Compnt)
 {
-	extern double ca, cw;
 	RFCMP	*Cmp;
 	double	Teo=0.0, Tco=0.0, cGex=0.0,  Qeo=0.0, Qco=0.0;
 	double  Qes=0.0, Qcs=0.0, Ws=0.0, ke=0.0, kc=0.0, kw=0.0, E=0.0;
@@ -282,7 +281,6 @@ void Refacfv(int Nrefa, REFA *Refa)
 void refacoeff(REFA *Refa, int *err)
 {
 	double E=0.0, EGex=0.0, Px=0.0;
-	extern  double  ca;
 	
 	*err = 0;
 	
@@ -701,7 +699,6 @@ void refamonprt(FILE *fo, int id, int Nrefa, REFA *Refa)
 void refamtprt(FILE *fo, int id, int Nrefa, REFA *Refa, int Mo, int tt)
 {
 	int i;
-	extern double  cff_kWh;
 	
 	switch (id)
 	{

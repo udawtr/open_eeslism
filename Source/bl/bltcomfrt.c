@@ -453,7 +453,6 @@ double FindSaturatedVaporPressureTorr(double T)
 //double	SET_star(double Hgt, double Wgt, double met, double Icl, double Tr, double xr, double Tmrt, double v)
 //{
 //	const int dTm = 60;
-//	extern double Sgm;
 //	// 体表面積(4)
 //	double Sfarea;
 //	Sfarea = 0.202*pow(Wgt, 0.425)*pow(Hgt, 0.725);

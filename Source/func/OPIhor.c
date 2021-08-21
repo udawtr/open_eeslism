@@ -22,6 +22,7 @@
 
 #include <stdio.h>
 #include <math.h>
+#include "common.h"
 #include "wthrd.h"
 #include "MODEL.h"
 #include "exs.h"
@@ -33,7 +34,6 @@ void OPIhor(FILE *fp, FILE *fp1, int lpn, int mpn,
 	bekt *ulmp, XYZ **gp, int nday, int dayprn, int monten)
 
 {
-	extern double Sgm;
 	double ls,
 		ms,
 		ns,

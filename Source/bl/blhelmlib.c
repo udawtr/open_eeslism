@@ -277,7 +277,6 @@ void helmq(ROOM *Room, double dTM, double Ta, double xa )
 	RMSB   *rmsb;
 	ACHIR  *achr ;
 	double  Aalc, qloss;
-	extern double ca, ro;
 	
 	Rm = Room;
 	

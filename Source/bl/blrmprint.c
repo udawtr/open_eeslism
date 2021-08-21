@@ -637,7 +637,6 @@ void Qrmsum (int Day, int Nroom, ROOM *Room, QRM *Qrm,
 			 double *Trdav, QRM *Qrmd)
 {
 	static int  oldday = 0 ;
-	extern double dTM ;
 	int		i ;
 	QRM		*Q, *Qr ;
 	double	*T ;

@@ -35,7 +35,6 @@ void	RMcf(ROOM *Room)
 	RPANEL	*rmpnl;
 	double  *alr, *arn, *rpnl;
 	double  *XA, *wrn, *wsp;
-	extern  double  dTM;
 	int     n, N, j, kk, mp, M, MM;
 	double	K, kc, ali;
 	//double	K, kc, ali, AR;

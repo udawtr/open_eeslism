@@ -380,7 +380,6 @@ void PVmonprt(FILE *fo, int id, int Npv, PV *PV)
 void PVmtprt(FILE *fo, int id, int Npv, PV *PV, int Mo, int tt)
 {
 	int i;
-	extern double  cff_kWh;
 	
 	switch (id)
 	{

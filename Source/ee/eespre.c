@@ -88,7 +88,6 @@ void eespre(char *File, char *Ipath, int *key)
 	char  s[2048], *st, *stt, t[2048] ; //  schnm[DSCHMX][SCHAR], scwnm[DSCHMX][SCHAR];
 //	int i ; // Nsch=0, Nscw=0;
 	int		syspth, syscmp ;
-	extern char	*Fbmlist ;
 	long	ad ;
 
 	syspth = syscmp = 0 ;

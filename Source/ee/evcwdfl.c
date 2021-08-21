@@ -137,7 +137,6 @@ void wdflinit(SIMCONTL *Simc, ESTL *Estl, TLIST *Tlist)
 
 void wdflinput(WDPT *wp, WDAT *Wd)
 {
-	extern double Sgm;
 	double  Br;
 	
 	Wd->T = *wp->ta;

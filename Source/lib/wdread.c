@@ -72,17 +72,13 @@ double  Lat,Slat,Clat,Tlat,Lon,Ls,Isc;
 
 void Weatherdt(SIMCONTL *Simc, DAYTM *Daytm, LOCAT *Loc, WDAT *Wd, EXSF *Exs, char EarthSrfFlg)
 {
-	extern int	dayprn ;
-	
 	static int   ptt=25, nc=0;
 	static double     decl, E, tas, timedg;
 	double  Sh, Sw, Ss;
-	extern double  Sgm;
 //	double  Br;
 	static double dt[7][25], dtL[7][25] ;
 	int		tt, wkdy, Year, Mon, Day;
 	char	s[SCHAR] ;
-	extern double	dTM ;
 	
 	/**********
 	Daytm->day = day;
@@ -384,7 +380,6 @@ void hspwdread(FILE *fp, int nday,
 void	dt2wdata ( WDAT *Wd, int tt, double dt[7][25] )
 {
 	double	Br ;
-	extern double	Sgm ;
 
 	Wd->T = dt[0][tt];
 	Wd->x = dt[1][tt];

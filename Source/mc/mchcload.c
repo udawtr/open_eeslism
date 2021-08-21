@@ -155,7 +155,6 @@ void rmacddat(HCLOAD *Hcld)
 	double	DBco, DBci, WBco, WBci, xco, xci ;
 	double	effthr, effthmin, effthmax, cao, cai, X, Rr, Rmax ;
 	double	U[9], Qc[3], R[3] ;
-	extern double ca, cv ;
 	int		i, j ;
 	
 	sprintf(Err, ERRFMT, "(rmacddat)");
@@ -493,7 +492,6 @@ void Hcldcfv(int Nhcload, HCLOAD *Hcload)
 	double *cfin,
 		rGa;
 	int i;
-	extern double ro;
 	/*
 	static double  f0 = -1.2e-3, f1 = 7.2e-4;  
 	*/
@@ -620,7 +618,6 @@ void Hcldene(int Nhcload, HCLOAD *Hcload, int *LDrest, WDAT *Wd)
 {
 	int i, rest ;
 	ELOUT *elo;
-	extern double ro, ca, cv;
 
 	rest = 0 ;
 	
@@ -1330,7 +1327,6 @@ void hcldmonprt(FILE *fo, int id, int Nhcload, HCLOAD *Hcload)
 void hcldmtprt(FILE *fo, int id, int Nhcload, HCLOAD *Hcload, int Mo, int tt)
 {
 	int i;
-	extern double  cff_kWh;
 	
 	switch (id)
 	{

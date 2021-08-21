@@ -34,7 +34,6 @@ void	Residata (FILE *fi, char *dsn, SCHDL *Schdl, ROOM *Room, int *pmvpri, SIMCO
 		err[SCHAR+128], Er[SCHAR];
 	ROOM	*rm ;
 	double	*vall ;
-	extern int SETprint;
 	
 	*s = *ss = *sss = *s4 = *err = *Er = '\0' ;
 

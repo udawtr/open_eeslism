@@ -179,7 +179,6 @@ void Desiint(int NDesi, DESI *Desi,
 void Desicfv(int NDesi, DESI *Desi)
 {
 	ELOUT *Eo;
-	extern double dTM, ca, ro, roa ;
 	double	h, i, j ;
 	double	Te, hsa, hsad, hAsa, hdAsa;
 	//double	A1, A2, A3, A4, A5, A6, B1, B2, B3, B4, B5, B6 ;
@@ -358,7 +357,6 @@ void Desiene(int NDesi, DESI *Desi)
 	int i, ii, jj, N, N2;
 	ELOUT	*elo, *elox ;
 	ELIN	*elix ;
-	extern double	dTM, ro, ca ;
 	DESICA	*cat ;
 	double	Te, Sin[5], S[5] ;
 	
@@ -567,7 +565,6 @@ void Desiday(int Mon, int Day, int ttmm, int Ndesi, DESI *Desi, int Nday, int Si
 void Desidyprt(FILE *fo, int id, int Ndesi, DESI *Desi)
 {
 	int i;
-	extern double  cff_kWh;
 	
 	switch (id)
 	{
@@ -683,7 +680,6 @@ void Desidyprt(FILE *fo, int id, int Ndesi, DESI *Desi)
 //void stheatmonprt(FILE *fo, int id, int Nstheat, STHEAT *stheat)
 //{
 //	int i;
-//	extern double  cff_kWh;
 //	
 //	switch (id)
 //	{
@@ -748,7 +744,6 @@ void Desidyprt(FILE *fo, int id, int Ndesi, DESI *Desi)
 //void stheatmtprt(FILE *fo, int id, int Nstheat, STHEAT *stheat, int Mo, int tt)
 //{
 //	int i;
-//	extern double  cff_kWh;
 //	
 //	switch (id)
 //	{

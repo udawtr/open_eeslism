@@ -168,7 +168,6 @@ void Roomvar(int Nroom, ROOM *Room, int Nrdpnl, RDPNL *Rdpnl)
 	double  *cfin, *a, *epr, *epw;
 	int    i, j, m;
 	double  cG, G;
-	extern double  ca;
 	
 	for (i = 0; i < Nroom; i++, Room++)
 	{

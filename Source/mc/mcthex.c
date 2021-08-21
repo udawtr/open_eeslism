@@ -159,7 +159,6 @@ void	Thexcfv ( int Nthex, THEX *Thex )
 	double	etCGmin, ehGmin, Aeout, Aein, Aoout, Aoin ;
 	int		i ;
 	//char	E[SCHAR] ;
-	extern double	ca, ro, cv ;
 	double	*cfin ;
 
 	for ( i = 0; i < Nthex; i++, Thex++ )
@@ -255,7 +254,6 @@ void	Thexene ( int Nthex, THEX *Thex )
 	//double	*coeffin ;
 	int		i ;
 	//char	E[SCHAR] ;
-	extern double	ca, ro, cv ;
 
 	for ( i = 0; i < Nthex; i++, Thex++ )
 	{

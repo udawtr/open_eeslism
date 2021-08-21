@@ -757,7 +757,6 @@ void panelmonprt(FILE *fo, int id, int Nrdpnl, RDPNL *Rdpnl)
 void panelmtprt(FILE *fo, int id, int Nrdpnl, RDPNL *Rdpnl, int Mo, int tt)
 {
 	int i;
-	extern double  cff_kWh;
 	
 	switch (id)
 	{

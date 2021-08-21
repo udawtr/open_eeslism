@@ -233,7 +233,6 @@ void Hccene(int Nhcc, HCC *Hcc)
 	int i;
 	ELIN  *eli;
 	ELOUT *elo;
-	extern double ro;
 	
 	for (i = 0; i < Nhcc; i++, Hcc++)
 	{

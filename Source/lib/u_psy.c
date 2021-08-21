@@ -21,6 +21,7 @@
 #include <math.h>
 #include "lib/u_psy.h"
 #include "lib/u_minmax.h"
+#include "common.h"
 
 /* ==================================================================
 
@@ -35,8 +36,6 @@ double R0, Ca, Cv, Rc, Cc, Cw, Pcnv, P;
 
 void Psyint(void)
 {
-	extern double  R0, Ca, Cv, Rc, Cc, Cw, Pcnv, P;
-	extern char    *UNIT;
 	if (strcmp(UNIT, "SI") == 0)
 	{
 		P = 101.325;
@@ -63,20 +62,18 @@ void Psyint(void)
 /* ----------------------------------------- */
 void Poset(double Po)
 {
-	extern double P;
 	P = Po;
 }
 /* ----------------------------------------- */
 double FNPo(void)
 {
-	extern double P;
 	return (P);
 }
 /* ----------------------------------------- */
 double FNPws(double T)
 {
-	extern double Pcnv;
-	double Tabs, Pws, Temp;
+	double Pws, Tabs, Temp;
+
 	Tabs = T + 273.15;
 	if (fabs(Tabs) < 1.e-5)
 		printf("xxxx ゼロ割が発生しています Tabs=%lf\n", Tabs);
@@ -101,7 +98,6 @@ double FNPws(double T)
 /* ------------------------------------- */
 double FNDp(double Pw)
 {
-	extern double Pcnv;
 	double Pwx, Y;
 	Pwx = Pw*1000. / Pcnv;
 	Y = log(Pwx);
@@ -123,13 +119,11 @@ double FNDbxr(double X, double Rh)
 /* ---------------------------------------- */
 double FNDbxh(double X, double H)
 {
-	extern double  R0, Ca, Cv;
 	return ((H - R0*X) / (Ca + Cv*X));
 }
 /* ---------------------------------------- */
 double FNDbxw(double X, double Twb)
 {
-	extern double  R0, Ca, Cv;
 	double Hc;
 	Hc = FNHc(Twb);
 	return ((Ca*Twb + (Cv*Twb + R0 - Hc)*FNXp(FNPws(Twb)) - (R0 - Hc)*X)
@@ -189,7 +183,6 @@ double FNDbhw(double H, double Twb)
 /* ------------------------------------- */
 double FNXp(double Pw)
 {
-	extern double P;
 	if (fabs(P - Pw) < 1.0e-4)
 		printf("xxxxx ゼロ割が発生しています P=%lf Pw=%lf\n", P, Pw);
 	return (.62198*Pw / (P - Pw));
@@ -202,13 +195,11 @@ double FNXtr(double T, double Rh)
 /* ------------------------------------- */
 double FNXth(double T, double H)
 {
-	extern double  R0, Ca, Cv;
 	return (H - Ca*T) / (Cv*T + R0);
 }
 /* ------------------------------------ */
 double FNXtw(double T, double Twb)
 {
-	extern double R0, Ca, Cv;
 	double Hc;
 	Hc = FNHc(Twb);
 	return (((R0 + Cv*Twb - Hc)*FNXp(FNPws(Twb)) - Ca*(T - Twb)) / (Cv*T + R0 - Hc));
@@ -216,7 +207,6 @@ double FNXtw(double T, double Twb)
 /* ------------------------------------- */
 double FNPwx(double X)
 {
-	extern double P;
 	return (X*P / (X + .62198));
 }
 /* ------------------------------------ */
@@ -237,7 +227,6 @@ double FNRhtx(double T, double X)
 /* ------------------------------------ */
 double FNH(double T, double X)
 {
-	extern double  R0, Ca, Cv;
 	return (Ca*T + (Cv*T + R0)*X);
 }
 /* ------------------------------------ */
@@ -263,7 +252,6 @@ double FNWbtx(double T, double X)
 /* -------------------------------------- */
 double FNHc(double Twb)
 {
-	extern double  Rc, Cc, Cw;
 	double Hc;
 	if (Twb >= 0.)
 		Hc = Cw*Twb;

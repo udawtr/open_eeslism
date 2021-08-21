@@ -46,7 +46,6 @@ void svdaysum(long time, char control, double v, SVDAY *vd)
 void svmonsum(int Mon, int Day, int time, char control, double v, SVDAY *vd, int Dayend, int SimDayend)
 {
 	long	MoNdTt ;
-	int	isEndDay(int Mon, int Day, int Dayend, int SimDayend) ;
 
 	MoNdTt = 1000000L * Mon + 10000L * Day + time ;
 	if (control != OFF_SW)
@@ -76,8 +75,6 @@ void qdyint(QDAY *Qd)
 
 void qdaysum(int time, char control, double Q, QDAY *Qd)
 {
-	extern double  cff_kWh;
-
 	if (control != OFF_SW)
 	{
 
@@ -101,9 +98,6 @@ void qdaysum(int time, char control, double Q, QDAY *Qd)
 
 void qmonsum(int Mon, int Day, int time, char control, double Q, QDAY *Qd, int Dayend, int SimDayend)
 {
-	extern double  cff_kWh;
-	int	isEndDay(int Mon, int Day, int Dayend, int SimDayend) ;
-	//int isEndDay(int Mon, int Day) ;
 	long	MoNdTt ;
 	MoNdTt = 1000000L * Mon + 10000L * Day + time ;
 	if (control != OFF_SW)
@@ -129,8 +123,6 @@ void qmonsum(int Mon, int Day, int time, char control, double Q, QDAY *Qd, int D
 // 日集計関数。非運転時にも集計を行う
 void qdaysumNotOpe(int time, double Q, QDAY *Qd)
 {
-	extern double  cff_kWh;
-
 	if (Q > 0.0)
 	{
 		Qd->h += Q;
@@ -150,9 +142,6 @@ void qdaysumNotOpe(int time, double Q, QDAY *Qd)
 
 void qmonsumNotOpe(int Mon, int Day, int time, double Q, QDAY *Qd, int Dayend, int SimDayend)
 {
-	extern double  cff_kWh;
-	int	isEndDay(int Mon, int Day, int Dayend, int SimDayend) ;
-	//int isEndDay(int Mon, int Day) ;
 	long	MoNdTt ;
 	MoNdTt = 1000000L * Mon + 10000L * Day + time ;
 
@@ -185,8 +174,6 @@ void edyint(EDAY *Ed)
 
 void edaysum(int time, char control, double E, EDAY *Ed)
 { 
-	extern double  cff_kWh;
-
 	if (control != OFF_SW)
 	{
 		Ed->d += E;
@@ -200,8 +187,6 @@ void edaysum(int time, char control, double E, EDAY *Ed)
 
 void emonsum(int Mon, int Day, int time, char control, double E, EDAY *Ed, int Dayend, int SimDayend)
 { 
-	extern double  cff_kWh;
-	int	isEndDay(int Mon, int Day, int Dayend, int SimDayend) ;
 	//int isEndDay(int Mon, int Day) ;
 	long	MoNdTt ;
 	MoNdTt = 1000000L * Mon + 10000L * Day + time ;

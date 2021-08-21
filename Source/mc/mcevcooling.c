@@ -299,12 +299,8 @@ void	Evaccfv(int Nevac, EVAC *Evac)
 	int i, ii, jj;
 	ELOUT  *EoTdry, *Eoxdry, *EoTwet, *Eoxwet;
 	//ELIN   *elin;
-	extern double	ca,		// 乾き空気の比熱[J/kgK]
-		ro,		// 水の蒸発潜熱[J/kg]
-		cv;	// 水蒸気の低圧比熱[J/kgK]
 	double	*U, *C;
 	double	*cfin;
-	extern int	DEBUG;
 	int		N, N2, Row;
 	double	A, *a, *b;
 	double	*EvpFlg, *EF;
@@ -630,9 +626,6 @@ void	Evacene(int Nevac, EVAC *Evac, int *Evacreset)
 	ELOUT	*EoTdry, *Eoxdry, *EoTwet, *Eoxwet;
 	EVACCA	*cat;
 	double	*Sin, *Stat, *Scmp;
-	extern double	ca,		// 乾き空気の比熱[J/kgK]
-		ro,		// 水の蒸発潜熱[J/kg]
-		cv;	// 水蒸気の低圧比熱[J/kgK]
 
 	for (i = 0; i < Nevac; i++, Evac++)
 	{

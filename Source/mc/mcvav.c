@@ -110,7 +110,6 @@ void VAVcfv(int Nvav, VAV *vav)
 	double	*cfin;
 	int		i;
 	char	Err[SCHAR] ;
-	extern int	VAV_Count_MAX ;
 	
 	for (i = 0; i < Nvav; i++, vav++)
 	{
@@ -169,7 +168,6 @@ void VAVene(int Nvav, VAV *vav, int *VAVrest)
 	int i, rest;
 	ELOUT *elo;
 	double	Tr, Go, dTset ;
-	extern int	VAV_Count_MAX ;
 	
 	for (i = 0; i < Nvav; i++, vav++)
 	{
@@ -370,7 +368,6 @@ double	FNVWVG ( VAV *VWV )
 {
 	double	Wa, Wwd, Tain, Twin, Q, KA, et, F, emax, emin, Gwd ;
 	double	A, B ;
-	extern double	cw ;
 	HCC		*h ;
 	int		i ;
 	

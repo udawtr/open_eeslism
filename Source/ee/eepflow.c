@@ -48,7 +48,6 @@ void Pflow(int Nmpath, MPATH *Mpath, WDAT *Wd)
 	char	Err[SCHAR], s[SCHAR]; 
 	/*---- Satoh Debug VAV  2000/12/6 ----*/
 	VAV		*vav;
-	extern int	dayprn ;
 	double G0 ;
 	
 	mpi = Mpath;

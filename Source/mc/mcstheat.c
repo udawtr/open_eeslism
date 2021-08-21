@@ -149,7 +149,6 @@ void Stheatint(int Nstheat, STHEAT *stheat,
 void Stheatcfv(int Nstheat, STHEAT *stheat)
 {
 	ELOUT *Eo;
-	extern double dTM ;
 	double  Te, eff, cG, KA, Tsold, d ;
 	int i;
 	PCM		*pcm;
@@ -223,7 +222,6 @@ void Stheatene(int Nstheat, STHEAT *stheat)
 {
 	int i;
 	ELOUT	*elo ;
-	extern double	dTM ;
 	STHEATCA	*cat ;
 	double	Te ;
 	
@@ -272,7 +270,6 @@ void Stheatene(int Nstheat, STHEAT *stheat)
 //{
 //	int i;
 //	ELOUT	*elo;
-//	extern double	dTM;
 //	STHEATCA	*cat;
 //	double	Te;
 //
@@ -423,7 +420,6 @@ void stheatday(int Mon, int Day, int ttmm, int Nstheat, STHEAT *stheat, int Nday
 void stheatdyprt(FILE *fo, int id, int Nstheat, STHEAT *stheat)
 {
 	int i;
-	extern double  cff_kWh;
 	
 	switch (id)
 	{
@@ -488,7 +484,6 @@ void stheatdyprt(FILE *fo, int id, int Nstheat, STHEAT *stheat)
 void stheatmonprt(FILE *fo, int id, int Nstheat, STHEAT *stheat)
 {
 	int i;
-	extern double  cff_kWh;
 	
 	switch (id)
 	{
@@ -553,7 +548,6 @@ void stheatmonprt(FILE *fo, int id, int Nstheat, STHEAT *stheat)
 void stheatmtprt(FILE *fo, int id, int Nstheat, STHEAT *stheat, int Mo, int tt)
 {
 	int i;
-	extern double  cff_kWh;
 	
 	switch (id)
 	{

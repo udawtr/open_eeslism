@@ -64,7 +64,6 @@ int OMVAVdata (char *s, OMVAVCA *OMvavca)
 
 double	CollTout(double Tcin, double G, RMSRF *Sd)
 {
-	extern double	ca ;
 	WALL	*Wall ;
 	double	Kc ;
 
@@ -82,7 +81,6 @@ double	OMflowcalc(OMVAV *OMvav, WDAT *Wd)
 {
 	double	G, G0, dG, EPS = 0.00001, G2, dGp = 0.01 ;
 	RMSRF	*omwall ;
-	extern double	ca ;
 	WALL	*Wall ;
 	//double	Temp ;
 	double	Tcin, Tcout, Tcoutset, Tcoutmin, Tcoutmax ;

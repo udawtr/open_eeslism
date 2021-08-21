@@ -23,7 +23,6 @@
 
 void Sysupv(int Nmpath, MPATH *Mpath, RMVLS *Rmvls)
 {
-	extern int	dayprn ;
 	ROOM   *room, *rm;
 	RPANEL *rmpnl;
 	RDPNL  *Rdpnl;

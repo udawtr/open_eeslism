@@ -455,7 +455,6 @@ void pumpmonprt(FILE *fo, int id, int Npump, PUMP *Pump)
 void pumpmtprt(FILE *fo, int id, int Npump, PUMP *Pump, int Mo, int tt)
 {
 	int i;
-	extern double  cff_kWh;
 	
 	switch (id)
 	{

@@ -141,7 +141,6 @@ void Rmhtrsmcf(int Nsrf, RMSRF *Sd)
 void Rmexct(ROOM *Room, int Nsrf, RMSRF *Sd, WDAT *Wd, EXSF *Exs, SNBK *Snbk,
 	QRM *Qrm, int nday, int mt)
 {
-	extern double dTM, ro, ca;
 	int		n, nn, i, ed, sb, Nrm, j;
 	double  Fsdw, Idre, Idf, RN;
 	double  //Qgt,
@@ -529,7 +528,6 @@ void Rmexct(ROOM *Room, int Nsrf, RMSRF *Sd, WDAT *Wd, EXSF *Exs, SNBK *Snbk,
 void Roomcf(int Nmwall, MWALL *Mw, int Nroom, ROOM *Room,
 	int Nrdpnl, RDPNL *rdpnl, WDAT *Wd, EXSFS *Exsf)
 {
-	extern double dTM, ro, ca;
 	int		i;
 	RDPNL	*Rdpnl;
 
@@ -732,7 +730,6 @@ void Rmsurftd(int Nroom, ROOM *Room, RMSRF *Sd)
 // 室の熱取得要素の計算
 void	Qrmsim(ROOM *Room, WDAT *Wd, QRM *Qrm)
 {
-	extern double dTM, ro, ca;
 	QRM		*Q;
 	ROOM	*rm;
 	int		i, Nrm;

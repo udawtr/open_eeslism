@@ -19,13 +19,13 @@
 
 #include "fnbld.h"
 #include "lib/u_sun.h"
+#include "common.h"
 
 /* -------------------------------- */
 
 void	dprdayweek ( int *daywk )
 {  
 	int		k, d, dmax = 366 ;
-	extern char	DAYweek[][4];
 	
 	printf ( "---  Day of week -----\n   " ) ;
 	for ( d = 0; d < 8; d++ )
@@ -57,7 +57,6 @@ void	dprschtable ( SEASN *Ssn, WKDY *Wkd, DSCH *Dh, DSCW *Dw )
 	WKDY	*Wkdy ;
 	DSCH	*Dsch ;
 	DSCW	*Dscw ;
-	extern char	DAYweek[][4] ;
 	
 	Seasn = Ssn ;
 	Wkdy = Wkd ;

@@ -580,7 +580,6 @@ void boimonprt(FILE *fo, int id, int Nboi, BOI *Boi)
 void boimtprt(FILE *fo, int id, int Nboi, BOI *Boi, int Mo, int tt)
 {
 	int i;
-	extern double  cff_kWh;
 	
 	switch (id)
 	{

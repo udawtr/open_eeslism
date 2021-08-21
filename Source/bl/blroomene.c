@@ -35,7 +35,6 @@ void Roomene(RMVLS *Rmvls, int Nroom, ROOM *Room, int Nrdpnl, RDPNL *Rdpnl, EXSF
 	ELOUT  *E;
 	ELIN   *elin, *elix;
 	AIRSUP *A;
-	extern double ca, ro;
 	RDPNL  *rdpnl;
 
 	rdpnl = Rdpnl;
@@ -363,7 +362,6 @@ void	PCMfunchk(int Nroom, ROOM *Room, WDAT *Wd, int *LDreset)
 {
 	int	intI;
 	double	tempTM;
-	extern double dTM, ca;
 
 	for (intI = 0; intI < Nroom; intI++, Room++)
 	{
@@ -425,7 +423,6 @@ void Roomload(int Nroom, ROOM *Room, int *LDreset)
 	TRNX  *trnx;
 	RPANEL *rmpnl;
 	double  *arn, *rmp;
-	extern double  ca, ro;
 
 	rm = Room;
 	reset = 0;

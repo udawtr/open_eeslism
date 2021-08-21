@@ -217,7 +217,6 @@ void Wallfdc(int M, int mp, double *res, double *cap, double Wp, double *UX,
 	double *uo, double *um, double *Pc, char WallType, RMSRF *Sd, WDAT *Wd,
 	EXSFS *Exsf, WALL *Wall, double *Told, double *Twd, PCMSTATE *pcmstate)
 {
-	extern double   dTM;
 	double  *Ul, *Ur, C;
 	int     m, j;
 	double	*PCMrate;

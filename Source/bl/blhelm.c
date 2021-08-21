@@ -463,8 +463,6 @@ void helmrmdyprint( FILE *fo, int id, int Nroom, ROOM *Room, QETOTAL *Qetotal)
 	QHELM  *qh;
 	char   *name;
 	
-	extern double  cff_kWh;
-	
 	switch ( id )
 	{
 	case 0:

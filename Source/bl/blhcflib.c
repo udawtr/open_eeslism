@@ -40,7 +40,6 @@ void Htrcf (double *alc, double *alo, char alotype, EXSF *Exs, double Tr, int N,
 	double  alic, *hc;
 	//double	aloc ;
 	double	dT;
-	extern int	dayprn ;
 	
 	HeapCheck("xxxxxx1");
 
@@ -220,7 +219,6 @@ void Radcf0 (double Tsav, double *alrbold, int N, RMSRF *Sd,
 {
 	int    n;
 	double  alir,TA;
-	extern double Sgm;
 	
 	TA = Tsav + 273.15;
 	alir = 4.0 * Sgm * pow ( TA, 3.0 ) ;

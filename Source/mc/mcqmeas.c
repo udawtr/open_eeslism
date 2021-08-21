@@ -122,7 +122,6 @@ void	Qmeasene (int Nqmeas, QMEAS *Qmeas )
 {
 	int		i;
 	PLIST	*PG, *Ph, *Pc ;
-	extern double ro ;
 
 	for ( i = 0; i < Nqmeas; i++, Qmeas++ )
 	{

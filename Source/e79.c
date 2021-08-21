@@ -1682,15 +1682,5 @@ void P_MENNinit(P_MENN *pm, int N)
 		pm->polyd = pm->sbflg = 0;
 		pm->P = NULL;
 		pm->opw = NULL;
-		//WD_MENN *opw;
-		//opw = pm->opw;
-		//for (j = 0; j < MAXWD; j++, opw++)
-		//{
-		//	opw->opwname[0] = '\0';
-		//	opw->P = NULL;
-		//	opw->polyd = 0;
-		//	opw->ref = opw->grpx = opw->sumw = 0.;
-		//	matinit(opw->rgb, 3);
-		//}
 	}
 }

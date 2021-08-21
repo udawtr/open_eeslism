@@ -129,7 +129,6 @@ void Eeprintd(DAYTM *Daytm, SIMCONTL *Simc, int Nflout, FLOUT *flout,
 	FLOUT *flo;
 	char  *title;
 	int   Mon, Day, i;
-	extern char DAYweek[][4] ;
 	static int	ic = 0 ;
 	
 	if (Daytm->ddpri)

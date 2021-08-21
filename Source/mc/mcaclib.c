@@ -26,7 +26,6 @@
 void	dxcoil ( char wet, HPCH *Rf, double Toa, double Gaet, double Gaeh,
 				double Tai, double xai, ACS *Et, ACS *Ex )
 { 
-	extern double ca, cv, ro;
 	double  EGex, cs, ae,be, Do,Dt,Dx,Dc,Ee;
 	EGex= Rf->eex * ca *Rf->Gex;
 	
@@ -74,7 +73,6 @@ void	dxcoil ( char wet, HPCH *Rf, double Toa, double Gaet, double Gaeh,
 void wcoil(char Air_SW, char Water_SW, char wet, double Gaet, double Gaeh,
 		   double xai, double Twi, ACS *Et, ACS *Ex, ACS *Ew)
 {
-	extern double  ca, cv, ro;
 	double  aw, bw, cs;
 	if (wet == 'd' || Water_SW == OFF_SW || Air_SW == OFF_SW) 
 	{
@@ -130,8 +128,6 @@ double Qcoils(ACS *Et, double Tai, double xai, double Twi)
 
 double Qcoill(ACS *Ex, double Tai, double xai, double Twi)
 { 
-	extern double ro;
-	
 	return (ro*(Ex->w * Twi - Ex->t * Tai - Ex->x *xai - Ex->C)) ;
 }
 /* ------------------------------------------ */

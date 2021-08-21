@@ -322,7 +322,6 @@ void Stankcfv(int Nstank, STANK *Stank)
 	double *fg;
 	double	ho, hi ;
 	double	dblT, dblv ;
-	extern double row;
 	
 	for (i = 0; i < Nstank; i++, Stank++)
 	{
@@ -760,7 +759,6 @@ void stankdyprt(FILE *fo, int id, int Nstank, STANK *Stank)
 	int  i, j, m;
 	char c;
 	STKDAY *S;   
-	extern double  cff_kWh;
 	
 	
 	switch (id)
@@ -830,7 +828,6 @@ void stankmonprt(FILE *fo, int id, int Nstank, STANK *Stank)
 	int  i, j, m;
 	char c;
 	STKDAY *S;   
-	extern double  cff_kWh;
 	
 	switch (id)
 	{

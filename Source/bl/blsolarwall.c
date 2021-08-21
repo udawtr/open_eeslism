@@ -183,7 +183,6 @@ double	FNTf(double Tcin, double Tcole, double ECG)
 double FNSolarWallao(WDAT *Wd, RMSRF *Sd, EXSFS *Exsfs)
 {
 	double dblac, dblar, dblao ;
-	extern double Sgm;
 	EXSF  *Exs ;
 	double dblWdre ;
 	double dblWa ;
@@ -224,7 +223,6 @@ double FNSolarWallao(WDAT *Wd, RMSRF *Sd, EXSFS *Exsfs)
 // 通気層の放射熱伝達率の計算
 double VentAirLayerar(double dblEsu, double dblEsd, double dblTsu, double dblTsd)
 {
-	extern double Sgm ;
 	double dblEs ;
 
 	// 放射率の計算
@@ -261,7 +259,6 @@ double FNJurgesac(RMSRF *Sd, double dblV, double a, double b)
 void	FNKc(WDAT *Wd, EXSFS *Exsfs, RMSRF *Sd)
 {
 	double dblDet, dblWsuWsd, Ru, Cr, Cc ;
-	extern double roa;
 	WALL	*Wall ;
 	EXSF		*Exs ;
 	double	rad ;
@@ -384,7 +381,6 @@ void FNTsuTsd(RMSRF *Sd, WDAT *Wd, EXSFS *Exsfs)
 double	FNVentAirLayerac(double Tsu, double Tsd, double air_layer_t, double Wb)
 {
 	double Tas, Ra, anew, a, dblTemp, RacosWb, lama ;
-	extern double g ;
 	double	Tsud ;
 
 	if(fabs(Tsu - Tsd) < 1.e-4)

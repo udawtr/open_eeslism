@@ -30,7 +30,6 @@ void stoint(double dTM, int N, double Vol, double KAside, double KAtop, double K
 			double *dvol, double *Mdt, double *KS, double *Tss, double *Tssold,
 			int *Jva, int *Jvb)
 {
-	extern double  row, cw;
 	int		i;
 	double	*K ;
 	

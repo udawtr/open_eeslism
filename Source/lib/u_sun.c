@@ -30,8 +30,6 @@
 ---------------------------------------------------------------- */
 void Sunint(void)
 {
-	extern char *UNIT;
-	extern double Lat, Slat, Clat, Tlat, Isc;
 	double Rd;
 	
 	Rd=PI/180.;
@@ -63,25 +61,21 @@ double FNE(int N)
 /*  -------------------------------------------- */
 double FNSro(int N)
 {
-	extern double Isc;
 	return( Isc*(1.0+.033*cos(2.*PI*N/365.)) );
 }
 /*  -------------------------------------------- */
 double FNTtas(double Tt, double E)
 {
-	extern double Lon, Ls;
 	return( Tt+E+(Lon-Ls)/15. );
 }
 /*  -------------------------------------------- */
 double FNTt(double Ttas, double E)
 {
-	extern double Lon, Ls;
 	return( Ttas-E-(Lon-Ls)/15. );
 }
 /*  -------------------------------------------- */
 double FNTtd(double Decl)
 {
-	extern double Tlat;
 	double Cws, Ttd;
 	Cws= -Tlat*tan(Decl);
 	if ( 1. > Cws && Cws > -1. )
@@ -98,7 +92,6 @@ double FNTtd(double Decl)
 /* -------------------------------------------- */
 void Solpos(double Ttas, double Decl, double *Sh, double *Sw, double *Ss, double *solh, double *solA)
 {
-	extern double Slat, Clat;
 	static double  Sdecl, Sld, Cld, Ttprev=25.;
 	double  Ch, Ca, Sa, W;
 	

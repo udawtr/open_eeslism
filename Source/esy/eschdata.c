@@ -30,7 +30,6 @@
 
 void Dayweek(FILE *fi, char *Ipath, int *daywk, int key)
 {
-	extern char DAYweek[][4];
 	char  s[SCHAR], *ce;
 	int   ds, de, dd, d, id=0, M, D;
 	FILE	 *fw ;
@@ -96,7 +95,6 @@ void Dayweek(FILE *fi, char *Ipath, int *daywk, int key)
 void Schtable (FILE *fi, char *dsn, SCHDL *Schdl )
 { 
 	char		s[SCHAR], *ce, code, E[SCHAR];
-	extern char	DAYweek[][4];
 	static int	is = -1, js, iw = -1, j, sc = -1, jsc, sw = -1, jsw, Nmod = 0 ;
 	int			Ms, Ds, Me, De, *wday ;
 	int			ssn, wkd, vl, swn, N, i ;

@@ -27,7 +27,6 @@
 
 double spcheat(char fluid)
 {
-   extern double ca, cw;
    char		s[SCHAR];
 
    if ( fluid == 'W' )

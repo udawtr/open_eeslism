@@ -49,7 +49,6 @@ void Eeinput(char *Ipath, SIMCONTL *Simc, SCHDL *Schdl,
 	char	s[SCHAR], Err[SCHAR], *File, hptest[SCHAR];
 	int		wdpri = 0, revpri = 0, pmvpri = 0, Nrmspri = 0, Nqrmpri = 0, Nwalpri = 0, Npcmpri = 0;
 	SCH		*Sch, *Scw;
-	extern char	*Fbmlist;
 	int		SYSCMP_ID = 0, SYSPTH_ID = 0;
 
 #if SIMUL_BUILDG
