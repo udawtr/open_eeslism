@@ -28,6 +28,11 @@
   （宇田川、パソコンによる空気調和計算法、プログラム4.1の C 言語版, ANSI C 版）
   
 ---------------------------------------------------------------- */
+
+
+#define CONST_ISC 1370.
+
+
 void Sunint(void)
 {
 	double Rd;
@@ -36,7 +41,6 @@ void Sunint(void)
 	Slat=sin(Lat*Rd);
 	Clat=cos(Lat*Rd);
 	Tlat=tan(Lat*Rd);
-	Isc=1370.;
 }
 /* --------------------------------------------- */
 int FNNday(int Mo, int Nd)
@@ -58,7 +62,7 @@ double FNE(int N)
 /*  -------------------------------------------- */
 double FNSro(int N)
 {
-	return( Isc*(1.0+.033*cos(2.*CONST_PI*N/365.)) );
+	return( CONST_ISC*(1.0+.033*cos(2.*CONST_PI*N/365.)) );
 }
 /*  -------------------------------------------- */
 double FNTtas(double Tt, double E)

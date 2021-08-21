@@ -35,5 +35,3 @@ double FNTtd(double Decl);
 void Solpos(double Ttas, double Decl, double *Sh, double *Sw, double *Ss, double *solh, double *solA);
 void Srdclr(double Io, double P, double Sh, double *Idn, double *Isky);
 void Dnsky(double Io, double Ihol, double Sh, double *Idn, double *Isky);
-
-extern double  Lat,Slat,Clat,Tlat,Lon,Ls,Isc;

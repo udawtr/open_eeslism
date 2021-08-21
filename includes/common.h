@@ -36,8 +36,9 @@ extern double  cff_kWh;
 	extern double P;
 	extern double Pcnv;
 	double Tabs, Pws, Temp;
-	extern double Lat, Slat, Clat, Tlat, Isc;
-	extern double Lon, Ls;
+
+extern double  Lat, Slat, Clat, Tlat, Lon, Ls;
+
 	extern char	DAYweek[][4];
 	extern int	VAV_Count_MAX;
 

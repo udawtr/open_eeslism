@@ -67,7 +67,7 @@ void monthday(int *Mon, int *Day, int mo, int dayo)
 
 
 /*  気象デ－タの入力     */
-double  Lat,Slat,Clat,Tlat,Lon,Ls,Isc;
+double  Lat,Slat,Clat,Tlat,Lon,Ls;
 
 void Weatherdt(SIMCONTL *Simc, DAYTM *Daytm, LOCAT *Loc, WDAT *Wd, EXSF *Exs, char EarthSrfFlg)
 {
