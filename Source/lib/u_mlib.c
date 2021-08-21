@@ -30,9 +30,9 @@ double spcheat(char fluid)
    char		s[SCHAR];
 
    if ( fluid == 'W' )
-      return ( cw ) ;
+      return ( CONST_CW ) ;
    else if ( fluid == 'a' )
-      return ( ca ) ;
+      return ( CONST_CA ) ;
    else
    {
       sprintf(s, "xxx fluid='%c'", fluid);

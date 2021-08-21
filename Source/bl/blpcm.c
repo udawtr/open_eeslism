@@ -456,7 +456,7 @@ double	FNPCMState(int Ctype, double Ss, double Sl, double Ql, double Ts, double 
 	{
 		double	Temp;
 		Temp = exp(-(T - Tp)*(T - Tp) / ((2.*PCMp.omega)*PCMp.omega));
-		Qla = Ql / sqrt(2.*PI)*exp(-(T - Tp)*(T - Tp) / ((2.*PCMp.omega)*PCMp.omega))
+		Qla = Ql / sqrt(2.*CONST_PI)*exp(-(T - Tp)*(T - Tp) / ((2.*PCMp.omega)*PCMp.omega))
 			* (1. + erf(PCMp.skew*(T - Tp) / (sqrt(2.)*PCMp.omega)));
 	}
 	// 有理関数

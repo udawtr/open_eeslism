@@ -66,7 +66,7 @@ void OPIhor(FILE *fp, FILE *fp1, int lpn, int mpn,
 
 	ls = -Wd->Sw, ms = -Wd->Ss, ns = Wd->Sh;
 	//printf("ls=%f ms=%f ns=%f\n",ls,ms,ns) ;
-	Esky = Sgm*pow((Wd->T + 273.15), 4.0);
+	Esky = CONST_SGM*pow((Wd->T + 273.15), 4.0);
 
 	//printf("Esky=%f T=%f\n",Esky,Wd->T) ;
 
@@ -95,7 +95,7 @@ void OPIhor(FILE *fp, FILE *fp1, int lpn, int mpn,
 						mp[j].Te = Wd->T;
 
 						sum = sum + mp[j].ref*mp[j].Ihor*mp[i].faiwall[k];
-						reff = reff + mp[j].Eo*Sgm*mp[i].faiwall[k] * pow((mp[j].Te + 273.15), 4.0);
+						reff = reff + mp[j].Eo*CONST_SGM*mp[i].faiwall[k] * pow((mp[j].Te + 273.15), 4.0);
 					}
 					k++;
 				}
@@ -128,7 +128,7 @@ void OPIhor(FILE *fp, FILE *fp1, int lpn, int mpn,
 
 						sum = sum + lp[j].ref*lp[j].Ihor*mp[i].faiwall[k];
 
-						reff = reff + 0.9*Sgm*mp[i].faiwall[k] * pow((lp[j].Te + 273.15), 4.0);
+						reff = reff + 0.9*CONST_SGM*mp[i].faiwall[k] * pow((lp[j].Te + 273.15), 4.0);
 					}
 					k++;
 				}
@@ -186,7 +186,7 @@ void OPIhor(FILE *fp, FILE *fp1, int lpn, int mpn,
 					mp[i].Teg = Wd->T + 0.7*Ig / 23.0;
 					//mp[i].Teg=Wd->T ;
 
-					reffg = 0.9*Sgm*mp[i].faig*pow((mp[i].Teg + 273.15), 4.0);
+					reffg = 0.9*CONST_SGM*mp[i].faig*pow((mp[i].Teg + 273.15), 4.0);
 				}
 
 				else {
@@ -229,7 +229,7 @@ void OPIhor(FILE *fp, FILE *fp1, int lpn, int mpn,
 				Rsky = 0.5 * Wd->Rsky;
 
 				// higuchi add 20170915 地面が漏れていた
-				reffg = 0.9 * Sgm * 0.5 * pow((Wd->T + 273.15), 4.0);
+				reffg = 0.9 * CONST_SGM * 0.5 * pow((Wd->T + 273.15), 4.0);
 				mp[i].Reff = Esky - Rsky - reffg;
 			}
 
@@ -262,7 +262,7 @@ void OPIhor(FILE *fp, FILE *fp1, int lpn, int mpn,
 				for (k = 0, j = 0; j < mpn; j++) {
 
 					if (mp[i].faiwall[k] > 0.0)
-						reff = reff + mp[j].Eo*Sgm*mp[i].faiwall[k] * pow((Wd->T + 273.15), 4.0);
+						reff = reff + mp[j].Eo*CONST_SGM*mp[i].faiwall[k] * pow((Wd->T + 273.15), 4.0);
 
 					k++;
 				}
@@ -274,14 +274,14 @@ void OPIhor(FILE *fp, FILE *fp1, int lpn, int mpn,
 				/*------lp面からの長波長放射を求める-----------*/
 				for (j = 0; j < lpn; j++) {
 					if (mp[i].faiwall[k] > 0.0)
-						reff = reff + 0.9*Sgm*mp[i].faiwall[k] * pow((Wd->T + 273.15), 4.0);
+						reff = reff + 0.9*CONST_SGM*mp[i].faiwall[k] * pow((Wd->T + 273.15), 4.0);
 
 					k++;
 				}
 				/*--------地面からの長波長放射を求める---------------*/
 
 				if (mp[i].faig > 0.0)
-					reffg = 0.9*Sgm*mp[i].faig*pow((Wd->T + 273.15), 4.0);
+					reffg = 0.9*CONST_SGM*mp[i].faig*pow((Wd->T + 273.15), 4.0);
 				else
 					reffg = 0.0;
 
@@ -292,7 +292,7 @@ void OPIhor(FILE *fp, FILE *fp1, int lpn, int mpn,
 				mp[i].rn = Wd->RN * 0.5 ;
 				Rsky = 0.5 * Wd->Rsky;
 				// higuchi add 20170915 地面が漏れていた
-				reffg = 0.9*Sgm*0.5*pow((Wd->T + 273.15), 4.0);
+				reffg = 0.9*CONST_SGM*0.5*pow((Wd->T + 273.15), 4.0);
 				mp[i].Reff = Esky - Rsky -reffg ;
 			}
 			// 20170426 higuchi add 形態係数を考慮しないパターン追加 end

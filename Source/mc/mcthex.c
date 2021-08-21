@@ -185,10 +185,10 @@ void	Thexcfv ( int Nthex, THEX *Thex )
 			etCGmin = Thex->et * dmin ( Thex->cGe, Thex->cGo ) ;
 			ehGmin = Thex->eh * dmin ( Thex->Ge, Thex->Go ) ;
 
-			Aein = ca + cv * Thex->xeinold ;
-			Aeout = ca + cv * Thex->xeoutold ;
-			Aoin = ca + cv * Thex->xoinold ;
-			Aoout = ca + cv * Thex->xooutold ;
+			Aein = CONST_CA + CONST_CV * Thex->xeinold ;
+			Aeout = CONST_CA + CONST_CV * Thex->xeoutold ;
+			Aoin = CONST_CA + CONST_CV * Thex->xoinold ;
+			Aoout = CONST_CA + CONST_CV * Thex->xooutold ;
 
 			// 排気系統（温度）の熱収支
 			Eoet->coeffo = Thex->cGe ;
@@ -209,10 +209,10 @@ void	Thexcfv ( int Nthex, THEX *Thex )
 			if ( Thex->type == 'h' )
 			{
 				// 排気系統（エンタルピー）の熱収支
-				Eoex->coeffo = Thex->Ge * ro ;
+				Eoex->coeffo = Thex->Ge * CONST_RO ;
 				Eoex->Co = 0.0 ;
 				cfin = Eoex->coeffin ;
-				*cfin = ro * ( ehGmin - Thex->Ge ) ;
+				*cfin = CONST_RO * ( ehGmin - Thex->Ge ) ;
 				cfin++ ;
 				*cfin = Aein * ( ehGmin - Thex->Ge ) ;
 				cfin++ ;
@@ -220,13 +220,13 @@ void	Thexcfv ( int Nthex, THEX *Thex )
 				cfin++ ;
 				*cfin = - ehGmin * Aoin ;
 				cfin++ ;
-				*cfin = - ehGmin * ro ;
+				*cfin = - ehGmin * CONST_RO ;
 				
 				// 給気系統（エンタルピー）の熱収支
-				Eoox->coeffo = Thex->Go * ro ;
+				Eoox->coeffo = Thex->Go * CONST_RO ;
 				Eoox->Co = 0.0 ;
 				cfin = Eoox->coeffin ;
-				*cfin = ro * ( ehGmin - Thex->Go ) ;
+				*cfin = CONST_RO * ( ehGmin - Thex->Go ) ;
 				cfin++ ;
 				*cfin = Aoin * ( ehGmin - Thex->Go ) ;
 				cfin++ ;
@@ -234,7 +234,7 @@ void	Thexcfv ( int Nthex, THEX *Thex )
 				cfin++ ;
 				*cfin = - ehGmin * Aein ;
 				cfin++ ;
-				*cfin = -ehGmin * ro ;
+				*cfin = -ehGmin * CONST_RO ;
 			}
 			else
 			{
@@ -280,13 +280,13 @@ void	Thexene ( int Nthex, THEX *Thex )
 		if ( Thex->cmp->control != OFF_SW )
 		{
 			// 交換熱量の計算
-			Thex->Qes = ca * Thex->Ge * ( Thex->Teout - Thex->Tein ) ;
-			Thex->Qel = ro * Thex->Ge * ( Thex->xeout - Thex->xein ) ;
+			Thex->Qes = CONST_CA * Thex->Ge * ( Thex->Teout - Thex->Tein ) ;
+			Thex->Qel = CONST_RO * Thex->Ge * ( Thex->xeout - Thex->xein ) ;
 			//Thex->Qet = Thex->Ge * ( Thex->heout - Thex->hein ) ;
 			Thex->Qet = Thex->Qes + Thex->Qel ;
 
-			Thex->Qos = ca * Thex->Go * ( Thex->Toout - Thex->Toin ) ;
-			Thex->Qol = ro * Thex->Go * ( Thex->xoout - Thex->xoin ) ;
+			Thex->Qos = CONST_CA * Thex->Go * ( Thex->Toout - Thex->Toin ) ;
+			Thex->Qol = CONST_RO * Thex->Go * ( Thex->xoout - Thex->xoin ) ;
 			//Thex->Qot = Thex->Go * ( Thex->hoout - Thex->hoin ) ;
 			Thex->Qot = Thex->Qos + Thex->Qol ;
 

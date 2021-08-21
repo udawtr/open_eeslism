@@ -65,13 +65,13 @@ void Roomene(RMVLS *Rmvls, int Nroom, ROOM *Room, int Nrdpnl, RDPNL *Rdpnl, EXSF
 					A->G = A->Tin = A->Xin = 0.0;
 
 				if (elin->lpath->control != OFF_SW)
-					A->Qs = ca * elin->lpath->G * (elin->sysvin - Room->Tr);
+					A->Qs = CONST_CA * elin->lpath->G * (elin->sysvin - Room->Tr);
 				else
 					A->Qs = 0.0;
 
 				A->Ql = 0.0;
 				if (elix->lpath != NULL && elix->lpath->control != OFF_SW)
-					A->Ql = ro * elix->lpath->G * (elix->sysvin - Room->xr);
+					A->Ql = CONST_RO * elix->lpath->G * (elix->sysvin - Room->xr);
 
 				A->Qt = A->Qs + A->Ql;
 				//elin++, elix++;
@@ -400,8 +400,8 @@ void	PCMfunchk(int Nroom, ROOM *Room, WDAT *Wd, int *LDreset)
 				{
 					Room->RMC += *(Room->CM) * Room->FMC;
 				}
-				Room->RMt += ca * Room->Gvent;
-				Room->RMC += ca * Room->Gvent * Wd->T;
+				Room->RMt += CONST_CA * Room->Gvent;
+				Room->RMC += CONST_CA * Room->Gvent * Wd->T;
 			}
 		}
 	}
@@ -461,7 +461,7 @@ void Roomload(int Nroom, ROOM *Room, int *LDreset)
 				}
 				achr = Room->achr;
 				for (j = 0; j < Room->Nachr; j++, achr++)
-					rmld->Qs -= ca * achr->Gvr * ((rm + achr->rm)->Tr - Room->Tr);
+					rmld->Qs -= CONST_CA * achr->Gvr * ((rm + achr->rm)->Tr - Room->Tr);
 
 				/******
 				printf("xxx Roomload i=%d Qs=%5.0lf loadt=%c, cotl=%c  sw=%c\n",
@@ -474,7 +474,7 @@ void Roomload(int Nroom, ROOM *Room, int *LDreset)
 			Eo++;
 			if (Eo->control == LOAD_SW)
 			{
-				rmld->Ql = ro * (Room->RMx * Room->xr - Room->RMXC);
+				rmld->Ql = CONST_RO * (Room->RMx * Room->xr - Room->RMXC);
 				if ((A = Room->arsp) != NULL)
 				{
 					for (j = 0; j < Room->Nasup; j++, A++)
@@ -483,7 +483,7 @@ void Roomload(int Nroom, ROOM *Room, int *LDreset)
 
 				achr = Room->achr;
 				for (j = 0; j < Room->Nachr; j++, achr++)
-					rmld->Ql -= ro * achr->Gvr * ((rm + achr->rm)->xr - Room->xr);
+					rmld->Ql -= CONST_RO * achr->Gvr * ((rm + achr->rm)->xr - Room->xr);
 
 				resetl = rmloadreset(rmld->Ql, *rmld->loadt, Eo, ON_SW);
 				if (reset || resetl)

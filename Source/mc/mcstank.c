@@ -354,9 +354,9 @@ void Stankcfv(int Nstank, STANK *Stank)
 					// 内蔵熱交換器の表面温度は内外流体の平均温度で代用
 					ho = FNhoutpipe(Stank->dbld0, dblT, Stank->dblTw) ;
 					// 流速の計算
-					dblv = elin->lpath->G / row / (PI * pow(Stank->dbld0 / 2., 2.)) ;
+					dblv = elin->lpath->G / CONST_ROW / (CONST_PI * pow(Stank->dbld0 / 2., 2.)) ;
 					hi = FNhinpipe(Stank->dbld0, Stank->dblL, dblv, dblT) ;
-					Stank->KA[j] = 1. / ( 1. / ho + 1. / hi ) * PI * Stank->dbld0 * Stank->dblL ;
+					Stank->KA[j] = 1. / ( 1. / ho + 1. / hi ) * CONST_PI * Stank->dbld0 * Stank->dblL ;
 				}
 				if ( Stank->KAinput[j] == 'Y' || Stank->KAinput[j] == 'C' )
 				{

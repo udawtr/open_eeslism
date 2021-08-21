@@ -191,9 +191,9 @@ void Roomvar(int Nroom, ROOM *Room, int Nrdpnl, RDPNL *Rdpnl)
 		for (j = 0; j < Room->Nachr; j++, cfin++, achr++, elin++)
 		{
 			//	 printf("ccc\n");
-			*cfin = -(ca * achr->Gvr);
+			*cfin = -(CONST_CA * achr->Gvr);
 			//cfin++ ;
-			elout->coeffo += (ca * achr->Gvr);
+			elout->coeffo += (CONST_CA * achr->Gvr);
 			//achr++, elin++;
 		}
 		
@@ -229,9 +229,9 @@ void Roomvar(int Nroom, ROOM *Room, int Nrdpnl, RDPNL *Rdpnl)
 		
 		for (j = 0; j < Room->Nasup; j++, cfin++, elin++)
 		{
-			*cfin = -(ca * elin->lpath->G);
+			*cfin = -(CONST_CA * elin->lpath->G);
 			//cfin++ ;
-			elout->coeffo += (ca * elin->lpath->G);	
+			elout->coeffo += (CONST_CA * elin->lpath->G);	
 			//elin++;
 		}
 		

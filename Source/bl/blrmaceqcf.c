@@ -552,10 +552,10 @@ void Roomcf(int Nmwall, MWALL *Mw, int Nroom, ROOM *Room,
 		//RMrc(Room, &Room->RMC);
 
 		Room->RMx = Room->GRM / dTM;
-		Room->RMXC = Room->RMx * Room->xrold + (Room->HL + Room->AL) / ro;
+		Room->RMXC = Room->RMx * Room->xrold + (Room->HL + Room->AL) / CONST_RO;
 
-		Room->RMt += ca * Room->Gvent;
-		Room->RMC += ca * Room->Gvent * Wd->T;
+		Room->RMt += CONST_CA * Room->Gvent;
+		Room->RMC += CONST_CA * Room->Gvent * Wd->T;
 		Room->RMx += Room->Gvent;
 		Room->RMXC += Room->Gvent * Wd->x;
 
@@ -751,11 +751,11 @@ void	Qrmsim(ROOM *Room, WDAT *Wd, QRM *Qrm)
 
 			Q->hgins = Q->hums + Q->light + Q->apls;
 
-			Q->Qinfs = ca * rm->Gvent * (Wd->T - rm->Tr);
-			Q->Qinfl = ro * rm->Gvent * (Wd->x - rm->xr);
+			Q->Qinfs = CONST_CA * rm->Gvent * (Wd->T - rm->Tr);
+			Q->Qinfl = CONST_RO * rm->Gvent * (Wd->x - rm->xr);
 			Q->Qeqp = rm->Qeqp;
 			Q->Qsto = rm->MRM * (rm->Trold - rm->Tr) / dTM;
-			Q->Qstol = rm->GRM * ro * (rm->xrold - rm->xr) / dTM;
+			Q->Qstol = rm->GRM * CONST_RO * (rm->xrold - rm->xr) / dTM;
 
 			if (rm->AEsch != NULL)
 				Q->AE = rm->AE * *rm->AEsch;

@@ -394,9 +394,9 @@ void	Evaccfv(int Nevac, EVAC *Evac)
 				//printf("ii=%d Ts=%lf a=%lf b=%lf\n", ii, *Ts, a, b) ;
 
 				// 物質移動係数の計算
-				*kx = cat->hwet / (ca + cv * *xs) * *EF;
+				*kx = cat->hwet / (CONST_CA + CONST_CV * *xs) * *EF;
 				// 係数の計算
-				A = *kx * (ro + cv * *Ts) * *EF;
+				A = *kx * (CONST_RO + CONST_CV * *Ts) * *EF;
 
 				// C行列の作成
 				// Twetの状態方程式には定数項はない
@@ -416,13 +416,13 @@ void	Evaccfv(int Nevac, EVAC *Evac)
 				// U行列の作成
 				// 対角行列
 				// Twetの項
-				*(U + N * (5 * ii + 0) + (5 * ii + 0)) = -(ca * Gwet + cat->Awet * cat->hwet);
+				*(U + N * (5 * ii + 0) + (5 * ii + 0)) = -(CONST_CA * Gwet + cat->Awet * cat->hwet);
 				// xwetの項
 				*(U + N * (5 * ii + 1) + (5 * ii + 1)) = -(Gwet + cat->Awet * *kx);
 				// Tsの項
 				*(U + N * (5 * ii + 2) + (5 * ii + 2)) = -(cat->hwet + A * a[ii] + cat->hdry);
 				// Tdryの項
-				*(U + N * (5 * ii + 3) + (5 * ii + 3)) = -(ca * Gdry + cat->Adry * cat->hdry);
+				*(U + N * (5 * ii + 3) + (5 * ii + 3)) = -(CONST_CA * Gdry + cat->Adry * cat->hdry);
 				// xdryの項
 				*(U + N * (5 * ii + 4) + (5 * ii + 4)) = 1.;
 
@@ -443,7 +443,7 @@ void	Evaccfv(int Nevac, EVAC *Evac)
 				if (ii > 0)
 				{
 					// Tdryの項
-					*(U + N * (5 * ii + 3) + (5 * (ii - 1) + 3)) = ca * Gdry;
+					*(U + N * (5 * ii + 3) + (5 * (ii - 1) + 3)) = CONST_CA * Gdry;
 					// xdryの項
 					*(U + N * (5 * ii + 4) + (5 * (ii - 1) + 4)) = -1.;
 				}
@@ -452,7 +452,7 @@ void	Evaccfv(int Nevac, EVAC *Evac)
 				if (ii < cat->N - 1)
 				{
 					// Twetの項
-					*(U + N * (5 * ii + 0) + (5 * (ii + 1) + 0)) = ca * Gwet;
+					*(U + N * (5 * ii + 0) + (5 * (ii + 1) + 0)) = CONST_CA * Gwet;
 					// xwetの項
 					*(U + N * (5 * ii + 1) + (5 * (ii + 1) + 1)) = Gwet;
 				}
@@ -535,13 +535,13 @@ void	Evaccfv(int Nevac, EVAC *Evac)
 			// 入口の項
 			// Tdryinの項
 			cfin = EoTdry->coeffin;
-			*cfin = -*(Evac->UX + Row + (5 * (1 - 1) + 3)) * (ca * Gdry);
+			*cfin = -*(Evac->UX + Row + (5 * (1 - 1) + 3)) * (CONST_CA * Gdry);
 			// xdryinの項
 			cfin++;
 			*cfin = -*(Evac->UX + Row + (5 * (1 - 1) + 4)) * -1.;
 			// Twetinの項
 			cfin++;
-			*cfin = -*(Evac->UX + Row + (5 * (cat->N - 1) + 0)) * (ca * Gwet);
+			*cfin = -*(Evac->UX + Row + (5 * (cat->N - 1) + 0)) * (CONST_CA * Gwet);
 			// xwetinの項
 			cfin++;
 			*cfin = -*(Evac->UX + Row + (5 * (cat->N - 1) + 1)) * (Gwet);
@@ -558,10 +558,10 @@ void	Evaccfv(int Nevac, EVAC *Evac)
 			*cfin = -*(Evac->UX + Row + (5 * (1 - 1) + 4)) * -1.;
 			// Tdryinの項
 			cfin++;
-			*cfin = -*(Evac->UX + Row + (5 * (1 - 1) + 3)) * (ca * Gdry);
+			*cfin = -*(Evac->UX + Row + (5 * (1 - 1) + 3)) * (CONST_CA * Gdry);
 			// Twetinの項
 			cfin++;
-			*cfin = -*(Evac->UX + Row + (5 * (cat->N - 1) + 0)) * (ca * Gwet);
+			*cfin = -*(Evac->UX + Row + (5 * (cat->N - 1) + 0)) * (CONST_CA * Gwet);
 			// xwetinの項
 			cfin++;
 			*cfin = -*(Evac->UX + Row + (5 * (cat->N - 1) + 1)) * (Gwet);
@@ -575,10 +575,10 @@ void	Evaccfv(int Nevac, EVAC *Evac)
 			// 入口の項
 			// Twetinの項
 			cfin = EoTwet->coeffin;
-			*cfin = -*(Evac->UX + Row + (5 * (cat->N - 1) + 0)) * (ca * Gwet);
+			*cfin = -*(Evac->UX + Row + (5 * (cat->N - 1) + 0)) * (CONST_CA * Gwet);
 			// Tdryinの項
 			cfin++;
-			*cfin = -*(Evac->UX + Row + (5 * (1 - 1) + 3)) * (ca * Gdry);
+			*cfin = -*(Evac->UX + Row + (5 * (1 - 1) + 3)) * (CONST_CA * Gdry);
 			// xdryinの項
 			cfin++;
 			*cfin = -*(Evac->UX + Row + (5 * (1 - 1) + 4)) * -1.;
@@ -598,13 +598,13 @@ void	Evaccfv(int Nevac, EVAC *Evac)
 			*cfin = -*(Evac->UX + Row + (5 * (cat->N - 1) + 1)) * (Gwet);
 			// Tdryinの項
 			cfin++;
-			*cfin = -*(Evac->UX + Row + (5 * (1 - 1) + 3)) * (ca * Gdry);
+			*cfin = -*(Evac->UX + Row + (5 * (1 - 1) + 3)) * (CONST_CA * Gdry);
 			// xdryinの項
 			cfin++;
 			*cfin = -*(Evac->UX + Row + (5 * (1 - 1) + 4)) * -1.;
 			// Twetinの項
 			cfin++;
-			*cfin = -*(Evac->UX + Row + (5 * (cat->N - 1) + 0)) * (ca * Gwet);
+			*cfin = -*(Evac->UX + Row + (5 * (cat->N - 1) + 0)) * (CONST_CA * Gwet);
 
 			// 動的メモリの解放
 			//free(Udry) ;
@@ -670,11 +670,11 @@ void	Evacene(int Nevac, EVAC *Evac, int *Evacreset)
 			Evac->RHweto = FNRhtx(Evac->Tweto, Evac->xweto);
 
 			// 熱量の計算
-			Evac->Qsdry = ca * Gdry * (Evac->Tdryo - Evac->Tdryi);
-			Evac->Qldry = ro * Gdry * (Evac->xdryo - Evac->xdryi);
+			Evac->Qsdry = CONST_CA * Gdry * (Evac->Tdryo - Evac->Tdryi);
+			Evac->Qldry = CONST_RO * Gdry * (Evac->xdryo - Evac->xdryi);
 			Evac->Qtdry = Evac->Qsdry + Evac->Qldry;
-			Evac->Qswet = ca * Gwet * (Evac->Tweto - Evac->Tweti);
-			Evac->Qlwet = ro * Gwet * (Evac->xweto - Evac->xweti);
+			Evac->Qswet = CONST_CA * Gwet * (Evac->Tweto - Evac->Tweti);
+			Evac->Qlwet = CONST_RO * Gwet * (Evac->xweto - Evac->xweti);
 			Evac->Qtwet = Evac->Qswet + Evac->Qlwet;
 
 			N = cat->N * 5;
@@ -685,9 +685,9 @@ void	Evacene(int Nevac, EVAC *Evac, int *Evacreset)
 			// 内部変数計算結果収録用
 			Stat = dcalloc(N, "<Evacene> Stat");
 
-			*(Sin + 5 * (1 - 1) + 3) = ca * Gdry * Evac->Tdryi;
+			*(Sin + 5 * (1 - 1) + 3) = CONST_CA * Gdry * Evac->Tdryi;
 			*(Sin + 5 * (1 - 1) + 4) = -Evac->xdryi;
-			*(Sin + 5 * (cat->N - 1) + 0) = ca * Gwet * Evac->Tweti;
+			*(Sin + 5 * (cat->N - 1) + 0) = CONST_CA * Gwet * Evac->Tweti;
 			*(Sin + 5 * (cat->N - 1) + 1) = Gwet * Evac->xweti;
 
 			//matmalv(Evac->UXdry, Sdry, N, 1, UXSdry) ;

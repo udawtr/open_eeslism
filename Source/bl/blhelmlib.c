@@ -340,17 +340,17 @@ void helmq(ROOM *Room, double dTM, double Ta, double xa )
 	qh->hinl = Room->AL + Room->HL ;
 	
 	qh->sto = Room->MRM * (Room->Trold - Room->Tr) / dTM ;
-	qh->stol = Room->GRM * ro * ( Room->xrold - Room->xr ) / dTM ;
-	qh->vo = ca * Room->Gvent * (Ta - Room->Tr);
-	qh->vol = ro * Room->Gvent * ( xa - Room->xr ) ;
+	qh->stol = Room->GRM * CONST_RO * ( Room->xrold - Room->xr ) / dTM ;
+	qh->vo = CONST_CA * Room->Gvent * (Ta - Room->Tr);
+	qh->vol = CONST_RO * Room->Gvent * ( xa - Room->xr ) ;
 	
 	achr = Room->achr;
 	qh->vr = 0.0;
 	qh->vrl = 0.0 ;
 	for ( j = 0; j < Room->Nachr; j++, achr++ )
 	{
-		qh->vr += ca * achr->Gvr * ((Rm+achr->rm)->Tr - Room->Tr);
-		qh->vrl += ro * achr->Gvr * ((Rm+achr->rm)->xr - Room->xr) ;
+		qh->vr += CONST_CA * achr->Gvr * ((Rm+achr->rm)->Tr - Room->Tr);
+		qh->vrl += CONST_RO * achr->Gvr * ((Rm+achr->rm)->xr - Room->xr) ;
 	}
 }
 /* ---------------------------------------------- */

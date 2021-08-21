@@ -190,7 +190,7 @@ double FNSolarWallao(WDAT *Wd, RMSRF *Sd, EXSFS *Exsfs)
 
 	// 放射熱伝達率
 	// 屋根の表面温度は外気温度で代用
-	dblar = Sd->Eo * 4. * Sgm * pow((Wd->T + Sd->Tg) / 2.0 + 273.15, 3. ) ;
+	dblar = Sd->Eo * 4. * CONST_SGM * pow((Wd->T + Sd->Tg) / 2.0 + 273.15, 3. ) ;
 
 	// 対流熱伝達率
 	Exs = &Exsfs->Exs[Sd->exs] ;
@@ -201,7 +201,7 @@ double FNSolarWallao(WDAT *Wd, RMSRF *Sd, EXSFS *Exsfs)
 	dblWa = (double)Exs->Wa - dblWdre ;
 
 	// 風上の場合
-	if(cos(dblWa * PI / 180.) > 0.)
+	if(cos(dblWa * CONST_PI / 180.) > 0.)
 	{
 		if(Wd->Wv <= 2.)
 			dblu = 2.0 ;
@@ -228,7 +228,7 @@ double VentAirLayerar(double dblEsu, double dblEsd, double dblTsu, double dblTsd
 	// 放射率の計算
 	dblEs = 1. / (1. / dblEsu + 1. / dblEsd - 1.) ;
 
-	return 4.0 * dblEs * Sgm * pow((dblTsu + dblTsd) / 2. + 273.15, 3.) ;
+	return 4.0 * dblEs * CONST_SGM * pow((dblTsu + dblTsd) / 2. + 273.15, 3.) ;
 }
 
 // 通気層の強制対流熱伝達率（ユルゲスの式）
@@ -263,7 +263,7 @@ void	FNKc(WDAT *Wd, EXSFS *Exsfs, RMSRF *Sd)
 	EXSF		*Exs ;
 	double	rad ;
 
-	rad = PI / 180. ;
+	rad = CONST_PI / 180. ;
 	Wall = Sd->mw->wall ;
 
 	// 外表面の総合熱伝達率の計算
@@ -274,7 +274,7 @@ void	FNKc(WDAT *Wd, EXSFS *Exsfs, RMSRF *Sd)
 	if(Wall->air_layer_t < 0.)
 		printf("%s  通気層の厚さが未定義です\n", Sd->name) ;
 	if(Sd->rpnl->cmp->elouts->G > 0.)
-		Sd->dblacc = FNJurgesac(Sd, Sd->rpnl->cmp->elouts->G / roa / ((Sd->dblWsd + Sd->dblWsu) / 2. * Wall->air_layer_t),
+		Sd->dblacc = FNJurgesac(Sd, Sd->rpnl->cmp->elouts->G / CONST_ROA / ((Sd->dblWsd + Sd->dblWsu) / 2. * Wall->air_layer_t),
 			(Sd->dblWsd + Sd->dblWsu) / 2., Wall->air_layer_t ) ;
 	else
 		Sd->dblacc = FNVentAirLayerac(Sd->dblTsu, Sd->dblTsd, Wall->air_layer_t, Exs->Wb * M_rad) ;
@@ -397,7 +397,7 @@ double	FNVentAirLayerac(double Tsu, double Tsd, double air_layer_t, double Wb)
 	// 空気の熱伝導率
 	lama = FNalam(Tas) ;
 	// レーリー数
-	Ra = g * (1. / Tas) * fabs(Tsud - Tsd) * pow(air_layer_t, 3.0) / (anew * a) ;
+	Ra = CONST_G * (1. / Tas) * fabs(Tsud - Tsd) * pow(air_layer_t, 3.0) / (anew * a) ;
 
 	RacosWb = Ra * cos(Wb) ;
 

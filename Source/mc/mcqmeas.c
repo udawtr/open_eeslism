@@ -133,7 +133,7 @@ void	Qmeasene (int Nqmeas, QMEAS *Qmeas )
 			Qmeas->Qs = spcheat(PG->Mpath->fluid) * *Qmeas->G * ( *Qmeas->Th - *Qmeas->Tc ) ;
 
 			if ( Qmeas->Plistxc != NULL )
-				Qmeas->Ql = ro * *Qmeas->G * ( *Qmeas->xh - *Qmeas->xc ) ;
+				Qmeas->Ql = CONST_RO * *Qmeas->G * ( *Qmeas->xh - *Qmeas->xc ) ;
 			else
 				Qmeas->Ql = 0.0 ;
 			

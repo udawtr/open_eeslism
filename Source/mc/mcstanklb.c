@@ -37,7 +37,7 @@ void stoint(double dTM, int N, double Vol, double KAside, double KAtop, double K
 	for (i = 0; i < N; i++, dvol++, Mdt++, K++, Tss++, Tssold++ )
 	{
 		*dvol = Vol / N;
-		*Mdt = (cw * row * Vol / N) / dTM;
+		*Mdt = (CONST_CW * CONST_ROW * Vol / N) / dTM;
 		*K = KAside / N;
 		
 		*Tss = *Tssold;

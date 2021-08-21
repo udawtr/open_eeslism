@@ -161,19 +161,19 @@ void Refaint(int Nrefa, REFA *Refa, WDAT *Wd, int Ncompnt, COMPNT *Compnt)
 		{
 			if (Refa->cat->mode[m] == COOLING_SW)
 			{
-				cGex = ca * Refa->cat->cool->Gex;
+				cGex = CONST_CA * Refa->cat->cool->Gex;
 				E=(1.0- Refa->cat->cool->eo)/ Refa->cat->cool->eo; 
 				Qeo= Refa->cat->cool->Qo,  Qco= Refa->cat->cool->Qex;
-				Teo= Qeo * E /(cw * Refa->cat->cool->Go) + Refa->cat->cool->Two;
+				Teo= Qeo * E /(CONST_CW * Refa->cat->cool->Go) + Refa->cat->cool->Two;
 				Tco= Qco/(Refa->cat->cool->eex * cGex) + Refa->cat->cool->Tex;             
 			}       
 			else if (Refa->cat->mode[m] == HEATING_SW)
 			{ 
-				cGex = ca * Refa->cat->heat->Gex;
+				cGex = CONST_CA * Refa->cat->heat->Gex;
 				E=(1.0- Refa->cat->heat->eo)/ Refa->cat->heat->eo;
 				Qeo= Refa->cat->heat->Qex;
 				Qco= Refa->cat->heat->Qo;
-				Tco= Qco * E /(cw * Refa->cat->heat->Go) + Refa->cat->heat->Two;
+				Tco= Qco * E /(CONST_CW * Refa->cat->heat->Go) + Refa->cat->heat->Two;
 				Teo= Qeo/(Refa->cat->heat->eex * cGex) + Refa->cat->heat->Tex;      
 			}
 			
@@ -288,7 +288,7 @@ void refacoeff(REFA *Refa, int *err)
 	{
 		if (Refa->cat->cool != NULL)
 		{
-			EGex = Refa->cat->cool->eex * ca * Refa->cat->cool->Gex ;
+			EGex = Refa->cat->cool->eex * CONST_CA * Refa->cat->cool->Gex ;
 			Compca(Refa->c_e, Refa->c_d, EGex, Refa->cat->rfc->Teo, *Refa->Ta, 
 				&Refa->Ho, &Refa->He);
 			E = Refa->cG * Refa->cat->cool->eo;
@@ -300,7 +300,7 @@ void refacoeff(REFA *Refa, int *err)
 	{
 		if (Refa->cat->heat != NULL)
 		{
-			EGex = Refa->cat->heat->eex * ca * Refa->cat->heat->Gex ;	
+			EGex = Refa->cat->heat->eex * CONST_CA * Refa->cat->heat->Gex ;	
 			Compha(Refa->h_e, Refa->h_d, EGex, Refa->cat->rfc->Tco, *Refa->Ta, 
 				&Refa->Ho, &Refa->He);
 			E = Refa->cG * Refa->cat->heat->eo;

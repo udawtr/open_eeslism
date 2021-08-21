@@ -219,7 +219,7 @@ void Desicfv(int NDesi, DESI *Desi)
 			hsa = 40. ;
 
 		// シリカゲルと槽内空気の湿気伝達率の計算
-		hsad = hsa / ca ;
+		hsad = hsa / CONST_CA ;
 
 		hAsa = hsa * Desi->Asa ;
 		hdAsa = hsad * Desi->Asa ;
@@ -261,10 +261,10 @@ void Desicfv(int NDesi, DESI *Desi)
 		// 係数行列の作成
 		U[0*N+0] = Desica->ms * Desica->cps / dTM + hAsa ;
 		U[0*N+1] = -hAsa ;
-		U[0*N+2] = -hdAsa * ro ;
-		U[0*N+3] = hdAsa * ro ;
+		U[0*N+2] = -hdAsa * CONST_RO ;
+		U[0*N+3] = hdAsa * CONST_RO ;
 		U[1*N+0] = -hAsa ;
-		U[1*N+1] = ca * Eo->G + hAsa + Desi->UA ;
+		U[1*N+1] = CONST_CA * Eo->G + hAsa + Desi->UA ;
 		U[2*N+2] = Eo->G + hdAsa ;
 		U[2*N+3] = -hdAsa ;
 		U[3*N+2] = -hdAsa ;
@@ -297,7 +297,7 @@ void Desicfv(int NDesi, DESI *Desi)
 		Eo->coeffo = -1.0 ;
 		Eo->Co = -Desi->UXC[1] ; ;
 		cfin = Eo->coeffin ;
-		*cfin = Desi->UX[1*N+1] * Eo->G * ca ;
+		*cfin = Desi->UX[1*N+1] * Eo->G * CONST_CA ;
 		cfin++ ;
 		*cfin = Desi->UX[1*N+2] * Eo->G ;
 		
@@ -308,7 +308,7 @@ void Desicfv(int NDesi, DESI *Desi)
 		cfin = Eo->coeffin ;
 		*cfin = Desi->UX[2*N+2] * Eo->G ;
 		cfin++ ;
-		*cfin = Desi->UX[2*N+1] * Eo->G * ca ;
+		*cfin = Desi->UX[2*N+1] * Eo->G * CONST_CA ;
 
 		//Det1 = (d + e - a + 1.) * (f + f * g * i + 1.) + b * f * h * (d + e + 1.) ;
 		//Det2 = b * f ;
@@ -386,7 +386,7 @@ void Desiene(int NDesi, DESI *Desi)
 		Desi->xaout = elox->sysv ;
 
 		// 入口状態行列Sinの作成
-		Sin[1] = ca * elo->G * Desi->Tain ;
+		Sin[1] = CONST_CA * elo->G * Desi->Tain ;
 		Sin[2] = elo->G * Desi->xain ;
 		// 内部状態値の計算
 		for(ii = 0; ii < N; ii++)
@@ -408,7 +408,7 @@ void Desiene(int NDesi, DESI *Desi)
 		
 		// 顕熱の計算
 		Desi->Qs = Desi->cG * ( Desi->Taout - Desi->Tain ) ;
-		Desi->Ql = elo->G * ro * ( Desi->xaout - Desi->xain ) ;
+		Desi->Ql = elo->G * CONST_RO * ( Desi->xaout - Desi->xain ) ;
 		Desi->Qt = Desi->Qs + Desi->Ql ;
 
 		// デシカント槽からの熱損失の計算

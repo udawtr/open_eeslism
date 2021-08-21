@@ -80,7 +80,7 @@ void wcoil(char Air_SW, char Water_SW, char wet, double Gaet, double Gaeh,
 		// Satoh Debug 2009/1/9
 		if ( Water_SW != OFF_SW )
 		{
-			Et->w = Et->t = ca*Gaet;
+			Et->w = Et->t = CONST_CA*Gaet;
 			Et->x = Et->C =0.0;
 		}
 		else
@@ -90,7 +90,7 @@ void wcoil(char Air_SW, char Water_SW, char wet, double Gaet, double Gaeh,
 
 		if ( Air_SW != OFF_SW )
 		{
-			Ew->w = Ew->t = Gaet*ca;
+			Ew->w = Ew->t = Gaet*CONST_CA;
 			Ew->x = Ew->C = 0.0;
 		}
 		else
@@ -99,18 +99,18 @@ void wcoil(char Air_SW, char Water_SW, char wet, double Gaet, double Gaeh,
 	else
 	{
 		hstaircf(Twi, Twi+5.0, &aw, &bw);
-		cs=ca+cv*xai;
-		Et->w = Et->t = ca*Gaet;
+		cs=CONST_CA+CONST_CV*xai;
+		Et->w = Et->t = CONST_CA*Gaet;
 		Et->x = Et->C =0.0;
 		
-		Ex->w = (Gaeh*bw-Gaet*ca)/ro;
-		Ex->t = (Gaeh*cs-Gaet*ca)/ro;
+		Ex->w = (Gaeh*bw-Gaet*CONST_CA)/CONST_RO;
+		Ex->t = (Gaeh*cs-Gaet*CONST_CA)/CONST_RO;
 		Ex->x = Gaeh;
-		Ex->C = -Gaeh*aw/ro; 
+		Ex->C = -Gaeh*aw/CONST_RO; 
 		
 		Ew->w = Gaeh*bw;
 		Ew->t = Gaeh*cs;
-		Ew->x = Gaeh*ro;
+		Ew->x = Gaeh*CONST_RO;
 		Ew->C = -Gaeh*aw;
 	}
 }
@@ -128,7 +128,7 @@ double Qcoils(ACS *Et, double Tai, double xai, double Twi)
 
 double Qcoill(ACS *Ex, double Tai, double xai, double Twi)
 { 
-	return (ro*(Ex->w * Twi - Ex->t * Tai - Ex->x *xai - Ex->C)) ;
+	return (CONST_RO*(Ex->w * Twi - Ex->t * Tai - Ex->x *xai - Ex->C)) ;
 }
 /* ------------------------------------------ */
 

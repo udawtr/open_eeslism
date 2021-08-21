@@ -449,7 +449,7 @@ void lpathschbat(double dTM,  PLIST *Plist)
 		
 		if (Stank->batchop == BTFILL)
 		{
-			Plist->G = Gbat * row / dTM;
+			Plist->G = Gbat * CONST_ROW / dTM;
 			lpathschd(OFF_SW, Nelm - jt, Pelm + jt);	 
 			(Pelm+jt)->out->control = BATCH_SW;
 		}
@@ -466,7 +466,7 @@ void lpathschbat(double dTM,  PLIST *Plist)
 			}
 			Tsout /= (double)(Stank->Jout[k] + 1);
 			/***printf("<<lpathschbat>> Tsout=%lf\n", Tsout);***/
-			Plist->G = Gbat * row / dTM;
+			Plist->G = Gbat * CONST_ROW / dTM;
 			
 			(Pelm+jt)->out->sysv = Tsout;
 		}

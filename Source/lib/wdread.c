@@ -392,7 +392,7 @@ void	dt2wdata ( WDAT *Wd, int tt, double dt[7][25] )
 	{
 		Wd->CC = -999.0 ;
 		Wd->RN = dt[4][tt]/0.86;
-		Wd->Rsky = Sgm*pow(Wd->T+273.15,4.0) - Wd->RN ;
+		Wd->Rsky = CONST_SGM*pow(Wd->T+273.15,4.0) - Wd->RN ;
 	}
 	
 	Wd->Wdre= dt[5][tt];
@@ -401,9 +401,9 @@ void	dt2wdata ( WDAT *Wd, int tt, double dt[7][25] )
 	Wd->h = FNH(Wd->T, Wd->x);
 	Br= 0.51+0.209*sqrt(FNPwx(Wd->x));
 	if ( Wd->RNtype == 'C' ){
-		Wd->RN= (1.0 - 0.62 * Wd->CC /10.0)*(1.-Br)*Sgm*pow(Wd->T+273.15, 4.0);
+		Wd->RN= (1.0 - 0.62 * Wd->CC /10.0)*(1.-Br)*CONST_SGM*pow(Wd->T+273.15, 4.0);
 	    Wd->Rsky=((1.0-0.62*Wd->CC/10.0)*Br+0.62*Wd->CC/10.0)
-             *Sgm*pow(Wd->T+273.15,4.0) ;  /*--higuchi 070918--*/
+             *CONST_SGM*pow(Wd->T+273.15,4.0) ;  /*--higuchi 070918--*/
 	}
 }
 

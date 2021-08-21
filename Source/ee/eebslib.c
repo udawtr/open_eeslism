@@ -233,7 +233,7 @@ void Exsfdata (FILE *fi, char *dsn, EXSFS *Exsf, SCHDL *Schdl, SIMCONTL *Simc )
 		ex->Wa, ex->Wb, *ex->alo, ex->Rg ) ;
 	/***********************************/
 	
-	rad = PI/180.;
+	rad = CONST_PI/180.;
 	
 	ex = Exsf->Exs ;
 	for ( i = 0; i < Exsf->Nexs; i++, ex++ )

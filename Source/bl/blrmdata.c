@@ -839,8 +839,8 @@ void Roomdata (FILE *fi, char *errkey, EXSF *Exs, DFWL *dfwl,
 		//      if (brs > NSMX)
 		//		  printf("%s total_rmsurfs=%d [max=%d]\n", Er, brs, NSMX);
 
-		Rm->GRM = roa * Rm->VRM + Rm->Mxcap;
-		Rm->MRM = ca * roa * Rm->VRM + Rm->Hcap ;
+		Rm->GRM = CONST_ROA * Rm->VRM + Rm->Mxcap;
+		Rm->MRM = CONST_CA * CONST_ROA * Rm->VRM + Rm->Hcap ;
 
 		/***
 		Rm->Area = Area;***/

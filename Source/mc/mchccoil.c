@@ -249,7 +249,7 @@ void Hccene(int Nhcc, HCC *Hcc)
 			Hcc->Taout = elo->sysv ;
 			Hcc->Qs = Hcc->cGa * (elo->sysv - Hcc->Tain);
 			elo++;
-			Hcc->Ql = ro * Hcc->Ga * (elo->sysv - Hcc->xain);
+			Hcc->Ql = CONST_RO * Hcc->Ga * (elo->sysv - Hcc->xain);
 			elo++;
 			Hcc->Twout = elo->sysv ;
 			Hcc->Qt = Hcc->cGw * (elo->sysv - Hcc->Twin);

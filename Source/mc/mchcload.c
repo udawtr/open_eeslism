@@ -281,8 +281,8 @@ void rmacddat(HCLOAD *Hcld)
 		xco = FNXtw(DBco, WBco) ;
 		xci = FNXtw(DBci, WBci) ;
 		// 湿り比熱
-		cao = ca + cv * xco ;
-		cai = ca + cv * xci ;
+		cao = CONST_CA + CONST_CV * xco ;
+		cai = CONST_CA + CONST_CV * xci ;
 
 		// 室内機、室外機熱交換器のバイパスファクタ
 		Hcld->BFi = Hcld->BFo = 0.2 ;
@@ -352,8 +352,8 @@ void rmacddat(HCLOAD *Hcld)
 		xco = FNXtw(DBco, WBco) ;
 		xci = FNXtw(DBci, WBci) ;
 		// 湿り比熱
-		cao = ca + cv * xco ;
-		cai = ca + cv * xci ;
+		cao = CONST_CA + CONST_CV * xco ;
+		cai = CONST_CA + CONST_CV * xci ;
 
 		// 室内機、室外機熱交換器のバイパスファクタ
 		Hcld->BFi = Hcld->BFo = 0.2 ;
@@ -579,7 +579,7 @@ void Hcldcfv(int Nhcload, HCLOAD *Hcload)
 			{
 				Hcload->Gw = Eo->G;
 				Hcload->cGw = spcheat(Eo->fluid) * Hcload->Gw;
-				rGa = ro * Hcload->Ga;
+				rGa = CONST_RO * Hcload->Ga;
 				
 				Eo->coeffo = Hcload->cGw;
 				
@@ -683,9 +683,9 @@ void Hcldene(int Nhcload, HCLOAD *Hcload, int *LDrest, WDAT *Wd)
 			
 			elo++;
 			if (elo->control == ON_SW && elo->sysld == 'y')
-				Hcload->Ql = ro * elo->load;
+				Hcload->Ql = CONST_RO * elo->load;
 			else
-				Hcload->Ql = ro * Hcload->Ga * (elo->sysv - Hcload->xain);
+				Hcload->Ql = CONST_RO * Hcload->Ga * (elo->sysv - Hcload->xain);
 			
 			if ( chqlreset ( Hcload ))
 				(*LDrest)++ ;
@@ -796,8 +796,8 @@ void Hcldene(int Nhcload, HCLOAD *Hcload, int *LDrest, WDAT *Wd)
 					int		i, j ;
 
 					// 湿り比熱の計算
-					cao = ca + cv * Wd->x ;
-					cai = ca + cv * Hcload->xain ;
+					cao = CONST_CA + CONST_CV * Wd->x ;
+					cai = CONST_CA + CONST_CV * Hcload->xain ;
 					Tevp = FNTevpc(Hcload->Tain, Hcload->Qt, cai, (1. - Hcload->BFi) * Hcload->Ga, Hcload->xain) ;
 
 					// COPの収束計算
@@ -849,8 +849,8 @@ void Hcldene(int Nhcload, HCLOAD *Hcload, int *LDrest, WDAT *Wd)
 					int		i, j ;
 
 					// 湿り比熱の計算
-					cao = ca + cv * Wd->x ;
-					cai = ca + cv * Hcload->xain ;
+					cao = CONST_CA + CONST_CV * Wd->x ;
+					cai = CONST_CA + CONST_CV * Hcload->xain ;
 					Tcnd = FNTcndh(Hcload->Tain, Hcload->Qt, cai, (1. - Hcload->BFi) * Hcload->Ga) ;
 
 					// COPの収束計算

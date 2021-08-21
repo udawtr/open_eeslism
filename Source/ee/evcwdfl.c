@@ -187,11 +187,11 @@ void wdflinput(WDPT *wp, WDAT *Wd)
 	if (Wd->x > 0.0 && Wd->CC > 0.0 || Wd->RN < 0.0 )
 	{
 		Br= 0.51+0.209*sqrt(FNPwx(Wd->x));
-		Wd->RN= (1.0 - 0.62 * Wd->CC /10.0)*(1.-Br)*Sgm*pow(Wd->T+273.15, 4.0); 
+		Wd->RN= (1.0 - 0.62 * Wd->CC /10.0)*(1.-Br)*CONST_SGM*pow(Wd->T+273.15, 4.0); 
         Wd->Rsky=((1.0-0.62*Wd->CC/10.0)*Br+0.62*Wd->CC/10.0)
-                                *Sgm*pow(Wd->T+273.15,4.0) ;  /*--higuchi 070918--*/
+                                *CONST_SGM*pow(Wd->T+273.15,4.0) ;  /*--higuchi 070918--*/
 	}
 	else
-		Wd->Rsky = Sgm*pow(Wd->T + 273.15,4.0) - Wd->RN ;
+		Wd->Rsky = CONST_SGM*pow(Wd->T + 273.15,4.0) - Wd->RN ;
 }
 

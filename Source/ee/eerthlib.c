@@ -29,7 +29,7 @@ double Tearth (double Z, int n, int nmx, double Tgro, double DTg, double a)
 	double Cz ;
 	static double	t = 31.536e+6 ;
 	
-	Cz = Z * sqrt ( PI / ( a * t )) ;
+	Cz = Z * sqrt ( CONST_PI / ( a * t )) ;
 	return ( Tgro + 0.5 * DTg * exp ( - Cz ) * cos (( n - nmx ) * 0.017214 - Cz ));
 }
 

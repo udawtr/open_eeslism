@@ -74,7 +74,7 @@ double	CollTout(double Tcin, double G, RMSRF *Sd)
 		Kc = Wall->Kc ;
 
 	//printf("name=%s Kc=%.2lf Tcole=%.2lf\n", Sd->name, Kc, Sd->Tcole ) ;
-	return (Sd->Tcole - (Sd->Tcole - Tcin) * exp(- Kc * Sd->A / ( ca * G ))) ;
+	return (Sd->Tcole - (Sd->Tcole - Tcin) * exp(- Kc * Sd->A / ( CONST_CA * G ))) ;
 }
 
 double	OMflowcalc(OMVAV *OMvav, WDAT *Wd)

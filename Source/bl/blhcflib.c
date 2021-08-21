@@ -221,7 +221,7 @@ void Radcf0 (double Tsav, double *alrbold, int N, RMSRF *Sd,
 	double  alir,TA;
 	
 	TA = Tsav + 273.15;
-	alir = 4.0 * Sgm * pow ( TA, 3.0 ) ;
+	alir = 4.0 * CONST_SGM * pow ( TA, 3.0 ) ;
 	
 	/*****/
 	if(DEBUG())

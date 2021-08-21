@@ -32,11 +32,11 @@ void Sunint(void)
 {
 	double Rd;
 	
-	Rd=PI/180.;
+	Rd=CONST_PI/180.;
 	Slat=sin(Lat*Rd);
 	Clat=cos(Lat*Rd);
 	Tlat=tan(Lat*Rd);
-	if (strcmp(UNIT,"SI") == 0)
+	if (strcmp(CONST_UNIT,"SI") == 0)
 		Isc=1370.;
 	else
 		Isc=1178.;
@@ -49,19 +49,19 @@ int FNNday(int Mo, int Nd)
 /*  -------------------------------------------- */
 double FNDecl(int N)
 {
-    return( asin(.397949*sin(2.*PI*(N-81.)/365.)) );
+    return( asin(.397949*sin(2.*CONST_PI*(N-81.)/365.)) );
 }
 /*  -------------------------------------------- */
 double FNE(int N)
 {
 	double B;
-	B=2.*PI*(N-81.)/365.;
+	B=2.*CONST_PI*(N-81.)/365.;
 	return( .1645*sin(2.*B)-.1255*cos(B)-.025*sin(B) );
 }
 /*  -------------------------------------------- */
 double FNSro(int N)
 {
-	return( Isc*(1.0+.033*cos(2.*PI*N/365.)) );
+	return( Isc*(1.0+.033*cos(2.*CONST_PI*N/365.)) );
 }
 /*  -------------------------------------------- */
 double FNTtas(double Tt, double E)
@@ -103,12 +103,12 @@ void Solpos(double Ttas, double Decl, double *Sh, double *Sw, double *Ss, double
 	}
 	W=(Ttas-12.)*.2618;
 	*Sh = Sld + Cld*cos(W);
-	*solh = asin(*Sh) / PI*180.;
+	*solh = asin(*Sh) / CONST_PI*180.;
 	if (*Sh > 0.) 
 	{
 		Ch=sqrt(1.-*Sh * *Sh);
 		Ca=(*Sh * Slat - Sdecl)/(Ch * Clat);
-		*solA = (W > 0. ? 1.0 : -1.0)* acos(Ca) / PI*180.;
+		*solA = (W > 0. ? 1.0 : -1.0)* acos(Ca) / CONST_PI*180.;
 		Sa=(W/fabs(W))*sqrt(1.-Ca*Ca);
 		*Sw=Ch*Sa;
 		*Ss=Ch*Ca;

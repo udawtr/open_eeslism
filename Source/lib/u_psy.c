@@ -36,7 +36,7 @@ double R0, Ca, Cv, Rc, Cc, Cw, Pcnv, P;
 
 void Psyint(void)
 {
-	if (strcmp(UNIT, "SI") == 0)
+	if (strcmp(CONST_UNIT, "SI") == 0)
 	{
 		P = 101.325;
 		R0 = 2501000.;

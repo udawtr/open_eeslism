@@ -384,11 +384,11 @@ double	FNVWVG ( VAV *VWV )
 	A = VWV->cat->Gmin ;
 	B = VWV->cat->Gmax ;
 	Gwd = ( A + B ) / 2.0 ;
-	Wwd = Gwd * cw ;
+	Wwd = Gwd * CONST_CW ;
 	
 	et = - Q / ( Wa * ( Tain - Twin )) ;
-	emin = FNhccet ( Wa, cw * A, KA ) ;
-	emax = FNhccet ( Wa, cw * B, KA ) ;
+	emin = FNhccet ( Wa, CONST_CW * A, KA ) ;
+	emax = FNhccet ( Wa, CONST_CW * B, KA ) ;
 	
 	//printf ( "必要なコイル温度効率は et=%lf\n", et ) ;
 	
@@ -404,7 +404,7 @@ double	FNVWVG ( VAV *VWV )
 
 	for ( i = 0; i < 30; i++ )
 	{
-		Wwd = Gwd * cw ;
+		Wwd = Gwd * CONST_CW ;
 		/*******************/
 		F = FNhccet ( Wa, Wwd, KA ) - et ;
 		//Fd = ( FNhccet ( Wa, Wwd + 1.0, KA ) - et - F ) / ( 1.0 ) ;
