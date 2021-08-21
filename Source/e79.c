@@ -80,7 +80,12 @@ const char* get_fbm_list_filename() {
 	return _Fbmlist;
 }
 
-char	DAYweek[][4] = { "Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun", "Hol" };
+char _DAYweek[][4] = { "Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun", "Hol" };
+
+const char* DAYweek(int i) {
+	return _DAYweek[i];
+}
+
 FILE	*ferr = NULL;
 int		_NSTOP = 0, _DISPLAY_DELAY = 0;
 int		_SETprint = 0;

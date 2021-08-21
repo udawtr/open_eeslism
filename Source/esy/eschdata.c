@@ -53,7 +53,7 @@ void Dayweek(FILE *fi, char *Ipath, int *daywk, int key)
 	
 	for ( d = 0; d < 8; d++ )
 	{
-		if ( strcmp ( s, DAYweek[d]) == 0 )
+		if ( strcmp ( s, DAYweek(d)) == 0 )
 			id = d;
 	}
 	if ( id == 8 )
@@ -256,7 +256,7 @@ void Schtable (FILE *fi, char *dsn, SCHDL *Schdl )
 				{
 					wday = Wk->wday ;
 					for ( j = 0; j < 8; j++, wday++ )
-						if ( strcmp ( s, DAYweek[j] ) == 0 )
+						if ( strcmp ( s, DAYweek(j) ) == 0 )
 						{
 							*wday = 1 ;
 							break;

@@ -29,7 +29,7 @@ void	dprdayweek ( int *daywk )
 	
 	printf ( "---  Day of week -----\n   " ) ;
 	for ( d = 0; d < 8; d++ )
-		printf ( "  %s=%d  ", DAYweek[d], d ) ;
+		printf ( "  %s=%d  ", DAYweek(d), d ) ;
 	printf ( "\n" ) ;
 	
 	k = 1 ;
@@ -136,7 +136,7 @@ void	dprschtable ( SEASN *Ssn, WKDY *Wkd, DSCH *Dh, DSCW *Dw )
 		}
 		
 		for ( j = 0; j < 8; j++ )
-			fprintf ( ferr, "\t%s", DAYweek[j] ) ;
+			fprintf ( ferr, "\t%s", DAYweek(j) ) ;
 
 		for ( iw = 0; iw < Nw; iw++, Wkdy++ )
 		{

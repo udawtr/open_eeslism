@@ -32,7 +32,8 @@ const char* get_fbm_list_filename();
 
 extern double  Lat, Slat, Clat, Tlat, Lon, Ls;
 
-extern char	DAYweek[][4];
+// 曜日名の配列 { "Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun", "Hol" }
+const char* DAYweek(int i);
 
 //VAV 計算回数の取得
 int	VAV_Count_MAX();

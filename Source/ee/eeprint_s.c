@@ -154,7 +154,7 @@ void Eeprintd(DAYTM *Daytm, SIMCONTL *Simc, int Nflout, FLOUT *flout,
 				}
 				
 				fprintf ( flo->f, "%2d %2d %3d %s\n", Mon, Day, Daytm->day,
-					DAYweek[Simc->daywk[Daytm->day]] ) ;
+					DAYweek(Simc->daywk[Daytm->day]) ) ;
 				fflush(flo->f);
 			}
 			else if (strcmp(flo->idn, PRTDYCOMP) == 0)
