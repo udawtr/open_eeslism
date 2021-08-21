@@ -42,5 +42,3 @@ double FNRhtx(double T, double X);
 double FNH(double T, double X);
 double FNWbtx(double T, double X);
 double FNHc(double Twb);
-
-extern double R0,Ca,Cv,Rc,Cc,Cw,Pcnv,P;

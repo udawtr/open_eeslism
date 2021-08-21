@@ -41,7 +41,6 @@ extern double  cff_kWh;
 	extern char	DAYweek[][4];
 	extern int	VAV_Count_MAX;
 
-#define CONST_UNIT "SI"
 #define CONST_PI 3.141592654
 #define CONST_SGM 5.67e-8
 #define CONST_CA 1005.0		// 乾き空気の比熱[J/kgK]

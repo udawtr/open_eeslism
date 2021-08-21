@@ -36,10 +36,7 @@ void Sunint(void)
 	Slat=sin(Lat*Rd);
 	Clat=cos(Lat*Rd);
 	Tlat=tan(Lat*Rd);
-	if (strcmp(CONST_UNIT,"SI") == 0)
-		Isc=1370.;
-	else
-		Isc=1178.;
+	Isc=1370.;
 }
 /* --------------------------------------------- */
 int FNNday(int Mo, int Nd)
