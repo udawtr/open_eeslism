@@ -17,8 +17,6 @@
 
 /* システム要素の接続経路の入力 */
 
-//#define	 DEBUG  0
-
 #define _CRT_SECURE_NO_WARNINGS
 #include <stdio.h>
 #include <string.h>
@@ -52,7 +50,7 @@ void Pathdata (FILE *f, char *errkey, SIMCONTL *Simc, WDAT *Wd, int  Ncompnt,  C
 	//ELOUT	*Eo, *Eo2 ;
 	//ELIN	*Eli, *Eli2 ;
 
-	if ( DEBUG )
+	if ( DEBUG())
 	{
 		printf ( "\n" ) ;
 		C = Compnt ;
@@ -124,7 +122,7 @@ void Pathdata (FILE *f, char *errkey, SIMCONTL *Simc, WDAT *Wd, int  Ncompnt,  C
 	{
 		while (fscanf(f, "%s", ss), *ss != '*')
 		{
-			if ( DEBUG )
+			if ( DEBUG())
 			{
 				printf ( "eepathdat.c  ss=%s\n", ss ) ;
 			}
@@ -157,7 +155,7 @@ void Pathdata (FILE *f, char *errkey, SIMCONTL *Simc, WDAT *Wd, int  Ncompnt,  C
 
 			while (fscanf(f, "%s", s), *s != ';')
 			{
-				if ( DEBUG )
+				if ( DEBUG())
 				{
 					printf ( "eepathdat.c  s=%s\n", s ) ;
 				}
@@ -181,7 +179,7 @@ void Pathdata (FILE *f, char *errkey, SIMCONTL *Simc, WDAT *Wd, int  Ncompnt,  C
 
 					while (fscanf(f, "%s", s), *s != '>')
 					{
-						if ( DEBUG )
+						if ( DEBUG())
 						{
 							printf ( "eepathdat.c  s=%s\n", s ) ;
 						}
@@ -193,7 +191,7 @@ void Pathdata (FILE *f, char *errkey, SIMCONTL *Simc, WDAT *Wd, int  Ncompnt,  C
 							{
 								Plist->Go = dcalloc(1, errkey);
 								*Plist->Go = Go;
-								if ( DEBUG )
+								if ( DEBUG())
 								{
 									printf ("Go=%lf\n", *Plist->Go) ;
 								}
@@ -202,7 +200,7 @@ void Pathdata (FILE *f, char *errkey, SIMCONTL *Simc, WDAT *Wd, int  Ncompnt,  C
 							{
 								sscanf(s + 1, "%[^)])", ss);
 
-								if ( DEBUG )
+								if ( DEBUG())
 								{
 									printf ( "s=%s ss=%s\n", s, ss ) ;
 								}
@@ -212,7 +210,7 @@ void Pathdata (FILE *f, char *errkey, SIMCONTL *Simc, WDAT *Wd, int  Ncompnt,  C
 								else
 									Plist->Go = envptr ( ss, Simc, Ncompnt, Compnt, Wd, NULL ) ;
 
-								if ( DEBUG )
+								if ( DEBUG())
 								{
 									printf ( "Go=%lf\n", *Plist->Go ) ;
 								}
@@ -228,7 +226,7 @@ void Pathdata (FILE *f, char *errkey, SIMCONTL *Simc, WDAT *Wd, int  Ncompnt,  C
 							{
 								Plist->rate = dcalloc(1, errkey);
 								*Plist->rate = Go;
-								if ( DEBUG )
+								if ( DEBUG())
 								{
 									printf ("rate=%lf\n", *Plist->rate) ;
 								}
@@ -237,7 +235,7 @@ void Pathdata (FILE *f, char *errkey, SIMCONTL *Simc, WDAT *Wd, int  Ncompnt,  C
 							{
 								sscanf(s + 1, "%[^)])", ss);
 
-								if ( DEBUG )
+								if ( DEBUG())
 								{
 									printf ( "s=%s ss=%s\n", s, ss ) ;
 								}
@@ -247,7 +245,7 @@ void Pathdata (FILE *f, char *errkey, SIMCONTL *Simc, WDAT *Wd, int  Ncompnt,  C
 								else
 									Plist->rate = envptr ( ss, Simc, Ncompnt, Compnt, Wd, NULL ) ;
 
-								if ( DEBUG )
+								if ( DEBUG())
 								{
 									printf ( "rate=%lf\n", *Plist->rate ) ;
 								}
@@ -428,7 +426,7 @@ void Pathdata (FILE *f, char *errkey, SIMCONTL *Simc, WDAT *Wd, int  Ncompnt,  C
 
 								Errprint(err, errkey, elm);
 
-								if ( DEBUG )
+								if ( DEBUG())
 								{
 									printf("<<Pathdata>> Mp=%s  elm=%s Npelm=%d\n",
 										Mpath->name, elm, *Npelm);
@@ -449,14 +447,14 @@ void Pathdata (FILE *f, char *errkey, SIMCONTL *Simc, WDAT *Wd, int  Ncompnt,  C
 			}
 			Mpath->Nlpath = (int)(Plist - Mpath->plist);
 
-			if ( DEBUG )
+			if ( DEBUG())
 			{
 				printf("<<Pathdata>>  Mpath=%Ild fliud=%c\n", Mpath - mpi, Mpath->fluid);	
 			}
 
 			if (Mpath->fluid == AIR_FLD)
 			{
-				if ( DEBUG )
+				if ( DEBUG())
 				{
 					printf("<<Pathdata  a>> Mp=%s  Npelm=%d\n",
 						Mpath->name, *Npelm);
@@ -497,7 +495,7 @@ void Pathdata (FILE *f, char *errkey, SIMCONTL *Simc, WDAT *Wd, int  Ncompnt,  C
 	*Nmpath = (int)(Mpath - mpi);
 	//Eo = Eqsys->Hcload->cmp->elouts + 1 ;
 
-	if ( DEBUG )
+	if ( DEBUG())
 	{
 		if ( *Nmpath > 0 )
 		{
@@ -515,7 +513,7 @@ void Pathdata (FILE *f, char *errkey, SIMCONTL *Simc, WDAT *Wd, int  Ncompnt,  C
 	Mpath = mpi;
 	for (i = 0; i < *Nmpath; i++, Mpath++)
 	{
-		if ( DEBUG )
+		if ( DEBUG())
 		{
 			printf ( "1----- MAX=%d  i=%d\n", *Nmpath, i ) ;
 		}
@@ -526,7 +524,7 @@ void Pathdata (FILE *f, char *errkey, SIMCONTL *Simc, WDAT *Wd, int  Ncompnt,  C
 		for (j = 0; j < Mpath->Nlpath; j++, Plist++)
 		{
 			//Eo = Eqsys->Hcload->cmp->elouts + 1 ;
-			if ( DEBUG )
+			if ( DEBUG())
 			{
 				printf ( "eepath.c  Mpath->Nlpath=%d\n", Mpath->Nlpath ) ;
 				printf("<<Pathdata>>  i=%d Mpath=%Ild  j=%d Plist=%Ild\n", i, Mpath - mpi, 
@@ -536,7 +534,7 @@ void Pathdata (FILE *f, char *errkey, SIMCONTL *Simc, WDAT *Wd, int  Ncompnt,  C
 			Pelm = Plist->pelm;
 			for (m = 0; m < Plist->Nelm; m++, Pelm++)
 			{
-				if ( DEBUG )
+				if ( DEBUG())
 				{
 					printf("<<Pathdata>>  m=%d  pelm=%Ild  %s\n", m, Pelm - Plist->pelm,
 						Pelm->cmp->name);
@@ -581,7 +579,7 @@ void Pathdata (FILE *f, char *errkey, SIMCONTL *Simc, WDAT *Wd, int  Ncompnt,  C
 		}
 		//Eo = Eqsys->Hcload->cmp->elouts + 1 ;
 
-		if ( DEBUG )
+		if ( DEBUG())
 		{
 			plistprint(1, Mpath, Mpath->plist->pelm, Compnt->elouts, Compnt->elins); 
 
@@ -593,7 +591,7 @@ void Pathdata (FILE *f, char *errkey, SIMCONTL *Simc, WDAT *Wd, int  Ncompnt,  C
 		{       
 			Pelm = Plist->pelm;
 
-			if ( DEBUG )
+			if ( DEBUG())
 			{
 				printf("<<Pathdata>>   Plist->type=%c\n", Plist->type);
 			}
@@ -603,7 +601,7 @@ void Pathdata (FILE *f, char *errkey, SIMCONTL *Simc, WDAT *Wd, int  Ncompnt,  C
 			{
 				Mpath->type = THR_PTYP;
 
-				if ( DEBUG )
+				if ( DEBUG())
 				{
 					printf("<<Pathdata>>   Mpath->type=%c\n",Mpath->type);
 				}
@@ -615,7 +613,7 @@ void Pathdata (FILE *f, char *errkey, SIMCONTL *Simc, WDAT *Wd, int  Ncompnt,  C
 				Pelm->in->upo = (Pelm + Plist->Nelm -1)->out;	  
 			}
 
-			if ( DEBUG )
+			if ( DEBUG())
 			{
 				printf("<<Pathdata>> test end\n"); 
 			}
@@ -633,7 +631,7 @@ void Pathdata (FILE *f, char *errkey, SIMCONTL *Simc, WDAT *Wd, int  Ncompnt,  C
 		{
 			Mpath->type = BRC_PTYP;
 
-			if ( DEBUG )
+			if ( DEBUG())
 			{
 				printf("<<Pathdata>> Mpath i=%d  type=%c\n", i, Mpath->type);
 			}
@@ -644,7 +642,7 @@ void Pathdata (FILE *f, char *errkey, SIMCONTL *Simc, WDAT *Wd, int  Ncompnt,  C
 				Pelm = Plist->pelm;
 				etyp = Pelm->cmp->eqptype;
 
-				if ( DEBUG )
+				if ( DEBUG())
 				{
 					printf("<<Pathdata>> Plist j=%d name=%s eqptype=%s\n", j,
 						Pelm->cmp->name, etyp);
@@ -671,7 +669,7 @@ void Pathdata (FILE *f, char *errkey, SIMCONTL *Simc, WDAT *Wd, int  Ncompnt,  C
 				for (m = 1; m < Plist->Nelm; m++, Pelm++)
 					Pelm->in->upo = (Pelm - 1)->out;
 
-				if ( DEBUG )
+				if ( DEBUG())
 				{
 					printf("<<Pathdata>> Plist MAX=%d  j=%d  type=%c\n", Mpath->Nlpath, j, Plist->type);
 				}
@@ -679,7 +677,7 @@ void Pathdata (FILE *f, char *errkey, SIMCONTL *Simc, WDAT *Wd, int  Ncompnt,  C
 		}
 		Mpath->Ncv = ncv;
 
-		if ( DEBUG )
+		if ( DEBUG())
 		{
 			printf ( "2----- MAX=%d  i=%d\n", *Nmpath, i ) ;
 		}
@@ -690,7 +688,7 @@ void Pathdata (FILE *f, char *errkey, SIMCONTL *Simc, WDAT *Wd, int  Ncompnt,  C
 
 	//   plevel(*Nmpath, Mpath, Eqsys->Ncnvrg, Eqsys->Cnvrg); 
 
-	if ( DEBUG )
+	if ( DEBUG())
 	{
 		if ( *Nmpath > 0 )
 		{
@@ -708,7 +706,7 @@ void Pathdata (FILE *f, char *errkey, SIMCONTL *Simc, WDAT *Wd, int  Ncompnt,  C
 
 	//Eo = Eqsys->Desi->cmp->elouts + 1 ;
 
-	if ( DEBUG )
+	if ( DEBUG())
 	{
 		if ( *Nmpath > 0 )
 		{
@@ -717,7 +715,7 @@ void Pathdata (FILE *f, char *errkey, SIMCONTL *Simc, WDAT *Wd, int  Ncompnt,  C
 		}
 	}
 
-	if ( DEBUG )
+	if ( DEBUG())
 	{
 		printf ( "\n" ) ;
 		C = Compnt ;

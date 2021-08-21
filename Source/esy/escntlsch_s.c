@@ -484,7 +484,7 @@ void	contlxprint(int Ncontl, CONTL *C)
 	CONTL	*Contl ;
 	
 	Contl = C ;
-	if ( DEBUG )
+	if ( DEBUG())
 	{
 		printf("contlxprint --- Contlschdlr\n");
 		

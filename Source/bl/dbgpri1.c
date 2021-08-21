@@ -35,7 +35,7 @@ void	xprtwallinit ( int Nmwall, MWALL *M )
 		Max = imax ( Mw->M, Max ) ;
 	
 	Mw = M ;
-	if ( DEBUG )
+	if ( DEBUG())
 	{
 		printf ( "--- xprtwallinit\n" ) ;
 		
@@ -82,7 +82,7 @@ void	xprsolrd ( int Nexs, EXSF *E )
 	EXSF	*Exs ;
 	
 	Exs = E ;
-	if ( DEBUG )
+	if ( DEBUG())
 	{
 		printf ( "--- xprsolrd\n" ) ;
 		
@@ -144,7 +144,7 @@ void	xprxas ( int Nroom, ROOM *R, RMSRF *S )
 	ROOM	*Room ;
 	
 	Room = R ;
-	if ( DEBUG )
+	if ( DEBUG())
 	{
 		printf ( "--- xprxas\n" ) ;
 		

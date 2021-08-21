@@ -68,7 +68,7 @@ void	dprschtable ( SEASN *Ssn, WKDY *Wkd, DSCH *Dh, DSCW *Dw )
 	Nsc = Dsch->end ;
 	Nsw = Dscw->end ;
 
-	if ( DEBUG )
+	if ( DEBUG())
 	{
 		printf("\n*** dprschtable  ***\n");
 		printf("\n=== Schtable end  is=%d  iw=%d  sc=%d  sw=%d\n", Ns, Nw, Nsc, Nsw ) ;
@@ -187,7 +187,7 @@ void	dprschdata ( SCH *Sh, SCH *Sw )
 	Nsc = Sch->end ;
 	Nsw = Scw->end ;
 
-	if ( DEBUG )
+	if ( DEBUG())
 	{
 		printf ( "\n*** dprschdata  ***\n" ) ;
 		printf ( "\n== Sch.end=%d   Scw.end=%d\n", Nsc, Nsw ) ;
@@ -284,7 +284,7 @@ void	dprachv (int Nroom, ROOM *Room)
 	
 	Rm = Room ;
 
-	if ( DEBUG )
+	if ( DEBUG())
 	{
 		printf("\n*** dprachv***\n");
 		
@@ -327,7 +327,7 @@ void	dprexsf ( EXSF *E)
 		Exs = E ;
 		N = Exs->end ;
 		
-		if ( DEBUG )
+		if ( DEBUG())
 		{
 			printf("\n*** dprexsf ***\n"); 
 			for ( i = 0; i < N; i++, Exs++)
@@ -364,7 +364,7 @@ void	dprwwdata(WALL *Wa, WINDOW *Wi)
 	Wall = Wa ;
 	Window = Wi ;
 
-	if ( DEBUG )
+	if ( DEBUG())
 	{
 		printf ( "\n*** dprwwdata ***\nWALLdata\n" ) ;
 		
@@ -435,7 +435,7 @@ void	dprroomdata(ROOM *R, RMSRF *S)
 	Room = R ;
 	Sd = S ;
 
-	if ( DEBUG )
+	if ( DEBUG())
 	{
 		printf ( "\n*** dprroomdata ***\n" ) ;
 		
@@ -529,7 +529,7 @@ void	dprballoc ( MWALL *M, RMSRF *S )
 	
 	Sd = S ;
 	Mw = M ;
-	if ( DEBUG )
+	if ( DEBUG())
 	{
 		printf ( "\n*** dprballoc ***\n" ) ;
 		

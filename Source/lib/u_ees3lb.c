@@ -35,7 +35,7 @@ void HeapCheck(char *s)
 	int i ;
 
 #if WINVER
-	if (DEBUG)
+	if (DEBUG())
 	{
 		//printf("HeatCheck  %s\n", s) ;
 		i = _heapchk();

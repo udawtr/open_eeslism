@@ -201,7 +201,7 @@ void Gdata (FILE *fi, char *dsn, char *File, char **wfname, char **ofname,
 				else if (strcmp(s, "*log") == 0 )
 					logprn = 1 ;
 				else if (strcmp(s, "*debug" ) == 0 )
-					DEBUG = 1 ;
+					EnterDebugMode();
 				else if (strchr(s, '-') == 0)
 				{
 					sscanf(s, "%d/%d", &Ms, &Ds);

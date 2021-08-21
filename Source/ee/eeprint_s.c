@@ -45,13 +45,13 @@ void Eeprinth(DAYTM *Daytm, SIMCONTL *Simc, int Nflout, FLOUT *flout,
 		**************/
 		for (i = 0; i < Nflout; i++, flo++)
 		{
-			if ( DEBUG )
+			if ( DEBUG())
 				printf ( "Eeprinth MAX=%d flo[%d]=%s\n", Nflout, i, flo->idn ) ;
 			
 			// 気象データの出力
 			if (strcmp(flo->idn, PRTHWD) == 0)
 			{
-				if (DEBUG)
+				if (DEBUG())
 					printf("<Eeprinth> xprsolrd\n");
 				//xprsolrd ( Exsfst->Nexs, Exsfst->Exs);
 				Wdtprint(flo->f, title, Mon, Day, time, Wd, Exsfst);

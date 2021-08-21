@@ -148,7 +148,7 @@ void Pumpflow(int Npump, PUMP *Pump)
 		{
 			S = Pump->sol->Iw;
 			
-			if ( DEBUG )
+			if ( DEBUG())
 			{
 				printf("<Pumpflow> i=%d S=%lf Ic=%lf a0=%lf a1=%e a2=%e\n",
 					i, S, Pump->cat->val[3], Pump->cat->val[0],
@@ -176,7 +176,7 @@ void Pumpflow(int Npump, PUMP *Pump)
 				Pump->E = 0.0;
 			}
 			
-			if ( DEBUG )
+			if ( DEBUG())
 			{
 				printf("<Pumpflow>  control=%c G=%lf E=%lf\n", 
 					Pump->cmp->control, Pump->G, Pump->E);

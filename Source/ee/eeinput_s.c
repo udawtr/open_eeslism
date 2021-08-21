@@ -98,7 +98,7 @@ void Eeinput(char *Ipath, SIMCONTL *Simc, SCHDL *Schdl,
 	fclose(fi);
 
 #if SIMUL_BUILDG  /******************************/
-	if (DEBUG)
+	if (DEBUG())
 		dprdayweek(Simc->daywk);
 #endif
 

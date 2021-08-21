@@ -49,7 +49,7 @@ void Rmhtrcf(EXSFS *Exs, char *Emrk, ROOM *Room, RMSRF *Sd, WDAT *Wd)
 			printf("----- Rmhtrcf  i=%d count=%d Emrk=%c\n",
 			i, count, *Emrk); /*********/
 
-			if (DEBUG)
+			if (DEBUG())
 				printf("Room Name=%s\n", rm->name);
 			/************************/
 
@@ -58,7 +58,7 @@ void Rmhtrcf(EXSFS *Exs, char *Emrk, ROOM *Room, RMSRF *Sd, WDAT *Wd)
 				radex(N, sd, rm->F, rm->Wradx);
 
 			/**********************/
-			if (DEBUG)
+			if (DEBUG())
 				printf("radex end\n");
 			/************************/
 
@@ -69,7 +69,7 @@ void Rmhtrcf(EXSFS *Exs, char *Emrk, ROOM *Room, RMSRF *Sd, WDAT *Wd)
 
 			//printf("i=%d ali=%lf\n", i, Sd->ali);
 			/**********************/
-			if (DEBUG)
+			if (DEBUG())
 				printf("Radcf0 end\n");
 			/************************/
 
@@ -82,7 +82,7 @@ void Rmhtrcf(EXSFS *Exs, char *Emrk, ROOM *Room, RMSRF *Sd, WDAT *Wd)
 				rm->Tr, N, rm->alr, sd, &rm->mrk, Wd);
 
 			/**********************/
-			if (DEBUG)
+			if (DEBUG())
 				printf("Htrcf end\n");
 			/************************/
 		}
@@ -618,12 +618,12 @@ void Rmsurft(int Nroom, ROOM *Room, RMSRF *Sd)
 	else
 		r = *(Room->OTsetCwgt);
 
-	if (DEBUG)
+	if (DEBUG())
 		printf("<Rmsurft> Start\n");
 
 	for (i = 0; i < Nroom; i++, Room++)
 	{
-		if (DEBUG)
+		if (DEBUG())
 			printf("Room[%d]=%s\tN=%d\tbrs=%d\n", i, Room->name, Room->N, Room->brs);
 
 		N = Room->N;
@@ -647,13 +647,13 @@ void Rmsurft(int Nroom, ROOM *Room, RMSRF *Sd)
 			Room->oldTM = Room->TM;
 		}
 
-		if (DEBUG)
+		if (DEBUG())
 			printf("<Rmsurft>  RMsrt start\n");
 
 		// 室内表面温度の計算
 		RMsrt(Room);
 
-		if (DEBUG)
+		if (DEBUG())
 			printf("<Rmsurft>  RMsrt end\n");
 
 		Room->Tsav = RTsav(N, sd);
@@ -682,12 +682,12 @@ void Rmsurftd(int Nroom, ROOM *Room, RMSRF *Sd)
 	else
 		r = *(Room->OTsetCwgt);
 
-	if (DEBUG)
+	if (DEBUG())
 		printf("<Rmsurft> Start\n");
 
 	for (i = 0; i < Nroom; i++, Room++)
 	{
-		if (DEBUG)
+		if (DEBUG())
 			printf("Room[%d]=%s\tN=%d\tbrs=%d\n", i, Room->name, Room->N, Room->brs);
 
 		N = Room->N;
@@ -711,13 +711,13 @@ void Rmsurftd(int Nroom, ROOM *Room, RMSRF *Sd)
 		//	Room->oldTM = Room->TM;
 		//}
 
-		if (DEBUG)
+		if (DEBUG())
 			printf("<Rmsurft>  RMsrt start\n");
 
 		// 室内表面温度の計算
 		RMsrt(Room);
 
-		if (DEBUG)
+		if (DEBUG())
 			printf("<Rmsurft>  RMsrt end\n");
 
 		Room->Tsav = RTsav(N, sd);

@@ -160,7 +160,7 @@ void	Compntfree(int N, COMPNT* c)
 
 	for (i = 0; i < N; i++, c++)
 	{
-		if (DEBUG)
+		if (DEBUG())
 			printf("<Compntfree> Memory Free  i=%d name=%s\n", i, c->name);
 
 		if (c->eqptype != NULL && strcmp(c->eqptype, ROOM_TYPE) != 0

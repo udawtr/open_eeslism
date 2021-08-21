@@ -15,7 +15,6 @@
 
 /*  wreadlib.c   */
 
-//#define		DEBUG	0
 #define _CRT_SECURE_NO_WARNINGS
 #include <stdio.h>
 #include <stdlib.h>
@@ -196,7 +195,7 @@ void Weatherdt(SIMCONTL *Simc, DAYTM *Daytm, LOCAT *Loc, WDAT *Wd, EXSF *Exs, ch
 	else
 		wdflinput(&Simc->wdpt, Wd);		// VCFILE形式の気象データの読み込み
 	
-	if ( DEBUG )
+	if ( DEBUG())
 	{
 		printf ( "\n\n<Weatherdt>  ***** Wdata *****\n\n=================\n" ) ;
 		printf ( "\tT=%.1lf\n\tx=%.4lf\n\tRH=%.0lf\n",
@@ -362,7 +361,7 @@ void hspwdread(FILE *fp, int nday,
 		}
 		ic=nday+1;
 		
-		if ( DEBUG )
+		if ( DEBUG())
 		{
 			for (t=0; t<25; t++)
 			{

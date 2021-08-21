@@ -176,7 +176,7 @@ void	Thexcfv ( int Nthex, THEX *Thex )
 			Thex->Ge = Eoet->G ;
 			Thex->Go = Eoot->G ;
 
-			if ( DEBUG )
+			if ( DEBUG())
 				printf ( "<Thexcfv>  %s Ge=%lf Go=%lf\n",
 					Thex->cmp->name, Thex->Ge, Thex->Go ) ;
 

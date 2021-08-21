@@ -43,7 +43,7 @@ void Htrcf (double *alc, double *alo, char alotype, EXSF *Exs, double Tr, int N,
 	
 	HeapCheck("xxxxxx1");
 
-	if(DEBUG)
+	if(DEBUG())
 		printf("Htrcf Start\n") ;
 
 	//if ( alo != NULL )
@@ -55,7 +55,7 @@ void Htrcf (double *alc, double *alo, char alotype, EXSF *Exs, double Tr, int N,
 
 	for ( n = 0; n < N; n++, Sd++ )
 	{
-		if(DEBUG)
+		if(DEBUG())
 			printf("n=%d name=%s\n", n, Sd->name) ;
 		// 室内側対流熱伝達率の計算
 		alic = -1.0;
@@ -66,19 +66,19 @@ void Htrcf (double *alc, double *alo, char alotype, EXSF *Exs, double Tr, int N,
 				alic = *alc;
 		}
 
-		if(DEBUG)
+		if(DEBUG())
 			printf("alic=%lf\n", alic) ;
 		
 		hc = NULL ;
 		HeapCheck("xxxxxx") ;
 		
-		if(DEBUG)
+		if(DEBUG())
 			printf("Sd->alicsch\n") ;
 
 		//Sd->alicsch = NULL ;
 		if (Sd->alicsch != NULL)
 		{
-			if(DEBUG)
+			if(DEBUG())
 				printf("test\n") ;
 
 			hc = Sd->alicsch ;
@@ -86,7 +86,7 @@ void Htrcf (double *alc, double *alo, char alotype, EXSF *Exs, double Tr, int N,
 				alic = *hc;
 		}
 
-		if(DEBUG)
+		if(DEBUG())
 			printf("hc set end\n") ;
 		
 		if ( alic < 0.0 )
@@ -115,7 +115,7 @@ void Htrcf (double *alc, double *alo, char alotype, EXSF *Exs, double Tr, int N,
 			}
 		}
 		/********/
-		if(DEBUG)
+		if(DEBUG())
 			printf("----- Htrcf n=%d mrk=%c alic=%lf  Sd->alic=%lf\n",
 				n, Sd->mrk, alic, Sd->alic); /**********/
 
@@ -156,7 +156,7 @@ void Htrcf (double *alc, double *alo, char alotype, EXSF *Exs, double Tr, int N,
 		//if (n == 0)
 		//	printf("<Htrcf> 3 n=%d ali=%lf\n", n, Sd->ali);
 		
-		if ( DEBUG )
+		if ( DEBUG())
 		{
 			printf("----- Htrcf n=%2d ble=%c Ts=%.1lf Tr=%.1lf alic=%.3lf alir=%.3lf rmname=%s\n",
 				n, Sd->ble, Sd->Ts, Tr, Sd->alic, Sd->alir, Sd->room->name);
@@ -224,7 +224,7 @@ void Radcf0 (double Tsav, double *alrbold, int N, RMSRF *Sd,
 	alir = 4.0 * Sgm * pow ( TA, 3.0 ) ;
 	
 	/*****/
-	if(DEBUG)
+	if(DEBUG())
 		printf("----- Radcf0   alir=%lf  alrbold=%lf ALITOLE\n",
 			alir, *alrbold);
 	/*****/
@@ -272,7 +272,7 @@ void radex(int N,  RMSRF *Sd, double *F, double *W)
 			*(wk+l)= - *(F+l) * ( 1.0 - (Sd+j)->Ei ) / (Sd+j)->Ei ;
 			
 			/*************************/
-			if(DEBUG)
+			if(DEBUG())
 				printf ( "j=%d F=%lf Sd=%lf wk=%lf\n", j, F[l], (Sd+j)->Ei, wk[l] ) ;
 			/**************************/
 			
@@ -282,7 +282,7 @@ void radex(int N,  RMSRF *Sd, double *F, double *W)
 		*(wk+nn) += 1.0 / (Sd+n)->Ei;
 		
 		/************************/
-		if(DEBUG)
+		if(DEBUG())
 			printf ( "nn=%d Sd=%lf wk=%lf\n", nn, Sd->Ei, *(wk+nn) ) ;
 		/******************************/
 		
@@ -292,7 +292,7 @@ void radex(int N,  RMSRF *Sd, double *F, double *W)
 	matfprint(" %6.4lf", N, Ff); 
 	/************************/
 	/*******************/
-	if(DEBUG)
+	if(DEBUG())
 	{
 		printf("<radex>  wk\n");
 		matprint(" %6.4lf", N, wk); /*********/  
@@ -301,7 +301,7 @@ void radex(int N,  RMSRF *Sd, double *F, double *W)
 	matinv (wk, N, N, "<radex>" );
 	
 	/**********/
-	if(DEBUG)
+	if(DEBUG())
 	{
 		printf("<radex>  wkinv\n");
 		matprint(" %6.4lf", N, wk);  /********/ 
@@ -323,7 +323,7 @@ void radex(int N,  RMSRF *Sd, double *F, double *W)
 	free ( wk ) ;
 	
 	/******/
-	if(DEBUG)
+	if(DEBUG())
 	{
 		printf("<radex>  W[i,j]\n");
 		matprint(" %6.4lf", N, W); /****/

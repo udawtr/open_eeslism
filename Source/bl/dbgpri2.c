@@ -31,7 +31,7 @@ void	xprroom ( int Nroom, ROOM *R )
 	ROOM	*Room ;
 	
 	Room = R ;
-	if ( DEBUG )
+	if ( DEBUG())
 	{
 		printf ( "--- xprroom\n" ) ;
 		for ( i = 0; i < Nroom; i++, Room++ )
@@ -122,7 +122,7 @@ void	xprvent ( int Nroom, ROOM *R )
 	ROOM	*Room ;
 	
 	Room = R ;
-	if ( DEBUG )
+	if ( DEBUG())
 	{
 		printf ( "--- xprvent\n" ) ;
 		

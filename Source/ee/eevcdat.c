@@ -378,7 +378,7 @@ void	Flinprt ( int N, FLIN *Fl )
 	int		i ;
 
 	F = Fl ;
-	if ( DEBUG )
+	if ( DEBUG())
 	{
 		for ( i = 0; i < N; i++, F++)
 		{

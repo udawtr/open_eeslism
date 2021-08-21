@@ -70,8 +70,8 @@ void eesprera (char *File, char *Ipath)
 			else if (strcmp(s, "*") == 0 || s[strlen(s)-1] == '*')
 				fprintf(fb,"\n");
 			else if (strcmp(s, "*debug") == 0)
-				DEBUG = 1 ;
-			
+				EnterDebugMode();
+
 		}
 	}
 	fclose(fi);

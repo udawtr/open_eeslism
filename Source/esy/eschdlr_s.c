@@ -55,7 +55,7 @@ void	Eeschdlr(int day, int ttmm, SCHDL *Schdl, RMVLS *Rmvls)
 	
 #if SIMUL_BUILDG  
 	
-	if ( DEBUG )
+	if ( DEBUG())
 		xprschval (Schdl->Nsch, Schdl->val, Schdl->Nscw, Schdl->isw);
 	
 	//printf ( "1--Windowschdlr \n" ) ;
@@ -69,7 +69,7 @@ void	Eeschdlr(int day, int ttmm, SCHDL *Schdl, RMVLS *Rmvls)
 	Aichschdlr (Schdl->val, Rmvls->Nroom, Rmvls->Room);
 	//printf ( "5---- Hc=%lf\n", r[1].Hc ) ;
 	
-	if ( DEBUG )
+	if ( DEBUG())
 	{ 
 		xprqin (Rmvls->Nroom, Rmvls->Room);
 		xprvent(Rmvls->Nroom, Rmvls->Room); 

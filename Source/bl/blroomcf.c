@@ -31,7 +31,7 @@ void eeroomcf(WDAT *Wd, EXSFS *Exs, RMVLS *Rmvls, int nday, int mt)
 	// 表面熱伝達率（対流・放射））の計算
 	Rmhtrcf (Exs, Rmvls->Emrk, Rmvls->Room, Rmvls->Sd, Wd);
 	
-	if ( DEBUG )
+	if ( DEBUG())
 	{
 		// 表面熱伝達率の表示
 		xpralph (Rmvls->Nroom, Rmvls->Room, Rmvls->Sd);

@@ -138,7 +138,7 @@ void	Valvene ( int Nvalv, VALV *Valv, int *Valvreset )
 					Vcb->Plist->Gcalc = ( 1.0 - r ) * *Valv->MGo ;
 					(*Valvreset)++ ;
 
-					if ( DEBUG )
+					if ( DEBUG())
 					{
 						printf ( "<Valvene> Valvname=%s G=%lf\n", Valv->name, Valv->Plist->G ) ;
 						printf ( "    T1=%.1lf T2=%.1lf Tset=%.1lf\n", T1, T2, *Valv->Tset ) ;

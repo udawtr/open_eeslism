@@ -131,7 +131,7 @@ void Roomdata (FILE *fi, char *errkey, EXSF *Exs, DFWL *dfwl,
 	//HeapCheck(s) ;
 	while (fscanf(fi, "%s", s), s[0] != '*')
 	{
-		if ( DEBUG )
+		if ( DEBUG())
 			printf ( "%s\n", s ) ;
 		/*****************************/
 
@@ -179,7 +179,7 @@ void Roomdata (FILE *fi, char *errkey, EXSF *Exs, DFWL *dfwl,
 
 		while (fscanf(fi, "%s", s), s[0] != '#' && (s[0] != '*' || strlen(s) != 1))
 		{
-			if ( DEBUG )
+			if ( DEBUG())
 				printf("Roomdata  s=%s\n", s);
 
 			strcat(strcpy(err, Er), s); 
@@ -373,7 +373,7 @@ void Roomdata (FILE *fi, char *errkey, EXSF *Exs, DFWL *dfwl,
 
 				while (fscanf(fi, "%s", s), s[0] != ';')
 				{
-					if ( DEBUG )
+					if ( DEBUG())
 						printf("Roomdata1  s=%s\n", s);
 
 					strcat(strcpy(err, Er), s); 
@@ -387,7 +387,7 @@ void Roomdata (FILE *fi, char *errkey, EXSF *Exs, DFWL *dfwl,
 
 					if ((st=strchr(s,'=')) == 0) 
 					{ 
-						if ( DEBUG )
+						if ( DEBUG())
 							printf("Roomdata2  s=%s\n", s);
 						/*******************/
 
@@ -465,7 +465,7 @@ void Roomdata (FILE *fi, char *errkey, EXSF *Exs, DFWL *dfwl,
 						}
 						else
 						{
-							if ( DEBUG )
+							if ( DEBUG())
 								printf("Roomdata3  s=%s  c=%c\n", s, c );
 							/**********************/
 
@@ -515,14 +515,14 @@ void Roomdata (FILE *fi, char *errkey, EXSF *Exs, DFWL *dfwl,
 								//printf ( "Nwall=%d\n", Nwall ) ;
 								for ( j = 0; j < Nwall; j++, w++ )
 								{
-									if ( DEBUG )
+									if ( DEBUG())
 										printf ( "!!!!Wall.name=%s  s=%s!!!!\n", w->name, s ) ;
 									/***************************/
 
 									if ( w->name != NULL && strcmp ( w->name, s ) == 0
 										&& w->ble == Sd->ble )
 									{
-										if ( DEBUG )
+										if ( DEBUG())
 											printf ( "---- j=%d Wallname=%s n=%d\n", j, w->name, n ) ;
 										/**************************/
 

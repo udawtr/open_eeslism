@@ -59,7 +59,7 @@ void Pflow(int Nmpath, MPATH *Mpath, WDAT *Wd)
 		{
 			Plist = Mpath->plist;
 			
-			if ( DEBUG )
+			if ( DEBUG())
 			{
 				printf ( "m=%d mMAX=%d name=%s\n", m, Nmpath, Mpath->name ) ;
 			}
@@ -76,7 +76,7 @@ void Pflow(int Nmpath, MPATH *Mpath, WDAT *Wd)
 			{
 				Plist->G = 0.0 ;
 				
-				if ( DEBUG )
+				if ( DEBUG())
 				{
 					printf ( "i=%d iMAX=%d name=%s\n", i, Mpath->Nlpath, Plist->name ) ;
 				}
@@ -250,14 +250,14 @@ void Pflow(int Nmpath, MPATH *Mpath, WDAT *Wd)
 			
 			for ( i = 0; i < NG; i++ )
 			{
-				if ( DEBUG )
+				if ( DEBUG())
 				{
 					printf ( "i=%d iMAX=%d\n", i, NG ) ;
 				}
 				
 				cmp = Mpath->cbcmp[i] ;
 				
-				if ( DEBUG )
+				if ( DEBUG())
 				{
 					printf ( "<Pflow> Name=%s\n", cmp->name ) ;
 				}
@@ -270,7 +270,7 @@ void Pflow(int Nmpath, MPATH *Mpath, WDAT *Wd)
 				printf ("Pflow>> 流入　name=%s\tj=%d\tn=%d\n",
 				cmp->name, j, eli->lpath->n ) ;
 					/********************/
-					if ( DEBUG )
+					if ( DEBUG())
 					{
 						printf ( "j=%d jMAX=%d\n", j, cmp->Nin ) ;
 					}
@@ -349,7 +349,7 @@ void Pflow(int Nmpath, MPATH *Mpath, WDAT *Wd)
 			if ( NG > 0 )
 			{
 				
-				if ( DEBUG )
+				if ( DEBUG())
 				{
 					for ( i = 0; i < NG; i++ )
 					{
@@ -383,7 +383,7 @@ void Pflow(int Nmpath, MPATH *Mpath, WDAT *Wd)
 				else
 					*X = *Y / *A ;
 				
-				if ( DEBUG )
+				if ( DEBUG())
 				{
 					printf ( "<Pflow>  Flow Rate\n" ) ;
 					for ( i = 0; i < NG; i++ )
@@ -408,7 +408,7 @@ void Pflow(int Nmpath, MPATH *Mpath, WDAT *Wd)
 			for (i = 0; i < Mpath->Nlpath; i++, Plist++)
 			{
 				
-				if ( DEBUG )
+				if ( DEBUG())
 				{
 					printf("<< Pflow >> e i=%d iMAX=%d control=%c G=%g\n", 
 						i, Mpath->Nlpath, Plist->control, Plist->G);
@@ -434,7 +434,7 @@ void Pflow(int Nmpath, MPATH *Mpath, WDAT *Wd)
 					if (Pelm->out != NULL)
 						Pelm->out->G = Plist->G;
 					
-					if ( DEBUG )
+					if ( DEBUG())
 					{
 						if ( Pelm->out != NULL )
 							G0 = Pelm->out->G ;

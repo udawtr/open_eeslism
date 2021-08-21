@@ -2,8 +2,8 @@
 
 #include <stdio.h>
 
-//DEBUGフラグ
-extern int DEBUG;
+int DEBUG();
+void EnterDebugMode();
 
 //エラー出力用ファイルポインタ
 extern FILE	*ferr;

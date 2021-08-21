@@ -19,7 +19,6 @@
 #include "fesy.h"
 #include "fnfio.h"
 
-//#define  DEBUG  0
 
 void Sysupv(int Nmpath, MPATH *Mpath, RMVLS *Rmvls)
 {
@@ -39,7 +38,7 @@ void Sysupv(int Nmpath, MPATH *Mpath, RMVLS *Rmvls)
 	{
 		/* 停止要素のシステム方程式からの除外 */
 		
-		if ( DEBUG )
+		if ( DEBUG())
 		{
 			printf("\n\n<< Sysupv >> m=%d  MAX=%d\n", m, Nmpath );
 		}
@@ -48,7 +47,7 @@ void Sysupv(int Nmpath, MPATH *Mpath, RMVLS *Rmvls)
 		for (i = 0 ; i < Mpath->Nlpath; i++, Plist++)
 		{
 			
-			if ( DEBUG )
+			if ( DEBUG())
 			{
 				printf ( "\n<<Sysupv>  i=%d  iMAX=%d\n", i, Mpath->Nlpath ) ;
 				printf ( "OFF_SW=%c  Plist->control=%c\n", OFF_SW, Plist->control ) ;
@@ -75,7 +74,7 @@ void Sysupv(int Nmpath, MPATH *Mpath, RMVLS *Rmvls)
 				for ( j = (int)(Pelm - Plist->pelm); j < Plist->Nelm; j++, Pelm++)
 				{
 					
-					if ( DEBUG )
+					if ( DEBUG())
 					{
 						printf("\n<< sysupv >> pelm=%d %s  MAX=%d\n",
 							j, Pelm->cmp->name,Plist->Nelm);
@@ -104,7 +103,7 @@ void Sysupv(int Nmpath, MPATH *Mpath, RMVLS *Rmvls)
 					else if (Pelm->out->control != OFF_SW)
 					{
 						
-						if ( DEBUG )
+						if ( DEBUG())
 						{
 							printf ( "<<<<<< Pelm->out->control=%c FLWIN_SW=%c\n",
 								Pelm->out->control, FLWIN_SW ) ;
@@ -121,7 +120,7 @@ void Sysupv(int Nmpath, MPATH *Mpath, RMVLS *Rmvls)
 						else
 						{
 							
-							if ( DEBUG )
+							if ( DEBUG())
 							{
 								printf ( "up->cmp->name=%s\n", up->cmp->name ) ;
 							}
@@ -135,7 +134,7 @@ void Sysupv(int Nmpath, MPATH *Mpath, RMVLS *Rmvls)
 							if ( Pelm->in != NULL )
 								Pelm->in->upv = up;
 							
-							if ( DEBUG )
+							if ( DEBUG())
 							{
 								printf("<< Sysupv >> pelm=%s up=%s\n",
 									Pelm->cmp->name, Pelm->in->upv->cmp->name);
@@ -150,7 +149,7 @@ void Sysupv(int Nmpath, MPATH *Mpath, RMVLS *Rmvls)
 						up = Pelm->out;
 					else
 					{
-						if ( DEBUG )
+						if ( DEBUG())
 						{
 							printf ( "<Sysupv> 1\n" ) ;
 						}
@@ -158,7 +157,7 @@ void Sysupv(int Nmpath, MPATH *Mpath, RMVLS *Rmvls)
 						if ( Pelm->in != NULL )
 							Pelm->in->upv = NULL;
 						
-						if ( DEBUG )
+						if ( DEBUG())
 						{
 							printf ( "<Sysupv> 2\n" ) ;
 						}
@@ -190,7 +189,7 @@ void Sysupv(int Nmpath, MPATH *Mpath, RMVLS *Rmvls)
 		for (i = 0 ; i < Mpath->Nlpath; i++, Plist++)
 		{
 			
-			if ( DEBUG )
+			if ( DEBUG())
 			{
 				printf("  Sysupv  BRC  i=%d\n", i);
 			}
@@ -284,7 +283,7 @@ void Sysupv(int Nmpath, MPATH *Mpath, RMVLS *Rmvls)
    
 #endif
    
-   if ( DEBUG )
+   if ( DEBUG())
    {
 	   printf("  Sysupv end  ========\n");
    }

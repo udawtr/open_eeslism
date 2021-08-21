@@ -67,13 +67,23 @@ double	ca = 1005.0, cv = 1846.0, roa = 1.29, cw = 4186.0;
 double	row = 1000.0, ro = 2501000.;
 double	g = 9.8;
 double	dTM, cff_kWh;
-int		DEBUG = 0;
 int		dayprn;
 
 char	DAYweek[][4] = { "Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun", "Hol" };
 FILE	*ferr;
 int		NSTOP = 0, DISPLAY_DELAY = 0;
 int		SETprint = 0;
+
+int		_DEBUG_MODE_FLAG = 0;
+
+int DEBUG() {
+	return _DEBUG_MODE_FLAG;
+}
+
+void EnterDebugMode() {
+	_DEBUG_MODE_FLAG = 0;
+}
+
 
 /* -------------------------------------------------- */
 
@@ -529,7 +539,7 @@ int main(int Narg, char **File)
 			for (j = 0; j < lpn; j++)
 				ullp[i].ps[j] = (double *)malloc(sizeof(double)*lp[j].polyd);
 		}
-		//printf("Debug Print ullp end\n");
+		//printf("DEBUG Print ullp end\n");
 
 		/*---lpから見たmpの位置---*/
 		ulmp = (bekt *)malloc(sizeof(bekt)*lpn);
@@ -538,17 +548,17 @@ int main(int Narg, char **File)
 			for (j = 0; j < mpn; j++)
 				ulmp[i].ps[j] = (double *)malloc(sizeof(double)*mp[j].polyd);
 		}
-		//printf("Debug Print ulmp end\n");
+		//printf("DEBUG Print ulmp end\n");
 
 		/*------CG確認用データ作成-------*/
 		HOUSING_PLACE(lpn, mpn, lp, mp, RET15);
-		//printf("Debug Print HOUSING_PLACE end\n");
+		//printf("DEBUG Print HOUSING_PLACE end\n");
 
 		/*----前面地面代表点および壁面の中心点を求める--------*/
 		GRGPOINT(mp, mpn);
 		for (i = 0; i<lpn; i++)
 			GDATA(lp[i], &lp[i].G);
-		//printf("Debug Print GDATA end\n");
+		//printf("DEBUG Print GDATA end\n");
 
 		// 20170426 higuchi add 条件追加　形態係数を計算しないパターンを組み込んだ
 		if (monten > 0) {
@@ -569,7 +579,7 @@ int main(int Narg, char **File)
 			}
 		}
 
-		//printf("Debug Print mp end\n");
+		//printf("DEBUG Print mp end\n");
 
 		for (i = 0; i < mpn; i++){
 			mp[i].refg = Exsf.Exs[mp[i].exs].Rg;
@@ -602,7 +612,7 @@ int main(int Narg, char **File)
 
 	/*-----------------higuchi add-----------------------------end*/
 
-	if (DEBUG)
+	if (DEBUG())
 	{
 		printf("eeinput end\n");
 
@@ -651,7 +661,7 @@ int main(int Narg, char **File)
 
 	eeflopen(&Simc, Nflout, Flout);
 
-	if (DEBUG)
+	if (DEBUG())
 	{
 		printf("<<main>> eeflopen \n");
 	}
@@ -662,7 +672,7 @@ int main(int Narg, char **File)
 	Tinit(Rmvls.Twallinit, Rmvls.Nroom, Rmvls.Room,
 		Rmvls.Nsrf, Rmvls.Sd, Rmvls.Nmwall, Rmvls.Mw);
 
-	if (DEBUG)
+	if (DEBUG())
 	{
 		printf("<<main>> Tinit\n");
 	}
@@ -675,7 +685,7 @@ int main(int Narg, char **File)
 	Boicaint(Eqcat.Nboica, Eqcat.Boica, &Simc, Ncompnt, Compnt, &Wd, &Exsf, &Schdl);
 	Mecsinit(dTM, &Eqsys, &Simc, Ncompnt, Compnt, Exsf.Nexs, Exsf.Exs, &Wd, &Rmvls);
 
-	if (DEBUG)
+	if (DEBUG())
 	{
 		printf("<<main>> Mecsinit\n");
 	}
@@ -773,7 +783,7 @@ int main(int Narg, char **File)
 			//if (Daytm.Mon == 11 && Daytm.Day == 12 && Daytm.ttmm == 800)
 			//	printf("aaaaaa\n");
 
-			if (DEBUG)
+			if (DEBUG())
 			{
 				printf("<< main >> nday=%d mm=%d mt=%d  tt=%d mm=%d\n",
 					nday, mm, mt, tt, mm);
@@ -791,7 +801,7 @@ int main(int Narg, char **File)
 					Daytm.Mon, Daytm.Day, nday, day, Daytm.time);
 			}
 
-			if (DEBUG)
+			if (DEBUG())
 			{
 				printf("---- date=%2d %2d nday=%d day=%d time=%5.2lf ----\n",
 					Daytm.Mon, Daytm.Day, nday, day, Daytm.time);
@@ -848,7 +858,7 @@ int main(int Narg, char **File)
 
 
 
-				if (DEBUG)
+				if (DEBUG())
 				{
 					printf(" ** daymx=%d  Tgrav=%lf  DT=%lf  Tsupw=%lf\n",
 						Loc.daymxert, Loc.Tgrav, Loc.DTgr, Wd.Twsup);
@@ -955,7 +965,7 @@ int main(int Narg, char **File)
 			if (dayprn && ferr)
 				xprsolrd(Exsf.Nexs, Exsf.Exs);
 
-			if (DEBUG)
+			if (DEBUG())
 			{
 				xprsolrd(Exsf.Nexs, Exsf.Exs);
 				printf("<<main>> Exsfsol\n");
@@ -964,7 +974,7 @@ int main(int Narg, char **File)
 			// 現時刻ステップのスケジュール作成
 			Eeschdlr(day, Daytm.ttmm, &Schdl, &Rmvls);
 
-			if (DEBUG)
+			if (DEBUG())
 			{
 				printf("<<main>>  Eeschdlr\n");
 			}
@@ -976,7 +986,7 @@ int main(int Narg, char **File)
 			// 空調発停スケジュール設定が完了したら人体発熱を再計算
 			Qischdlr(Rmvls.Nroom, Rmvls.Room);
 
-			if (DEBUG)
+			if (DEBUG())
 			{
 				printf("<<main>> Contlschdlr\n");
 			}
@@ -989,11 +999,11 @@ int main(int Narg, char **File)
 			Valvcountreset(Eqsys.Nvalv, Eqsys.Valv);
 			Evaccountreset(Eqsys.Nevac, Eqsys.Evac);
 
-			/*---- Satoh Debug VAV  2000/12/6 ----*/
+			/*---- Satoh DEBUG VAV  2000/12/6 ----*/
 			/* VAV 計算繰り返しループの開始地点 */
 			for (j = 0; j < VAV_Count_MAX; j++)
 			{
-				if (DEBUG)
+				if (DEBUG())
 					printf("\n\n====== VAV LOOP Count=%d ======\n\n\n", j);
 				if (dayprn && ferr)
 					fprintf(ferr, "\n\n====== VAV LOOP Count=%d ======\n\n\n", j);
@@ -1003,7 +1013,7 @@ int main(int Narg, char **File)
 
 				Pumpflow(Eqsys.Npump, Eqsys.Pump);
 
-				if (DEBUG)
+				if (DEBUG())
 				{
 					printf("<<main>> Pumpflow\n");
 				}
@@ -1013,7 +1023,7 @@ int main(int Narg, char **File)
 
 				Pflow(Nmpath, Mpath, &Wd);
 
-				if (DEBUG)
+				if (DEBUG())
 				{
 					printf("<<main>> Pflow\n");
 				}
@@ -1027,7 +1037,7 @@ int main(int Narg, char **File)
 
 				Sysupv(Nmpath, Mpath, &Rmvls);
 
-				if (DEBUG)
+				if (DEBUG())
 				{
 					printf("<<main>> Sysupv\n");
 				}
@@ -1049,7 +1059,7 @@ int main(int Narg, char **File)
 
 				Mecscf(&Eqsys);
 
-				if (DEBUG)
+				if (DEBUG())
 				{
 					printf("<<main>> Mecscf\n");
 				}
@@ -1065,14 +1075,14 @@ int main(int Narg, char **File)
 				//if (tt == 7)
 				//	free(Exsf.Exs[6].name);
 
-				if (DEBUG)
+				if (DEBUG())
 				{
 					printf("<<main>> eeroomcf\n");
 				}
 
 				/*   作用温度制御時の設定室内空気温度  */
 				Rmotset(Rmvls.Nroom, Rmvls.Room);
-				if (DEBUG)
+				if (DEBUG())
 				{
 					printf("<<main>> Rmotset End\n");
 				}
@@ -1080,7 +1090,7 @@ int main(int Narg, char **File)
 				/* 室、放射パネルのシステム方程式作成 */
 				Roomvar(Rmvls.Nroom, Rmvls.Room, Rmvls.Nrdpnl, Rmvls.Rdpnl);
 
-				if (DEBUG)
+				if (DEBUG())
 				{
 					printf("<<main>>  Roomvar\n");
 					eloutprint(1, Nelout, Elout, Compnt);
@@ -1106,7 +1116,7 @@ int main(int Narg, char **File)
 					if (i == 0)
 						hcldwetmdreset(&Eqsys);
 
-					if (DEBUG)
+					if (DEBUG())
 						printf("再計算が必要な機器のループ %d\n", i);
 
 					if (dayprn && ferr)
@@ -1199,7 +1209,7 @@ int main(int Narg, char **File)
 				Stheatcfv(Eqsys.Nstheat, Eqsys.stheat);
 				/*****************/
 
-				/*---- Satoh Debug VAV  2000/12/6 ----*/
+				/*---- Satoh DEBUG VAV  2000/12/6 ----*/
 				/* VAV 計算繰り返しループの終了地点 */
 			}
 
@@ -1225,7 +1235,7 @@ int main(int Narg, char **File)
 			for (rm = 0; rm < Rmvls.Nroom; rm++, Rm++)
 				Rm->Qeqp = 0.0;
 
-			if (DEBUG)
+			if (DEBUG())
 				printf("Mecsene st\n");
 
 			/*  システム使用機器の供給熱量、エネルギーの計算  */
@@ -1235,34 +1245,34 @@ int main(int Narg, char **File)
 			printf ( "Mecsene en\n" ) ;
 			/***********************/
 
-			if (DEBUG)
+			if (DEBUG())
 			{
 				mecsxprint(&Eqsys);
 			}
 
 			/* ------------------------------------------------ */
-			if (DEBUG)
+			if (DEBUG())
 				printf("xxxmain 2\n");
 
 			// 前時刻の室温の入れ替え、OT、MRTの計算
 			Rmsurft(Rmvls.Nroom, Rmvls.Room, Rmvls.Sd);
 
-			if (DEBUG)
+			if (DEBUG())
 				printf("xxxmain 3\n");
 
 			//if (Daytm.Mon == 1 && Daytm.Day == 5 && fabs(Daytm.time - 23.15) < 1.e-5)
-			//	printf("debug\n");
+			//	printf("DEBUG\n");
 
 			// 壁体内部温度の計算（ヒステリシス考慮PCMの状態値もここで設定）
 			RMwlt(Rmvls.Nmwall, Rmvls.Mw);
 
-			if (DEBUG)
+			if (DEBUG())
 				printf("xxxmain 4\n");
 
 			// PMV、SET*の計算
 			Rmcomfrt(Rmvls.Nroom, Rmvls.Room);
 
-			if (DEBUG)
+			if (DEBUG())
 				printf("xxxmain 5\n");
 
 			//xprsolrd (Exsf.Nexs, Exsf.Exs);
@@ -1271,7 +1281,7 @@ int main(int Narg, char **File)
 			Eeprinth(&Daytm, &Simc, Nflout, Flout, &Rmvls, &Exsf,
 				Nmpath, Mpath, &Eqsys, &Wd);
 
-			if (DEBUG)
+			if (DEBUG())
 				printf("xxxmain 6\n");
 
 			if (Daytm.ddpri)
@@ -1286,17 +1296,17 @@ int main(int Narg, char **File)
 				Qrmsum(Daytm.Day, Rmvls.Nroom, Rmvls.Room, Rmvls.Qrm,
 					Rmvls.Trdav, Rmvls.Qrmd);
 
-				if (DEBUG)
+				if (DEBUG())
 					printf("xxxmain 7\n");
 
 				// 気象データの日集計、月集計
 				Wdtsum(Daytm.Mon, Daytm.Day, day, Daytm.ttmm, &Wd, Exsf.Nexs, Exsf.Exs, &Wdd, &Wdm, Soldy, Solmon, &Simc);
 			}
 
-			if (DEBUG)
+			if (DEBUG())
 				printf("xxxmain 8\n");
 
-			if (DEBUG)
+			if (DEBUG())
 			{
 				//xprtwpanel (Rmvls.Nroom, Rmvls.Room, Twp, Sd, Mw); 
 				xprtwsrf(Rmvls.Nsrf, Rmvls.Sd);
@@ -1328,7 +1338,7 @@ int main(int Narg, char **File)
 	// 月－時刻別集計値の出力
 	Eeprintmt(&Simc, Nflout, Flout, &Eqsys, Rmvls.Nrdpnl, Rmvls.Rdpnl);
 
-	if (DEBUG)
+	if (DEBUG())
 	{
 		printf("メモリ領域の解放\n");
 	}

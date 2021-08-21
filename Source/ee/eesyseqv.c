@@ -72,7 +72,7 @@ void Syseqv(int Nelout, ELOUT *Elout, SYSEQ *Syseq)
 	
 	for (i = 0; i < Nelout; i++, Elout++)
 	{
-		if ( DEBUG )
+		if ( DEBUG())
 		{
 			printf("xxx syseqv  Eo name=%s control=%c sysld=%c i=%d MAX=%d\n",
 				Elout->cmp->name, Elout->control, Elout->sysld, i, Nelout);
@@ -101,7 +101,7 @@ void Syseqv(int Nelout, ELOUT *Elout, SYSEQ *Syseq)
 		
 		if (Elout->control == ON_SW)
 		{
-			if ( DEBUG )
+			if ( DEBUG())
 				printf ( "ON_SW = [i=%d m=%d n=%d] %s  G=%lf\n", i, m, n, Elout->cmp->name, Elout->G ) ;
 
 			//			Syseq->eleq[m] = Elout;
@@ -155,7 +155,7 @@ void Syseqv(int Nelout, ELOUT *Elout, SYSEQ *Syseq)
 		//		elout = Syseq->eleq[i];
 		elout = eleq[i];
 		
-		if ( DEBUG )
+		if ( DEBUG())
 		{  
 			printf("xxx syseqv Elout=%d %s Ni=%d cfo=%lf\n", 
 				i, elout->cmp->name, elout->Ni, elout->coeffo);
@@ -208,7 +208,7 @@ void Syseqv(int Nelout, ELOUT *Elout, SYSEQ *Syseq)
 			
 			if ((elov = elin->upv) != NULL)
 			{
-				if ( DEBUG )
+				if ( DEBUG())
 				{ 
 					printf("xxx syseqv Elout=%d %s  in=%d elov=%s  control=%c sys=%lf\n",
 						i, elout->cmp->name, j, 
@@ -230,7 +230,7 @@ void Syseqv(int Nelout, ELOUT *Elout, SYSEQ *Syseq)
 				else if (elov->control == LOAD_SW 
 					|| elov->control == FLWIN_SW || elov->control == BATCH_SW)
 				{
-					if ( DEBUG )
+					if ( DEBUG())
 					{   
 						printf("xxx syseqv elov=%s  control=%c sys=%lf\n",
 							elov->cmp->name, elov->control, elov->sysv);
@@ -252,7 +252,7 @@ void Syseqv(int Nelout, ELOUT *Elout, SYSEQ *Syseq)
 			//elin++;
 			//cfin++;
 		}   
-		if ( DEBUG )
+		if ( DEBUG())
 		{  
 			printf("xx syseqv  i=%d  b=%lf\n", i, *b);
 		}
@@ -263,7 +263,7 @@ void Syseqv(int Nelout, ELOUT *Elout, SYSEQ *Syseq)
 	
 	/********* 連立方程式 ***********/
 	
-	if ( DEBUG )
+	if ( DEBUG())
 	{
 		seqprint("%g\t", Nsv, sysmcf, "%g", syscv);
 
@@ -298,7 +298,7 @@ void Syseqv(int Nelout, ELOUT *Elout, SYSEQ *Syseq)
 		}
 	}
 	
-	if ( DEBUG )
+	if ( DEBUG())
 	{
 		st = mrk ;
 		for (i=0; i<Nsv; i++, st++) 

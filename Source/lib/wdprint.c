@@ -163,7 +163,7 @@ void Wdtprint(FILE *fo, char *title, int Mon, int Day, double time,
 
 	Nexs = Exsfst->Nexs ;
 	
-	if ( DEBUG )
+	if ( DEBUG())
 	{
 		printf ( "N=%d\t%d/%d\t%.2lf\n", Nexs, Mon, Day, time);
 		printf( "%s;\n %d\n", title, Nexs);
@@ -179,7 +179,7 @@ void Wdtprint(FILE *fo, char *title, int Mon, int Day, double time,
 		e = Exsfst->Exs ;
 		for ( i = 0; i < Nexs; i++, e++ )
 		{
-			if ( DEBUG )
+			if ( DEBUG())
 				printf( "%s[%c]\t", e->name, e->typ);
 
 			fprintf(fo, "%s[%c]\t", e->name, e->typ);

@@ -537,7 +537,7 @@ void RMwlt (int Nmwall, MWALL *Mw)
 		
 		Tie = (Sd->alic * Room->Tr + Sd->alir * Sd->Tmrt + Sd->RS) / Sd->ali;
 		
-		if ( DEBUG )
+		if (DEBUG())
 		{
 			printf("----- RMwlt i=%d room=%s ble=%c %s  Tie=%lf Tee=%lf\n",
 				i, Sd->room->name, Sd->ble, Sd->name, Tie, Tee);
@@ -602,7 +602,7 @@ void RMwltd(int Nmwall, MWALL *Mw)
 
 			Tie = (Sd->alic * Room->Tr + Sd->alir * Sd->Tmrt + Sd->RS) / Sd->ali;
 
-			if (DEBUG)
+			if (DEBUG())
 			{
 				printf("----- RMwlt i=%d room=%s ble=%c %s  Tie=%lf Tee=%lf\n",
 					i, Sd->room->name, Sd->ble, Sd->name, Tie, Tee);

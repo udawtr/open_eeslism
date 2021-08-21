@@ -94,7 +94,7 @@ void Qischdlr(int Nroom, ROOM* Room)
 
 		//j = Room->hmnsc ;
 
-		if (DEBUG)
+		if (DEBUG())
 			printf("<Qischdlr> Name=%s\n", Room->name);
 
 		//v = *(val + j) ;
@@ -112,7 +112,7 @@ void Qischdlr(int Nroom, ROOM* Room)
 					Eprint("<Qischdlr>", s);
 				}
 
-				if (DEBUG)
+				if (DEBUG())
 					printf("wk=%d\n", wk);
 
 				struct elout* Eo;
@@ -130,7 +130,7 @@ void Qischdlr(int Nroom, ROOM* Room)
 				Room->Hr = Q * 0.5;
 				Room->HL = Ht[wk] * N - Q;
 
-				if (DEBUG)
+				if (DEBUG())
 					printf("Hc=%lf Hr=%lf HL=%lf\n", Room->Hc, Room->Hr, Room->HL);
 			}
 		}
