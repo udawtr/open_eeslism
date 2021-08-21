@@ -31,10 +31,6 @@ extern double  cff_kWh;
 	extern int	dayprn;
 	extern FILE* ferr;
 
-	extern double  Ca, Cv, Rc, Cc, Cw, Pcnv, P;
-
-	extern double P;
-	extern double Pcnv;
 	double Tabs, Pws, Temp;
 
 extern double  Lat, Slat, Clat, Tlat, Lon, Ls;

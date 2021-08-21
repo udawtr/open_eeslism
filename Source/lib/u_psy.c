@@ -46,16 +46,6 @@ void Psyint(void)
 	Pcnv = 1.0;
 }
 /* ----------------------------------------- */
-void Poset(double Po)
-{
-	P = Po;
-}
-/* ----------------------------------------- */
-double FNPo(void)
-{
-	return (P);
-}
-/* ----------------------------------------- */
 double FNPws(double T)
 {
 	double Pws, Tabs, Temp;

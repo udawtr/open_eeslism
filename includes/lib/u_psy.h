@@ -16,8 +16,6 @@
 #pragma once
 
 void Psyint(void);
-void Poset(double Po);
-double FNPo(void);
 double FNPws(double T);
 double FNDp(double Pw);
 
