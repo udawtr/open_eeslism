@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 
 
 //HEX 熱交換器

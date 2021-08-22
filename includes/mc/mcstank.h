@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 
 //STANK 蓄熱槽
 

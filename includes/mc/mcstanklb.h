@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 
 void stoint(double dTM, int N, double Vol, double KAside, double KAtop, double KAbtm,
 	     double *dvol, double *Mdt, double *KS, double *Tss, double *Tssold,

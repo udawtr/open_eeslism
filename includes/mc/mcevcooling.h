@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 
 //EVAC 気化冷却器
 

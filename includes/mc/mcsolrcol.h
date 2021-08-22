@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 
 //COL 太陽熱集熱器
 

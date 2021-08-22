@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 
 void Refcmpdat(FILE *frf, int *Nrfcmp, RFCMP *Rfcmp);
 void Compca(double *e, double *d, double EGex, double *Teo, double Ta, 

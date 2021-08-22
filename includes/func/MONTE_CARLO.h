@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 
 void MONTE_CARLO(int u,int w,int NUM,P_MENN *OP,
                       P_MENN *LP,XYZ **gp,int gpn,int nday,int startday); 

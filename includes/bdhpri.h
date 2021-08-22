@@ -1,3 +1,3 @@
-#pragma once
+﻿#pragma once
 
 void	bdhpri(char *ofile, RMVLS rmvls, EXSFS *exs);

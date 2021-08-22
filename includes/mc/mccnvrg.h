@@ -1,3 +1,3 @@
-#pragma once
+﻿#pragma once
 
 void Cnvrgcfv(int Ncnvrg, COMPNT **Cnvrg);

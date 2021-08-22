@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 
 void DAINYUU_MP(P_MENN *mp,P_MENN *op,int opn, int mpn);
 void DAINYUU_GP(XYZ *p,XYZ O,XYZ E,double ls,double ms,double ns);

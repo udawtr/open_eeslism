@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 
 //PIPE 配管
 

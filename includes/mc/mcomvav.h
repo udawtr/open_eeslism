@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 
 int OMVAVdata (char *ss, OMVAVCA *OMvavca) ;
 double	OMflowcalc(OMVAV *OMvav, WDAT *Wd) ;

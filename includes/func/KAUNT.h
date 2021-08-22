@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 
 void KAUNT(int mpn, double ls, double ms, double ns,
            double *suma, double *sumg, double *sumwall, double s,

@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 
 //DESI バッチ式デシカント空調機
 

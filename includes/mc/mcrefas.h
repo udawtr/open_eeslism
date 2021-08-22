@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 
 int Refadata (char *s, REFACA *Refaca, int Nrfcmp, RFCMP *Rfcmp);
 void Refaint(int Nrefa, REFA *Refa, WDAT *Wd, int Ncompnt, COMPNT *Compnt);

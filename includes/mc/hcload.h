@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 
 void Hclelm(int Nhcload, HCLOAD *Hcload);
 void Hcldcfv(int Nhcload, HCLOAD *Hcload);

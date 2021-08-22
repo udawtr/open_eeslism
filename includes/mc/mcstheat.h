@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 
 //STHEAT 電気蓄熱式暖房器
 

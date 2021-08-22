@@ -1,2 +1,2 @@
-#pragma once
+﻿#pragma once
 void RAND(double *a,double *v);   

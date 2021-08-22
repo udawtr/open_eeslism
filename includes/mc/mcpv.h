@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 
 //PV 太陽電池
 
