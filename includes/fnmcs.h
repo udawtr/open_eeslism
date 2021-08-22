@@ -74,7 +74,7 @@
 /* mc_cnvrg.c  */
 #include "mc/mccnvrg.h"
 
-/*  mceqcadat.c  */
+//EQDAT 機器カタログデータの読み込み
 #include "mc/mceqcadat.h"
 
 /*  mceqpcat.c  */

@@ -21,6 +21,9 @@
 #include "fnlib.h"
 
 
+/*
+ * @brief 機器カタログ名を指定してシステム構成要素に読み込む 
+ */
 int eqpcat(char *catname, COMPNT *C, EQCAT *Ecat, EQSYS *Esys)
 {
 	int		i ;

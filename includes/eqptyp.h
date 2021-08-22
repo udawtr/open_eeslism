@@ -989,24 +989,40 @@ typedef struct pump
 	struct eday mQdy, mGdy, mEdy;
 } PUMP;
 
-/* -------------------------------------------- */ 
 
-typedef struct flin    /*  境界条件設定用仮想機器 */
+// --------------------------------------------
+// 境界条件設定用仮想機器
+// --------------------------------------------
+
+//@brief 境界条件設定用仮想機器
+//@sa Flinint, flindat,  Flinprt
+typedef struct flin
 {
-	char *name,     
-        *namet,   /* 変数名（温度、顕熱） */   
-		*namex,   /* 変数名（湿度、潜熱） */   
-				  awtype;   /* 'W':１変数のとき（nametの変数名のみ使用）、 
-	'A':２変数のとき（namexの変数も使用） */
-	double *vart,   /* nametで示された変数の値 */
-		*varx;   /* namexで示された変数の値 */
+	char* name;
+
+	//! 変数名（温度、顕熱）
+	char* namet;   /*  */
+
+	//! 変数名（湿度、潜熱）
+	char* namex;
+
+	//! 'W':１変数のとき（nametの変数名のみ使用）
+	//! 'A':２変数のとき（namexの変数も使用）
+	char  awtype;
+
+	//! nametで示された変数の値
+	double* vart;
+
+	//! namexで示された変数の値
+	double *varx;
 	
 	struct compnt *cmp;
 } FLIN;
 
 /* -------------------------------------------- */ 
 
-typedef struct hcload   /* 空調機負荷仮想機器　*/
+//@brief 空調機負荷仮想機器
+typedef struct hcload
 { 
 	char    *name,
 		*loadt,
@@ -1062,7 +1078,8 @@ typedef struct hcload   /* 空調機負荷仮想機器　*/
 	struct compnt *cmp;      
 } HCLOAD;
 
-typedef struct gload  /* 入力負荷仮想機器 */
+//@brief 入力負荷仮想機器
+typedef struct gload
 {
 	char *name,
         *nameqs,
@@ -1133,78 +1150,151 @@ typedef struct pv
 
 /*
  * @brief 機器仕様データ一覧
+ * @sa Eqcadata
  */
-typedef struct eqcat   /**/
+typedef struct eqcat
 {
+	//------ 標準圧縮機特性 ------
+	//@sa Refcmpdat
+
+	//! 標準圧縮機特性のデータ数
 	int   Nrfcmp;
+
+	//! 標準圧縮機特性の動的配列
 	struct rfcmp *Rfcmp;
+
+	//------ ポンプ・ファンの部分負荷特性の近似式係数 ------
+	//@sa PFcmpdata
 	
+	//! ポンプ・ファンの部分負荷特性の近似式係数のデータ数
 	int   Npfcmp ;
+
+	//! ポンプ・ファンの部分負荷特性の近似式係数の動的配列
 	struct pfcmp *pfcmp ;
+
+	//------ 1) HCC 冷温水コイル ------
 	
+	//! 冷温水コイルのデータ数
 	int   Nhccca;
 
 	//! 冷温水コイルの動的配列
 	struct hccca  *Hccca;
 	
+	//------ 2) BOI ボイラー ------
+
+	//! ボイラーのデータ数
 	int   Nboica;
 
 	//! ボイラーの動的配列
 	struct boica  *Boica;
+
+	//------ 3) REFA チラー、ヒートポンプチラー（空気熱源) ------
 	
+	//! チラー、ヒートポンプチラー（空気熱源) のデータ数
 	int   Nrefaca;
+
+	//! チラー、ヒートポンプチラー（空気熱源) の動的配列
 	struct refaca *Refaca;
 	
+	//------ 4) COL,ACOL 太陽熱集熱器 -----
+
+	//! 太陽熱集熱器のデータ数
 	int   Ncollca;
+
+	//! 太陽熱集熱器の動的配列
 	struct collca *Collca;
+
+	//------ 6) PIPE,DUCT 配管とダクト -----
 	
+	//! 配管とダクトのデータ数
 	int   Npipeca;
+
+	//! 配管とダクトの動的配列
 	struct pipeca *Pipeca;
 	
+	//------ 7) STANK 蓄熱層 ------
+
+	//! 蓄熱層のデータ数
 	int   Nstankca;
+
+	//! 蓄熱層の動的配列
 	struct stankca *Stankca;
 	
+	//------ 8) HEX 熱交換器(２流体式）------
+
+	//! 熱交換器のデータ数
 	int   Nhexca;
+
+	//! 熱交換器の動的配列
 	struct hexca *Hexca;
+
+	//------ 9) PUMP,FAN ポンプ・ファン ------
 	
+	//! ポンプ・ファンのデータ数
 	int   Npumpca;
+
+	//! ポンプ・ファンの動的配列
 	struct pumpca *Pumpca;
 
+	//------ 10) VAV,VWV VAVユニット ------
+
 	/*---- Satoh Debug VAV  2000/10/30 ----*/
+	//! VAV ユニットのデータ数
 	int	  Nvavca ;
 
 	//! VAV ユニットの動的配列
 	VAVCA	  *Vavca ;
 
+	//------ 11) STHEAT 電気蓄熱式暖房器 ------
+
 	/*---- Satoh Debug 電気蓄熱式暖房器 2001/1/21 ----*/
+	//! 電気蓄熱式暖房器のデータ数
 	int   Nstheatca ;
 
 	//! 電気蓄熱式暖房器の動的配列
 	STHEATCA  *stheatca ;
 
+	//------ 12) THEX 全熱交換器 ------
+
+	//! 全熱交換器のデータ数
 	int	  Nthexca ;
 
 	//! 全熱交換器の動的配列
 	THEXCA	*Thexca ;
 
+	//------ 5) 太陽電池 ------
+
+	//! 太陽電池のデータ数
 	int   Npvca ;
+
+	//! 太陽電池の動的配列
 	PVCA		*PVca ;
+
+	//------ 13) ????? ------
 
 	// Satoh OMVAV  2010/12/16
 	int   Nomvavca ;
 	OMVAVCA	*OMvavca ;
 
+	//------ 14) DESICCANT バッチ式デシカント空調機 ------
+
 	// Satoh追加 2013/10/20
+	//! バッチ式デシカント空調機のデータ数
 	int		Ndesica ;
 
 	//! バッチ式デシカント空調機の動的配列
 	DESICA	*Desica ;
 
+	//------ 15) EVPCOOLING 気化冷却器 ------
+
 	// Satoh追加 2013/10/26
+	//! 気化冷却器のデータ吸う
 	int		Nevacca ;
 
 	//! 気化冷却器の動的配列
 	EVACCA	*Evacca ;
+
+	//------ 16) ***************  ------
 
 	// Satoh追加 2019/8/29
 	//int		Ncompost;

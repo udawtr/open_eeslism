@@ -29,6 +29,10 @@
 #include "fnfio.h"
 #include "lib/u_psy.h"
 
+
+/*
+ * @brief システム構成要素の入力 
+ */
 void Compodata(FILE *f, char *errkey, RMVLS *Rmvls, EQCAT *Eqcat, 
 			   COMPNT **Cmp, int *Ncompnt, EQSYS *Eqsys, int *Ncmpalloc, int ID )
 {
@@ -340,10 +344,12 @@ void Compodata(FILE *f, char *errkey, RMVLS *Rmvls, EQCAT *Eqcat,
 					switch (cio)
 					{
 					case 'c':
+						// 機器カタログ名を指定して読み込む (`-c catname`)
 						if (eqpcat(s, Compnt, Eqcat, Eqsys))
 							Eprint(errkey, s);
 						break;	   
 					case 't':
+						// 直接仕様を指定 (`-type XXX`)
 						Compnt->eqptype = stralloc(s);
 
 						if ( Compnt->valvcmp )
@@ -396,16 +402,19 @@ void Compodata(FILE *f, char *errkey, RMVLS *Rmvls, EQCAT *Eqcat,
 						break;
 
 					case 'i':
+						// `-in`
 						idi[Ni] = *s;
 						Ni++ ;
 						break;
 
 					case 'o':
+						// `-out`
 						ido[No] = *s;
 						No++ ;
 						break;
 
 					case 'I':
+						// `-Nin`
 						/*---------- Satoh DEBUG 1998/5/15 ---------*/
 						if ( Crm != NULL )
 						{
@@ -439,6 +448,7 @@ void Compodata(FILE *f, char *errkey, RMVLS *Rmvls, EQCAT *Eqcat,
 							break;
 
 					case 'O':
+						// `-Nout`
 						Compnt->Nout = atoi(s);
 						for (i = 0; i <Compnt->Nout; i++)
 							ido[i] = ' ';
@@ -447,38 +457,47 @@ void Compodata(FILE *f, char *errkey, RMVLS *Rmvls, EQCAT *Eqcat,
 						break;
 
 					case 'L':
+						// `-L`
 						*(Compnt->ivparm) = atof(s);
 						break;
 
 					case 'e':
+						// `-env`
 						Compnt->envname = stralloc(s);
 						break;
 
 					case 'r':
+						// `-room`
 						Compnt->roomname = stralloc(s) ;
 						break ;
 
 					case 'h':
+						// `-hcc`
 						Compnt->hccname = stralloc(s) ;
 						break ;
 
 					case 'f':
+						// `-pfloor`
 						Compnt->rdpnlname = stralloc(s) ;
 						break ;
 
 					case 'R':
+						// `-roomheff`
 						Compnt->roomname = stralloc(s) ;
 						fscanf ( f, "%lf", &Compnt->eqpeff ) ;
 						break ;
 
 					case 's':
+						// `-exs`
 						Compnt->exsname = stralloc(s);
 						break;
 
 					case 'M':
+						// `-control`
 						Compnt->omparm = stralloc(s) ;
 						break ;
 					case 'S': case 'V':
+						// `-S` or `-V`
 						strcat(s, "  ");
 						st = s + strlen(s);
 
@@ -491,6 +510,7 @@ void Compodata(FILE *f, char *errkey, RMVLS *Rmvls, EQCAT *Eqcat,
 						break;
 
 					case 'T':
+						// `-Tinit`
 						if (*s == '(')
 						{	  
 							strcat(s, " ");
@@ -508,17 +528,20 @@ void Compodata(FILE *f, char *errkey, RMVLS *Rmvls, EQCAT *Eqcat,
 
 						/*---- Roh Debug for a constant outlet humidity model of wet coil  2003/4/25 ----*/
 					case 'w':
+						// `-wet`
 						*(Compnt->ivparm) = atof(s);
 						break;
 
 					// OM変風量でモニターするファンの名称
 					case 'm':
+						// `-monitor`
 						Compnt->monPlistName = stralloc(s) ;
 						Compnt->valvcmp->monPlistName = stralloc(s) ;
 						break ;
 
 					// 電気蓄熱暖房器内臓のPCM重量
 					case 'P':
+						// `-PCMweight`
 						Compnt->mPCM = atof(s);
 						break;
 						}
@@ -536,6 +559,7 @@ void Compodata(FILE *f, char *errkey, RMVLS *Rmvls, EQCAT *Eqcat,
 		ncmp = (int)(Compnt - cmp);
 		for (cm = cmp; cm < cmp + ncmp; cm++)
 		{
+			//分岐要素 BA
 			if (strcmp(cm->eqptype, DIVGAIR_TYPE) == 0)
 			{
 				strcpy ( s, cm->name ) ;
@@ -556,6 +580,8 @@ void Compodata(FILE *f, char *errkey, RMVLS *Rmvls, EQCAT *Eqcat,
 				Compnt->ido[i] = cm->ido[i];****/
 				Compnt++;
 			}
+
+			//合流要素 CA
 			else if (strcmp(cm->eqptype, CVRGAIR_TYPE) == 0)
 			{
 				strcpy ( s, cm->name ) ;

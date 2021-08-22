@@ -1,9 +1,20 @@
 ﻿#pragma once
 
 #include <stdio.h>
-#include "MODEL.h"
+#include "eqptyp.h"
 
+//---------------------------------------------------------------
+// 2.5.1 機器仕様（機器カタログデータ
+// 機器カタログデータの読み込み
+//---------------------------------------------------------------
+
+/*
+ * @brief 機器カタログデータの読み込み
+ * @param[IN]  f     読込元ファイルポインタ
+ * @param[IN]  dsn
+ * @param[OUT] Eqcat 機器カタログデータの動的配列
+ */
 void Eqcadata (FILE *f, char *dsn, EQCAT *Eqcat);
-void	Eqpcount ( FILE *fi, int *NBOI, int *NREFA, int *NCOL, int *NSTANK, int *NHCC,
-				  int *NHEX, int *NPIPE, int *NPUMP, int *NVAV, int *NSTHEAT, int *NTHEX, int *NPV, int *NOMVAV, int *NDESI, int *NEVAC ) ;
-int	pflistcount ( FILE *fl ) ;
+
+
+

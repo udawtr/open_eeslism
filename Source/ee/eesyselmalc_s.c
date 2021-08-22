@@ -507,6 +507,8 @@ void Elmalloc(char *errkey,
 				//Elin++;
 			}
 		}
+
+		//システム経路への流入条件
 		else if (strcmp(c, FLIN_TYPE) == 0)
 		{
 			Compnt->eqp = Flin;
@@ -619,6 +621,7 @@ void Elmalloc(char *errkey,
 			Hcload++;
 		}
 
+		//VAV or VWV
 		/*---- Satoh Debug VAV  2000/12/5 ----*/
 		else if (strcmp(c, VAV_TYPE) == 0 ||strcmp(c, VWV_TYPE) == 0)
 		{
@@ -653,7 +656,7 @@ void Elmalloc(char *errkey,
 			}
 			VAV++ ;
 		}
-		// 電気蓄熱暖房器
+		// STHEAT 電気蓄熱暖房器
 		else if (strcmp(c, STHEAT_TYPE) == 0)
 		{
 			Stheat = Eqsys->stheat + neqp ;
@@ -677,6 +680,8 @@ void Elmalloc(char *errkey,
 			}
 			Stheat++ ;
 		}
+
+		//DESICANT デシカント槽
 		// Satoh追加　デシカント槽　2013/10/23
 		else if (strcmp(c, DESI_TYPE) == 0)
 		{
@@ -716,6 +721,8 @@ void Elmalloc(char *errkey,
 			}
 			Desi++ ;
 		}
+
+		//EVPCOOLING 気化冷却器
 		// Satoh追加　気化冷却器 2013/10/26
 		else if (strcmp(c, EVAC_TYPE) == 0)
 		{
@@ -744,6 +751,8 @@ void Elmalloc(char *errkey,
 				Elin += Elout->Ni ;
 			}
 		}
+
+		// V or TV
 		else if ( strcmp ( c, VALV_TYPE ) == 0
 			|| strcmp ( c, TVALV_TYPE ) == 0 )
 		{
@@ -759,6 +768,7 @@ void Elmalloc(char *errkey,
 			Nvalv++ ;
 		}
 
+		// OMVAV
 		// Satoh OMVAV  2010/12/16
 		else if ( strcmp ( c, OMVAV_TYPE ) == 0 )
 		{
@@ -778,6 +788,8 @@ void Elmalloc(char *errkey,
 			OMvav++ ;
 			NOMvav++ ;
 		}
+
+		//QMES カロリ―メータ
 		else if ( strcmp ( c, QMEAS_TYPE ) == 0 )
 		{
 			Qmeas = Eqsys->Qmeas + NQmeas ;
@@ -789,6 +801,7 @@ void Elmalloc(char *errkey,
 			NQmeas++ ;
 		}
 
+		//THEX 全熱交換器
 		else if ( strcmp ( c, THEX_TYPE ) == 0 )
 		{
 			Thex = Eqsys->Thex + neqp ;

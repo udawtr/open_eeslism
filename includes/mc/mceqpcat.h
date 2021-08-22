@@ -1,5 +1,6 @@
 ﻿#pragma once
 
-#include "MODEL.h"
+#include "eepath.h"
+#include "eqptyp.h"
 
 int eqpcat(char *catname, COMPNT *C, EQCAT *Ecat, EQSYS *Esys);

@@ -165,6 +165,10 @@ int	VCFcount ( FILE *fi )
 
 /* 境界条件・負荷仮想機器の要素機器データとしての入力処理 */
 
+/*
+ * @details
+ * @see EESLISM7.2入力データ作成マニュアル.pdf P.57
+ */
 void flindat(FLIN *Flin)
 {
 	char s[SCHAR], *ss, *st;
@@ -185,11 +189,13 @@ void flindat(FLIN *Flin)
 			*st = '\0';
 			if (strcmp(s, "t") == 0)
 			{
+				//変数名（温度、顕熱）
 				Flin->namet = stralloc(st + 1);
 				n++;
 			}
 			else if (strcmp(s, "x") == 0)
 			{
+				//変数名（湿度、潜熱）
 				Flin->namex = stralloc(st + 1);
 				n++;
 			}

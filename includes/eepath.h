@@ -76,8 +76,7 @@
 //@brief 全熱交換器（換気の排気からの熱回収用の顕熱・潜熱熱交換器)
 #define	 THEX_TYPE		  "THEX"
 
-//@brief 
-//(マニュアル未定義)
+//@brief カロリ―メータ
 #define  QMEAS_TYPE		  "QMEAS"
 
 //@brief 
@@ -248,7 +247,8 @@ typedef struct compnt
 }  COMPNT;
 
 
-typedef struct elout	// 機器の出口構造体
+//@brief 機器の出口構造体
+typedef struct elout
 {
 	char   id,			// 出口の識別番号（熱交換器の'C'、'H'や全熱交換器の'E'、'O'など）
 		Pelmoid,			// 終端の割り当てが完了していれば '-', そうでなければ 'x'
@@ -276,7 +276,8 @@ typedef struct elout	// 機器の出口構造体
 }  ELOUT;
 
 
-typedef struct elin		// 機器の入口構造体
+//@brief 機器の入口構造体
+typedef struct elin
 {
 	
 	char   id;			// 入口の識別番号（熱交換器の'C'、'H'や全熱交換器の'E'、'O'など）
@@ -288,8 +289,8 @@ typedef struct elin		// 機器の入口構造体
 }  ELIN;
 
 
-
-typedef struct pelm		// SYSPTHに記載の機器
+//@brief SYSPTHに記載の機器
+typedef struct pelm
 {
 	char  co,
 		ci;
@@ -299,7 +300,8 @@ typedef struct pelm		// SYSPTHに記載の機器
 	struct elin   *in;	// 機器の入口
 }  PELM;
 
-typedef struct plist	// 末端経路
+//@brief 末端経路
+typedef struct plist
 {
 	int	UnknownFlow ;	// 末端経路が流量未知なら1、既知なら0
 	char  *name,
@@ -335,7 +337,8 @@ typedef struct plist	// 末端経路
 	struct omvav *OMvav ;
 }  PLIST;
 
-typedef struct mpath	// SYSPTHにおける';'で区切られる経路
+//@brief SYSPTHにおける';'で区切られる経路
+typedef struct mpath
 {
 	char  *name,		// 経路名称
 		sys,

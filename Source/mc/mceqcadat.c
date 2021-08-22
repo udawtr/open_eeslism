@@ -24,31 +24,28 @@
 #include "fnmcs.h"
 #include "fnlib.h"
 
-/* ----------------------------------------- */
+//------ プライベート関数の宣言 ------
 
-/*  機器仕様入力       */
+void _Eqpcount(FILE* fi, int* NBOI, int* NREFA, int* NCOL, int* NSTANK, int* NHCC,
+	int* NHEX, int* NPIPE, int* NPUMP, int* NVAV, int* NSTHEAT, int* NTHEX, int* NPV, int* NOMVAV, int* NDESI, int* NEVAC);
+int	_pflistcount(FILE* fl);
 
+//------------------------------------
+
+
+/*
+ * @brief 機器カタログデータの読み込み
+ * @param[IN]  f     読込元ファイルポインタ
+ * @param[IN]  dsn
+ * @param[OUT] Eqcat 機器カタログデータの動的配列
+ */
 void Eqcadata (FILE *f, char *dsn, EQCAT *Eqcat)	      
 {
     char	s[SCHAR], ss[SCHAR], *ce, E[SCHAR];
 	int		N ;
 	int		NBOI, NREFA, NCOL, NSTANK, NHCC, NHEX, NPIPE, NPUMP, NVAV, NSTHEAT, NTHEX, NPV, NDESI, NEVAC ;
 	int		NOMVAV ;
-    HCCCA	*Hccca;
-    BOICA	*Boica;
-    COLLCA	*Collca;
-    REFACA  *Refaca;
-    PIPECA  *Pipeca;
-    STANKCA *Stankca;
-    HEXCA	*Hexca;
-    PUMPCA	*Pumpca;
-	VAVCA	*vavca ;
-	STHEATCA  *stheatca ;
-	THEXCA	*Thexca ;
-	PVCA	*PVca ;
-	OMVAVCA	*OMvavca ;
-	DESICA	*Desica ;
-	EVACCA	*Evacca ;
+
     
     FILE *frf;
 
@@ -62,22 +59,22 @@ void Eqcadata (FILE *f, char *dsn, EQCAT *Eqcat)
 	//printf("1 %s\n", Room->trnx->nextroom->name) ;
 
 	//機器種別ごとの仕様定義数を取得
-	Eqpcount ( f, 
-		&NBOI,		//ボイラー
-		&NREFA,		//チラー、ヒートポンプチラー（空気熱源)
-		&NCOL,		//太陽熱集熱器
-		&NSTANK,	//蓄熱層
-		&NHCC,		//冷温水コイル
-		&NHEX,		//熱交換器(２流体式）
-		&NPIPE,		//配管
-		&NPUMP,		//ポンプ
-		&NVAV,		//VAV ユニット
-		&NSTHEAT,	//電気蓄熱式暖房器
-		&NTHEX,		//全熱交換器
-		&NPV,		//太陽電池
-		&NOMVAV,	//??
-		&NDESI,		//バッチ式デシカント空調機
-		&NEVAC		//気化冷却器
+	_Eqpcount ( f, 
+		&NBOI,		//2) BOI ボイラー
+		&NREFA,		//3) REFA チラー、ヒートポンプチラー（空気熱源)
+		&NCOL,		//4) COL,ACOL 太陽熱集熱器
+		&NSTANK,	//7) STANK 蓄熱層
+		&NHCC,		//1) HCC 冷温水コイル
+		&NHEX,		//8) HEX 熱交換器(２流体式）
+		&NPIPE,		//6) PIPE,DUCT 配管
+		&NPUMP,		//9) PUMP,FAN ポンプ
+		&NVAV,		//10) VAV,VWV VAVユニット
+		&NSTHEAT,	//11) STHEAT 電気蓄熱式暖房器
+		&NTHEX,		//12)THEX 全熱交換器
+		&NPV,		//5) PV 太陽電池
+		&NOMVAV,	//?? OMVAV,OAVAV ?????
+		&NDESI,		//14) DESICCANT バッチ式デシカント空調機
+		&NEVAC		//15) EVPCOOLING 気化冷却器
 	);
 
 
@@ -87,7 +84,7 @@ void Eqcadata (FILE *f, char *dsn, EQCAT *Eqcat)
 
 	//printf("2 %s\n", Room->trnx->nextroom->name) ;
 
-	// 2-1) 冷温水コイル
+	// 2-1) HCC 冷温水コイル
 	N = NHCC ;
 	Eqcat->Hccca = NULL ;
     if (N > 0 )
@@ -96,7 +93,7 @@ void Eqcadata (FILE *f, char *dsn, EQCAT *Eqcat)
 			Ercalloc(N, dsn);
 	}
 
-	// 2-2) ボイラー
+	// 2-2) BOI ボイラー
 	N = NBOI ;
 	Eqcat->Boica = NULL ;
     if (N > 0 )
@@ -114,7 +111,7 @@ void Eqcadata (FILE *f, char *dsn, EQCAT *Eqcat)
 			Ercalloc(N, dsn);
 	}
 
-	// 2-4) 太陽熱集熱器
+	// 2-4) COL,ACOL 太陽熱集熱器
 	N = NCOL ;
 	Eqcat->Collca = NULL ;
     if (N > 0 )
@@ -132,7 +129,7 @@ void Eqcadata (FILE *f, char *dsn, EQCAT *Eqcat)
 			Ercalloc(N, dsn);
 	}
 
-	// 2-6) 配管
+	// 2-6) PIPE 配管
 	N = NPIPE ;
 	Eqcat->Pipeca = NULL ;
     if (N > 0 )
@@ -141,7 +138,7 @@ void Eqcadata (FILE *f, char *dsn, EQCAT *Eqcat)
 			Ercalloc(N, dsn);
 	}
 
-	// 2-7) 蓄熱層
+	// 2-7) STANK 蓄熱層
 	N = NSTANK ;
 	Eqcat->Stankca = NULL ;
     if (N > 0 )
@@ -150,7 +147,7 @@ void Eqcadata (FILE *f, char *dsn, EQCAT *Eqcat)
 			Ercalloc(N, dsn);
 	}
 
-	// 2-8) 熱交換器(２流体式）
+	// 2-8) HEX 熱交換器(２流体式）
 	N = NHEX ;
 	Eqcat->Hexca = NULL ;
     if (N > 0 )
@@ -177,7 +174,7 @@ void Eqcadata (FILE *f, char *dsn, EQCAT *Eqcat)
 			Ercalloc(N, dsn);
 	}
 
-	// 2-11) 電気蓄熱式暖房器
+	// 2-11) STHEAT 電気蓄熱式暖房器
 	N = NSTHEAT ;
 	Eqcat->stheatca = NULL ;
 	if (N > 0 )
@@ -186,7 +183,7 @@ void Eqcadata (FILE *f, char *dsn, EQCAT *Eqcat)
 			Ercalloc(N, dsn);
     }
 
-	// 2-12) 全熱交換器
+	// 2-12) THEX 全熱交換器
 	N = NTHEX ;
 	Eqcat->Thexca = NULL ;
 	if (N > 0 )
@@ -204,7 +201,7 @@ void Eqcadata (FILE *f, char *dsn, EQCAT *Eqcat)
 			Ercalloc(N, dsn);
 	}
 
-	// 2-14) バッチ式デシカント空調機
+	// 2-14) DESICCANT バッチ式デシカント空調機
 	// Satoh追加　2013/10/20
 	N = NDESI ;
 	Eqcat->Desica = NULL ;
@@ -214,7 +211,7 @@ void Eqcadata (FILE *f, char *dsn, EQCAT *Eqcat)
 			Ercalloc(N, dsn);
 	}
 
-	// 2-15) 気化冷却器
+	// 2-15) EVPCOOLING 気化冷却器
 	// Satoh追加　2013/10/26
 	N = NEVAC ;
 	Eqcat->Evacca = NULL ;
@@ -224,9 +221,16 @@ void Eqcadata (FILE *f, char *dsn, EQCAT *Eqcat)
 			Ercalloc(N, dsn);
 	}
 
+
+	//
+	// 3) 圧縮式冷凍機定格特性を読み込む
+	//
+
+	// 3-1) 圧縮機特性リストファイルを開く
     if((frf = fopen("reflist.efl", "r")) == NULL)
 		Eprint(" file ", "reflist.efl");
 
+	// 3-2) メモリ確保と初期化
 	N = RFCMPLSTMX ;
 	Eqcat->Rfcmp = NULL ;
     if (N > 0 && (Eqcat->Rfcmp = (RFCMP *)malloc(N * sizeof(RFCMP))) == NULL)
@@ -250,39 +254,55 @@ void Eqcadata (FILE *f, char *dsn, EQCAT *Eqcat)
 		}
 	}
 
-    Refcmpdat(frf, &Eqcat->Nrfcmp, Eqcat->Rfcmp);
+	// 3-3) 圧縮式冷凍機定格特性を読み込む
+	Refcmpdat(frf, &Eqcat->Nrfcmp, Eqcat->Rfcmp);
     fclose (frf);
 
+
+	//
+	// 4) ポンプ・ファンの部分負荷特性の近似式係数の読み込み
+	//
+
+	// 4-1) ポンプ・ファンの部分負荷特性の近似式係数ファイルを開く
 	if (( frf = fopen("pumpfanlst.efl", "r")) == NULL)
 		Eprint(" file ", "pumpfanlst.efl") ;
-	N = pflistcount (frf) ;
+
+	// 4-2) メモリ確保と初期化
+	N = _pflistcount (frf) ;
 	if (N > 0 && (Eqcat->pfcmp = (PFCMP *)calloc(N, sizeof(PFCMP))) == NULL)
 		Ercalloc(N, dsn) ;
 	PFcmpInit(N, Eqcat->pfcmp) ;
+
+	// 4-3) ポンプ・ファンの部分負荷特性の近似式係数の読み込み
 	PFcmpdata(frf, &Eqcat->Npfcmp, Eqcat->pfcmp) ;
 	fclose (frf) ;
-    
-    Hccca = Eqcat->Hccca;
-    Boica = Eqcat->Boica;
-    Collca = Eqcat->Collca;
-    Refaca = Eqcat->Refaca;
-    Pipeca = Eqcat->Pipeca;
-    Stankca = Eqcat->Stankca;
-    Hexca = Eqcat->Hexca;
-    Pumpca = Eqcat->Pumpca;
-	vavca = Eqcat->Vavca;
-	PVca = Eqcat->PVca ;
-	stheatca = Eqcat->stheatca ;
 
-	Thexca = Eqcat->Thexca ;
 
-	OMvavca = Eqcat->OMvavca ;
+	//
+	// 5) 機器カタログデータの読み込み
+	//
+
+	HCCCA* Hccca = Eqcat->Hccca;
+	BOICA* Boica = Eqcat->Boica;
+	COLLCA* Collca = Eqcat->Collca;
+	REFACA* Refaca = Eqcat->Refaca;
+	PIPECA* Pipeca = Eqcat->Pipeca;
+	STANKCA* Stankca = Eqcat->Stankca;
+	HEXCA* Hexca = Eqcat->Hexca;
+	PUMPCA* Pumpca = Eqcat->Pumpca;
+	VAVCA* vavca = Eqcat->Vavca;
+	PVCA* PVca = Eqcat->PVca ;
+	STHEATCA* stheatca = Eqcat->stheatca ;
+
+	THEXCA* Thexca = Eqcat->Thexca ;
+
+	OMVAVCA* OMvavca = Eqcat->OMvavca ;
     
 	// Satoh追加 2013/10/20
-	Desica = Eqcat->Desica ;
+	DESICA* Desica = Eqcat->Desica ;
     
 	// Satoh追加 2013/10/26
-	Evacca = Eqcat->Evacca ;
+	EVACCA* Evacca = Eqcat->Evacca ;
 
     sprintf (E, ERRFMT, dsn);
     
@@ -292,6 +312,7 @@ void Eqcadata (FILE *f, char *dsn, EQCAT *Eqcat)
     {
 		//printf("%s %s\n", s, Room->trnx->nextroom->name) ;
 
+		// 5-1) HCC 冷温水コイル
 		if (strcmp(s, HCCOIL_TYPE) == 0)
 		{ 
 			Hccca->name = NULL ;
@@ -306,6 +327,8 @@ void Eqcadata (FILE *f, char *dsn, EQCAT *Eqcat)
 			}
 			Hccca++;
 		}
+
+		// 5-2) BOI ボイラー
 		else if (strcmp(s, BOILER_TYPE) == 0)
 		{ 
 			Boica->name = NULL ;
@@ -320,6 +343,8 @@ void Eqcadata (FILE *f, char *dsn, EQCAT *Eqcat)
 			}
 			Boica++;
 		}
+
+		// 5-4) COL,ACOL 太陽熱集熱器
 		else if (strcmp(s, COLLECTOR_TYPE) == 0 || strcmp(s, ACOLLECTOR_TYPE) == 0)
 		{ 
 			Collca->name = NULL ;
@@ -335,6 +360,8 @@ void Eqcadata (FILE *f, char *dsn, EQCAT *Eqcat)
 			}
 			Collca++;
 		}
+
+		// 5-5) PV 太陽電池
 		else if (strcmp(s, PV_TYPE) == 0)
 		{ 
 			PVca->name = NULL ;
@@ -349,6 +376,8 @@ void Eqcadata (FILE *f, char *dsn, EQCAT *Eqcat)
 			}
 			PVca++;
 		}
+
+		// 5-3) REFA チラー、ヒートポンプチラー（空気熱源)
 		else if (strcmp(s, REFACOMP_TYPE) == 0)
 		{ 
 			Refaca->name = NULL ;
@@ -363,6 +392,8 @@ void Eqcadata (FILE *f, char *dsn, EQCAT *Eqcat)
 			}
 			Refaca++;
 		}
+
+		// 5-6) PIPE,DUCT 配管とダクト
 		else if (strcmp(s, PIPEDUCT_TYPE) == 0 ||
 		          strcmp(s, DUCT_TYPE) == 0)
 		{ 
@@ -378,6 +409,8 @@ void Eqcadata (FILE *f, char *dsn, EQCAT *Eqcat)
 			}
 			Pipeca++;
 		} 
+
+		// 5-7) STANK 蓄熱層	
 		else if (strcmp(s, STANK_TYPE) == 0)
 		{ 
 			Stankca->name = NULL ;
@@ -391,7 +424,9 @@ void Eqcadata (FILE *f, char *dsn, EQCAT *Eqcat)
 				if (ce) break;
 			}
 			Stankca++;
-		}    
+		}
+
+		// 5-8) HEX 熱交換器(２流体式）
 		else if (strcmp(s, HEXCHANGR_TYPE) == 0)
 		{ 
 			Hexca->name = NULL ;
@@ -406,6 +441,8 @@ void Eqcadata (FILE *f, char *dsn, EQCAT *Eqcat)
 			}
 			Hexca++;
 		}
+
+		// 5-9) PUMP,FAN ポンプ・ファン
 		else if (strcmp(s, PUMP_TYPE) == 0 || strcmp(s, FAN_TYPE) == 0)
 		{ 
 			Pumpca->name = NULL ;
@@ -423,6 +460,8 @@ void Eqcadata (FILE *f, char *dsn, EQCAT *Eqcat)
 			}
 			Pumpca++;
 		}
+
+		// 5-10) VAV,VWV VAVユニット
 		/*---- Satoh Debug VAV  2000/10/30 ----*/
 		else if (strcmp(s, VAV_TYPE) == 0 || strcmp(s, VWV_TYPE) == 0)
 		{ 
@@ -441,6 +480,8 @@ void Eqcadata (FILE *f, char *dsn, EQCAT *Eqcat)
 			}
 			vavca++;
 		}
+
+		// 5-13) ?????
 		/*---- Satoh OMVAV  2010/12/16 ----*/
 		else if (strcmp(s, OMVAV_TYPE) == 0 || strcmp(s, OAVAV_TYPE) == 0)
 		{ 
@@ -464,6 +505,8 @@ void Eqcadata (FILE *f, char *dsn, EQCAT *Eqcat)
 			}
 			OMvavca++;
 		}
+
+		// 5-11) STHEAT 電気蓄熱式暖房器
 		/*---- Satoh Debug 電気蓄熱式暖房器 2001/1/20 ----*/
 		else if (strcmp(s, STHEAT_TYPE) == 0 )
 		{
@@ -482,6 +525,8 @@ void Eqcadata (FILE *f, char *dsn, EQCAT *Eqcat)
 			}
 			stheatca++ ;
 		}
+
+		// 5-12) THEX 全熱交換器
 		/*---- Satoh Debug 全熱交換器 2001/8/22 ----*/
 		else if (strcmp(s, THEX_TYPE) == 0)
 		{
@@ -502,6 +547,8 @@ void Eqcadata (FILE *f, char *dsn, EQCAT *Eqcat)
 			}
 			Thexca++ ;
 		}
+
+		// 5-14) DESICCANT バッチ式デシカント空調機
 		/*---- Satoh追加 デシカント空調機 2013/10/20 ----*/
 		else if (strcmp(s, DESI_TYPE) == 0 )
 		{
@@ -519,6 +566,8 @@ void Eqcadata (FILE *f, char *dsn, EQCAT *Eqcat)
 			}
 			Desica++ ;
 		}
+
+		// 5-15) EVPCOOLING 気化冷却器
 		/*---- Satoh追加 気化冷却器 2013/10/26 ----*/
 		else if (strcmp(s, EVAC_TYPE) == 0 )
 		{
@@ -539,49 +588,56 @@ void Eqcadata (FILE *f, char *dsn, EQCAT *Eqcat)
 		else
 			printf ("%s %s\n", E, s);
     }
-    Eqcat->Nhccca = (int)(Hccca - Eqcat->Hccca);
-    Eqcat->Nboica = (int)(Boica - Eqcat->Boica);
-    Eqcat->Ncollca = (int)(Collca - Eqcat->Collca);
-    Eqcat->Nrefaca = (int)(Refaca - Eqcat->Refaca);
-    Eqcat->Npipeca = (int)(Pipeca - Eqcat->Pipeca);
-    Eqcat->Nstankca = (int)(Stankca - Eqcat->Stankca);
-    Eqcat->Nhexca = (int)(Hexca - Eqcat->Hexca);
-    Eqcat->Npumpca = (int)(Pumpca - Eqcat->Pumpca);
-	Eqcat->Nvavca = (int)(vavca - Eqcat->Vavca) ;
-	Eqcat->Nstheatca = (int)(stheatca - Eqcat->stheatca) ;
-	Eqcat->Nthexca = (int)(Thexca - Eqcat->Thexca) ;
-	Eqcat->Npvca = (int)(PVca - Eqcat->PVca) ;
-	Eqcat->Nomvavca = (int)(OMvavca - Eqcat->OMvavca) ;
+
+
+	//
+	// 6) 読み込んだ機種データの数を保存
+	//
+
+    Eqcat->Nhccca    = (int)(Hccca    - Eqcat->Hccca);		//1) HCC 冷温水コイル
+    Eqcat->Nboica    = (int)(Boica    - Eqcat->Boica);		//2) BOI ボイラー
+    Eqcat->Nrefaca   = (int)(Refaca   - Eqcat->Refaca);		//3) REFA チラー、ヒートポンプチラー（空気熱源)
+    Eqcat->Ncollca   = (int)(Collca   - Eqcat->Collca);		//4) COL,ACOL 太陽熱集熱器
+	Eqcat->Npvca     = (int)(PVca     - Eqcat->PVca);		//5) PV 太陽電池
+    Eqcat->Npipeca   = (int)(Pipeca   - Eqcat->Pipeca);		//6) PIPE,DUCT 配管
+    Eqcat->Nstankca  = (int)(Stankca  - Eqcat->Stankca);	//7) STANK 蓄熱層
+    Eqcat->Nhexca    = (int)(Hexca    - Eqcat->Hexca);		//8) HEX 熱交換器(２流体式）
+    Eqcat->Npumpca   = (int)(Pumpca   - Eqcat->Pumpca);		//9) PUMP,FAN ポンプ
+	Eqcat->Nvavca    = (int)(vavca    - Eqcat->Vavca);		//10) VAV,VWV VAVユニット
+	Eqcat->Nstheatca = (int)(stheatca - Eqcat->stheatca);	//11) STHEAT 電気蓄熱式暖房器
+	Eqcat->Nthexca   = (int)(Thexca   - Eqcat->Thexca);		//12)THEX 全熱交換器
+	Eqcat->Nomvavca  = (int)(OMvavca  - Eqcat->OMvavca);	//??????
 
 	// Satoh追加　デシカント空調機　2013/10/20
-	Eqcat->Ndesica = (int)(Desica - Eqcat->Desica) ;
+	Eqcat->Ndesica   = (int)(Desica   - Eqcat->Desica);		//14) DESICCANT バッチ式デシカント空調機
 
 	// Satoh追加　気化冷却器　2013/10/26
-	Eqcat->Nevacca = (int)(Evacca - Eqcat->Evacca) ;
+	Eqcat->Nevacca   = (int)(Evacca   - Eqcat->Evacca);		//15) EVPCOOLING 気化冷却器
 }
 
 /****************************************************************************/
 
+
 /*
  * @brief 機器種別ごとの定義数を取得
  * @param[IN]  fi      読み込み元ファイルポインタ
- * @param[OUT] NBOI    ボイラーの定義数
- * @param[OUT] NREFA   チラー、ヒートポンプチラー（空気熱源)の定義数
- * @param[OUT] NCOL    太陽熱集熱器の定義数
- * @param[OUT] NSTANK  蓄熱層の定義数
- * @param[OUT] NHCC    冷温水コイルの定義数
- * @param[OUT] NHEX    熱交換器(２流体式）の定義数
- * @param[OUT] NPIPE   配管の定義数
- * @param[OUT] NPUMP   ポンプの定義数
- * @param[OUT] NVAV    VAV ユニットの定義数
- * @param[OUT] NSTHEAT 電気蓄熱式暖房器の定義数
- * @param[OUT] NTHEX   全熱交換器（換気の排気からの熱回収用の顕熱・潜熱熱交換器)の定義数
- * @param[OUT] NPV     太陽電池の定義数
+ * @param[OUT] NBOI    BOI ボイラーの定義数
+ * @param[OUT] NREFA   REFA チラー、ヒートポンプチラー（空気熱源)の定義数
+ * @param[OUT] NCOL    COL,COLA 太陽熱集熱器の定義数
+ * @param[OUT] NSTANK  STANK 蓄熱層の定義数
+ * @param[OUT] NHCC    HCC 冷温水コイルの定義数
+ * @param[OUT] NHEX    HEX 熱交換器(２流体式）の定義数
+ * @param[OUT] NPIPE   PIPE,DUCT 配管の定義数
+ * @param[OUT] NPUMP   PUMP,FAN ポンプの定義数
+ * @param[OUT] NVAV    VAV,VWV VAVユニットの定義数
+ * @param[OUT] NSTHEAT STHEAT 電気蓄熱式暖房器の定義数
+ * @param[OUT] NTHEX   THEX 全熱交換器（換気の排気からの熱回収用の顕熱・潜熱熱交換器)の定義数
+ * @param[OUT] NPV     PV 太陽電池の定義数
  * @param[OUT] NOMVAV  ????の定義数
- * @param[OUT] NDESI   バッチ式デシカント空調機の定義数
- * @param[OUT] NEVAC   気化冷却器の定義数
+ * @param[OUT] NDESI   DESICCANT バッチ式デシカント空調機の定義数
+ * @param[OUT] NEVAC   EVPCOOLING 気化冷却器の定義数
  */
-void	Eqpcount ( FILE *fi, int *NBOI, int *NREFA, int *NCOL, int *NSTANK, int *NHCC,
+void _Eqpcount ( FILE *fi, int *NBOI, int *NREFA, int *NCOL, int *NSTANK, int *NHCC,
 				  int *NHEX, int *NPIPE, int *NPUMP, int *NVAV, int *NSTHEAT, int *NTHEX, int *NPV, int *NOMVAV, int *NDESI, int *NEVAC )
 {
 	char	s[2048] ;
@@ -629,7 +685,13 @@ void	Eqpcount ( FILE *fi, int *NBOI, int *NREFA, int *NCOL, int *NSTANK, int *NH
 	fseek ( fi, ad, SEEK_SET ) ;	// 読み込み位置を元に戻す
 }
 
-int	pflistcount ( FILE *fl )
+
+/*
+ * @brief ポンプ・ファンの部分負荷特性の近似式係数のデータ数を数える
+ * @param[IN] fl ファイルポインタ
+ * @return データ数
+ */
+int	_pflistcount ( FILE *fl )
 {
 	int		N = 0 ;
 	char	s[SCHAR], c ;

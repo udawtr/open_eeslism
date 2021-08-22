@@ -334,12 +334,18 @@ void Eeinput(char *Ipath, SIMCONTL *Simc, SCHDL *Schdl,
 		//******************************************************************
 		else if (strcmp("EQPCAT", s) == 0)
 		{
+			//2.5.1 機器仕様（機器カタログデータ）
+			//EQPCAT
+
 			//printf("%s\n", Rmvls->Room->trnx->nextroom->name) ;
 			Eqcadata(fi, "Eqcadata", Eqcat);
 			//printf("%s\n", Rmvls->Room->trnx->nextroom->name) ;
 		}
 		else if (strcmp("SYSCMP", s) == 0)
 		{
+			//2.5.2 システム構成要素
+			//SYSCMP
+
 			/*****Flwindata(Flwin, Nflwin,  Wd);********/
 			Compodata(fi, "Compodata", Rmvls, Eqcat, Compnt, Ncompnt, Eqsys, Ncmpalloc, 0);
 			/****
