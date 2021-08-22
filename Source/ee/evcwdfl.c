@@ -54,19 +54,39 @@ void wdflinit(SIMCONTL *Simc, ESTL *Estl, TLIST *Tlist)
 			*st = '\0';
 			dt = atof(st + 1);
 			if (strcmp(ss, "Lat") == 0)
+			{
+				//緯度 [°]
 				loc->Lat = dt;
+			}
 			else if (strcmp(ss, "Lon") == 0)
+			{
+				//経度 [°]
 				loc->Lon = dt;
+			}
 			else if (strcmp(ss, "Ls") == 0)
+			{
+				//標準子午線[°]
 				loc->Ls = dt;
+			}
 			else if (strcmp(ss, "Tgrav") == 0)
+			{
+				//年平均気温 [℃]
 				loc->Tgrav = dt;
+			}
 			else if (strcmp(ss, "DTgr") == 0)
+			{
+				//気温年較差 [℃]
 				loc->DTgr = dt;
+			}
 			else if (strcmp(ss, "daymx") == 0)
+			{
+				//日平均気温の年最高気温が発生する日の通日
 				loc->daymxert = (int)dt;
+			}
 			else
+			{
 				id = 1;
+			}
 		}
 		else
 		{
@@ -103,6 +123,8 @@ void wdflinit(SIMCONTL *Simc, ESTL *Estl, TLIST *Tlist)
 	wp->wv = NULL ;
 	wp->wdre = NULL ;
 
+	// ref P.94
+
 	for (i = 0; i < Estl->Ndata; i++, Tlist++)
 	{
 		if (strcmp(Tlist->name, "Wd") == 0)
@@ -111,25 +133,55 @@ void wdflinit(SIMCONTL *Simc, ESTL *Estl, TLIST *Tlist)
 			val = Tlist->fval;
 			
 			if (strcmp(s, "T") == 0)
+			{
+				//気温 [℃]
 				wp->ta = val;
+			}
 			else if (strcmp(s, "x") == 0)
-				wp->xa = val;	 
+			{
+				//絶対温度 [kg/kg]
+				wp->xa = val;
+			}
 			else if (strcmp(s, "Idn") == 0)
+			{
+				//法線面直達日射 [W/㎡]
 				wp->idn = val;
+			}
 			else if (strcmp(s, "Isky") == 0)
-				wp->isky= val;
+			{
+				//水平面天空日射 [W/㎡]
+				wp->isky = val;
+			}
 			else if (strcmp(s, "Ihor") == 0)
+			{
+				//水平面全天日射 [W/㎡]
 				wp->ihor = val;
+			}
 			else if (strcmp(s, "CC") == 0)
+			{
+				//雲量 (0-10)
 				wp->cc = val;
+			}
 			else if (strcmp(s, "Wdre") == 0)
+			{
+				//風向 (0-16)
 				wp->wdre = val;
+			}
 			else if (strcmp(s, "Wv") == 0)
-				wp->wv= val;
+			{
+				//風速 [m/s]
+				wp->wv = val;
+			}
 			else if (strcmp(s, "RH") == 0)
+			{
+				//相対湿度 [%]
 				wp->rh = val;
+			}
 			else if (strcmp(s, "RN") == 0)
+			{
+				//夜間放射 [W/㎡]
 				wp->rn = val;
+			}
 		}
 	}
 }

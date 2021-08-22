@@ -64,45 +64,57 @@
 
 typedef struct simcontl
 {
-	char *File,
-	title[SCHAR],
-	//city[NCHAR],
-	*wfname,
-	*ofname,
-	*unit,
-	*unitdy,
+	//! 入力データファイル名
+	char* File;
+	
+	//! 題目、注釈
+	char* title[SCHAR];
 
-	timeid[6],
+	//char* city[NCHAR];
 
-	helmkey,  /* 要素別熱取得、熱損失計算 'y' */
-	wdtype;		// 気象データファイル種別
-	// 'H':HASP標準形式　'E':VCFILE入力形式 */
-	char perio;		// 周期定常計算の時'y'
+	//! 気象データファイル名
+	char* wfname;
+	char* ofname;
+	char* unit;
+	char* unitdy;
+	char timeid[6];
 
-	FILE *fwdata,
-		*fwdata2,
-		*ftsupw;
+	//! 要素別熱取得、熱損失計算 'y'
+	char helmkey;
 
-	int  daystartx,
-		daystart,
-		dayend,
-		daywk[366],
-		dayprn[366],
+	//! 気象データファイル種別 'H':HASP標準形式　'E':VCFILE入力形式
+	char wdtype;
 
-		Dayntime,
+	//! 周期定常計算の時'y'
+	char perio;
 
-		Ntimehrprt,
-		Ntimedyprt,
+	FILE* fwdata;
+	FILE* fwdata2;
+	FILE* ftsupw;
 
-		Nhelmsfpri; /* 要素別壁体表面温度出力壁体数 */
+	int daystartx;
+	int daystart;
+	int dayend;
+	int	daywk[366];
+	int dayprn[366];
 
-	int Nvcfile;    /* 境界条件、負荷入力用ファイル */
+	int Dayntime;
+
+	int Ntimehrprt;
+	int	Ntimedyprt;
+
+	//! 要素別壁体表面温度出力壁体数
+	int Nhelmsfpri;
+
+	//! 境界条件、負荷入力用ファイル
+	int Nvcfile;
 	struct vcfile *Vcfile;
 
 	struct locat *Loc;
 	struct wdpt  wdpt;
 
-	int dTm, sttmm;
+	int dTm;
+	int sttmm;
 
 	int MaxIterate;			// 最大収束回数
 
