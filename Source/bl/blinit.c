@@ -647,43 +647,80 @@ void Windowdata (FILE *fi, char *dsn, WINDOW **Window, int *Nwindow)
 }
 /* --------------------------------------------------- */
 
+
+//SUBRK 日除けリスト P.29
 void Snbkdata (FILE *fi, char *dsn, SNBK **Snbk)
 {
-	char *ce, *vs, k[2], code[8], E[SCHAR*3+128],
-		name[SCHAR], s[SCHAR], key[SCHAR], v[SCHAR], Er[SCHAR];
-	int  i = -1, j, type, N ;
-	double   val[2];
-	static char *typstr[] =
+	char* ce;
+	char* vs;
+	char k[2];
+	char E[SCHAR * 3 + 128];
+	char name[SCHAR];
+	char s[SCHAR];
+	char Er[SCHAR];
+
+	//入力チェック用配列(期待値)
+	const char *typstr[] =
 	{
-		"HWDTLR.", "HWDTLRB", "HWDTL.B", "HWDT.RB", "HWDT...",
-			"HWD.LR.", "HWD.L..", "HWD..R.", "HWDTLRB"
+		"HWDTLR.",	//1=一般の庇
+		"HWDTLRB",	//2=袖壁
+		"HWDTL.B",	//3=袖壁(対象領域右と日除けの距離が未入力)
+		"HWDT.RB",	//4=袖壁(対象領域左と日除けの距離が未入力)
+		"HWDT...",	//5=長い庇
+		"HWD.LR.",	//6=長い袖壁
+		"HWD.L..",	//7=長い袖壁(対象領域右と日除けの距離が未入力)
+		"HWD..R.",	//8=長い袖壁(対象領域左と日除けの距離が未入力)
+		"HWDTLRB"	//9=格子ルーバー
 	};
 	
 	SNBK	*S ;
 	
 	sprintf(Er, ERRFMT, dsn);
-	type = 0 ;
 	
-	N = Wallcount ( fi ) ;
+	//ファイルを先読みして、庇の数を数える
+	int N = Wallcount ( fi ) ;
 
+	//----------------------------------------------------------------------------
+	//1) SNBK初期化
+	//----------------------------------------------------------------------------
 	if ( N > 0 )
 	{
+		//SNBK動的配列の確保
 		if (( *Snbk = ( SNBK * ) malloc ( N * sizeof ( SNBK ))) == NULL )
 			Ercalloc ( N, "Windowdata" ) ;
 
+		//SNBK動的配列の先頭
 		S = *Snbk ;
-		for ( j = 0; j < N; j++, S++ )
+		for ( int j = 0; j < N; j++, S++ )
 		{
-			S->name = NULL ;
-			S->W = S->H = 0.0 ;
-			S->D = S->W1 = S->W2 = S->H1 = S->H2 = 0.0 ;
-			S->end = S->type = S->ksi = 0 ;
+			S->name = NULL;
+			S->type = 0;
+			S->ksi = 0;
+			S->W = 0.0;
+			S->H = 0.0;
+			S->D = 0.0;
+			S->W1 = 0.0;
+			S->W2 = 0.0;
+			S->H1 = 0.0;
+			S->H2 = 0.0;
+			S->end = 0;
 		}
 	}
 
+	//----------------------------------------------------------------------------
+	//2) SNBK読み込み
+	//----------------------------------------------------------------------------
+
+	//SNBK動的配列の先頭
 	S = *Snbk ;
+
+	int  i = -1;
 	while (fscanf(fi, " %s", name), *name != '*')
 	{
+		char key[SCHAR];
+		char v[SCHAR];
+		double   val[2];
+
 		i++ ;
 		
 		/***************************
@@ -693,7 +730,13 @@ void Snbkdata (FILE *fi, char *dsn, SNBK **Snbk)
 		S = *(Snbk+i) ;
 		/*************************************/
 
+		int type = 0;	//庇の種類
+		char code[8];	//入力チェック用配列(入力値)
+
+		//庇の名称
 		S->name = stralloc ( name ) ;
+
+		//入力チェック用配列を初期化
 		strcpy(code, ".......");
 		
 		while (fscanf(fi, " %s" ,s),  *s != ';')
@@ -702,11 +745,16 @@ void Snbkdata (FILE *fi, char *dsn, SNBK **Snbk)
 				*ce = '\0';
 
 			sscanf(s, "%[^=]=%s", key, v);
+
 			if (strcmp(key, "type") == 0)
 			{
+				//庇の種類
+				//type={H,HL,S,SL,K,-H,-HL,-S,-SL,-K}
+
 				vs = v ;
 				if (*v == '-')
 				{
+					//対象領域における日影部分と日照部分が逆になる
 					S->ksi = 1 ;
 					vs++;
 				}
@@ -714,15 +762,30 @@ void Snbkdata (FILE *fi, char *dsn, SNBK **Snbk)
 					S->ksi = 0;
 				
 				if (strcmp(vs, "H") == 0)
+				{
+					//一般の庇
 					type = 1;
+				}
 				else if (strcmp(vs, "HL") == 0)
+				{
+					//長い庇
 					type = 5;
+				}
 				else if (strcmp(vs, "S") == 0)
+				{
+					//袖壁
 					type = 2;
+				}
 				else if (strcmp(vs, "SL") == 0)
+				{
+					//長い袖壁
 					type = 6;
+				}
 				else if (strcmp(vs, "K") == 0)
+				{
+					//格子ルーバー
 					type = 9;
+				}
 				else
 				{
 					sprintf ( E, "%s %s %s\n", Er, name, s);
@@ -731,13 +794,23 @@ void Snbkdata (FILE *fi, char *dsn, SNBK **Snbk)
 			}
 			else if (strcmp(key, "window") == 0)
 			{
+				//window=HhhhxWwww ex)window=H1.0xW2.0
+				//影の計算を行う対象領域を指定
+
 				sscanf(v, "%c%lfx%c%lf", &k[0], &val[0], &k[1], &val[1]);
-				for (j=0; j<2; j++)
+
+				for (int j=0; j<2; j++)
 				{
 					if (k[j] == 'H')
-						S->H = val [j], code[0] = 'H';
+					{
+						S->H = val[j];
+						code[0] = 'H';
+					}
 					else if (k[j] == 'W')
-						S->W = val[j], code[1] = 'W';
+					{
+						S->W = val[j];
+						code[1] = 'W';
+					}
 					else
 					{
 						sprintf ( E, "%s %s %c\n", Er, S->name, k[j] );
@@ -746,15 +819,35 @@ void Snbkdata (FILE *fi, char *dsn, SNBK **Snbk)
 				}
 			}
 			else if (strcmp(key, "D") == 0)
-				S->D = atof(v), code[2] = 'D';
+			{
+				//対象面から日除けの先端までの寸法
+				S->D = atof(v);
+				code[2] = 'D';
+			}
 			else if (strcmp(key, "T") == 0)
-				S->H1 = atof(v), code[3] = 'T';
+			{
+				//対象領域下部と日除けの距離
+				S->H1 = atof(v);
+				code[3] = 'T';
+			}
 			else if (strcmp(key, "L") == 0)
-				S->W1 = atof(v), code[4] = 'L';
+			{
+				//対象領域左と日除けの距離
+				S->W1 = atof(v);
+				code[4] = 'L';
+			}
 			else if (strcmp(key, "R") == 0)
-				S->W2 = atof(v), code[5] = 'R';
+			{
+				//対象領域右と日除けの距離
+				S->W2 = atof(v);
+				code[5] = 'R';
+			}
 			else if (strcmp(key, "B") == 0)
-				S->H2 = atof(v), code[6] = 'B';
+			{
+				//対象領域下部と日除けの距離
+				S->H2 = atof(v);
+				code[6] = 'B';
+			}
 			else
 			{
 				sprintf ( E, "%s %s %s\n", Er, name, s) ;
@@ -763,6 +856,9 @@ void Snbkdata (FILE *fi, char *dsn, SNBK **Snbk)
 			
 			if (ce) break;
 		}
+
+		//入力チェック
+		//(庇の種類に応じて、必要な長さ距離の項目が異なる。)
 		S->type = type;
 		switch (type)
 		{
@@ -774,12 +870,14 @@ void Snbkdata (FILE *fi, char *dsn, SNBK **Snbk)
 			}
 			break;
 		case 2: case 6:
+			//袖壁については、対象領域左右と日除けの距離がいずれか一方でOK
 			if (strcmp(code, typstr[type-1]) != 0)
 			{
-				for (j=1; j<3; j++)
+				for (int j=1; j<3; j++)
 				{
 					if (strcmp(code, typstr[type+j-1]) == 0)
 					{
+						//庇の種類を更新しておく
 						S->type = type+j;
 						break;
 					}   
@@ -802,6 +900,8 @@ void Snbkdata (FILE *fi, char *dsn, SNBK **Snbk)
 		S++ ;
 	}
 	i++ ;
+
+	//庇の数を保存
 	Snbk[0]->end = i;
 }   
 
@@ -1045,6 +1145,7 @@ int		wbmlistcount ( FILE *fi )
 
 /************************************************************/
 
+// '*'が出てくるまで、 ';'の数を数える
 int		Wallcount ( FILE *fi )
 {
 	int		N = 0 ;

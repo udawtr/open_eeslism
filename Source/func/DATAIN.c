@@ -35,32 +35,42 @@ char	*stralloc(char *s);
 
 char NAME[SCHAR];
 
-void HISASHI(FILE *fi, sunblk *sb){
-
+/*
+ * @brief SBLK - HISASHI の読み取り 
+ */
+void HISASHI(FILE *fi, sunblk *sb)
+{
+	// 庇の名前
 	fscanf(fi, "%s", NAME);
 	sb->snbname = stralloc(NAME);
 
-	/*-色の初期値--*/
+	//TODO: 庇の反射率のデフォルト値の設定
+
+	// 色の初期値
 	sb->rgb[0] = 0.0;
 	sb->rgb[1] = 0.2;
 	sb->rgb[2] = 0.0;
 
 	while (fscanf(fi, "%s", NAME), NAME[0] != ';'){
 
+		//対象建物の正面左下隅を原点(0,0)として、高さ方向を軸、幅方向を x 軸とした２次元座標系における、
+		// この庇の左隅の２次元座標(x, y)
 		if (strcmp(NAME, "-xy") == 0){
 			fscanf(fi, "%lf", &sb->x);
 			fscanf(fi, "%lf", &sb->y);
 		}
 
+		//庇の幅 W [m]と突き出し長さ D [m]
 		else if (strcmp(NAME, "-DW") == 0){
 			fscanf(fi, "%lf", &sb->D);
 			fscanf(fi, "%lf", &sb->W);
 		}
 
+		//庇の角度α[°]。壁面に対して垂直の場合は、90[°]
 		else if (strcmp(NAME, "-a") == 0)
 			fscanf(fi, "%lf", &sb->WA);
 
-
+		//(マニュアル未記載)
 		else if (strcmp(NAME, "-rgb") == 0){
 			fscanf(fi, "%lf", &sb->rgb[0]);
 			fscanf(fi, "%lf", &sb->rgb[1]);
@@ -75,26 +85,35 @@ void HISASHI(FILE *fi, sunblk *sb){
 		}
 	}
 }
-/*--------------------------------------------------------------*/
-void BARUKO(FILE *fi, sunblk *sb){
 
+
+/*
+ * @brief SBLK - BARUKONI の読み取り 
+ */
+void BARUKO(FILE *fi, sunblk *sb)
+{
+	//バルコニー床面の反射率のデフォルト値
 	sb->ref = 0.0;
 
+	// 色の初期値
 	sb->rgb[0] = 0.0;
 	sb->rgb[1] = 0.2;
 	sb->rgb[2] = 0.0;
 
-
+	// バルコニーの名前
 	fscanf(fi, "%s", NAME);
 	sb->snbname = stralloc(NAME);
 
 	while (fscanf(fi, "%s", NAME), NAME[0] != ';'){
 
+		//象建物の正面左下隅を原点(0,0)として、高さ方向をy 軸、幅方向を x 軸とした２次元座標系における、
+		// このバルコニーの左上隅の２次元座標(x, y)
 		if (strcmp(NAME, "-xy") == 0){
 			fscanf(fi, "%lf", &sb->x);
 			fscanf(fi, "%lf", &sb->y);
 		}
 
+		//突き出し長さ D [m]、高さ H [m]、幅 W [m]、フェンス高さ h[m]
 		else if (strcmp(NAME, "-DHWh") == 0){
 			fscanf(fi, "%lf", &sb->D);
 			fscanf(fi, "%lf", &sb->H);
@@ -102,9 +121,13 @@ void BARUKO(FILE *fi, sunblk *sb){
 			fscanf(fi, "%lf", &sb->h);
 		}
 
+		//バルコニー床面の反射率 ref [-]。デフォルトは 0。
 		else if (strcmp(NAME, "-ref") == 0)
+		{
 			fscanf(fi, "%lf", &sb->ref);
+		}
 
+		//(マニュアル未記載)
 		else if (strcmp(NAME, "-rgb") == 0){
 			fscanf(fi, "%lf", &sb->rgb[0]);
 			fscanf(fi, "%lf", &sb->rgb[1]);
@@ -119,31 +142,47 @@ void BARUKO(FILE *fi, sunblk *sb){
 		}
 	}
 }
-/*------------------------------------------------------------------*/
-void SODEK(FILE *fi, sunblk *sb){
 
+
+/*
+ * @brief SBLK - SODEKABE の読み取り
+ */
+void SODEK(FILE *fi, sunblk *sb)
+{
+	//TODO: 庇の反射率のデフォルト値の設定
+
+	// 色の初期値
 	sb->rgb[0] = 0.0;
 	sb->rgb[1] = 0.2;
 	sb->rgb[2] = 0.0;
 
+	//袖壁の名前
 	fscanf(fi, "%s", NAME);
 	sb->snbname = stralloc(NAME);
 
 	while (fscanf(fi, "%s", NAME), NAME[0] != ';'){
-
+		//対象建物の正面左下隅を原点(0,0)として、高さ方向を y 軸、幅方向を x 軸とした２次元座標系における、
+		//この袖壁の左隅の２次元座標(x, y)
 		if (strcmp(NAME, "-xy") == 0){
 			fscanf(fi, "%lf", &sb->x);
 			fscanf(fi, "%lf", &sb->y);
 		}
 
+		//突き出し長さ D [m]と高さ H [m]
 		else if (strcmp(NAME, "-DH") == 0){
 			fscanf(fi, "%lf", &sb->D);
 			fscanf(fi, "%lf", &sb->H);
 		}
-
+		
+		//庇の角度α[°]。壁面に対して垂直の場合は、90[°]
 		else if (strcmp(NAME, "-a") == 0)
 			fscanf(fi, "%lf", &sb->WA);
 
+		//******************************************************************
+		//TODO: 袖壁の反射率の読み込み(マニュアルにはあるが読み取っていない) P.96
+		//******************************************************************
+
+		//(マニュアル未記載)
 		else if (strcmp(NAME, "-rgb") == 0){
 			fscanf(fi, "%lf", &sb->rgb[0]);
 			fscanf(fi, "%lf", &sb->rgb[1]);
@@ -157,29 +196,43 @@ void SODEK(FILE *fi, sunblk *sb){
 		}
 	}
 }
-/*-----------------------------------------------------------------------*/
-void SCREEN(FILE *fi, sunblk *sb){
 
 
+/*
+ * @brief SBLK - MADOHIYOKE の読み取り
+ */
+void SCREEN(FILE *fi, sunblk *sb)
+{
+	//TODO: 射率のデフォルト値の設定
+
+	// 色の初期値
 	sb->rgb[0] = 0.0;
 	sb->rgb[1] = 0.2;
 	sb->rgb[2] = 0.0;
 
+	//ロールスクリーンのような窓に対して平行に設置する日よけの名前
 	fscanf(fi, "%s", NAME);
 	sb->snbname = stralloc(NAME);
 
 	while (fscanf(fi, "%s", NAME), NAME[0] != ';'){
 
+		//対象建物の正面左下隅を原点(0,0)として、高さ方向y 軸、幅方向を x 軸とした２次元座標系における、
+		//このスクリーンの左上隅２次元座標(x, y)
 		if (strcmp(NAME, "-xy") == 0){
 			fscanf(fi, "%lf", &sb->x);
 			fscanf(fi, "%lf", &sb->y);
 		}
 
+		//窓との間隔 D [m]、高さ H [m]、幅 W [m]
 		else if (strcmp(NAME, "-DHW") == 0){
 			fscanf(fi, "%lf", &sb->D);
 			fscanf(fi, "%lf", &sb->H);
 			fscanf(fi, "%lf", &sb->W);
 		}
+
+		//******************************************************************
+		//TODO: 反射率の読み込み(マニュアルにはあるが読み取っていない) P.97
+		//******************************************************************
 
 		else if (strcmp(NAME, "-rgb") == 0){
 			fscanf(fi, "%lf", &sb->rgb[0]);
@@ -663,7 +716,11 @@ void polydata(FILE *fi, int *polyn, POLYGN **poly){
 		--*/
 	}
 }
-/*---------------------------------------------------------------------------*/
+
+
+/*
+ * @brief BDP 方位別表面 の読み込み
+ */
 void bdpdata(FILE *fi, int *bdpn, BBDP **bp,EXSFS *Exsf){
 
 	RRMP *rp;
@@ -671,6 +728,10 @@ void bdpdata(FILE *fi, int *bdpn, BBDP **bp,EXSFS *Exsf){
 	sunblk *sb;
 	int	Nbdp;
 	BBDP *bbdp;
+
+	//
+	// 1-1) BDP メモリ確保、初期化
+	//
 
 	// BDPの数を数える
 	Nbdp = InputCount(fi, "*");
@@ -696,6 +757,10 @@ void bdpdata(FILE *fi, int *bdpn, BBDP **bp,EXSFS *Exsf){
 		}
 	}
 
+	//
+	// 1-2) BDP 読み込み
+	//
+
 	bbdp = *bp;
 	//sb = bbdp->SBLK;
 	//rp = bbdp->RMP;
@@ -703,7 +768,8 @@ void bdpdata(FILE *fi, int *bdpn, BBDP **bp,EXSFS *Exsf){
 
 	*bdpn = 0;
 
-	while (fscanf(fi, "%s", NAME), NAME[0] != '*'){
+	while (fscanf(fi, "%s", NAME), NAME[0] != '*')
+	{
 		//printf("<bdpdata> 1 NAME=%s", NAME);
 		if (strcmp(NAME, "BDP") != 0){
 			printf("error BDP\n");
@@ -711,6 +777,7 @@ void bdpdata(FILE *fi, int *bdpn, BBDP **bp,EXSFS *Exsf){
 		}
 		//printf("<bdpdata> 2 NAME=%s", NAME);
 
+		//1つの建築外表面名 (bdpname)
 		fscanf(fi, "%s", NAME);
 		bbdp->bdpname = stralloc(NAME);
 		//printf("<bdpdata> 3 NAME=%s", NAME);
@@ -719,21 +786,37 @@ void bdpdata(FILE *fi, int *bdpn, BBDP **bp,EXSFS *Exsf){
 			//printf("<bdpdata> 4 NAME=%s", NAME);
 
 			if (strcmp(NAME, "-xyz") == 0){
+				//-xyz x0 y0 z0
+				// 対象建物の正面左下隅を原点とする３次元座標系(図2.10.8）における、
+				// この外表面の左下隅の３次元座標(x0, y0, z0)
 				fscanf(fi, "%lf", &bbdp->x0);
 				fscanf(fi, "%lf", &bbdp->y0);
 				fscanf(fi, "%lf", &bbdp->z0);
 			}
 
 			else if (strcmp(NAME, "-WA") == 0)
+			{
+				//-WA Wa
+				//方位角 Wa [°]
+				//真南を 0°、東向きを－、西向きを＋とし、真北を 180°または - 180°で表す。
 				fscanf(fi, "%lf", &bbdp->Wa);
-
+			}
 			else if (strcmp(NAME, "-WB") == 0)
+			{
+				//-WB Wb
+				//傾斜角 Wb [°]
+				//水平面が 0°、垂直面が 90°として、0～180°の範囲で指定する。
 				fscanf(fi, "%lf", &bbdp->Wb);
+			}
 
-			else if (strcmp(NAME, "-WH") == 0){
+			else if (strcmp(NAME, "-WH") == 0)
+			{
+				//WH exw exh
+				//外表面の幅 exw [m]と高さ exh [m]
 				fscanf(fi, "%lf", &bbdp->exw);
 				fscanf(fi, "%lf", &bbdp->exh);
 			}
+
 			// Satoh修正（2018/1/23）
 			else if (strcmp(NAME, "-exs") == 0)
 			{
@@ -765,6 +848,10 @@ void bdpdata(FILE *fi, int *bdpn, BBDP **bp,EXSFS *Exsf){
 			}
 		}
 
+		//
+		// 2-1) SBLK メモリ確保と初期化
+		//
+
 		// SBLKの個数を数えてメモリを確保
 		int Nsblk;
 		int		SBLKCount(FILE *fi);
@@ -786,6 +873,10 @@ void bdpdata(FILE *fi, int *bdpn, BBDP **bp,EXSFS *Exsf){
 				matinit(sb->rgb, 3);
 			}
 		}
+
+		//
+		// 2-2) RMP メモリ確保と初期化
+		//
 
 		// RMPの個数を数えてメモリを確保
 		int Nrmp;
@@ -811,30 +902,49 @@ void bdpdata(FILE *fi, int *bdpn, BBDP **bp,EXSFS *Exsf){
 			}
 		}
 
+		//
+		// 2-3) SBLK, RMP の読み込み
+		//
+
 		sb = bbdp->SBLK;
 		rp = bbdp->RMP;
 		if (rp != NULL)
 			wp = rp->WD;
 		while (fscanf(fi, "%s", NAME), NAME[0] != '*'){
 
+			//-----------------------------------------------------
+			//SBLK 付設障害物
+			//-----------------------------------------------------
 			if (strcmp(NAME, "SBLK") == 0){
+				// 反射率のデフォルト値の設定
+				// TODO: 個別の初期化したほうが良い
 				sb->ref = 0.0;
+
 				fscanf(fi, "%s", NAME);
 				sb->sbfname = stralloc(NAME);
 
 				if (strcmp(sb->sbfname, "HISASI") == 0)
+				{
+					//SBLK - HISASH 庇
 					HISASHI(fi, sb);
-
+				}
 				else if (strcmp(sb->sbfname, "BARUKONI") == 0)
+				{
+					//SBLK - BARUKONI バルコニー
 					BARUKO(fi, sb);
-
+				}
 				else if (strcmp(sb->sbfname, "SODEKABE") == 0)
+				{
+					//SBLK - SODEKABE 袖壁
 					SODEK(fi, sb);
-
+				}
 				else  if (strcmp(sb->sbfname, "MADOHIYOKE") == 0)
+				{
+					//SBLK - MADOHIYOKE ロールスクリーンのような窓に対して平行に設置する日よけ
 					SCREEN(fi, sb);
-
-				else{
+				}
+				else
+				{
 					printf("ERROR----\nhiyoke no syurui <HISASI> or <BARUKONI> or <SODEKABE> or <MADOHIYOKE> : %s \n", sb->sbfname);
 					//getch();
 					preexit();
@@ -845,7 +955,11 @@ void bdpdata(FILE *fi, int *bdpn, BBDP **bp,EXSFS *Exsf){
 				bbdp->sumsblk++;
 			}
 
-			else if (strcmp(NAME, "RMP") == 0){
+			//-----------------------------------------------------
+			//RMP 建築室外壁面
+			//-----------------------------------------------------
+			else if (strcmp(NAME, "RMP") == 0)
+			{
 				// WDの数を数えてメモリを確保
 				int Nwd;
 				int		WDCount(FILE *fi);
@@ -873,7 +987,8 @@ void bdpdata(FILE *fi, int *bdpn, BBDP **bp,EXSFS *Exsf){
 				rp++;
 				wp = rp->WD;
 			}
-			else{
+			else
+			{
 				printf("ERROR----<SBLK> or <RMP> : %s \n", NAME);
 				//getch();
 				preexit();

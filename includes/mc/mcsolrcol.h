@@ -1,5 +1,9 @@
 #pragma once
 
+//COL 太陽熱集熱器
+
+#include "eqptyp.h"
+
 int Colldata (char *type, char *s, COLLCA *Collca);
 void Collint(int Ncoll, COLL *Coll, int Nexsf, EXSF *Exs, WDAT *Wd);
 void Collcfv(int Ncoll, COLL *Coll);

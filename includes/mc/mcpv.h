@@ -1,5 +1,9 @@
 #pragma once
 
+//PV 太陽電池
+
+#include "eqptyp.h"
+
 int PVcadata (char *s, PVCA *PVca) ;
 void PVint(int Npv, PV *PV, int Nexsf, EXSF *Exs, WDAT *Wd) ;
 void PVene(int Npv, PV *PV) ;

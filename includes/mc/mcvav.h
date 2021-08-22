@@ -1,6 +1,8 @@
 #pragma once
 
-#include "MODEL.h"
+//VAV VAVユニット
+
+#include "eqptyp.h"
 
 int VAVdata (char *s, char *ss, VAVCA *vavca) ;
 void VAVcfv(int Nvav, VAV *vav) ;

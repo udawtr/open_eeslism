@@ -1,5 +1,9 @@
 #pragma once
 
+//STHEAT 電気蓄熱式暖房器
+
+#include "eqptyp.h"
+
 int Stheatdata(char *s, STHEATCA *stheatca) ;
 void Stheatint(int Nstheat, STHEAT *stheat, 
 	SIMCONTL *Simc, int Ncompnt, COMPNT *Compnt, WDAT *Wd, int Npcm, PCM *PCM);

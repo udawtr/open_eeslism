@@ -15,41 +15,42 @@
 
 #pragma once
 
-/*  mcaclib.c  */
+// 2.5 設備機器データ処理関数群
+
+//HCC 冷温水コイル
 #include "mc/mcaclib.h"
 
-/*  mcreflib.c  */
+//REFA ??? 圧縮式冷凍機
 #include "mc/mcreflib.h"
 
-/*  mcboiler.c  */
+//BOI ボイラー
 #include "mc/mcboiler.h"
 
-/*  mcsolrcol.c  */
+//COL 太陽熱集熱器
 #include "mc/mcsolrcol.h"
 
-/*  mcpv.c  */
+//PV 太陽電池
 #include "mc/mcpv.h"
 
-/*  mcrefas.c */
+//REFA チラー、ヒートポンプチラー（空気熱源） ---- 機器仕様入力
 #include "mc/mcrefas.h"
 
-/*  mchccoil.c  */
+//HCC 冷温水コイル
 #include "mc/mchccoil.h"
 
-
-/*  mcpipe.c  */
+//PIPE 配管
 #include "mc/mcpipe.h"
 
-/*  mcstank.c */
+//STANK 蓄熱槽
 #include "mc/mcstank.h"
 
 /* mcstanklb.c  */
 #include "mc/mcstanklb.h"
 
-/* mchexchgr.c */
+//HEX 熱交換器
 #include "mc/mchexchgr.h"
 
-/* mcpump.c */
+//PUMP ポンプ
 #include "mc/mcpump.h"
 
 /*  hcload.c  */
@@ -58,13 +59,13 @@
 /* mcvalv.c */
 #include "mc/mcvalv.h"
 
-/* mcvav.c */
+//VAV VAVユニット
 #include "mc/mcvav.h"
 
 // mcomvav.c
 #include "mc/mcomvav.h"
 
-/* mcstheat.c */
+//STHEAT 電気蓄熱式暖房器
 #include "mc/mcstheat.h"
 
 /* mcthex.c */
@@ -88,8 +89,10 @@
 /* mcqmeas.c */
 #include "mc/mcqmeas.h"
 
+//DESI バッチ式デシカント空調機
 // mcdesiccant.c  Satoh追加 2013/10/20
 #include "mc/mcdesiccant.h"
 
+//EVAC 気化冷却器
 // mcevcooling.c Satoh追加 2013/10/26
 #include "mc/mcevcooling.h"

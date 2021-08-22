@@ -56,7 +56,7 @@
  * @param[out]    revpri     室内熱環境データの出力指定 (GDATA PRINT *rev)
  * @param[out]    pmvpri     室内の PMV の出力指定 (GDATA PRINT *pmv)
  * @param[out]    helmkey    負荷要素の出力指定 (GDATA PRINT *helm)
- * @param         MaxIterate
+ * @param[out]    MaxIterate 最大収束回数
  * @param[in,out] Daytm      計算開始初期日が設定される
  * @param[in,out] Wd         気象データ
  * @param[out]    perio      周期定常計算フラグ

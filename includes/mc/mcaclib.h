@@ -1,5 +1,9 @@
 #pragma once
 
+//@brief HCC 冷温水コイル
+
+#include "eqptyp.h"
+
 void wcoil(char Air_SW, char Water_SW, char wet, double Gaet, double Gaeh,
 	   double xai, double Twi, ACS *Et, ACS *Ex, ACS *Ew);
 double Qcoils(ACS *Et, double Tai, double xai, double Twi);

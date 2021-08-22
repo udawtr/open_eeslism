@@ -30,8 +30,20 @@
 
 /* -------------------------------------------------- */
 
+/*
+ * @brief 建築・設備システムデータ入力
+ * @details
+ *
+ * 2. 入力データファイル (EESLISM7.2入力データ作成マニュアル.pdf)
+ *
+ */
+
 /*  建築・設備システムデータ入力  */
 
+
+/*
+ * @brief 建築・設備システムデータ入力
+ */
 void Eeinput(char *Ipath, SIMCONTL *Simc, SCHDL *Schdl,
 	EXSFS *Exsf, RMVLS *Rmvls, EQCAT *Eqcat, EQSYS *Eqsys,
 	COMPNT **Compnt, int *Ncompnt, int *Ncmpalloc, ELOUT **Elout, int *Nelout, ELIN **Elin, int *Nelin,
@@ -163,6 +175,10 @@ void Eeinput(char *Ipath, SIMCONTL *Simc, SCHDL *Schdl,
 
 	while (fscanf(fi, "%s", s), printf("=== %s\n", s), s[0] != '*')
 	{
+		//******************************************************************
+		// 共通データ
+		//******************************************************************
+
 		if (strcmp("TITLE", s) == 0)
 		{
 			//------------------------------------------------------------------
@@ -205,6 +221,10 @@ void Eeinput(char *Ipath, SIMCONTL *Simc, SCHDL *Schdl,
 			HeapCheck(hptest);
 		}
 
+		// SCHTB SCHNM
+		// スケジュール設定データ
+		// ref: sched.h
+
 		else if (strcmp("SCHTB", s) == 0)
 		{
 			Schtable(fi, s, Schdl);
@@ -225,6 +245,9 @@ void Eeinput(char *Ipath, SIMCONTL *Simc, SCHDL *Schdl,
 			Schdl->Nscw = Scw->end;
 		}
 
+		// EXSRF
+		// 建築外表面、集熱面の方位、傾斜：室構成データにおける建築外表面や集
+		// 熱器で用いる集熱面の方位角、傾斜角の定義
 		else if (strcmp("EXSRF", s) == 0)
 		{
 			sprintf(hptest, "EXSRF");
@@ -233,10 +256,20 @@ void Eeinput(char *Ipath, SIMCONTL *Simc, SCHDL *Schdl,
 		}
 
 #if SIMUL_BUILDG  
+
+		//******************************************************************
+		// 建築データ
+		// SUNBRK, PCM, WALL, WINDOW, ROOM, RAICH, VENT, RESI, APPL, VCFILE
+		//******************************************************************
+
 		else if (strcmp("SUNBRK", s) == 0)
+		{
 			Snbkdata(fi, s, &Rmvls->Snbk);
+		}
 		else if (strcmp("PCM", s) == 0)
+		{
 			PCMdata(fi, s, &Rmvls->PCM, &Rmvls->Npcm, &Rmvls->pcmiterate);
+		}
 		else if (strcmp("WALL", s) == 0)
 		{
 			sprintf(hptest, "Wallata");
@@ -264,7 +297,9 @@ void Eeinput(char *Ipath, SIMCONTL *Simc, SCHDL *Schdl,
 			HeapCheck(hptest);
 		}
 		else if (strcmp("WINDOW", s) == 0)
+		{
 			Windowdata(fi, s, &Rmvls->Window, &Rmvls->Nwindow);
+		}
 		else if (strcmp("ROOM", s) == 0)
 		{
 			Roomdata(fi, "Roomdata", Exsf->Exs, &dfwl, Rmvls, Schdl, Simc);
@@ -276,14 +311,27 @@ void Eeinput(char *Ipath, SIMCONTL *Simc, SCHDL *Schdl,
 			//	printf("Balloc end NULL check\n") ;
 		}
 		else if (strcmp("RAICH", s) == 0 || strcmp("VENT", s) == 0)
+		{
 			Ventdata(fi, s, Schdl, Rmvls->Room, Simc);
+		}
 		else if (strcmp("RESI", s) == 0)
+		{
 			Residata(fi, s, Schdl, Rmvls->Room, &pmvpri, Simc);
+		}
 		else if (strcmp("APPL", s) == 0)
+		{
 			Appldata(fi, s, Schdl, Rmvls->Room, Simc);
+		}
 #endif
 		else if (strcmp("VCFILE", s) == 0)
+		{
 			Vcfdata(fi, Simc);
+		}
+
+		//******************************************************************
+		// 設備機器データ
+		// EQPCAT, SYSCMP
+		//******************************************************************
 		else if (strcmp("EQPCAT", s) == 0)
 		{
 			//printf("%s\n", Rmvls->Room->trnx->nextroom->name) ;
@@ -306,6 +354,11 @@ void Eeinput(char *Ipath, SIMCONTL *Simc, SCHDL *Schdl,
 			/*****/
 			SYSCMP_ID++;
 		}
+
+		//******************************************************************
+		// システム経路データ
+		// SYSPTH
+		//******************************************************************
 		else if (strcmp("SYSPTH", s) == 0)
 		{
 			if (SYSCMP_ID == 0)
@@ -360,6 +413,11 @@ void Eeinput(char *Ipath, SIMCONTL *Simc, SCHDL *Schdl,
 
 			SYSPTH_ID++;
 		}
+
+		//******************************************************************
+		// 制御データ
+		// CONTL
+		//******************************************************************
 		else if (strcmp("CONTL", s) == 0)
 		{
 			if (SYSCMP_ID == 0)
@@ -398,27 +456,42 @@ void Eeinput(char *Ipath, SIMCONTL *Simc, SCHDL *Schdl,
 
 		/*--------------higuchi add-------------------start*/
 
+		//******************************************************************
+		// 外部環境データ
+		// DIVID,COORDNT,OBS, TREE, POLYGON, SHDSCHTB
+		// ref: MODEL.h
+		// TODO: DIVID はマニュアル未記載
+		//******************************************************************
+
 		// 20170503 higuchi add
-		else if (strcmp("DIVID", s) == 0) {
+		else if (strcmp("DIVID", s) == 0)
+		{
 			dividdata(fi, monten, DE);
 		}
 
 		/*--対象建物データ読み込み--*/
 		else if (strcmp("COORDNT", s) == 0)
-
+		{
 			bdpdata(fi, bdpn, bp, Exsf);
+		}
 
 		/*--障害物データ読み込み--*/
 		else if (strcmp("OBS", s) == 0)
+		{
 			obsdata(fi, obsn, obs);
+		}
 
 		/*--樹木データ読み込み--*/
 		else if (strcmp("TREE", s) == 0)
+		{
 			treedata(fi, treen, tree);
+		}
 
 		/*--多角形障害物直接入力分の読み込み--*/
 		else if (strcmp("POLYGON", s) == 0)
+		{
 			polydata(fi, polyn, poly);
+		}
 
 		/*--落葉スケジュール読み込み--*/
 		else if (strcmp("SHDSCHTB", s) == 0){
@@ -568,7 +641,7 @@ void Eeinput(char *Ipath, SIMCONTL *Simc, SCHDL *Schdl,
 			Nqrmpri++;
 	}
 
-	/***************
+	/***************	
 	printf("<<Eeinput>> Sd  Rmvls->Nsrf=%d\n", Rmvls->Nsrf);
 	/*************/
 

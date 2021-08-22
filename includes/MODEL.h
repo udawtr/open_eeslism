@@ -31,57 +31,174 @@
 #define pmax 200               
 
 
+/*
+ * @brief <入力データファイル>外部環境部分のモデルについて構造体の定義
+ * @details
+ * 
+ * 2.10 外部障害物の入力方法 (EESLISM7.2入力データ作成マニュアル.pdf)
+ * 
+ * モデルの関連図
+ * 
+ * *- COORDNT --- BDP --+-- RMP ----- WD
+ * |                    |
+ * |                    +-- SBRK
+ * +- OBS
+ * +- TREE
+ * +- POLYGON
+ * +- SHDSCHTB
+ * 
+ * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+ * COORDNT : 外表面
+ * BDP:      方位別表面 (exwall構造体)
+ * RMP:      建築室外壁面 (exroomwall構造体)
+ * WD:       窓 (madomen構造体)
+ * SBLK:     付属障害物 (sunblk構造体)
+ * OBS:      外部障害物 隣棟、構築物 etc
+ * TREE:     樹木
+ * POLYGON:  多角形
+ * SHDSCHTB: 障害物の遮蔽率スケジュール設定
+ * 
+ * @sa Eeinput
+*/
+
+// モデルの関連図
+// 
+
+//
+
 typedef struct bektle{
      double **ps ;
 }bekt ;
 
 
-/*--付設障害物--*/
+//付設障害物
+//ref: P.98 図 2.10.4 各種日よけの定義
 typedef struct sunbreak{
-     char *sbfname ;  /*HISASI or BARUKONI or SODEKABE or MADOHIYOKE*/
-     char *snbname ;
-     double rgb[3] ;     /*--色--*/
-     double x, y ;
-     double D, W ,H, h ;
-     double WA ;
-     double ref ;        /*--反射率--*/
+    //! 庇/バルコニー/袖壁/スクリーンの分類
+    char *sbfname ;  /*HISASI or BARUKONI or SODEKABE or MADOHIYOKE*/
+
+    //! 名前
+    char *snbname ;
+
+    //! 色
+    double rgb[3] ;
+
+    //! 左隅の二次元座標(x,y)
+    double x, y ;
+
+    //! 突き出し長さ  [m]
+    double D;
+    
+    //! 幅 [m]
+    double W;
+    
+    //! 高さ [m]
+    double H;
+    
+    //! フェンス高さ [m]
+    double h;
+
+    double WA ;
+
+    //! 反射率
+    double ref;
 }sunblk ;
 
 /*---窓---*/
-typedef struct madomen{
-     char *winname ;         /*--名前--*/
-     double xr, yr ;            /*--左下頂点座標--*/
-     double Ww, Wh ;            /*--巾、高さ--*/
-     double ref ;               /*--反射率--*/
-     double grpx ;              /*--前面地面の代表点までの距離 初期値=1---*/
-     double rgb[3] ;            /*--色--*/   
+
+/*
+ * @brief 窓(WD)
+ */
+typedef struct madomen
+{
+    //! 名前
+    char* winname;
+
+    //! 左下頂点座標
+    double xr, yr;
+
+    //! 巾、高さ
+    double Ww, Wh;
+
+    //! 反射率
+    double ref;
+
+    //! 前面地面の代表点までの距離 初期値=1
+    double grpx;
+
+    //! 色
+    double rgb[3];
 } MADO ;
 
-/*---RMP---*/
-typedef struct exroomwall{
-     char *rmpname ;         /*--RMP名--*/  
-     char *wallname ;        
-     int sumWD ;                /*--窓の数--*/
-     double ref ;               /*--反射率--*/
-     double xb0, yb0 ;          /*--左下頂点座標--*/
-     double Rw, Rh ;            /*--巾、高さ--*/
-     double grpx ;              /*--前面地面の代表点までの距離 初期値=1---*/
-     double rgb[3] ;            /*--色--*/
-     MADO  *WD ; 
+
+/*
+ * @brief 室外表面(RMP)
+ * @details
+ * 室外表面(RMP)は任意の数の窓(WD)を持つ。
+ */
+typedef struct exroomwall
+{
+    // RMP名
+    char* rmpname;
+
+
+    char* wallname;
+
+    //! 窓の数
+    int sumWD;
+
+    //! 反射率
+    double ref;
+
+    //! 左下頂点座標
+    double xb0, yb0;
+
+    //! 巾、高さ
+    double Rw, Rh;
+
+    //! 前面地面の代表点までの距離 初期値=1
+    double grpx;
+
+    //! 色
+    double rgb[3];
+
+    //! 窓(WD)の動的配列
+    MADO  *WD ; 
 }RRMP ;
 
-/*---BDP---*/
-typedef struct exwall{
-     char *bdpname ;         /*--BDP名--*/
-     int sumRMP, sumsblk ;      /*--RMPの数、日よけの数--*/
-     double x0, y0, z0 ;        /*--左下頂点座標--*/
-     double Wa, Wb ;            /*--方位角、傾斜角--*/
-     double exh, exw ;          /*--巾、高さ--*/
-     RRMP *RMP ;         /*RMP*/
-     sunblk *SBLK ;     /*SBLK*/
 
-	 // Satoh修正（2018/1/23）
-	 char	*exsfname;
+/*
+ * @brief BDP(方位別外表面)
+ * @details
+ * 方位別外表面(BDP)は、任意の数の室外表面(RMP)を持つ。
+ */
+typedef struct exwall{
+    //! 室外壁面名(BDP名)
+    char *bdpname;
+
+    //! RMPの数
+    int sumRMP;
+    
+    //! 日よけの数
+    int sumsblk;
+
+    //! 左下頂点座標
+    double x0, y0, z0 ;
+
+    //! 方位角、傾斜角
+    double Wa, Wb ;
+
+    //! 巾、高さ
+    double exh, exw ;
+
+    //! RMP
+    RRMP *RMP ;
+
+    //! SBLK
+    sunblk *SBLK ;
+
+    // Satoh修正（2018/1/23）
+    char *exsfname;
 }BBDP ;
 
 /*---OBS 外部障害物---*/

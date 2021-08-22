@@ -1,5 +1,9 @@
 #pragma once
 
+//PIPE 配管
+
+#include "eqptyp.h"
+
 int Pipedata(char *cattype, char *s, PIPECA *Pipeca);
 void Pipeint(int Npipe, PIPE *Pipe, 
 	     SIMCONTL *Simc, int Ncompnt, COMPNT *Compnt, WDAT *Wd);

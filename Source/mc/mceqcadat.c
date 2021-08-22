@@ -51,17 +51,43 @@ void Eqcadata (FILE *f, char *dsn, EQCAT *Eqcat)
 	EVACCA	*Evacca ;
     
     FILE *frf;
+
+	//
+	// 1) 機種ごとの定義数を確認
+	//
     
 	NBOI = NREFA = NCOL = NSTANK = NHCC = NHEX
 		= NPIPE = NPUMP = NVAV = NSTHEAT = NTHEX = NPV = NOMVAV = NDESI = NEVAC = 0 ;
 
 	//printf("1 %s\n", Room->trnx->nextroom->name) ;
 
-	Eqpcount ( f, &NBOI, &NREFA, &NCOL, &NSTANK, &NHCC, &NHEX,
-		&NPIPE, &NPUMP, &NVAV, &NSTHEAT, &NTHEX, &NPV, &NOMVAV, &NDESI, &NEVAC ) ;
+	//機器種別ごとの仕様定義数を取得
+	Eqpcount ( f, 
+		&NBOI,		//ボイラー
+		&NREFA,		//チラー、ヒートポンプチラー（空気熱源)
+		&NCOL,		//太陽熱集熱器
+		&NSTANK,	//蓄熱層
+		&NHCC,		//冷温水コイル
+		&NHEX,		//熱交換器(２流体式）
+		&NPIPE,		//配管
+		&NPUMP,		//ポンプ
+		&NVAV,		//VAV ユニット
+		&NSTHEAT,	//電気蓄熱式暖房器
+		&NTHEX,		//全熱交換器
+		&NPV,		//太陽電池
+		&NOMVAV,	//??
+		&NDESI,		//バッチ式デシカント空調機
+		&NEVAC		//気化冷却器
+	);
+
+
+	//
+	// 2) 機種ごとにメモリを確保
+	//
 
 	//printf("2 %s\n", Room->trnx->nextroom->name) ;
 
+	// 2-1) 冷温水コイル
 	N = NHCC ;
 	Eqcat->Hccca = NULL ;
     if (N > 0 )
@@ -70,6 +96,7 @@ void Eqcadata (FILE *f, char *dsn, EQCAT *Eqcat)
 			Ercalloc(N, dsn);
 	}
 
+	// 2-2) ボイラー
 	N = NBOI ;
 	Eqcat->Boica = NULL ;
     if (N > 0 )
@@ -78,6 +105,7 @@ void Eqcadata (FILE *f, char *dsn, EQCAT *Eqcat)
 			Ercalloc(N, dsn);
 	}
 
+	// 2-3) チラー、ヒートポンプチラー（空気熱源)
 	N = NREFA ;
 	Eqcat->Refaca = NULL ;
     if (N > 0 )
@@ -86,6 +114,7 @@ void Eqcadata (FILE *f, char *dsn, EQCAT *Eqcat)
 			Ercalloc(N, dsn);
 	}
 
+	// 2-4) 太陽熱集熱器
 	N = NCOL ;
 	Eqcat->Collca = NULL ;
     if (N > 0 )
@@ -94,6 +123,7 @@ void Eqcadata (FILE *f, char *dsn, EQCAT *Eqcat)
 			Ercalloc(N, dsn);
 	}
 
+	// 2-5) 太陽電池
 	N = NPV ;
 	Eqcat->PVca = NULL ;
     if (N > 0 )
@@ -102,7 +132,7 @@ void Eqcadata (FILE *f, char *dsn, EQCAT *Eqcat)
 			Ercalloc(N, dsn);
 	}
 
-
+	// 2-6) 配管
 	N = NPIPE ;
 	Eqcat->Pipeca = NULL ;
     if (N > 0 )
@@ -111,6 +141,7 @@ void Eqcadata (FILE *f, char *dsn, EQCAT *Eqcat)
 			Ercalloc(N, dsn);
 	}
 
+	// 2-7) 蓄熱層
 	N = NSTANK ;
 	Eqcat->Stankca = NULL ;
     if (N > 0 )
@@ -119,6 +150,7 @@ void Eqcadata (FILE *f, char *dsn, EQCAT *Eqcat)
 			Ercalloc(N, dsn);
 	}
 
+	// 2-8) 熱交換器(２流体式）
 	N = NHEX ;
 	Eqcat->Hexca = NULL ;
     if (N > 0 )
@@ -127,6 +159,7 @@ void Eqcadata (FILE *f, char *dsn, EQCAT *Eqcat)
 			Ercalloc(N, dsn);
 	}
 
+	// 2-9) ポンプ
 	N = NPUMP ;
 	Eqcat->Pumpca = NULL ;
     if (N > 0 )
@@ -135,6 +168,7 @@ void Eqcadata (FILE *f, char *dsn, EQCAT *Eqcat)
 			Ercalloc(N, dsn);
 	}
 
+	// 2-10) VAV ユニット
 	N = NVAV ;
 	Eqcat->Vavca = NULL ;
 	if (N > 0 )
@@ -143,6 +177,7 @@ void Eqcadata (FILE *f, char *dsn, EQCAT *Eqcat)
 			Ercalloc(N, dsn);
 	}
 
+	// 2-11) 電気蓄熱式暖房器
 	N = NSTHEAT ;
 	Eqcat->stheatca = NULL ;
 	if (N > 0 )
@@ -151,6 +186,7 @@ void Eqcadata (FILE *f, char *dsn, EQCAT *Eqcat)
 			Ercalloc(N, dsn);
     }
 
+	// 2-12) 全熱交換器
 	N = NTHEX ;
 	Eqcat->Thexca = NULL ;
 	if (N > 0 )
@@ -159,6 +195,7 @@ void Eqcadata (FILE *f, char *dsn, EQCAT *Eqcat)
 			Ercalloc(N, dsn);
     }
 
+	// 2-13) ?????
 	N = NOMVAV ;
 	Eqcat->OMvavca = NULL ;
 	if (N > 0 )
@@ -167,6 +204,7 @@ void Eqcadata (FILE *f, char *dsn, EQCAT *Eqcat)
 			Ercalloc(N, dsn);
 	}
 
+	// 2-14) バッチ式デシカント空調機
 	// Satoh追加　2013/10/20
 	N = NDESI ;
 	Eqcat->Desica = NULL ;
@@ -176,6 +214,7 @@ void Eqcadata (FILE *f, char *dsn, EQCAT *Eqcat)
 			Ercalloc(N, dsn);
 	}
 
+	// 2-15) 気化冷却器
 	// Satoh追加　2013/10/26
 	N = NEVAC ;
 	Eqcat->Evacca = NULL ;
@@ -523,6 +562,25 @@ void Eqcadata (FILE *f, char *dsn, EQCAT *Eqcat)
 
 /****************************************************************************/
 
+/*
+ * @brief 機器種別ごとの定義数を取得
+ * @param[IN]  fi      読み込み元ファイルポインタ
+ * @param[OUT] NBOI    ボイラーの定義数
+ * @param[OUT] NREFA   チラー、ヒートポンプチラー（空気熱源)の定義数
+ * @param[OUT] NCOL    太陽熱集熱器の定義数
+ * @param[OUT] NSTANK  蓄熱層の定義数
+ * @param[OUT] NHCC    冷温水コイルの定義数
+ * @param[OUT] NHEX    熱交換器(２流体式）の定義数
+ * @param[OUT] NPIPE   配管の定義数
+ * @param[OUT] NPUMP   ポンプの定義数
+ * @param[OUT] NVAV    VAV ユニットの定義数
+ * @param[OUT] NSTHEAT 電気蓄熱式暖房器の定義数
+ * @param[OUT] NTHEX   全熱交換器（換気の排気からの熱回収用の顕熱・潜熱熱交換器)の定義数
+ * @param[OUT] NPV     太陽電池の定義数
+ * @param[OUT] NOMVAV  ????の定義数
+ * @param[OUT] NDESI   バッチ式デシカント空調機の定義数
+ * @param[OUT] NEVAC   気化冷却器の定義数
+ */
 void	Eqpcount ( FILE *fi, int *NBOI, int *NREFA, int *NCOL, int *NSTANK, int *NHCC,
 				  int *NHEX, int *NPIPE, int *NPUMP, int *NVAV, int *NSTHEAT, int *NTHEX, int *NPV, int *NOMVAV, int *NDESI, int *NEVAC )
 {

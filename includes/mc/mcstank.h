@@ -1,5 +1,9 @@
 #pragma once
 
+//STANK 蓄熱槽
+
+#include "eqptyp.h"
+
 int Stankdata(FILE *f, char *s, STANKCA *Stankca);
 void Stankmemloc(char *errkey, STANK *Stank);
 void Stankint(double dTM, int Nstank, STANK *Stank, 

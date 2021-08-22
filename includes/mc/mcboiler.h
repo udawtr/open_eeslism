@@ -1,5 +1,9 @@
 #pragma once
 
+//BOI ボイラー
+
+#include "eqptyp.h"
+
 int Boidata (char *s, BOICA *Boica);
 void Boicfv(int Nboi, BOI *Boi);
 void Boiene(int Nboi, BOI *Boi, int *BOIreset);

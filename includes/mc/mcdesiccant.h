@@ -1,7 +1,9 @@
 #pragma once
 
+//DESI バッチ式デシカント空調機
+
 #include <stdio.h>
-#include "MODEL.h"
+#include "eqptyp.h"
 
 int Desiccantdata(char *s, DESICA *Desica) ;
 void Desiint(int NDesi, DESI *Desi, 

@@ -394,6 +394,7 @@ int main(int Narg, char **File)
 	Simc.File = File[1];
 	Simc.Loc = &Loc;
 
+	//建築・設備システムデータ入力
 	Eeinput(EWKFile, &Simc, &Schdl, &Exsf, &Rmvls, &Eqcat, &Eqsys, &Compnt, &Ncompnt, &Ncmpalloc,
 		&Elout, &Nelout, &Elin, &Nelin, &Mpath, &Nmpath, &Plist, &Pelm, &Npelm,
 		&Contl, &Ncontl, &Ctlif, &Nctlif, &Ctlst, &Nctlst, Flout, &Nflout, &Wd,

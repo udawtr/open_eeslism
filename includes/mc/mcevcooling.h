@@ -1,6 +1,9 @@
 #pragma once
 
-#include "MODEL.h"
+//EVAC 気化冷却器
+
+#include <stdio.h>
+#include "eqptyp.h"
 
 int		Evacdata ( char *s, EVACCA *Evacca ) ;
 void	Evacint ( int Nevac, EVAC *Evac ) ;

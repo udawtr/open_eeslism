@@ -17,6 +17,7 @@
 
 #pragma once
 
+#include "fesy.h"
 #include "MODEL.h"
 
 void Eeinput(char *Ipath, SIMCONTL *Simc, SCHDL *Schdl, 	    	     

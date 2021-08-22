@@ -25,13 +25,18 @@
 #include "fnlib.h"
 
 
-/* シミュレーション結果、標題、識別データの入力 */
-
+/*
+ * @brief シミュレーション結果、標題、識別データの入力
+ * @param[IN]  fi   VCFILEデータファイルのファイルポインタ
+ * @param[OUT] Estl シミュレーション結果注釈構造体への参照
+ * @details
+ * ref EESLISM7.2入力データ作成マニュアル.pdf P.93
+ *     2.9.2 VCFILE データとして使用する気象データの書式
+ */
 void esondat(FILE *fi, ESTL *Estl)
 {
 	char  s[SCHAR];
-	int   i, j, Nparm, Ndat, N, ss ;
-	CATNM *catnm, *C;
+	int  ss ;
 	
 	Estl->catnm = NULL;
 	
@@ -39,21 +44,25 @@ void esondat(FILE *fi, ESTL *Estl)
 	{
 		if (strcmp(s, "-t") == 0)
 		{
+			//題目
 			fscanf(fi, " %[^;];", s);
 			Estl->title = stralloc(s);
 		}
 		else if (strcmp(s, "-w") == 0)
 		{
+			//気象データファイル名
 			fscanf(fi, "%s", s);
 			Estl->wdatfile = stralloc(s);
 		}	 
 		else if (strcmp(s, "-tid") == 0)
 		{
+			//時刻別データであることの指定
 			fscanf(fi, " %c", &Estl->tid);
 		}
 		else if (strcmp(s, "-u") == 0)
 		{
-			i = 0;
+			//????????????????????????
+			int i = 0;
 			while (fscanf(fi, "%s", s), *s != ';')
 			{
 				Estl->unit[i] = stralloc(s);
@@ -62,26 +71,31 @@ void esondat(FILE *fi, ESTL *Estl)
 			}
 		}
 		else if (strcmp(s, "-Ntime") == 0)
-			fscanf(fi, " %d",  &Estl->Ntime);
-		
+		{
+			//項目ごとの全データ数
+			fscanf(fi, " %d", &Estl->Ntime);
+		}
 		else if (strcmp(s, "-dtm") == 0)
-			fscanf(fi, " %d",  &Estl->dtm);
-		
+		{
+			//計算時間間隔 [s]
+			fscanf(fi, " %d", &Estl->dtm);
+		}	
 		else if (strcmp(s, "-tmid") == 0)
 		{
+			//時刻データ表示および文字数
 			fscanf(fi, "%s", s);
 			Estl->timeid = stralloc(s);
 			Estl->ntimeid = (int)strlen(Estl->timeid);
 		}
 		else if (strcmp(s, "-cat") == 0) 
 		{
-			N = CATNMMAX ;
+			int N = CATNMMAX ;
 			if (N > 0 && (Estl->catnm = (CATNM *)malloc(N * sizeof(CATNM))) == NULL)
 				Ercalloc(CATNMMAX, "esondat -- catnm");
 
 			if ( Estl->catnm != NULL )
 			{
-				C = Estl->catnm ;
+				CATNM* C = Estl->catnm ;
 
 				for ( ss = 0; ss < N; ss++, C++ )
 				{
@@ -91,17 +105,21 @@ void esondat(FILE *fi, ESTL *Estl)
 			}
 
 			Estl->Ndata = 0;
-			catnm = Estl->catnm;
+			CATNM* catnm = Estl->catnm;
 			while(fscanf(fi, "%s", s), *s != '*')
 			{
 				catnm->name = stralloc(s);
 				catnm->Ncdata = 0;
 				fscanf(fi, "%d", &catnm->N);
-				for (i = 0; i < catnm->N; i++)
+				for (int i = 0; i < catnm->N; i++)
 				{
+					int  Nparm, Ndat;
+
 					fscanf(fi, "%s %d %d", s, &Nparm, &Ndat);
-					for (j = 0; j < Nparm - 1; j++)
+
+					for (int j = 0; j < Nparm - 1; j++)
 						fscanf(fi, "%s", s);
+
 					Estl->Ndata += Ndat;
 					catnm->Ncdata += Ndat;
 				}
@@ -110,17 +128,23 @@ void esondat(FILE *fi, ESTL *Estl)
 		}
 		else if (strcmp(s, "-wdloc") == 0)
 		{
+			//地名 (-wdloc name)
 			fscanf(fi, "%[^;];", s);
 			
 			strcat(s, " ;");
 			Estl->wdloc = stralloc(s);
 		}
 		else if (strcmp(s, "-Ndata") == 0)
-			fscanf(fi, " %d",  &Estl->Ndata);
-		
+		{
+			//各時刻ごとのデータ個数
+			fscanf(fi, " %d", &Estl->Ndata);
+		}
 		
 		else if (s[strlen(s) - 1] == '#')
+		{
+			//ファイル種別記号
 			Estl->flid = stralloc(s);
+		}
 		
 		else
 			Eprint("<esondat>", s);	 
@@ -243,8 +267,11 @@ void rqlist(int Narg, char **arg, FILE *fii, ESTL *Estl)
 #endif	       
 /* ----------------------------------------------------------- */
 
-/* 要素名、シミュレーション結果入力用記憶域確保 */
 
+/*
+ * @brief 要素名、シミュレーション結果入力用記憶域確保
+ * @param[IN]  fi   VCFILEデータファイルのファイルポインタ
+ */
 void esoint(FILE *fi, char *err, int Ntime, 
 			ESTL *Estl, TLIST *Tlist) 
 {
@@ -259,13 +286,16 @@ void esoint(FILE *fi, char *err, int Ntime,
 	st = V = NULL ;
 
 	if (Estl->catnm == NULL)
+	{
 		cat = Estl->catnm;
+	}
 	Rq = Estl->Rq;
 	
 	for (i = 0; i < Estl->Ndata; i++, Tlist++)
 	{
 		fscanf(fi, " %[^_]_%s %c %c", nm, id, &Tlist->vtype, &Tlist->ptype);
 		
+		//データ処理種別の設定
 		switch (Tlist->vtype)
 		{
 		case 'H': case 'Q': case 'E': case 'q': case 'e': case 'm' :
@@ -307,14 +337,18 @@ void esoint(FILE *fi, char *err, int Ntime,
 			Tlist->cname = cat->name;
 		}
 		else
+		{
 			Tlist->cname = stralloc("*");
+		}
 		
 		Tlist->name = stralloc(nm);
 		Tlist->id = stralloc(id);      
 		Tlist->req = 'n';
 		
 		if (Estl->Nrqlist == 0 && Estl->Nvreq == 0)
+		{
 			Tlist->req = 'y';
+		}
 		else
 		{
 			R = Estl->Rq ;
@@ -347,6 +381,7 @@ void esoint(FILE *fi, char *err, int Ntime,
 		/***** printf("<<esoint>> %s %s %s %c %c rq=%c\n", Tlist->cname, Tlist->name, Tlist->id, 
 		Tlist->vtype, Tlist->ptype, Tlist->req);********/
 		
+		//メモリの確保
 		switch (Tlist->ptype)
 		{
 		case 'f':
@@ -360,6 +395,8 @@ void esoint(FILE *fi, char *err, int Ntime,
 			Tlist->cval = scalloc(Ntime, err);
 			break;
 		}
+
+		//出力時の書式の設定
 		fofmt(Estl, Tlist);
 	}
 }
@@ -370,8 +407,12 @@ void esoint(FILE *fi, char *err, int Ntime,
 void fofmt(ESTL *Estl, TLIST *Tlist)
 {
 	int j;
-	static char *f81="%8.1lf", *f80="%8.0lf", *f84="%8.4lf", 
-		*f8d="%8d", *f4d="%04d", *fc="%c";
+	const char* f81 = "%8.1lf";
+	const char* f80 = "%8.0lf";
+	const char* f84 = "%8.4lf";
+	const char* f8d = "%8d";
+	const char* f4d = "%04d";
+	const char* fc = "%c";
 	
 	switch (Tlist->vtype)
 	{

@@ -24,8 +24,9 @@
 #include "fnlib.h"
 #include "lib/u_psy.h"
 
-/* VCFILE からの気象データ入力 */
-
+/*
+ * VCFILE からの気象データ入力
+ */
 void wdflinit(SIMCONTL *Simc, ESTL *Estl, TLIST *Tlist)
 {
 	LOCAT *loc;

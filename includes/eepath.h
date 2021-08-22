@@ -16,49 +16,111 @@
 /*  eepath.h  */
 #pragma once
 
+
+/*
+ * @brief <入力データファイル>システム経路のモデルについて構造体の定義
+ * @details
+ *
+ * 2.6 システム経路 (EESLISM7.2入力データ作成マニュアル.pdf)
+ *
+ * モデルの関連図
+ *
+ * *- SYSPTH
+ *
+ * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+ * 
+ * SYSPTH: 
+ *
+ * @sa Eeinput
+ */
+
+
+
 #define  ROOM_TYPE        "ROOM"
 #define  RDPANEL_TYPE     "RPNL"
 //#define  AIRFLOW_TYPE     "AIRFLOW"
 
+//@brief 冷温水コイル
 #define  HCCOIL_TYPE      "HCC"
+
+//@brief 
+//(マニュアル未定義)
 #define  DXCOIL_TYPE      "DXC"
+
+//@brief ボイラー
 #define  BOILER_TYPE      "BOI"
+
+//@brief 太陽熱集熱器
 #define  COLLECTOR_TYPE   "COL"
+
+//@brief 
+//(マニュアル未定義)
 #define  ACOLLECTOR_TYPE   "ACOL"
+
+
 #define  COLLECTOR_PDT    'w'
 #define  ACOLLECTOR_PDT   'a'
+
+//@brief チラー、ヒートポンプチラー（空気熱源)
 #define  REFACOMP_TYPE    "REFA"
+
+//@brief 蓄熱層
 #define  STANK_TYPE       "STANK"
+
+//@brief 熱交換器(２流体式）
 #define  HEXCHANGR_TYPE   "HEX"
 
+//@brief 電気蓄熱式暖房器
 #define  STHEAT_TYPE      "STHEAT"
 
+//@brief 全熱交換器（換気の排気からの熱回収用の顕熱・潜熱熱交換器)
 #define	 THEX_TYPE		  "THEX"
 
+//@brief 
+//(マニュアル未定義)
 #define  QMEAS_TYPE		  "QMEAS"
 
+//@brief 
+//(マニュアル未定義)
 #define  VALV_TYPE		  "V"
+
+//@brief 
+//(マニュアル未定義)
 #define  TVALV_TYPE		  "VT"
 
+//@brief バッチ式デシカント(マニュアル未定義)
 // Satoh追加 2013/10/20
 #define  DESI_TYPE		"DESICCANT"
 
+//@brief 気化冷却器(マニュアル未定義)
 // Satoh追加 2013/10/26
 #define  EVAC_TYPE		"EVPCOOLING"
 
 /*---- Satoh Debug VAV  2000/10/30 ----*/
+
+//@brief VAV ユニット
 #define  VAV_TYPE		  "VAV"
+
+//@brief 
+//(マニュアル未定義)
 #define  VWV_TYPE		  "VWV"
+
 #define	 VAV_PDT		  'A'
 #define  VWV_PDT		  'W'
 
+//@brief 配管
 #define  PIPEDUCT_TYPE    "PIPE"
+
+//@brief ダクト
 #define  DUCT_TYPE        "DUCT"
+
 #define   PIPE_PDT        'P'
 #define   DUCT_PDT        'D'
 
+//@brief ポンプ
 #define  PUMP_TYPE        "PUMP"
 
+//@brief ファン（送風機）
 #define  FAN_TYPE	  "FAN"
 #define  PUMP_PF	  'P'
 #define  FAN_PF	 	  'F'

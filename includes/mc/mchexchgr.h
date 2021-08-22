@@ -1,5 +1,10 @@
 #pragma once
 
+
+//HEX 熱交換器
+
+#include "eqptyp.h"
+
 int Hexdata(char *s, HEXCA *Hexca);
 void Hexcfv(int Nhex, HEX *Hex);
 void Hexene(int Nhex, HEX *Hex);

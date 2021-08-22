@@ -62,6 +62,24 @@
 #define SYSV_EQV   'v'
 #define LOAD_EQV   'L'
 
+/*
+ * @brief <入力データファイル>システム経路のモデルについて構造体の定義
+ * @details
+ *
+ * 2.9 ファイル上のデータによる条件設定（VCFILE データ)
+ *     (EESLISM7.2入力データ作成マニュアル.pdf)
+ *
+ * モデルの関連図
+ *
+ * *- VCFILE
+ *
+ * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+ *
+ * VCFILE:
+ *
+ * @sa Eeinput
+ */
+
 typedef struct simcontl
 {
 	//! 入力データファイル名
@@ -74,9 +92,17 @@ typedef struct simcontl
 
 	//! 気象データファイル名
 	char* wfname;
+
+	//! 計算結果出力ファイルセット (GDATA FILE -out)
 	char* ofname;
+
+	//! "t_C x_kg/kg r_% q_W e_W" で初期化される
 	char* unit;
+
+	//! "Q_kWh E_kWh" で初期化される
 	char* unitdy;
+
+	//! "MDT" で初期化される。
 	char timeid[6];
 
 	//! 要素別熱取得、熱損失計算 'y'
@@ -92,10 +118,19 @@ typedef struct simcontl
 	FILE* fwdata2;
 	FILE* ftsupw;
 
+	//! 予備計算開始日
 	int daystartx;
+
+	//! 計算開始日
 	int daystart;
+
+	//! 計算終了日
 	int dayend;
+
+	//! 曜日
 	int	daywk[366];
+
+	//! 毎時計算結果出力日の指定。
 	int dayprn[366];
 
 	int Dayntime;
@@ -106,17 +141,23 @@ typedef struct simcontl
 	//! 要素別壁体表面温度出力壁体数
 	int Nhelmsfpri;
 
-	//! 境界条件、負荷入力用ファイル
+	//! 読み込んだ境界条件、負荷入力用ファイルの数
 	int Nvcfile;
+
+	//! 境界条件・負荷設定用入力ファイルの動的配列
 	struct vcfile *Vcfile;
 
 	struct locat *Loc;
 	struct wdpt  wdpt;
 
+	//! 計算時間間隔[s] (GDATA RUN dTime)
 	int dTm;
+
+	//! 計算開始時刻(ttmm) 例)01:30 => 130 (GDATA RUN Stime)
 	int sttmm;
 
-	int MaxIterate;			// 最大収束回数
+	//! 最大収束回数
+	int MaxIterate;
 
 }  SIMCONTL;
 
@@ -128,28 +169,48 @@ typedef struct flout
 } FLOUT;
 
 
-typedef struct vcfile  /* 境界条件・負荷設定用入力ファイル */
+/*
+ * @brief 境界条件・負荷設定用入力ファイル
+ */
+typedef struct vcfile
 {
 	FILE	*fi;
 	long	ad;
 	int		ic;
-	char	*name, *fname;
+
+	//! ファイル引用名 (VCFILE <Fname>)
+	char* name;
+
+	//! データファイル名 (VCFILE <Fname> -f <filename>)
+	char *fname;
+
+	//! シミュレーション結果に関する注釈
 	struct estl  Estl;
+
+	//! シミュレーション結果
 	struct tlist *Tlist;
 } VCFILE;
 
 
 typedef  struct daytm
 {
-	int    day,   /*通日*/
-	Year,  /*年  */
-	Mon,   /*月  */
-	Day,   /*日  */
+	//! 通日
+	int day;
 
-	ddpri; /*日積算値出力*/
+	//! 年
+	int Year;
+
+	//! 月
+	int Mon;
+
+	//! 日
+	int Day;
+
+	//! 日積算値出力
+	int ddpri;
 
 	double  time;
-	int    ttmm,
-		tt;
+	int    ttmm;
+	int tt;
 
 } DAYTM;

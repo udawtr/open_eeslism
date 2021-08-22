@@ -1,5 +1,7 @@
 #pragma once
 
+#include "fesy.h"
+
 void Eeprinth(DAYTM *Daytm, SIMCONTL *Simc, int Nflout, FLOUT *flout, 
 	      RMVLS *Rmvls, EXSFS *Exs, 
 	      int Nmpath, MPATH *Mpath, EQSYS *Eqsys, WDAT *Wd);
