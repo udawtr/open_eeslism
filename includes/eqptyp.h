@@ -926,36 +926,6 @@ typedef struct pfcmp
 	double	dblcoeff[5] ;
 } PFCMP ;
 
-//typedef struct compostca	// コンポスト機器仕様
-//{
-//	char* name;
-//	double	UA,			// 熱損失係数[W/(m2･K)]
-//		Mos,		// 初期有機物量[kg]
-//		Mmo,		// 初期微生物量[kg]
-//		Mw,			// 初期水分量[kg]
-//		Mu;			// 初期灰分量[kg]
-//}COMPOSTCA;
-//
-//typedef struct compost
-//{
-//	char* name;
-//	double	UA,			// 熱損失係数[W/(m2･K)]
-//		Mosi,			// 初期有機物量[kg]
-//		Mmoi,			// 初期微生物量[kg]
-//		Mwi,			// 初期水分量[kg]
-//		Mui;			// 初期灰分量[kg]
-//	char* type;			// 投入物の種類（P:糞尿、G:ごみ）
-//	double* hos,		// 単位質量当たりの発熱量[J/kg]
-//		* Mpoo;			// 投入量[kg]
-//	int* B;				// ブリストルスケール
-//	double	Tcm,		// 内部温度[℃]
-//		xs,				// 内部絶対湿度[kg/kg']
-//		Mw,				// 槽内水分量[kg]
-//		Mmo,			// 槽内微生物量[kg]
-//		Mos;			// 槽内有機物量[kg]
-//	double* U, * C;
-//}COMPOST;
-
 //@brief ポンプ・ファン機器仕様（機器カタログデータ）
 typedef struct pumpca
 {
@@ -1293,12 +1263,6 @@ typedef struct eqcat
 
 	//! 気化冷却器の動的配列
 	EVACCA	*Evacca ;
-
-	//------ 16) ***************  ------
-
-	// Satoh追加 2019/8/29
-	//int		Ncompost;
-	//COMPOSTCA* Compostca;
 } EQCAT;
 
 /*
