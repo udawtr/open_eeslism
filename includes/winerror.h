@@ -15,6 +15,10 @@
 
 /* winerror.h */
 
+//
+// 終了コード定義
+//
+
 #define	EXIT_BDATA	2
 #define	EXIT_WFILE	3
 #define EXIT_SUPW	4

@@ -29,6 +29,10 @@
 
 /*  制御、スケジュール設定式の入力  */
 
+char Hload;  /* Hload = HEATING_LOAD */
+char Cload;  /* Cload = COOLING_LOAD */
+char HCload;  /* HCload = HEATCOOL_LOAD used in void Contrldata( )*/
+
 void Contrldata(FILE *fi, CONTL **Ct, int *Ncontl, CTLIF **Ci, int *Nctlif,
 				CTLST **Cs, int *Nctlst, 
 				SIMCONTL *Simc, int Ncompnt, COMPNT *Compnt,

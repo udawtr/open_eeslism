@@ -61,10 +61,6 @@
  * @sa Eeinput
 */
 
-// モデルの関連図
-// 
-
-//
 
 typedef struct bektle{
      double **ps ;
