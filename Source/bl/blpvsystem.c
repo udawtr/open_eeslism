@@ -19,7 +19,7 @@
 #include "MODEL.h"
 #include "fesy.h"
 #include "fnfio.h"
-#include "fnbldg.h"
+#include "fnbld.h"
 #include "fnmcs.h"
 #include "fnlib.h"
 

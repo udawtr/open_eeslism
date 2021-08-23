@@ -24,7 +24,7 @@
 #include "fnmcs.h"
 #include "lib/u_psy.h"
 #include "fnfio.h"
-#include "fnbldg.h"
+#include "fnbld.h"
 
 /* 室温・湿度計算結果代入、室供給熱量計算
 およびパネル入口温度代入、パネル供給熱量計算 */

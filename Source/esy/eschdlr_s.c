@@ -22,7 +22,7 @@
 #include "fnbld.h"
 #include "fnesy.h"
 #include "fnlib.h"
-#include "fnbldg.h"
+#include "fnbld.h"
 
 /* -------------------------------------------------------------------------- */
 

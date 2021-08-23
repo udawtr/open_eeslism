@@ -29,7 +29,7 @@
 #include "lib/u_psy.h"
 #include "fnesy.h"
 #include "winerror.h"
-#include "fnbldg.h"
+#include "fnbld.h"
 
 /* ------------------------------------------ */
 
