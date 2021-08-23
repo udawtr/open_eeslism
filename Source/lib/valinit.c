@@ -223,8 +223,11 @@ void	Mpathinit ( int N, MPATH *M )
 }
 
 
-/*****  EXSF の初期化  ******/
-
+/*
+ * @brief EXSF 外表面方位データの初期化
+ * @param[IN]     Nd 外表面方位データのデータ数
+ * @param[IN,OUT] e  外表面方位データの動的配列
+ */
 void	Exsfinit ( int Nd, EXSF *e )
 {
 	int		i ;

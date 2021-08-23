@@ -69,6 +69,15 @@ void monthday(int *Mon, int *Day, int mo, int dayo)
 /*  気象デ－タの入力     */
 double  Lat,Slat,Clat,Tlat,Lon,Ls;
 
+/*
+ * @brief 気象データの入力
+ * @param[IN]  Simc
+ * @param[IN]  Daytm
+ * @param[IN]  Loc
+ * @param[OUT] Wd
+ * @param[IN]  Exs
+ * @param[IN]  EarthSrfFlg
+ */
 void Weatherdt(SIMCONTL *Simc, DAYTM *Daytm, LOCAT *Loc, WDAT *Wd, EXSF *Exs, char EarthSrfFlg)
 {
 	static int   ptt=25, nc=0;
@@ -162,27 +171,9 @@ void Weatherdt(SIMCONTL *Simc, DAYTM *Daytm, LOCAT *Loc, WDAT *Wd, EXSF *Exs, ch
 	
 	if (Simc->wdtype == 'H')
 	{
-		/*******************************************
-		Wd->T = dt[0][tt];
-		Wd->x = dt[1][tt];
-		Wd->Idn =dt[2][tt]/0.86;
-		Wd->Isky=dt[3][tt]/0.86;
-		Wd->Ihor= Wd->Idn * Wd->Sh + Wd->Isky;
-		
-		if ( Wd->RNtype == 'C' )
-			Wd->CC= dt[4][tt];
-		else
-			Wd->RN = dt[4][tt];
-		
-		Wd->Wdre= dt[5][tt];
-		Wd->Wv=dt[6][tt];
-		Wd->RH = FNRhtx(Wd->T, Wd->x);
-		Wd->h = FNH(Wd->T, Wd->x);
-		Br= 0.51+0.209*sqrt(FNPwx(Wd->x));
-		
-		if ( Wd->RNtype == 'C' )
-			Wd->RN= (1.0 - 0.62 * Wd->CC /10.0)*(1.-Br)*Sgm*pow(Wd->T+273.15, 4.0);
-			**************************************************/
+		// -----------------------------------
+		// HASP標準形式での気象データ読み込み
+		// -----------------------------------
 
 		// 計算時間間隔が1時間未満の場合には直線補完する
 		if ( Simc->dTm < 3600 )
@@ -190,10 +181,19 @@ void Weatherdt(SIMCONTL *Simc, DAYTM *Daytm, LOCAT *Loc, WDAT *Wd, EXSF *Exs, ch
 			wdatadiv ( Daytm, Wd, dt, dtL ) ;
 		}
 		else
-			dt2wdata ( Wd, tt, dt ) ;
+		{
+			dt2wdata(Wd, tt, dt);
+		}
 	}
 	else
-		wdflinput(&Simc->wdpt, Wd);		// VCFILE形式の気象データの読み込み
+	{
+		// -----------------------------------
+		// VCFILE形式での気象データ読み込み
+		// -----------------------------------
+
+		// VCFILE形式の気象データの読み込み
+		wdflinput(&Simc->wdpt, Wd);
+	}
 	
 	if ( DEBUG())
 	{

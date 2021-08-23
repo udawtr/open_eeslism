@@ -260,41 +260,40 @@ void Rmexct(ROOM *Room, int Nsrf, RMSRF *Sd, WDAT *Wd, EXSF *Exs, SNBK *Snbk,
 				switch (Sdn->ble)
 				{
 				case 'W':
-					// 通常窓の場合
-					//if ( Sdn->window->AirFlowFlg != 'Y' )
-					//{
-					/*--higuchi dell --
-					Glasstga ( Sdn->A, Sdn->tgtn, Sdn->Bn,
-					e->cinc, Fsdw, e->Idre, e->Idf, &Qgtn, &Qga);
-					Rab =  Sdn->Eo * e->rn / Sdn->alo;
-					---*/
-					/*--higuchi add--*/
-					Glasstga(Sdn->A, Sdn->tgtn, Sdn->Bn,
-						e->cinc, Fsdw, Idre, Idf, &Qgtn, &Qga, Sdn->window->Cidtype, e->Prof, e->Gamma);
+					//ガラス日射熱取得の計算 (透過日射, 吸収日射)
+					Glasstga(Sdn->A, Sdn->tgtn, Sdn->Bn, e->cinc, Fsdw, Idre, Idf, &Qgtn, &Qga, Sdn->window->Cidtype, e->Prof, e->Gamma);
+
+					//夜間放射
 					Rab = Sdn->Eo * RN / Sdn->alo;
 
 					Sab = Sdn->TeEsol = Qga / Sdn->A;
 					Sdn->TeErn = -Rab;
 					Sdn->TeEsol = Sab / Sdn->K;
 
+					//外表面の相当外気温
 					Sdn->Te = Sab / Sdn->K - Rab + Wd->T;
 
 					// 開口部の透過日射熱取得
 					Sdn->Qgt = Qgtn;
+
 					// 開口部の吸収日射熱取得
 					Sdn->Qga = Qga;
+
 					// 開口部の夜間放射熱取得
 					Sdn->Qrn = -Rab;
 
+					//透過日射熱取得の加算
 					rm->Qgt += Qgtn;
+
+					//吸収日射熱取得の加算
 					rm->Qsab += Sab * Sdn->A;
+
+					//夜間放射による熱損失の加算
 					rm->Qrnab += Rab * Sdn->A * Sdn->K;
 
-					/*---higuchi dell---
-					Q->solw += Sdn->A * ( e->Idre + e->Idf);
-					---*/
-					Q->solw += Sdn->A * (Idre + Idf);  /*--higuchi add  --*/
-					//}
+					//窓面入射日射量の加算
+					Q->solw += Sdn->A * (Idre + Idf);
+
 					break;
 
 				case 'E':  case 'F':  case 'R':			// このあたりを参考に修正（相当外気温度の計算）

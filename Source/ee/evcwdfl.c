@@ -25,7 +25,7 @@
 #include "lib/u_psy.h"
 
 /*
- * VCFILE からの気象データ入力
+ * @brief VCFILE からの気象データ入力
  */
 void wdflinit(SIMCONTL *Simc, ESTL *Estl, TLIST *Tlist)
 {
@@ -188,6 +188,10 @@ void wdflinit(SIMCONTL *Simc, ESTL *Estl, TLIST *Tlist)
 }
 /* --------------------------------------------- */
 
+
+/*
+ * @brief VCFILE形式の気象データの読み込み
+ */
 void wdflinput(WDPT *wp, WDAT *Wd)
 {
 	double  Br;

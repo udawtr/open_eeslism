@@ -24,8 +24,17 @@
 /*  スケジュ－ル名からスケジュ－ル番号の検索   */
 /* --------------------------------------------*/
 
+
+/*
+ * @brief 季節名から季節設定のインデックスを検索
+ * @param[IN] code  季節名
+ * @paran[IN] Seasn 季節設定の動的配列
+ * @param[IN] err   見つからなかった場合に表示するエラーメッセージ
+ * @return インデックス
+ */
 int idssn (char *code, SEASN *Seasn, char *err)
 {
+	//TODO: 見つからなかった場合の処理が弱い
 	int j, N;
 	
 	N=Seasn->end;
@@ -35,10 +44,18 @@ int idssn (char *code, SEASN *Seasn, char *err)
 			printf("%s\n", err);
 		return (j);
 }
-/* ---------------------------------------- */
 
+
+/*
+ * @brief 曜日名から曜日設定のインデックスを検索
+ * @param[IN] code  曜日名
+ * @paran[IN] Seasn 曜日設定の動的配列
+ * @param[IN] err   見つからなかった場合に表示するエラーメッセージ
+ * @return インデックス
+ */
 int idwkd (char *code, WKDY *Wkdy, char *err)
 { 
+	//TODO: 見つからなかった場合の処理が弱い
 	int j, N;
 	
 	N=Wkdy->end;
@@ -48,10 +65,18 @@ int idwkd (char *code, WKDY *Wkdy, char *err)
 			printf("%s\n", err);
 		return (j);
 }
-/* ---------------------------------------- */
 
+
+/*
+ * @brief 設定値名から設定値スケジュール定義のインデックスを検索
+ * @param[IN] code  設定名
+ * @paran[IN] Seasn 設定値スケジュール定義の動的配列
+ * @param[IN] err   見つからなかった場合に表示するエラーメッセージ
+ * @return インデックス
+ */
 int iddsc (char *code, DSCH *Dsch, char *err)
 { 
+	//TODO: 見つからなかった場合の処理が弱い
 	int j, N;
 	
 	N=Dsch->end;
@@ -61,10 +86,18 @@ int iddsc (char *code, DSCH *Dsch, char *err)
 			printf("%s\n", err);
 		return (j);
 }
-/* ---------------------------------------- */
 
+
+/*
+ * @brief 切替設定名から切替設定スケジュール定義のインデックスを検索
+ * @param[IN] code  切替設定名
+ * @paran[IN] Seasn 切替設定スケジュール定義の動的配列
+ * @param[IN] err   見つからなかった場合に表示するエラーメッセージ
+ * @return インデックス
+ */
 int iddsw (char *code, DSCW *Dscw, char *err)
 { 
+	//TODO: 見つからなかった場合の処理が弱い
 	int j, N;
 	
 	N=Dscw->end;
@@ -80,6 +113,7 @@ int iddsw (char *code, DSCW *Dscw, char *err)
 
 int idsch (char *code, SCH *Sch, char *err)
 {
+	//TODO: 見つからなかった場合の処理が弱い
 	int j, N;
 	
 	N=Sch->end;
@@ -98,6 +132,7 @@ int idsch (char *code, SCH *Sch, char *err)
 
 int idscw (char *code, SCH *Scw, char *err)
 {
+	//TODO: 見つからなかった場合の処理が弱い
 	int j, N;
 	
 	N=Scw->end;

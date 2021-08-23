@@ -45,7 +45,7 @@ typedef struct locat
 } LOCAT ;
 
 
-//気象デ－タ
+//@brief 気象デ－タ
 typedef struct wdat
 {
 	//! 気温
@@ -100,7 +100,7 @@ typedef struct wdat
 	//! 給水温度
 	double  Twsup;
 
-	//! 地表面温度[℃]
+	//! 24*365日分の地表面温度[℃]
 	double	*EarthSurface ;
 } WDAT ;
 

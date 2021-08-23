@@ -89,9 +89,13 @@ void Dayweek(FILE *fi, char *Ipath, int *daywk, int key)
 
 /* ------------------------------------------------------------ */
 
-/*  スケジュ－ル表の入力          */
 
-
+/*
+ * @brief SCHTB スケジュール表の読み込み 
+ * @details
+ * 2.8 スケジュールデータ
+ * (1) 一日の設定値、切換スケジュールおよび季節、曜日の指定
+ */
 void Schtable (FILE *fi, char *dsn, SCHDL *Schdl )
 { 
 	char		s[SCHAR], *ce, code, E[SCHAR];
@@ -111,6 +115,11 @@ void Schtable (FILE *fi, char *dsn, SCHDL *Schdl )
 	Dscw = Dw = NULL ;
 
 	sprintf (E, ERRFMT, dsn);
+
+
+	//
+	// 1) スケジュ－ル表のメモリ確保
+	//
 
 	if ( ic == 0 )
 	{
@@ -205,6 +214,11 @@ void Schtable (FILE *fi, char *dsn, SCHDL *Schdl )
 		ic = 1 ;
 	}
 	
+
+	//
+	// 2) スケジュ－ル表の読み込み
+	//
+
 	Seasn = Schdl->Seasn ;
 	Wkdy = Schdl->Wkdy ;
 	Dsch = Schdl->Dsch ;
@@ -212,6 +226,9 @@ void Schtable (FILE *fi, char *dsn, SCHDL *Schdl )
 	
 	while (fscanf(fi,"%s", s), s[0] != '*')
 	{  
+		// 季節指定
+		// `-ssn sname mm/dd-mm/dd mm/dd-mm/dd ･････ ;`
+		// 季節名 月 日 月 日
 		if (strcmp(s, "-ssn") == 0 || strcmp(s, "SSN") == 0)
 		{
 			while (fscanf(fi,"%s", s), s[0] != ';')
@@ -237,6 +254,10 @@ void Schtable (FILE *fi, char *dsn, SCHDL *Schdl )
 			}
 			Sn->N= js+1;
 		}
+
+		// 曜日指定
+		// `-wkd wname wday wday wday ･････ wday ;`
+		// ex) -wkd Weekday Mon Tue Wed Thu Fri ;
 		else if (strcmp(s, "-wkd") == 0 || strcmp(s, "WKD") == 0)
 		{
 			j=9;
@@ -249,22 +270,31 @@ void Schtable (FILE *fi, char *dsn, SCHDL *Schdl )
 				{
 					iw++ ;
 					Wk = Wkdy + iw ;
+
+					//曜日名
 					Wk->name = stralloc( s);
+
 					j = 0 ;
 				} 
 				else
 				{
 					wday = Wk->wday ;
-					for ( j = 0; j < 8; j++, wday++ )
-						if ( strcmp ( s, DAYweek(j) ) == 0 )
+					for (j = 0; j < 8; j++, wday++)
+					{
+						if (strcmp(s, DAYweek(j)) == 0)
 						{
-							*wday = 1 ;
+							*wday = 1;
 							break;
 						}
+					}
 				}
 				if (ce) break;
 			}
 		}
+
+		// 設定値（温・湿度、風量 ･････ ）スケジュール定義
+		// `-v vdname ttmm-(xxx)-ttmm ttmm-(xxx)-ttmm ･････ ;`
+		// 切換設定名 切換値
 		else if (strcmp(s, "-v") == 0 || strcmp(s, "VL") == 0)
 		{
 			while (fscanf(fi,"%s", s), s[0] != ';')
@@ -297,6 +327,10 @@ void Schtable (FILE *fi, char *dsn, SCHDL *Schdl )
 			} 
 			Dh->N = ++jsc ;
 		}
+
+		// 切換設定スケジュール定義
+		// `-s wdname ttmm-(mode)-ttmm ttmm-(mode)-ttmm ･････ ;`
+		// 設定値名 時分 設定値 時分
 		else if (strcmp(s, "-s") == 0 || strcmp(s, "SW") == 0)
 		{ 
 			Nmod = 0;
@@ -304,7 +338,10 @@ void Schtable (FILE *fi, char *dsn, SCHDL *Schdl )
 
 			sw++ ;
 			Dw = Dscw + sw ;
+
+			//設定値名
 			Dw->name = stralloc ( s);
+
 			jsw= -1; 
 			
 			while (fscanf(fi,"%s", s), s[0] != ';')
@@ -313,9 +350,12 @@ void Schtable (FILE *fi, char *dsn, SCHDL *Schdl )
 					*ce='\0';
 				
 				jsw++;
+
+				//時分-設定値-時分
 				sscanf(s,"%d-(%c)-%d", &Dw->stime[jsw], &code, &Dw->etime[jsw]);
 				Dw->mode[jsw] = code ;
 				
+				//設定値の重複を除外して保持
 				for ( j = 0; j < Nmod; j++)
 				{
 					if ( Dw->dcode[j] == code )
@@ -334,24 +374,27 @@ void Schtable (FILE *fi, char *dsn, SCHDL *Schdl )
 			Dw->Nmod = Nmod ;
 		}
 	}
+
+	//季節設定の数の保存
 	Schdl->Seasn->end = is + 1 ;
-//	if (is > SEASNMX )
-//		printf("%s SSN=%d [max=%d]\n", E, is, SEASNMX);
+
+	//曜日設定の数の保存
 	Schdl->Wkdy->end= iw + 1 ;
-//	if (iw >WKDYMX)
-//		printf("%s WKD=%d [max=%d]\n", E, iw, WKDYMX);
+
+	//設定値（温・湿度、風量 ･････ ）スケジュール定義の数の保存
 	Schdl->Dsch->end= sc + 1 ;
-//	if (sc > DSCHMX)
-//		printf("%s VL=%d [max=%d]\n", E, sc, DSCHMX);   
+
+	//切換設定スケジュール定義の数の保存
 	Schdl->Dscw->end= sw + 1 ;
-//	if (sw > DSCHMX)
-//		printf("%s SW=%d [max=%d]\n", E, sw, DSCHMX);  
 }
-/* ------------------------------------------------------------ */
-
-/*  季節、曜日によるスケジュ－ル表の組み合わせ    */
 
 
+/*
+ * @brief SCHNM 季節、曜日によるスケジュ－ル表の組み合わせ
+ * @details
+ * 2.8 スケジュールデータ
+ * （２）日スケジュールの季節、曜日による変更の定義
+ */
 void Schdata (FILE *fi, char *dsn, int *daywk, SCHDL *Schdl )
 {
 	char	s[SCHAR], ss[SCHAR], dmod, *ce, sname[SCHAR],wname[SCHAR],dname[SCHAR];
@@ -382,9 +425,13 @@ void Schdata (FILE *fi, char *dsn, int *daywk, SCHDL *Schdl )
 	while (fscanf(fi,"%s", s), s[0] != '*')
 	{   
 		if (strcmp(s, "-v") == 0 || strcmp(s, "VL") == 0)
+		{
 			dmod = 'v';
+		}
 		else
+		{
 			dmod = 'w';
+		}
 		
 		fscanf(fi,"%s", s);
 		
@@ -392,21 +439,29 @@ void Schdata (FILE *fi, char *dsn, int *daywk, SCHDL *Schdl )
 		{
 			i++ ;
 			S = Sch + i ;
+
+			//設定名
 			S->name = stralloc( s);
 
 			day1 = S->day ;
-			for ( d = 0; d < dmax; d++, day1++ )
+			for (d = 0; d < dmax; d++, day1++)
+			{
 				*day1 = -1;
+			}
 		}
 		else 
 		{
 			j++ ;
 			S = Scw + j ;
+
+			//切替設定名
 			S->name = stralloc( s);
 
 			day1 = S->day ;
-			for ( d = 0; d < dmax; d++, day1++ )
-				*day1 = - 1 ;
+			for (d = 0; d < dmax; d++, day1++)
+			{
+				*day1 = -1;
+			}
 		}
 		
 		while (fscanf(fi,"%s", s),  *s != ';')
@@ -417,14 +472,20 @@ void Schdata (FILE *fi, char *dsn, int *daywk, SCHDL *Schdl )
 			is = iw = sc = sw = -1 ;
 			
 			sscanf ( s, "%[^:]:%s", dname, ss);
-			if ( strchr ( ss, '-') == 0 )
-				sscanf ( ss, "%s", sname ) ;
+			if (strchr(ss, '-') == 0)
+			{
+				sscanf(ss, "%s", sname);
+			}
 			else
 			{
-				if ( *ss == '-' )
-					sscanf ( &ss[1], "%s", wname);
+				if (*ss == '-')
+				{
+					sscanf(&ss[1], "%s", wname);
+				}
 				else
+				{
 					sscanf(ss, "%[^-]-%s", sname, wname);
+				}
 			}
 			
 			/************************ 
@@ -440,20 +501,39 @@ void Schdata (FILE *fi, char *dsn, int *daywk, SCHDL *Schdl )
 			********************/
 			
 			if (sname[0] != '\0')
-				is= idssn(sname, Seasn, strcat(strcpy(err,E),sname));
+			{
+				//季節名から季節設定のインデックスを検索
+				is = idssn(sname, Seasn, strcat(strcpy(err, E), sname));
+			}
+
 			if (wname[0] != '\0')
-				iw= idwkd(wname, Wkdy, strcat(strcpy(err,E),wname));
+			{
+				//曜日名から曜日設定のインデックスを検索
+				iw = idwkd(wname, Wkdy, strcat(strcpy(err, E), wname));
+			}
+
 			if (dname[0] != '\0')
 			{
 				if (dmod == 'v')
-					sc= iddsc(dname, Dsch, strcat(strcpy(err,E),dname));
-				else 
-					sw= iddsw(dname, Dscw, strcat(strcpy(err,E),dname));
+				{
+					//設定値名から設定値スケジュール定義のインデックスを検索
+					sc = iddsc(dname, Dsch, strcat(strcpy(err, E), dname));
+				}
+				else
+				{
+					//切替設定名から切替設定スケジュール定義のインデックスを検索
+					sw = iddsw(dname, Dscw, strcat(strcpy(err, E), dname));
+				}
 			}
-			if ( is >= 0 )
-				N = (Seasn+is)->N ;
+
+			if (is >= 0)
+			{
+				N = (Seasn + is)->N;
+			}
 			else
-				N = 1 ;
+			{
+				N = 1;
+			}
 
 			for ( k = 0; k < N; k++ )
 			{ 
@@ -486,14 +566,11 @@ void Schdata (FILE *fi, char *dsn, int *daywk, SCHDL *Schdl )
 		}
 	}
 	
+	// 設定値の年間スケジュールの数を保存
 	Schdl->Sch->end = i + 1 ;
 	
-//	if (i > NSCHMX)
-//		printf("%s -v=%d [max=%d]\n", E, i, NSCHMX);
-	
+	// 切替設定の年間スケジュールの数を保存
 	Schdl->Scw->end = j + 1 ;
-//	if (j > NSCHMX)
-//		printf("%s -s=%d [max=%d]\n", E, j, NSCHMX);
 }
 
 /* ------------------------------------------------------------ */
@@ -506,7 +583,8 @@ void Schname (char *Ipath, char *dsn, SCHDL *Schdl )
 	int		sc, sw, d,  i,  j, N ;
 	static int	ind=0, sco= 0, swo= 0;
 	char	E[SCHAR], s[SCHAR]; 
-	int		dmax = 366, *day ;
+	const int dmax = 366;
+	int		*day ;
 	int		vl, sws ;
 	SCH		*Sch, *Scw ;
 	DSCH	*Dsch ;
@@ -521,6 +599,11 @@ void Schname (char *Ipath, char *dsn, SCHDL *Schdl )
 		preexit ( ) ;
 		exit(EXIT_SCHTB);
 	}
+
+
+	//
+	// 1) スケジュール用にメモリを確保、初期化
+	//
 
 	SchCount ( fi, &i, &j, &vl, &sws, &ssnmx, &vlmx, &swmx ) ;
 	/*****************/
@@ -541,38 +624,56 @@ void Schname (char *Ipath, char *dsn, SCHDL *Schdl )
 		Schdl->Sch = NULL ;
 		Schdl->Scw = NULL ;
 
+		// 1-1) 切換設定の年間スケジュール
+
+		//メモリ確保
 		N = imax (Dsch->end + vl,1) ;
 		Schdl->Sch = ( SCH * ) malloc ( N * sizeof(SCH)) ;
 		if ( Schdl->Sch == NULL )
 			Ercalloc(N, "<Schname> Sch" ) ;
 		Sch = Schdl->Sch ;
 
+		//初期化
 		for ( i = 0; i < N; i++, Sch++ )
 		{
 			Sch->name = NULL ;
 			Sch->end = 0 ;
 			day = Sch->day ;
-			for (j=0; j < 366; j++, day++)
-				*day = 0 ;
+			for (j = 0; j < 366; j++, day++)
+			{
+				*day = 0;
+			}
 		}
 
+		// 1-2) 切換設定の年間スケジュール
+
+		//メモリ確保
 		N = imax ( Dscw->end + sws, 1) ;
 		if (( Schdl->Scw = ( SCH * ) malloc( N * sizeof(SCH))) == NULL)
 			Ercalloc(N, "<Schname> Scw" ) ;
 		Scw = Schdl->Scw ;
 		
+		//初期化
 		for (i=0; i<N; i++, Scw++)
 		{
 			Scw->name = NULL ;
 			Scw->end = 0 ;
 			day = Scw->day ;
-			for (j=0; j < 366; j++, day++ )
-				*day = 0 ;
+			for (j = 0; j < 366; j++, day++)
+			{
+				*day = 0;
+			}
 		}
 
 		ind=1;
 	}
 
+
+	//
+	// 2) 
+	//
+
+	// 2-1) 設定値の年間スケジュール
 
 	i = Schdl->Sch->end ;
 
@@ -584,39 +685,40 @@ void Schname (char *Ipath, char *dsn, SCHDL *Schdl )
 	for ( sc = sco; sc < N; sc++, Sch++ )
 	{
 		i++ ;
+
+		//スケジュール名(設定値名)
 		Sch->name = stralloc ( (Dsch+sc)->name ) ;
 
-		/****************************
-		printf ("<Schname> MAX=%d sc=%d  Sname=%s Dname=%s NSCHMX=%d(%d)\n",
-			N, sc, Sch->name, (Dsch+sc)->name,
-			NSCHMX, i ) ;
-			******************************/
 
 		day = Sch->day ;
-		for ( d = 0; d < dmax; d++, day++ )
-			*day = sc ;
+		for (d = 0; d < dmax; d++, day++)
+		{
+			*day = sc;
+		}
 	}
 	sco = sc ;
-	Schdl->Sch->end = i ;
-//	if (i > NSCHMX)
-//		printf("%s  -v=%d [max=%d]\n", E, i, NSCHMX);
-	
+	Schdl->Sch->end = i ;	
+
+	// 2-2) 切換設定の年間スケジュール
+
 	j = Schdl->Scw->end ;
 	Scw = Schdl->Scw + j ;
 	N = Dscw->end ;
 	for ( sw = swo; sw < N; sw++, Scw++ )
 	{
 		j++ ;
+
+		//スケジュール名(切替設定名)
 		Scw->name = stralloc ( (Dscw+sw)->name );
 
 		day = Scw->day ;
-		for ( d = 0; d < dmax; d++, day++ )
-			*day = sw ;
+		for (d = 0; d < dmax; d++, day++)
+		{
+			*day = sw;
+		}
 	}
 	swo=sw;
 	Schdl->Scw->end = j;
-//	if (j > NSCHMX)
-//		printf("%s  -s=%d [max=%d]\n", E, j, NSCHMX);   
 }
 
 /****  スケジュールの数を数える  ****/

@@ -104,33 +104,67 @@
 //
 
 
-typedef struct bmlst				/*壁材料リスト */
+/*
+ * @brief 壁材料リスト
+ */
+typedef struct bmlst
 {
-	char	*mcode;					/*名称     */
-	double   Cond,					/*熱伝導率  [W/mK] */
-		Cro;						/*容積比熱  [J/m3K] */
+	//! 名称
+	char* mcode;
+
+	//! 熱伝導率  [W/mK]
+	double   Cond;
+
+	//! 容積比熱  [J/m3K]
+	double Cro;
 } BMLST;
 
+
+/*
+ * @brief 太陽電池パラメータ
+ * @sa PVwallcatinit, PVwallPreCalc
+ */
 typedef struct pvwallcat
 {
-	double	//PVcap,					// 太陽電池容量[W]
-		KHD,					// 日射量年変動補正係数[-]
-		KPD,					// 経時変化補正係数[-]
-		KPM,					// アレイ負荷整合補正係数[-]
-		KPA,					// アレイ回路補正係数[-]
-		KConst,					// 温度補正係数以外の補正係数の積（温度補正係数以外は時々刻々変化しない）
-		effINO;				// インバータ実行効率[-]
-	double	apmax;					// 最大出力温度係数[-]
-	double	ap;					// 太陽電池裏面の熱伝達率[W/m2K]
-	char	type;					// 結晶系：'C'  アモルファス系：'A'
-	double	Rcoloff;	// 集熱ファン停止時の太陽電池から集熱器裏面までの熱抵抗[m2K/W]
+	//double	PVcap,					// 太陽電池容量[W]
+
+	//! 日射量年変動補正係数[-]
+	double	KHD;
+
+	//! 経時変化補正係数[-]
+	double	KPD;
+
+	//! アレイ負荷整合補正係数[-]
+	double	KPM;
+
+	//! アレイ回路補正係数[-]
+	double	KPA;
+
+	//! 温度補正係数以外の補正係数の積（温度補正係数以外は時々刻々変化しない）
+	double	KConst;
+
+	//! インバータ実行効率[-]
+	double	effINO;
+
+	//!  最大出力温度係数[-]
+	double	apmax;
+
+	//! 太陽電池裏面の熱伝達率[W/m2K]
+	double	ap;
+
+	//! 結晶系：'C'  アモルファス系：'A'
+	char	type;
+
+	//! 集熱ファン停止時の太陽電池から集熱器裏面までの熱抵抗[m2K/W]
+	double	Rcoloff;
 	double	Kcoloff;
 } PVWALLCAT;
 
+
 typedef struct pvwall
 {
-	double	KTotal,					// 太陽電池の総合設計係数[-]
-		KPT;					// 温度補正係数[-]
+	double	KTotal;					// 太陽電池の総合設計係数[-]
+	double KPT;					// 温度補正係数[-]
 	double	TPV;					// 太陽電池温度[℃]
 	double	Power;					// 発電量[W]
 	double	Eff;					// 発電効率[-]
@@ -176,151 +210,322 @@ typedef struct pvwall
 typedef struct pcmstate
 {
 	char	*name;
-	double	tempPCMNodeL,			// PCM温度（左側節点）
-		tempPCMNodeR,				// 同（右）
-		tempPCMave,					// PCM温度（平均温度）
-		//capm,					// PCM比熱[J/kgK]
-		//lamda;					// PCM熱伝導率[W/mK]
-		capmL,						// PCM見かけの比熱（左側）[J/kgK]
-		capmR,						// PCM見かけの比熱（右側）[J/kgK]
-		lamdaL,						// PCM熱伝導率（左側）[W/mK]
-		lamdaR;						// PCM熱伝導率（右側）[W/mK]
-	double	oldcapmL,				// 前時刻PCM見かけの比熱（左側）
-		oldcapmR,				// 前時刻PCM見かけの比熱（右側）
-		oldlamdaL,				// 前時刻PCM熱伝導率（左側）
-		oldlamdaR;				// 前時刻PCM熱伝導率（右側）
+
+	//! PCM温度（左側節点）
+	double	tempPCMNodeL;
+
+	//! PCM温度（右側節点）
+	double	tempPCMNodeR;
+
+	//! PCM温度（平均温度）
+	double	tempPCMave;
+
+	//double capm;					// PCM比熱[J/kgK]
+	//double lamda;					// PCM熱伝導率[W/mK]
+
+	//! PCM見かけの比熱（左側）[J/kgK]
+	double	capmL;
+
+	//! PCM見かけの比熱（右側）[J/kgK]
+	double	capmR;
+
+	//! PCM熱伝導率（左側）[W/mK]
+	double	lamdaL;
+
+	//! PCM熱伝導率（右側）[W/mK]
+	double	lamdaR;
+
+	//! 前時刻PCM見かけの比熱（左側）
+	double	oldcapmL;
+
+	//! 前時刻PCM見かけの比熱（右側）
+	double	oldcapmR;
+
+	//! 前時刻PCM熱伝導率（左側）
+	double	oldlamdaL;
+
+	//! 前時刻PCM熱伝導率（右側）
+	double	oldlamdaR;
 } PCMSTATE;
 
-typedef struct rmsrf   /*壁体　固定デ－タ */
+
+/*
+ * @brief 壁体　固定デ－タ
+ */
+typedef struct rmsrf
 {
-	char    //*sname[21],
-		*name,   /*壁体名  */
-		*sname,   /*RMP名 higuchi 070918 */
-		wlpri,      /*壁体内部温度出力指定 'p'　*/
-		shdpri,		// 日よけの影面積の出力指定 'p'
-		sfepri,     /*要素別壁体表面温度出力指定 'y' */
-		ble,        /*部位コ－ド           */
-		typ,        /*壁のとき'H', 地中壁のとき'E', 窓のとき'W', 地表面境界の時'e' */
-		mwtype,     /*専用壁のとき'I',共用壁のとき'C'*/
-		mwside,     /*壁体 0 側のとき'i', M 側のとき'M'*/
-		mrk,        /* '*' or '!'  */
-		ffix_flg,	/*表面への短波長放射基本吸収比率が定義されている場合'*'
-						未定義の場合'!' */
-		PCMflg,		// PCMの有無の判定フラグ　毎時係数行列を計算するかどうかを決める
-		pcmpri,		// PCMの状態値出力フラグ 'y'
-		fnmrk[10];   /*窓変更設定用窓コ－ド　*/
+	//! 壁体名
+	char	*name;
+
+	//! RMP名 higuchi 070918
+	char	*sname;
+
+	//! 壁体内部温度出力指定 'p'
+	char	wlpri;
+
+	//! 日よけの影面積の出力指定 'p'
+	char	shdpri;
+
+	//! 要素別壁体表面温度出力指定 'y'
+	char	sfepri;
+
+	//! 部位コ－ド
+	char	ble;
+
+	//! 壁のとき'H'; 地中壁のとき'E'; 窓のとき'W'; 地表面境界の時'e'
+	char	typ;
+
+	//! 専用壁のとき'I';共用壁のとき'C'
+	char	mwtype;     /**/
+
+	//! 壁体 0 側のとき'i'; M 側のとき'M'
+	char	mwside;
+
+	//! '*' or '!'
+	char	mrk;
+
+	//! 表面への短波長放射基本吸収比率が定義されている場合'*' 未定義の場合'!'
+	char	ffix_flg;
+
+	//! PCMの有無の判定フラグ　毎時係数行列を計算するかどうかを決める
+	char	PCMflg;
+
+	//! PCMの状態値出力フラグ 'y'
+	char	pcmpri;
+
+	//! 窓変更設定用窓コ－ド
+	char	fnmrk[10];
 
 	struct room  *room,
 		*nextroom;
 	struct rmsrf *nxsd;
-	struct mwall *mw;		// 重量壁（差分による非定常計算）
-	struct rdpnl *rpnl;   /*輻射パネル用        */
-	struct window	*window;	// 窓
-	int	dynamicwin;		// 動的に窓を切り替える場合'Y'
+
+	//! 重量壁（差分による非定常計算）
+	struct mwall* mw;
+
+	//! 輻射パネル用
+	struct rdpnl *rpnl;
+
+	//! 窓
+	struct window	*window;
+
+	//! 動的に窓を切り替える場合'Y'
+	int	dynamicwin;
 	struct window	*ifwin;	// Trueの時の窓
 	//*falsewin ;	// Falseの時の窓
-	struct ctlif	*ctlif;	// 動的窓の制御
+
+	//! 動的窓の制御
+	struct ctlif	*ctlif;	
+
 	char		*dynamiccode;
+
 	//AIRFLOW		*airflow ;
 
-	int     rm,         /*室番号                 */
-		n,          /*室壁体番号             */
-		exs,        /*方位番号               */
-		nxrm,       /*隣室番号               */
-		nxn,        /*隣室室壁体番号         */
-		wd,         /*壁体定義番号           */
-		rmw,        /*重量壁体番号           */
-		lwd,
-		dr,         /*ドア定義番号           */
-		//		drd[4], 
-		fn,         /*選択窓定義番号         */
-		Nfn,        /*窓種類数　　　　　　　 */
-		fnd[10],     /*窓定義番号　　　　　　 */
-		direct_heat_gain[10],	// 日射熱取得、窓部材熱抵抗を直接指定する場合の番号
-		fnsw,       /*窓変更設定番号　　　　 */
+	//! 室番号
+	int     rm;
 
-		sb;         /*日除け定義番号         */
+	//! 室壁体番号
+	int	n;
 
-	double   A,          /*面積                   */
-		Eo,         /*外表面輻射率           */
-		as,         /*外表面日射吸収率       */
-		c,          /*隣室温度係数           */
-		tgtn,       /*日射総合透過率         */
-		Bn,         /*吸収日射取得率         */
-		/*壁体、窓熱抵抗　　　　 */
-		*fsol,		/* 短波長放射の基本吸収比率 */
+	//! 方位番号
+	int	exs;
 
-		/*窓透過日射の吸収比率     */
-		srg,        // 1次入射比率（隣接室への透過やガラスから屋外への放熱は無視）
-		srg2,		// 最終的に室の日射熱取得の内の吸収比率
-		srh,        /*人体よりの輻射の吸収比率 */
-		srl,        /*照明よりの輻射の吸収比率 */
-		sra,        /*機器よりの輻射の吸収比率 */
-		alo,
-		ali,
-		alic,
-		alir,
-		Qc,			/* 対流による熱取得 [W] */
-		Qr,			/* 放射による熱取得 [W] */
-		Qi,			/* 壁体貫流熱取得 [W] */
-		Qgt,		// 透過日射熱取得[W]
-		Qga,		// 吸収日射熱取得[W]
-		Qrn,		// 夜間放射熱取得[W]
-		K,
-		Rwall,		// 熱抵抗[m2K/W] 表面熱伝達抵抗は除く
-		CAPwall,	// 単位面積当たり熱容量[J/m2K]
-		*alicsch,
-		*alirsch,
-		FI,
-		FO,
-		FP,
-		CF,
-		WSR,
-		*WSRN,
-		*WSPL,
-		WSC,
-		Fsdworg,	 // SUNBRKで定義した日よけの影面積率
-		Fsdw,        /* 影面積  higuchi 070918 */ // KAGE-SUN用
-		Ihor,        /*higuchi 070918 */
-		Idre,        /*higuchi 070918 */
-		Idf,         /*higuchi 070918 */
-		Iw,          /*higuchi 070918 */
-		rn,          /*higuchi 070918 */
-		RS,          /*室内表面に吸収される短波長輻射 [W/m2] */
-		RSsol,		/*室内表面に吸収される日射（短波長）[W/m2] */
-		RSsold,		// 室内表面に入射する日射（短波長）（隣接室への透過を考慮する前）
-		RSli,		/*室内表面に吸収される照明（短波長）[W/m2] */
-		RSin,
-		TeEsol,
-		TeErn,
-		Te,          /*外表面の相当外気温                    */
-		Tmrt,        /*室内表面の平均輻射温度                */
-		Ei,
-		Ts,
-		/*設備機器発熱*/
-		eqrd;
+	//! 隣室番号
+	int	nxrm;
+
+	//! 隣室室壁体番号
+	int	nxn;
+
+	//! 壁体定義番号
+	int	wd;
+
+	//! 重量壁体番号
+	int	rmw;
+	int	lwd;
+
+	//! ドア定義番号
+	int	dr;
+	//int		drd[4]; 
+
+	//! 選択窓定義番号
+	int	fn;
+
+	//! 窓種類数
+	int	Nfn;
+
+	//! 窓定義番号
+	int	fnd[10];
+
+	//! 日射熱取得、窓部材熱抵抗を直接指定する場合の番号
+	int	direct_heat_gain[10];
+	
+	//! 窓変更設定番号
+	int	fnsw;
+
+	//! 日除け定義番号
+	int	sb;
+
+	//! 面積
+	double   A;
+
+	//! 外表面輻射率
+	double	Eo;
+
+	//! 外表面日射吸収率
+	double	as;
+
+	//! 隣室温度係数
+	double	c;
+
+	//! 日射総合透過率
+	double	tgtn;
+
+	//! 吸収日射取得率
+	double	Bn;
+
+	/*壁体、窓熱抵抗　　　　 */
+
+	//! 短波長放射の基本吸収比率
+	double	*fsol;
+
+	/*窓透過日射の吸収比率     */
+
+	//! 1次入射比率（隣接室への透過やガラスから屋外への放熱は無視）
+	double	srg;
+
+	//! 最終的に室の日射熱取得の内の吸収比率
+	double	srg2;
+
+	//! 人体よりの輻射の吸収比率
+	double	srh;
+
+	//! 照明よりの輻射の吸収比率
+	double	srl;
+
+	//! 機器よりの輻射の吸収比率
+	double	sra;
+	double	alo;
+	double	ali;
+	double	alic;
+	double	alir;
+
+	//! 対流による熱取得 [W]
+	double	Qc;
+
+	//! 放射による熱取得 [W]
+	double	Qr;
+
+	//! 壁体貫流熱取得 [W]
+	double	Qi;
+
+	//! 透過日射熱取得[W]
+	double	Qgt;
+
+	//! 吸収日射熱取得[W]
+	double	Qga;
+
+	//! 夜間放射熱取得[W]
+	double	Qrn;
+	double	K;
+
+	//! 熱抵抗[m2K/W] 表面熱伝達抵抗は除く
+	double	Rwall;
+
+	//! 単位面積当たり熱容量[J/m2K]
+	double	CAPwall;
+	double	*alicsch;
+	double	*alirsch;
+	double	FI;
+	double	FO;
+	double	FP;
+	double	CF;
+	double	WSR;
+	double	*WSRN;
+	double	*WSPL;
+	double	WSC;
+
+	//! SUNBRKで定義した日よけの影面積率
+	double	Fsdworg;
+
+	//! 影面積  higuchi 070918 */ // KAGE-SUN用
+	double	Fsdw;
+
+	//! higuchi 070918
+	double	Ihor;
+
+	//! higuchi 070918
+	double	Idre;
+
+	//! higuchi 070918
+	double	Idf;
+
+	//! higuchi 070918
+	double	Iw;
+
+	//! higuchi 070918
+	double	rn;
+
+	//! 室内表面に吸収される短波長輻射 [W/m2]
+	double	RS;
+
+	//! 室内表面に吸収される日射（短波長）[W/m2]
+	double	RSsol;
+
+	//! 室内表面に入射する日射（短波長）（隣接室への透過を考慮する前）
+	double	RSsold;
+
+	//! 室内表面に吸収される照明（短波長）[W/m2]
+	double	RSli;
+	double	RSin;
+	double	TeEsol;
+
+	//! 夜間放射熱取得 [W]
+	double	TeErn;
+
+	//! 外表面の相当外気温
+	double	Te;
+
+	//! 室内表面の平均輻射温度
+	double	Tmrt;
+	double	Ei;
+	double	Ts;
+	/*設備機器発熱*/
+	double	eqrd;
 	int     end;
+
+	//! 建材一体型空気集熱器の相当外気温度[℃] 記号変更
+	double	Tcole;
 	//double	ColTe ;		// 建材一体型空気集熱器の相当外気温度[℃]
-	double	Tcole;		// 建材一体型空気集熱器の相当外気温度[℃] 記号変更
+
 	double	Tcoleu, Tcoled;
-	double	Tf;		// 建材一体型空気集熱器の熱媒平均温度[℃]
-	QDAY	SQi;	/* 日積算壁体貫流熱取得 */
+
+	//! 建材一体型空気集熱器の熱媒平均温度[℃]
+	double	Tf;
+
+	//! 日積算壁体貫流熱取得
+	QDAY	SQi;
 	SVDAY	Tsdy;
-	PVWALL	PVwall;	// 太陽電池一体型壁体
+
+	//! 太陽電池一体型壁体
+	PVWALL	PVwall;
 	QDAY	mSQi;
 	SVDAY	mTsdy;
 
 	// 集熱器一体型壁体用計算結果
-	int		Ndiv;		// 流れ方向温度分布の分割数
+
+	//! 流れ方向温度分布の分割数
+	int		Ndiv;
 	double	ColCoeff,
 		// 建材一体型集熱器計算時の後退差分要素URM
 		*Tc,
 		//Scol,	// 放射熱取得量[W/m2]
 		oldTx;	// 前時刻の集熱器と躯体の境界温度（集熱器相当外気温度計算用）
+
 	// 太陽電池一体型
 	double	Iwall;
 	char	PVwallFlg;	// 太陽電池一体型なら'Y'
 	double	dblWsu, dblWsd;
+
 	// 屋根一体型空気集熱器の通気層上面、下面の幅[m]
 	double	dblKsu, dblKsd, dblKc, dblfcu, dblfcd, dblKcu, dblKcd;
 	double	dblb11, dblb12, dblb21, dblb22;
@@ -330,45 +535,98 @@ typedef struct rmsrf   /*壁体　固定デ－タ */
 	double	ku, kd;
 	double	ras, Tg;
 
-	PCMSTATE	*pcmstate;			// PCM状態値収録構造体
-	int			Npcm;				// PCM設置レイヤー数
+	//! PCM状態値収録構造体
+	PCMSTATE	*pcmstate;
 
-	double	tnxt;		// 当該部位への入射日射の隣接空間への日射分配（連続空間の隣室への日射分配）
-	char	RStrans;	// 室内透過日射が窓室内側への入射日射を屋外に透過する場合'y'
+	//! PCM設置レイヤー数
+	int			Npcm;
+
+	//! 当該部位への入射日射の隣接空間への日射分配（連続空間の隣室への日射分配）
+	double	tnxt;
+
+	//! 室内透過日射が窓室内側への入射日射を屋外に透過する場合'y'
+	char	RStrans;
 } RMSRF;
 
-typedef struct welm			/* 壁体各層の熱抵抗と熱容量 */
+
+/*
+ * @brief 壁体各層の熱抵抗と熱容量
+ */
+typedef struct welm
 {
 	char	*code;
-	double	L;				/*各層の材料厚さ        */
-	//		res,				/*節点間の熱抵抗 [m2K/W]*/
-	//		cap ;				/*節点間の熱容量 [J/m2K]*/
-	int		ND;			/*各層の内部分割数      */
-	double	Cond,			/*熱伝導率  [W/mK] */
-		Cro;			/*容積比熱  [J/m3K] */
+
+	//! 各層の材料厚さ
+	double	L;
+
+	//double		res;				/*節点間の熱抵抗 [m2K/W]*/
+	//double		cap;				/*節点間の熱容量 [J/m2K]*/
+
+	//! 各層の内部分割数
+	int		ND;
+
+	//! 熱伝導率  [W/mK]
+	double	Cond;
+
+	//! 容積比熱  [J/m3K]
+	double Cro;
 } WELM;
 
-typedef struct pcmparam		// PCM見かけの比熱計算用パラメータ
+
+//@brief PCM見かけの比熱計算用パラメータ
+typedef struct pcmparam
 {
-	double	T, B, bs, bl, skew, omega, a, b, c, d, e, f;
+	double	T; 
+	double  B; 
+	double  bs; 
+	double  bl; 
+	double  skew; 
+	double  omega; 
+	double  a; 
+	double  b; 
+	double  c; 
+	double  d; 
+	double  e; 
+	double  f;
 }PCMPARAM;
+
 
 typedef struct chartable
 {
-	char	*filename;		// テーブル形式ファイルのファイル名
-	char	PCMchar;		// E:エンタルピー、C:熱伝導率
-	double	*T,				// PCM温度[℃]
-		*Chara;			// 特性値（エンタルピー、熱伝導率）
-	char	tabletype;		// h:見かけの比熱、e:エンタルピー
-	double	minTemp, maxTemp;	// テーブルの下限温度、上限温度
-	int		itablerow;		// テーブル形式の入力行数
+	//! テーブル形式ファイルのファイル名
+	char	*filename;
+
+	//! E:エンタルピー、C:熱伝導率
+	char	PCMchar;
+
+	//! PCM温度[℃]
+	double* T;
+
+	//! 特性値（エンタルピー、熱伝導率）
+	double	*Chara;
+
+	//! h:見かけの比熱、e:エンタルピー
+	char	tabletype;
+
+	//! テーブルの下限温度、上限温度
+	double	minTemp, maxTemp;
+
+	//! テーブル形式の入力行数
+	int		itablerow;
+
 	FILE	*fp;
+
+	//! 上下限温度範囲外の特性値計算用線形回帰式の傾きと切片
 	double	lowA, lowB, upA, upB;
-	// 上下限温度範囲外の特性値計算用線形回帰式の傾きと切片
-	double	minTempChng;	// 最低温度変動幅　前時刻からの温度変化がminTempChng以下の場合はminTempChngとして特性値を計算
+
+	//! 最低温度変動幅
+	//! 前時刻からの温度変化がminTempChng以下の場合はminTempChngとして特性値を計算
+	double	minTempChng;
 }CHARTABLE;
 
-typedef struct pcm			// 潜熱蓄熱材
+
+//@brief 潜熱蓄熱材
+typedef struct pcm
 {
 	char	*name;			// PCM名称
 	char	spctype;		// 見かけの比熱　m:モデルで設定、t:テーブル形式
@@ -393,7 +651,9 @@ typedef struct pcm			// 潜熱蓄熱材
 	CHARTABLE chartable[2];		// 0:見かけの比熱またはエンタルピー、1:熱伝導率
 } PCM;
 
-typedef struct wall       /*壁体　定義デ－タ       */
+
+//@brief 壁体　定義デ－タ
+typedef struct wall
 {
 	//! 部位コ－ド
 	char  ble;
@@ -721,7 +981,7 @@ typedef struct qrm
 	//! 外壁面入射日射量　W
 	double solo;
 
-	//! 窓面入射日射量　W
+	//! 窓面入射日射量 [W]
 	double solw;
 
 	//! 外表面吸収日射 W
@@ -790,27 +1050,30 @@ typedef struct rdpnl
 	// それ以外：'P'
 	struct room  *rm[2];
 	struct rmsrf *sd[2];
-	struct compnt *cmp;	int          MC,      /*専用壁のとき MC=1, 共用壁のとき MC=2 */
-		Ntrm[2],
-		Nrp[2],
-		elinpnl[2],
-		eprmnx,  /*隣室EPRN[]の位置*/
-		epwtw;   /*EPWの当該パネル入口水温の位置*/
+	struct compnt *cmp;	
+	int          MC;      /*専用壁のとき MC=1; 共用壁のとき MC=2 */
+	int	Ntrm[2];
+	int	Nrp[2];
+	int	elinpnl[2];
+	int	eprmnx;  /*隣室EPRN[]の位置*/
+	int	epwtw;   /*EPWの当該パネル入口水温の位置*/
 	char         control;
 
-	double        effpnl,
-		Toset,
-		Wp,
-		Wpold,
-		Tpi,
-		Tpo,
-		FIp[2], FOp[2], FPp,
-		Epw,
-		EPt[2],
-		*EPR[2],
-		*EPW[2],
-		EPC,
-		Q;
+	double        effpnl;
+	double	Toset;
+	double	Wp;
+	double	Wpold;
+	double	Tpi;
+	double	Tpo;
+	double	FIp[2]; 
+	double FOp[2]; 
+	double FPp;
+	double	Epw;
+	double	EPt[2];
+	double	*EPR[2];
+	double	*EPW[2];
+	double	EPC;
+	double	Q;
 	// 2009/01/26 Satoh Debug
 	double cG;				// 比熱×流量
 	double Ec, FI, FO, FP;
@@ -864,21 +1127,21 @@ typedef struct airsup
  */
 typedef struct rmload
 {
-	char   *loadt,
-		*loadx,
-		tropt,    /* 室温制御方法  'o': OT制御、'a': 空気温度制御 */
-		hmopt;    /* 湿度制御設定値
+	char   *loadt;
+	char	*loadx;
+	char	tropt;    /* 室温制御方法  'o': OT制御、'a': 空気温度制御 */
+	char	hmopt;    /* 湿度制御設定値
 	'x': 絶対湿度、'r': 相対湿度、 'd': 露点温度 */
-	double  Tset,
-		Xset,
-		Qs,
-		Ql,
-		Qt,
+	double  Tset;
+	double	Xset;
+	double	Qs;
+	double	Ql;
+	double	Qt;
 
-		FOTr,
-		*FOTN,
-		*FOPL,
-		FOC;
+	double	FOTr;
+	double	*FOTN;
+	double	*FOPL;
+	double	FOC;
 
 	struct qday  Qdys,   /* 日積算暖冷房 */
 		Qdyl,
@@ -896,17 +1159,17 @@ typedef struct rzone
 	char  *name;
 	int   Nroom;
 	struct room **rm;
-	double Afloor,
-		Tr,
-		xr,
-		RH,
-		Tsav,
-		Qhs,
-		Qhl,
-		Qht,
-		Qcs,
-		Qcl,
-		Qct;
+	double Afloor;
+	double	Tr;
+	double	xr;
+	double	RH;
+	double	Tsav;
+	double	Qhs;
+	double	Qhl;
+	double	Qht;
+	double	Qcs;
+	double	Qcl;
+	double	Qct;
 	struct svday Trdy,
 		xrdy,
 		RHdy,
@@ -1253,22 +1516,22 @@ typedef struct room
 
 	double   Gvent;
 
-	double   RMt,
-		*ARN,
-		*RMP,
-		RMC,
-		RMx,
-		RMXC;
+	double   RMt;
+	double	*ARN;
+	double	*RMP;
+	double	RMC;
+	double	RMx;
+	double	RMXC;
 
-	double   Tr,
-		Trold,
-		xr,
-		xrold,
-		RH,
-		Tsav,
-		Tot,
-		hr,				// エンタルピー
-		PMV;
+	double   Tr;
+	double	Trold;
+	double	xr;
+	double	xrold;
+	double	RH;
+	double	Tsav;
+	double	Tot;
+	double	hr;				// エンタルピー
+	double	PMV;
 	double	SET;
 	int		setpri;
 
@@ -1280,11 +1543,18 @@ typedef struct room
 	SVDAY	mTrdy, mxrdy, mRHdy, mTsavdy;
 	int     end;
 	struct vav	*VAVcontrl;
-	double	*OTsetCwgt;	// 作用温度設定時の対流成分重み係数
+
+	//! 作用温度設定時の対流成分重み係数
+	double	*OTsetCwgt;
+
 	// デフォルトは0.5
 	double	HGc, CA, AR;
-	double	Qsab,			// 吸収日射熱取得
-		Qrnab;				// 夜間放射による熱損失
+
+	//! 吸収日射熱取得
+	double	Qsab;
+
+	//! 夜間放射による熱損失
+	double Qrnab; 
 } ROOM;
 
 /* --------------------------------

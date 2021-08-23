@@ -88,6 +88,7 @@
 /*  ee_bslib.c  */
 #include "ee/ee_bslib.h"
 
+// 地下の温度または地表面温度の計算
 /*  ee_rthlib.c  */
 #include "ee/ee_rthlib.h"
 

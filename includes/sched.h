@@ -2,16 +2,16 @@
 //
 //Foobar is free software : you can redistribute itand /or modify
 //it under the terms of the GNU General Public License as published by
-//the Free Software Foundation, either version 3 of the License, or
+//the Free Software Foundation; either version 3 of the License; or
 //(at your option) any later version.
 //
-//Foobar is distributed in the hope that it will be useful,
+//Foobar is distributed in the hope that it will be useful;
 //but WITHOUT ANY WARRANTY; without even the implied warranty of
 //MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.See the
 //GNU General Public License for more details.
 //
 //You should have received a copy of the GNU General Public License
-//along with Foobar.If not, see < https://www.gnu.org/licenses/>.
+//along with Foobar.If not; see < https://www.gnu.org/licenses/>.
 
 /*   sched.h    */
 
@@ -37,54 +37,163 @@
  */
 
 
+//
+// SCHDL --+-- SEASN 季節設定
+//         |
+//         +-- WKDY  曜日設定
+//         |
+//         +-- DSCH 設定値（温・湿度、風量 ･････ ）スケジュール
+//         |
+//         +-- DSCW 切換設定スケジュール
+//         |
+//         +-- SCH(for DSCH)  スケジュール (SEASN, WKDYを展開し、DSCHへの参照のリストへ)
+//         |
+//         +-- SCH(for DSCW)  スケジュール (SEASN, WKDYを展開し、DSCWへの参照のリストへ)
+// 
+// スケジュ－ル表 = {季節,曜日,設定値,切替設定}
+//
 
-typedef struct seasn   /*季節設定*/
+
+//@brief 季節設定 (`-ssn`)
+typedef struct seasn
 {
+	//! 季節名
 	char    *name;
-//	int     N,sday[12],eday[12];
-	int		N, *sday, *eday ;
+
+	//! 定義数(sday,edayの配列長)
+	int		N;
+
+	//! 開始年間通日
+	int* sday;
+
+	//! 終了年間通日
+	int* eday;
+
+	//! 季節設定の数
 	int     end;
 } SEASN ;
 
-typedef struct wkdy    /*曜日設定*/
+
+//@brief 曜日設定 (`-wkd`)
+typedef struct wkdy
 {
+	//! 曜日名
 	char    *name;
+
+	//TODO: 配列長さは8で良いと思われる。
+	//! 月火水木金土日休 の8パターンで、指定された曜日のインデッスには 1がセットされる。
 	int     wday[15];
+
+	//! 曜日設定の数
 	int     end;
 } WKDY ;
 
-typedef struct dsch    /*一日の設定量スケジュ－ル*/
+
+//@brief 設定値（温・湿度、風量 ･････ ）スケジュール定義 (`-v`)
+typedef struct dsch
 {
+	//! 設定値名
 	char    *name;
-//	int     N, stime[SCDAYTMMAX],etime[SCDAYTMMAX];
-	int     N, *stime, *etime ;
+
+	//! 定義数(stime,val,etimeの配列長)
+	int     N;
+
+	//! 開始時分の配列
+	int* stime;
+
+	//! 終了時分の配列
+	int* etime;
+
+	//! 設定値の配列
 	double	*val ;
+
+	//! 設定値（温・湿度、風量 ･････ ）スケジュール定義の数
 	int     end;
 } DSCH ;
 
-typedef struct dscw    /*一日の切り替えスケジュ－ル*/
+
+//@brief 切換設定スケジュール定義 (`-s`)
+typedef struct dscw
 {
-	char    *name, dcode[10];
-	int     N, *stime, *etime, Nmod;
-	char    *mode ;
+	//! 切換設定名
+	char* name;
+
+	//! 重複を除外した切替値の配列 (see: Nmod)
+	char dcode[10];
+
+	//! 定義数(stime,mode,etimeの配列長)
+	int     N;
+
+	//! 開始時分の配列
+	int *stime;
+
+	//! 切替値の配列
+	char* mode;
+
+	//! 終了時分の配列
+	int *etime;
+
+	//! 重複を除外した切替値の配列の長さ
+	int Nmod;
+
+	//! 切換設定スケジュール定義の数
 	int     end;
 } DSCW ;
 
-typedef struct sch     /*スケジュ－ル*/
-{
-	char    *name, type;
-	int     day[366];
-	int     end;
-} SCH ;
 
+//@brief スケジュ－ル
+typedef struct sch
+{
+	//! スケジュール名
+	char* name;
+	char type;
+
+	//! 設定値または切替設定スケジュール定義のインデックスの配列
+	int     day[366];
+
+	//! スケジュールの数
+	int     end;
+} SCH;
+
+
+/*
+ * @brief スケジュール (SCHTB, SCHNM) 
+ * @detail
+ * スケジュール表および展開されたスケジュール
+ * @sa Schtable, Schdata
+ */
 typedef struct schdl
 {
-	int    Nsch, Nscw;
+	//------SCHTB スケジュール表 ------//
+
+	//! 季節設定の動的配列
 	SEASN   *Seasn ;
+
+	//! 曜日設定の動的配列
 	WKDY    *Wkdy ;
+
+	//! 設定値（温・湿度、風量 ･････ ）スケジュール定義の動的配列
 	DSCH    *Dsch ;
+
+	//! 切換設定スケジュール定義の動的配列
 	DSCW    *Dscw ;
-	SCH		*Sch, *Scw ;
+
+	//------SCHNM スケジュール ------//
+
+	//! 設定値（温・湿度、風量 ･････ ）の年間スケジュールの動的配列
+	SCH* Sch;
+
+	//! 切換設定の年間スケジュールの動的配列
+	SCH* Scw;
+
+	//! 設定値（温・湿度、風量 ･････ ）の年間スケジュールの数
+	int    Nsch;
+
+	//! 切換設定の年間スケジュールの数
+	int    Nscw;
+
+
 	double   *val;
+
 	char    *isw;
 } SCHDL;

@@ -44,6 +44,10 @@ void Sunint(double Lat, double Lon, double Ls)
 	_Ls = Ls;
 }
 /* --------------------------------------------- */
+
+/*
+ * @brief 年間通日計算
+ */
 int FNNday(int Mo, int Nd)
 {
 	return( (153*(Mo-1)+2*(Mo<3)-9*(Mo>=3))/5 + Nd);

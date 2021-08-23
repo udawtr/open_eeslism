@@ -23,13 +23,28 @@
 #include "fnmcs.h"
 #include "fnlib.h"
 
-// 太陽電池の温度補正係数計算式
+
+//
+//@brief 太陽電池の計算
+//
+
+
+/*
+ * @brief 太陽電池の温度補正係数計算式
+ * @param[IN] TPV    太陽電池温度
+ * @param[IN] apmax
+ * @return 太陽電池の温度補正係数
+ */
 double	FNKPT(double TPV, double apmax)
 {
 	return (1. + apmax * ( TPV - 25.) / 100. ) ;
 }
 
-// 太陽電池パラメータの初期化
+
+/*
+ * @brief 太陽電池パラメータの初期化
+ * @param[IN,OUT] PVwallcat 太陽電池パラメータのポインタ
+ */
 void	PVwallcatinit(PVWALLCAT *PVwallcat)
 {
 	//PVwallcat->PVcap = -999. ;
@@ -45,26 +60,42 @@ void	PVwallcatinit(PVWALLCAT *PVwallcat)
 	PVwallcat->Kcoloff = -999. ;
 }
 
-// 温度補正係数以外は時々刻々変化しないので、最初に１度計算しておく
+
+
+
+/*
+ * @brief 太陽電池の事前計算
+ * @param[IN,OUT] PVwallcat 太陽電池パラメータのポインタ
+ * @details
+ * 温度補正係数以外は時々刻々変化しないので、最初に１度計算しておく
+ */
 void	PVwallPreCalc(PVWALLCAT *PVwallcat)
 {
-	PVwallcat->KConst = PVwallcat->KHD * PVwallcat->KPD * PVwallcat->KPM
-		* PVwallcat->KPA * PVwallcat->effINO ;
+	//温度補正係数以外の補正係数の積（温度補正係数以外は時々刻々変化しない）
+	PVwallcat->KConst = PVwallcat->KHD * PVwallcat->KPD * PVwallcat->KPM * PVwallcat->KPA * PVwallcat->effINO;
 	//printf("KConst=%lf\n", PVwallcat->KConst);
 }
 
-// 太陽電池温度の計算
+
+/*
+ * @brief 太陽電池温度の計算
+ * @param[IN] Sd    壁体
+ * @param[IN] Wd    気象データ
+ * @param[IN] Exsfs
+ * @return 太陽電池温度
+ */
 double	FNTPV(RMSRF *Sd, WDAT *Wd, EXSFS *Exsfs)
 {
-	WALL	*wall ;
-	double	TPV ;
-	EXSF	*Exs ;
-	double	Ipv ;
+	//壁体
+	WALL* wall = Sd->mw->wall;
 
-	wall = Sd->mw->wall ;
-	Exs = &Exsfs->Exs[Sd->exs] ;
-	Ipv = ( wall->tra - Sd->PVwall.Eff ) * Sd->Iwall ;
+	//外表面方位データ
+	EXSF* Exs = &Exsfs->Exs[Sd->exs] ;
 
+	//
+	double Ipv = ( wall->tra - Sd->PVwall.Eff ) * Sd->Iwall ;
+
+	double	TPV;	//太陽電池温度
 	if ( Sd->rpnl->cG > 0.)
 	{
 		//printf("Tf=%lf\n", Sd->Tf ) ;
@@ -79,7 +110,15 @@ double	FNTPV(RMSRF *Sd, WDAT *Wd, EXSFS *Exsfs)
 	return(TPV) ;
 }
 
-// 発電量の計算
+
+
+/*
+ * @brief 発電量の計算
+ * @param[IN]     Nsrf
+ * @param[IN,OUT] Sd    壁体
+ * @param[IN]     Wd    気象データ
+ * @param[IN]     Exsfs
+ */
 void	CalcPowerOutput(int Nsrf, RMSRF *Sd, WDAT *Wd, EXSFS *Exsfs)
 {
 	int		i ;
