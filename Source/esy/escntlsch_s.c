@@ -152,7 +152,6 @@ void Contlschdlr(double dTM, int Ncontl, CONTL *Contl, int Nmpath, MPATH *Mpath,
 	{
 		if (strcmp(Compnt->eqptype, ROOM_TYPE) == 0)
 			
-#if SIMUL_BUILDG
 		{
 			Compnt->control = ON_SW;
 			Eo = Compnt->elouts;
@@ -161,11 +160,7 @@ void Contlschdlr(double dTM, int Ncontl, CONTL *Contl, int Nmpath, MPATH *Mpath,
 			Eo->control = ON_SW;
 			
 			roomldschd((ROOM *)Compnt->eqp);
-		}
-#else
-		;
-#endif
-		
+		}		
 		else if (strcmp(Compnt->eqptype, BOILER_TYPE) == 0)
 			boildschd((BOI *)Compnt->eqp);
 		

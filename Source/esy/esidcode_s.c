@@ -149,7 +149,6 @@ int idscw (char *code, SCH *Scw, char *err)
 }
 /* ---------------------------------------- */
 
-#if SIMUL_BUILDG /******************************/
 
 int idroom (char *code, ROOM *Room, char *err)
 {
@@ -171,7 +170,7 @@ int idroom (char *code, ROOM *Room, char *err)
 
 	return (j);
 }
-#endif
+
 /* ---------------------------------------- */
 
 

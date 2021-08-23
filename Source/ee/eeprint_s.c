@@ -71,8 +71,6 @@ void Eeprinth(DAYTM *Daytm, SIMCONTL *Simc, int Nflout, FLOUT *flout,
 			// 蓄熱槽内温度分布の出力
 			else if (strcmp(flo->idn, PRTHRSTANK) == 0)
 				Hstkprint(flo->f, title, Mon, Day, time, Eqsys);
-
-#if   SIMUL_BUILDG	 
 			// 毎時室温、MRTの出力
 			else if (strcmp(flo->idn, PRTREV) == 0)
 				Rmevprint(flo->f, title, Rmvls->Room, Mon, Day, time);
@@ -115,7 +113,6 @@ void Eeprinth(DAYTM *Daytm, SIMCONTL *Simc, int Nflout, FLOUT *flout,
 			// 室内表面熱伝達率の出力
 			else if (strcmp(flo->idn, PRTSFA) == 0)
 				Rmsfaprint(flo->f, title, Mon, Day, time, Rmvls->Room, Rmvls->Sd ) ;
-#endif	 
 		}
 	}  
 }      
@@ -160,8 +157,6 @@ void Eeprintd(DAYTM *Daytm, SIMCONTL *Simc, int Nflout, FLOUT *flout,
 			else if (strcmp(flo->idn, PRTDYCOMP) == 0)
 				Compodyprt(flo->f, PRTDYCOMP, Simc, Mon, Day, Eqsys,
 				Rmvls->Nrdpnl, Rmvls->Rdpnl);
-			
-#if  SIMUL_BUILDG	   
 			else if (strcmp(flo->idn, PRTDYRM) == 0)
 				Rmdyprint(flo->f, PRTDYRM, Simc, Mon, Day,
 				Rmvls->Nroom, Rmvls->Room);	 	 
@@ -173,7 +168,6 @@ void Eeprintd(DAYTM *Daytm, SIMCONTL *Simc, int Nflout, FLOUT *flout,
 				Rmvls->Room, Rmvls->Trdav, Rmvls->Qrmd);
 			else if (strcmp(flo->idn, PRTDYSF) == 0)
 				Dysfprint(flo->f, title, Mon, Day, Rmvls->Room ) ;
-#endif	 	 
 		}
     }
 }

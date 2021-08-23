@@ -56,11 +56,9 @@ void Hcmpprint(FILE *fo, char *mrk, SIMCONTL *Simc, int mon, int day, double tim
 			Qmeasprint(fo, id, Eqsys->Nqmeas, Eqsys->Qmeas ) ;
 			PVprint(fo, id, Eqsys->Npv, Eqsys->PVcmp ) ;
 			Desiprint(fo, id, Eqsys->Ndesi, Eqsys->Desi) ;
-			Evacprint(fo, id, Eqsys->Nevac, Eqsys->Evac) ;
-			
-#if SIMUL_BUILDG
+			Evacprint(fo, id, Eqsys->Nevac, Eqsys->Evac) ;			
 			panelprint(fo, id, Nrdpnl, Rdpnl);  
-#endif	 
+
 			if (j == 0)
 				fprintf(fo ,"*\n#\n");
 			
@@ -85,10 +83,7 @@ void Hcmpprint(FILE *fo, char *mrk, SIMCONTL *Simc, int mon, int day, double tim
 	PVprint(fo, id, Eqsys->Npv, Eqsys->PVcmp ) ;
 	Desiprint(fo, id, Eqsys->Ndesi, Eqsys->Desi) ;
 	Evacprint(fo, id, Eqsys->Nevac, Eqsys->Evac) ;
-	
-#if SIMUL_BUILDG
 	panelprint(fo, id, Nrdpnl, Rdpnl); 
-#endif	 
 	
 }
 

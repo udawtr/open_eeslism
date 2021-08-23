@@ -63,11 +63,9 @@ void Eeinput(char *Ipath, SIMCONTL *Simc, SCHDL *Schdl,
 	SCH		*Sch, *Scw;
 	int		SYSCMP_ID = 0, SYSPTH_ID = 0;
 
-#if SIMUL_BUILDG
 	DFWL	dfwl;
 	RMSRF	*Sdd, *Sd;
 	ROOM	*Rm;
-#endif
 	/*-------higuchi 070918---------start*/
 	//RRMP *rp;
 	//MADO *wp;
@@ -87,8 +85,6 @@ void Eeinput(char *Ipath, SIMCONTL *Simc, SCHDL *Schdl,
 
 	//*Nexs=0 ;
 
-#if SIMUL_BUILDG  /******************************/
-
 	Rmvls->Nwall = 0;
 	Rmvls->Nwindow = 0;
 	Rmvls->Nroom = 0;
@@ -96,7 +92,6 @@ void Eeinput(char *Ipath, SIMCONTL *Simc, SCHDL *Schdl,
 	Sdd = Rmvls->Sd;
 	Rmvls->Nsrf = 0;
 	Rmvls->Nrdpnl = Rmvls->Nmwall = 0;
-#endif
 
 	if ((fi = fopen("dayweek.efl", "r")) == 0)
 	{
@@ -109,10 +104,8 @@ void Eeinput(char *Ipath, SIMCONTL *Simc, SCHDL *Schdl,
 	Dayweek(fi, Ipath, Simc->daywk, key);
 	fclose(fi);
 
-#if SIMUL_BUILDG  /******************************/
 	if (DEBUG())
 		dprdayweek(Simc->daywk);
-#endif
 
 	if ((fi = fopen(strcat(strcpy(s, Ipath), "schtba.ewk"), "r")) == 0)
 	{
@@ -208,9 +201,8 @@ void Eeinput(char *Ipath, SIMCONTL *Simc, SCHDL *Schdl,
 			else
 				Simc->wdtype = 'H';
 			//printf("DayS=%d,DayE=%d\n",daystart,dayend) ;
-#if SIMUL_BUILDG  /******************************/
+
 			Rmvls->Twallinit = Twallinit;
-#endif 
 
 			Simc->dTm = dtm;
 
@@ -254,8 +246,6 @@ void Eeinput(char *Ipath, SIMCONTL *Simc, SCHDL *Schdl,
 			HeapCheck(hptest);
 			Exsfdata(fi, s, Exsf, Schdl, Simc);
 		}
-
-#if SIMUL_BUILDG  
 
 		//******************************************************************
 		// 建築データ
@@ -322,7 +312,6 @@ void Eeinput(char *Ipath, SIMCONTL *Simc, SCHDL *Schdl,
 		{
 			Appldata(fi, s, Schdl, Rmvls->Room, Simc);
 		}
-#endif
 		else if (strcmp("VCFILE", s) == 0)
 		{
 			Vcfdata(fi, Simc);
@@ -386,7 +375,6 @@ void Eeinput(char *Ipath, SIMCONTL *Simc, SCHDL *Schdl,
 			elinprint(1, *Ncompnt, Compnt, Elout, Elin);
 			*********/
 
-#if SIMUL_BUILDG     /*********************/ 
 			/*
 			printf("xxxxx Eeinput   Roomelm begin\n");
 			*/
@@ -399,7 +387,6 @@ void Eeinput(char *Ipath, SIMCONTL *Simc, SCHDL *Schdl,
 			printf("xxxxx Eeinput   Pathdata end\n");
 			elinprint(1, *Ncompnt, Compnt, Elout, Elin);
 			*********/
-#endif
 
 			// 変数の割り当て
 			Hclelm(Eqsys->Nhcload, Eqsys->Hcload);
@@ -441,9 +428,7 @@ void Eeinput(char *Ipath, SIMCONTL *Simc, SCHDL *Schdl,
 				Pathdata(fi, "Pathdata", Simc, Wd, *Ncompnt, *Compnt, Schdl,
 					Mpath, Nmpath, Plist, Pelm, Npelm, Nplist, 1, Eqsys);
 
-#if SIMUL_BUILDG
 				Roomelm(Rmvls->Nroom, Rmvls->Room, Rmvls->Nrdpnl, Rmvls->Rdpnl);
-#endif
 
 				Hclelm(Eqsys->Nhcload, Eqsys->Hcload);
 				Thexelm(Eqsys->Nthex, Eqsys->Thex);
@@ -591,9 +576,7 @@ void Eeinput(char *Ipath, SIMCONTL *Simc, SCHDL *Schdl,
 		Pathdata(fi, "Pathdata", Simc, Wd, *Ncompnt, *Compnt, Schdl,
 			Mpath, Nmpath, Plist, Pelm, Npelm, Nplist, 1, Eqsys);
 
-#if SIMUL_BUILDG
 		Roomelm(Rmvls->Nroom, Rmvls->Room, Rmvls->Nrdpnl, Rmvls->Rdpnl);
-#endif
 
 		Hclelm(Eqsys->Nhcload, Eqsys->Hcload);
 		Thexelm(Eqsys->Nthex, Eqsys->Thex);
@@ -603,10 +586,8 @@ void Eeinput(char *Ipath, SIMCONTL *Simc, SCHDL *Schdl,
 
 	/*****vcfileint(Eqsys->Nvcdata, Eqsys->Vcdata, Simc);********/
 
-#if SIMUL_BUILDG  /******************************/
 	// 毎時計算ステップでの計算に切り替え
 	//Rmrdshfc(Rmvls->Room, Rmvls->Sd);
-#endif
 
 	if (daystart > dayend)
 		dayend = dayend + 365;
@@ -632,7 +613,6 @@ void Eeinput(char *Ipath, SIMCONTL *Simc, SCHDL *Schdl,
 		if (Simc->dayprn[nday])
 			Simc->Ntimehrprt += Simc->Dayntime;
 	}
-#if SIMUL_BUILDG  /******************************/
 
 	/*************
 	printf("<<Eeinput>>  Nroom=%d\n", Rmvls->Nroom);
@@ -669,7 +649,7 @@ void Eeinput(char *Ipath, SIMCONTL *Simc, SCHDL *Schdl,
 		if (Sd->shdpri == 'p')
 			Nshdpri++;
 	}
-#endif
+
 	/****************
 	printf("<<Eeinput>> Nwalpri=%d\n", Nwalpri);
 	/**************/
@@ -697,8 +677,6 @@ void Eeinput(char *Ipath, SIMCONTL *Simc, SCHDL *Schdl,
 
 	Flout->idn = stralloc(PRTWK);
 	Flout++;
-
-#if SIMUL_BUILDG  /******************************/
 
 	Flout->idn = stralloc(PRTREV);
 	Flout++;
@@ -797,8 +775,6 @@ void Eeinput(char *Ipath, SIMCONTL *Simc, SCHDL *Schdl,
 		Flout->idn = stralloc(PRTPCM);
 		Flout++;
 	}
-
-#endif /**************************************************/
 
 	if (wdpri > 0)
 	{

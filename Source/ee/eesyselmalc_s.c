@@ -119,7 +119,6 @@ void Elmalloc(char *errkey,
 		c = Compnt->eqptype;  
 
 		if (strcmp(c, ROOM_TYPE) == 0)
-#if SIMUL_BUILDG  /**************************/
 		{
 			room = (ROOM *)Compnt->eqp;
 			room->cmp = Compnt;
@@ -212,9 +211,6 @@ void Elmalloc(char *errkey,
 		//	Elout++ ;
 		//	Elin++ ;
 		//}
-#else
-			;
-#endif /**********************************************/
 		else if (strcmp(c, DIVERG_TYPE) == 0 || strcmp(c, DIVGAIR_TYPE) == 0)
 		{
 			if (strcmp(c, DIVGAIR_TYPE) == 0)

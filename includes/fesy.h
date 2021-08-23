@@ -17,11 +17,6 @@
 
 #pragma once
 
-/// 建築データのサポート
-/// (SUNBRK, PCM, WALL, WINDOW, ROOM, RAICH, VENT, RESI, APPL, VCFILE)のサポート
-/// @brief 建築物をサポートする場合は1
-#define  SIMUL_BUILDG  1
-
 // TODO: 要説明
 #include "esize.h"
 
@@ -34,11 +29,7 @@
 // 2.4 建築データ
 // <入力データファイル>建築データのモデルについて構造体の定義
 // WALL, WINDOW, SUNBRK, ROOM, RESI, AAPL, VENT
-#if    SIMUL_BUILDG
 #include "build.h"
-#else
-#include "buildex.h"
-#endif
 
 // 2.5 設備機器データ
 // <入力データファイル>設備機器データのモデルについて構造体の定義

@@ -131,8 +131,6 @@ void Compodata(FILE *f, char *errkey, RMVLS *Rmvls, EQCAT *Eqcat,
 
 	/* 室およびパネル用     */
 
-#if SIMUL_BUILDG /****************/
-
 	/*****printf("<<Compodata>>  Nroom=%d\n", Nroom);*****/
 
 	for (i = 0; i < Nroom; i++, Room++, Compnt++, D++)
@@ -186,7 +184,6 @@ void Compodata(FILE *f, char *errkey, RMVLS *Rmvls, EQCAT *Eqcat,
 	//	Compnt->nivar = 0;
 	//	Compnt->airpathcpy = 'y' ;
 	//}
-#endif /***********************/
 
 	cp = NULL ;
 
@@ -419,7 +416,6 @@ void Compodata(FILE *f, char *errkey, RMVLS *Rmvls, EQCAT *Eqcat,
 						if ( Crm != NULL )
 						{
 							if (strcmp(Crm->eqptype, ROOM_TYPE) == 0)
-#if SIMUL_BUILDG /****************/
 							{
 								room = (ROOM *)Crm->eqp;
 								room->Nasup = atoi(s);
@@ -434,9 +430,6 @@ void Compodata(FILE *f, char *errkey, RMVLS *Rmvls, EQCAT *Eqcat,
 								Crm->Nin += 2 * room->Nasup;
 							}
 						}
-#else
-								;
-#endif
 
 							else
 								Compnt->Nin = atoi(s);

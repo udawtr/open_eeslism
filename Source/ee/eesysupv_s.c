@@ -204,7 +204,6 @@ void Sysupv(int Nmpath, MPATH *Mpath, RMVLS *Rmvls)
 			}
 		}
    }
-#if SIMUL_BUILDG  /*********************************/
    /* 放射パネル設置室についてのパネル上流要素 */
    
    room = Rmvls->Room;
@@ -279,9 +278,6 @@ void Sysupv(int Nmpath, MPATH *Mpath, RMVLS *Rmvls)
 	   }
    }
    
-   
-   
-#endif
    
    if ( DEBUG())
    {

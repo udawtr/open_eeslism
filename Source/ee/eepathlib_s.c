@@ -202,7 +202,6 @@ void pelmci(char pflow, PELM *Pelm, char *errkey)
 		}
 	}
 
-#if SIMUL_BUILDG   /*****************************/
 	else if (strcmp(cmp->eqptype, ROOM_TYPE) == 0)
 	{
 		room = (ROOM *)cmp->eqp;
@@ -257,7 +256,6 @@ void pelmci(char pflow, PELM *Pelm, char *errkey)
 			Pelm->in = Elout->elins;
 		}
 	} 
-#endif /*************************************/
 
 	else if (Nin == 1)
 	{

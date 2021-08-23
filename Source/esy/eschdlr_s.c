@@ -53,8 +53,6 @@ void	Eeschdlr(int day, int ttmm, SCHDL *Schdl, RMVLS *Rmvls)
 		*isw = scwmode ( day, ttmm, Scw, Schdl->Dscw ) ;
 	}
 	
-#if SIMUL_BUILDG  
-	
 	if ( DEBUG())
 		xprschval (Schdl->Nsch, Schdl->val, Schdl->Nscw, Schdl->isw);
 	
@@ -74,5 +72,4 @@ void	Eeschdlr(int day, int ttmm, SCHDL *Schdl, RMVLS *Rmvls)
 		xprqin (Rmvls->Nroom, Rmvls->Room);
 		xprvent(Rmvls->Nroom, Rmvls->Room); 
 	}
-#endif   
 }

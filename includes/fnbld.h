@@ -18,7 +18,5 @@
 
 #pragma once
 
-#if SIMUL_BUILDG
 #include  "fnbldg.h"
-#endif
     

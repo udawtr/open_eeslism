@@ -201,12 +201,8 @@ int kynameptr(char *s, SIMCONTL *Simc, int Ncompnt, COMPNT *Compnt, int Nmpath, 
 						{
 							e = Compnt->eqptype;
 							if (strcmp(e, ROOM_TYPE) == 0)
-#if SIMUL_BUILDG
 								/*** if (nk>1) ****/
 								err = roomvptr(nk,  key, (ROOM *)Compnt->eqp, vptr);
-#else
-							;
-#endif
 							else if (strcmp(e, REFACOMP_TYPE) == 0)
 							{
 							/*****
@@ -425,7 +421,6 @@ int loadptr(COMPNT *loadcmp, char *load, char *s, int Ncompnt, COMPNT *Compnt,
 					err = refaldptr(load, key, (REFA *)Compnt->eqp, vptr);
 					idmrk = 't';
 				}
-#if SIMUL_BUILDG
 				else if (strcmp(Compnt->eqptype, HCLOAD_TYPE) == 0
 					|| strcmp(Compnt->eqptype, RMAC_TYPE) == 0|| strcmp(Compnt->eqptype, RMACD_TYPE) == 0)
 				{
@@ -468,7 +463,7 @@ int loadptr(COMPNT *loadcmp, char *load, char *s, int Ncompnt, COMPNT *Compnt,
 					err = roomldptr(load, key, Room, vptr, &idmrk);	       
 					/***break;***/
 				}
-#endif
+
 				if (err == 0)
 				{
 				/***************
