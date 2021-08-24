@@ -15,13 +15,13 @@
 
 #pragma once
 
-#include "simcon.h"
-#include "eepath.h"
-#include "eqptyp.h"
-#include "control.h"
-#include "sched.h"
-#include "wthrd.h"
-#include "eps.h"
+#include "model/simcon.h"
+#include "model/eepath.h"
+#include "model/eqptyp.h"
+#include "model/control.h"
+#include "model/sched.h"
+#include "model/wthrd.h"
+#include "model/eps.h"
 
 void	Simcinit ( SIMCONTL *S ) ;
 void	Compinit ( int N, COMPNT *C ) ;

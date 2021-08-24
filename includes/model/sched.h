@@ -17,7 +17,8 @@
 
 #pragma once
 
-/*
+/**
+ * @file 
  * @brief <入力データファイル>スケジュールのモデルについて構造体の定義
  * @details
  *
@@ -54,7 +55,7 @@
 //
 
 
-//@brief 季節設定 (`-ssn`)
+///@brief 季節設定 (`-ssn`)
 typedef struct seasn
 {
 	//! 季節名
@@ -74,7 +75,7 @@ typedef struct seasn
 } SEASN ;
 
 
-//@brief 曜日設定 (`-wkd`)
+///@brief 曜日設定 (`-wkd`)
 typedef struct wkdy
 {
 	//! 曜日名
@@ -89,7 +90,7 @@ typedef struct wkdy
 } WKDY ;
 
 
-//@brief 設定値（温・湿度、風量 ･････ ）スケジュール定義 (`-v`)
+///@brief 設定値（温・湿度、風量 ･････ ）スケジュール定義 (`-v`)
 typedef struct dsch
 {
 	//! 設定値名
@@ -112,7 +113,7 @@ typedef struct dsch
 } DSCH ;
 
 
-//@brief 切換設定スケジュール定義 (`-s`)
+///@brief 切換設定スケジュール定義 (`-s`)
 typedef struct dscw
 {
 	//! 切換設定名
@@ -141,7 +142,7 @@ typedef struct dscw
 } DSCW ;
 
 
-//@brief スケジュ－ル
+///@brief スケジュ－ル
 typedef struct sch
 {
 	//! スケジュール名
@@ -156,7 +157,7 @@ typedef struct sch
 } SCH;
 
 
-/*
+/**
  * @brief スケジュール (SCHTB, SCHNM) 
  * @detail
  * スケジュール表および展開されたスケジュール

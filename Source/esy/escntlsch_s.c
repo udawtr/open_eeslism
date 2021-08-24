@@ -84,13 +84,21 @@ void Contlschdlr(double dTM, int Ncontl, CONTL *Contl, int Nmpath, MPATH *Mpath,
 
 			// ANDで2条件の場合
 			if (Contl->andcif != NULL)
+			{
 				Contl->lgv = Contl->lgv * contrlif(Contl->andcif);
+			}
+
 			// ANDで3条件の場合
 			if (Contl->andandcif != NULL)
+			{
 				Contl->lgv = Contl->lgv * contrlif(Contl->andandcif);
+			}
+
 			// or条件の場合
 			if (Contl->orcif != NULL)
+			{
 				Contl->lgv = Contl->lgv + contrlif(Contl->orcif);
+			}
 		}
 		
 		if (Contl->lgv)

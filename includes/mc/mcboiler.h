@@ -2,7 +2,7 @@
 
 //BOI ボイラー
 
-#include "eqptyp.h"
+#include "model/eqptyp.h"
 
 int Boidata (char *s, BOICA *Boica);
 void Boicfv(int Nboi, BOI *Boi);

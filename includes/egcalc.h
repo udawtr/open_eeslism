@@ -18,7 +18,7 @@
 #pragma once
 
 
-//@brief 系統、機器種別の積算値
+///@brief 系統、機器種別の積算値
 typedef struct ptotal
 {
    char  *name;

@@ -13,9 +13,10 @@
 //You should have received a copy of the GNU General Public License
 //along with Foobar.If not, see < https://www.gnu.org/licenses/>.
 
-/*  ee_pathdat.c   */
-
-/* システム要素の接続経路の入力 */
+/* 
+ * @file
+ * @brief システム要素の接続経路の入力
+ */
 
 #define _CRT_SECURE_NO_WARNINGS
 #include <stdio.h>
@@ -29,6 +30,37 @@
 #include "fnmcs.h"
 //#include "eepath.h"
 
+//------ パブリック関数の宣言 ------
+
+#include "ee/ee_pathdat.h"
+
+//------ プライベート関数の宣言 ------
+
+int		_Mpathcount(FILE* fi, int* Pl);
+void	_Plcount(FILE* fi, int* N);
+int		_Pelmcount(FILE* fi);
+
+//------ 関数の実装 ------
+
+
+/**
+ * @brief
+ * @param[IN] f
+ * @param[IN] errkey
+ * @param[IN] Simc
+ * @param[IN] Wd
+ * @param[IN] Ncompnt
+ * @param[IN] Compnt
+ * @param[IN] Schdl
+ * @param[IN] M
+ * @param[IN] Nmpath
+ * @param[IN] Plst
+ * @param[IN] Plm
+ * @param[IN] Npelm
+ * @param[IN] Nplist
+ * @param[IN] ID
+ * @param[IN] Eqsys
+ */
 void Pathdata (FILE *f, char *errkey, SIMCONTL *Simc, WDAT *Wd, int  Ncompnt,  COMPNT *Compnt, SCHDL *Schdl,
 			   MPATH **M, int *Nmpath, PLIST **Plst, PELM **Plm, int *Npelm, int *Nplist, int ID, EQSYS *Eqsys )
 {
@@ -58,29 +90,44 @@ void Pathdata (FILE *f, char *errkey, SIMCONTL *Simc, WDAT *Wd, int  Ncompnt,  C
 			printf ( "name=%s Nin=%d  Nout=%d\n", C->name, C->Nin, C->Nout ) ;
 	}
 
-	Nm = Mpathcount ( f, &Npl ) ;
-	*Nplist = Npl * 2 ;
+	//
+	// 1) システム経路のメモリ確保と初期化
+	//
+
+	//システム経路の経路数を数える
+	Nm = _Mpathcount ( f, &Npl ) ;
+	*Nplist = Npl * 2 ;		//↑の関数の最後で2で割った直後に2倍している。偶数補正???
 
 	if ( Nm > 0 )
 	{
-		if (( *M = ( MPATH * ) malloc (( Nm * 2 ) * sizeof ( MPATH ))) == NULL )
-			Ercalloc ( Nm * 2, "<Pathdata> Mpath alloc" ) ;
+		//経路のメモリ確保
+		if ((*M = (MPATH*)malloc((Nm * 2) * sizeof(MPATH))) == NULL)
+		{
+			Ercalloc(Nm * 2, "<Pathdata> Mpath alloc");
+		}
 
+		//経路の初期化
 		Mpathinit ( Nm * 2, *M ) ;
 
-		for ( i = 0; i < Nm * 2; i++, mpi++ )
-			mpi = M[i] ;
+		for (i = 0; i < Nm * 2; i++, mpi++)
+		{
+			mpi = M[i];
+		}
 	}
 
 	if ( Npl > 0 )
 	{
+		//末端経路のメモリ確保
 		if (( *Plst = ( PLIST * ) malloc (( Npl * 2 ) * sizeof ( PLIST ))) == NULL )
 			Ercalloc ( Npl * 2, "<Pathdata> Plist alloc" ) ;
 
+		//末端経路の初期化
 		Plistinit ( Npl * 2, *Plst ) ;
 
-		for ( i = 0; i < Npl * 2; i++, Pl++ )
-			Pl = Plst[i] ;
+		for (i = 0; i < Npl * 2; i++, Pl++)
+		{
+			Pl = Plst[i];
+		}
 	}
 
 	Mpath = *M ;
@@ -88,9 +135,9 @@ void Pathdata (FILE *f, char *errkey, SIMCONTL *Simc, WDAT *Wd, int  Ncompnt,  C
 
 	N = icalloc ( Nm, "<Pathdata>  N alloc" ) ;
 
-	Plcount ( f, N ) ;
+	_Plcount ( f, N ) ;
 
-	Nplm = Pelmcount ( f ) ;
+	Nplm = _Pelmcount ( f ) ;
 
 	//printf ( "<Pathdata> Pelm=%d\n", Nplm ) ;
 
@@ -726,25 +773,38 @@ void Pathdata (FILE *f, char *errkey, SIMCONTL *Simc, WDAT *Wd, int  Ncompnt,  C
 
 /***********************************************************************/
 
-int		Mpathcount ( FILE *fi, int *Pl )
+/**
+ * @brief システム経路の経路数(;区切り)を数える
+ * @param[IN]  fi
+ * @param[OUT] Pl
+ */
+int		_Mpathcount ( FILE *fi, int *Pl )
 {
 	int		N = 0 ;
 	long	ad ;
 	char	s[SCHAR] ;
 
+	//ファイル位置保存
 	ad = ftell ( fi ) ;
 	*Pl = 0 ;
 
 	while ( fscanf ( fi, "%s", s ) != EOF && *s != '*' )
 	{
-		if ( strcmp ( s, ";" ) == 0 )
-			N++ ;
-		if ( strcmp ( s, ">" ) == 0 )
-			(*Pl)++ ;
+		if (strcmp(s, ";") == 0)
+		{
+			N++;
+		}
+		if (strcmp(s, ">") == 0)
+		{
+			//カウントアップ
+			(*Pl)++;
+		}
 	}
 
+	//?? なぜ2で割るのか??
 	*Pl /= 2 ;
 
+	//ファイル位置復帰
 	fseek ( fi, ad, SEEK_SET ) ;
 
 	return ( N ) ;
@@ -752,7 +812,7 @@ int		Mpathcount ( FILE *fi, int *Pl )
 
 /***********************************************************************/
 
-void	Plcount ( FILE *fi, int *N )
+void	_Plcount ( FILE *fi, int *N )
 {
 	char	s[SCHAR] ;
 	int		i, *M ;
@@ -788,7 +848,7 @@ void	Plcount ( FILE *fi, int *N )
 
 /***********************************************************************/
 
-int		Pelmcount ( FILE *fi )
+int		_Pelmcount ( FILE *fi )
 {
 	int		i, N ;
 	long	ad ;
@@ -809,17 +869,29 @@ int		Pelmcount ( FILE *fi )
 			if ( *s == ';' )
 				break ;
 
+			//循環、通過流体の種類（水系統、空気系統の別）
 			if ( strcmp ( s, "-f" ) == 0 )
 			{
 				fscanf ( fi, "%s", t ) ;
 
-				if ( strcmp ( t, "W" ) == 0 || strcmp ( t, "a" ) == 0 )
-					i = 1 ;
+				//（W：水系統、A：空気系統で温・湿度とも計算、a：空気系統で温度のみ計算。
+				// ただし、Windows 版では空気系統時に A しか指定できない
+
+				if (strcmp(t, "W") == 0 || strcmp(t, "a") == 0)
+				{
+					i = 1;
+				}
 				else
-					i = 2 ;
+				{
+					i = 2;
+				}
 			}
-			if ( strcmp ( s, "-sys" ) == 0 )
-				fscanf ( fi, "%*s" ) ;
+
+			//システムの分類（A：空調・暖房システム、D：給湯システム）
+			if (strcmp(s, "-sys") == 0)
+			{
+				fscanf(fi, "%*s");
+			}
 
 			if ( strcmp ( s, ">" ) != 0 && *s != '(' && *s != '-' && *s != ';' )
 			{

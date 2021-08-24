@@ -48,18 +48,18 @@
  * 
  *
  * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
- * EQPCAT:    機器仕様（機器カタログデータ）
+ * EQPCAT:    機器仕様(機器カタログデータ）
  * BOI:       ボイラー
- * REFA:      チラー、ヒートポンプチラー（空気熱源)
+ * REFA:      チラー、ヒートポンプチラー(空気熱源)
  * COL:       太陽熱集熱器
  * STANK:     蓄熱層
  * HEX:       熱交換器(２流体式）
- * THEX:      全熱交換器（換気の排気からの熱回収用の顕熱・潜熱熱交換器)
+ * THEX:      全熱交換器(換気の排気からの熱回収用の顕熱・潜熱熱交換器)
  * HCC:       冷温水コイル
  * PIPE:      配管
  * DUCT:      ダクト
  * PUMP:      ポンプ
- * FAN:       ファン（送風機）
+ * FAN:       ファン(送風機）
  * VAV:       VAV ユニット
  * STHEAT:    電気蓄熱式暖房器
  * PV:        太陽電池
@@ -74,6 +74,8 @@
  * @sa Eeinput, Eqcadata
  */
 
+
+////@brief カロリーメータ
 typedef struct qmeas
 {
 	char	fluid ;
@@ -105,7 +107,7 @@ typedef struct acs
 // --------------------------------------------
 // Satoh追加　気化冷却器　2013/10/25
 
-//@brief 気化冷却器（機器カタログデータ）
+///@brief 気化冷却器(機器カタログデータ）
 typedef struct EvaCoolingca
 {
 	char	*name ;			// カタログ名
@@ -115,7 +117,7 @@ typedef struct EvaCoolingca
 	int		Nlayer ;		// 積層数
 } EVACCA ;
 
-//@brief 気化冷却器(システム構成要素)
+///@brief 気化冷却器(システム構成要素)
 typedef struct EvaCooling
 {
 	char	*name ;			// 機器名称
@@ -131,8 +133,8 @@ typedef struct EvaCooling
 			*M, *kx,		// i層蒸発量[kg/m2 s]、物質移動係数[kg/m2 s (kg/kg')]
 			*Tdry, *Twet,	// Dry側、Wet側の空気温度[℃]
 			*xdry, *xwet,	// Dry側、Wet側の空気絶対湿度[kg/kg']
-			*xs,			// 濡れ面近傍の絶対湿度（境界面温度における飽和絶対湿度）[kg/kg']
-			*Ts,			// 境界面の表面温度[℃]（Wet側、Dry側は同じ温度）
+			*xs,			// 濡れ面近傍の絶対湿度(境界面温度における飽和絶対湿度）[kg/kg']
+			*Ts,			// 境界面の表面温度[℃](Wet側、Dry側は同じ温度）
 			*RHwet, *RHdry,	// Dry側、Wet側の相対湿度[%]
 			Qsdry, Qldry, Qtdry,
 							// Dry側顕熱、潜熱、全熱[W]
@@ -152,7 +154,7 @@ typedef struct EvaCooling
 // --------------------------------------------
 // Satoh追加　バッチ式デシカント空調機 2013/10/20
 
-//@brief バッチ式デシカント空調機（機器カタログデータ）
+///@brief バッチ式デシカント空調機(機器カタログデータ）
 typedef struct desiccantca
 {
 	char	*name ;			// カタログ名
@@ -168,7 +170,7 @@ typedef struct desiccantca
 			cps ;			// シリカゲルの比熱[J/kgK]
 } DESICA ;
 
-//@brief バッチ式デシカント空調機(システム構成要素)
+///@brief バッチ式デシカント空調機(システム構成要素)
 typedef struct desiccant
 {
 	char	*name ;			// 機器名称
@@ -208,7 +210,7 @@ typedef struct desiccant
 // --------------------------------------------
 /*---- Satoh Debug 熱交換換気  2001/8/22 ----*/
 
-//@brief 全熱交換器（機器カタログデータ）
+///@brief 全熱交換器(機器カタログデータ）
 typedef struct thexca
 {
 	char	*name ;			/* カタログ名 */
@@ -217,7 +219,7 @@ typedef struct thexca
 		eh ;				/* エンタルピ効率 */
 } THEXCA ;
 
-//@brief 全熱交換器(システム構成要素)
+///@brief 全熱交換器(システム構成要素)
 typedef struct thex
 {
 	char	*name,			/* 機器名称 */
@@ -286,7 +288,7 @@ typedef struct thex
 // --------------------------------------------
 /*---- Satoh Debug 電気蓄熱式暖房器 2001/1/20 ----*/
 
-//@brief 電気蓄熱式暖房器（機器カタログデータ）
+///@brief 電気蓄熱式暖房器(機器カタログデータ）
 typedef struct stheatca
 {
 	char	*name ;			/* 機器名 */
@@ -297,7 +299,7 @@ typedef struct stheatca
 	char	*pcmname;		// 電気蓄熱暖房器内臓PCMのスペック名称
 } STHEATCA ;
 
-//@brief 電気蓄熱式暖房器(システム構成要素)
+///@brief 電気蓄熱式暖房器(システム構成要素)
 typedef struct stheat
 {
 	char	*name ;
@@ -307,8 +309,8 @@ typedef struct stheat
 	double	cG,					/* 熱容量流量 [W/K] */
 		Ts,						/* 蓄熱体温度 [℃] */
 		Tsold,					/* 前時間砕石温度 [℃] */
-		Tin,					/* 入口（吸込）温度 [℃] */
-		Tout,					/* 出口（吹出）温度 [℃] */
+		Tin,					/* 入口(吸込）温度 [℃] */
+		Tout,					/* 出口(吹出）温度 [℃] */
 		*Tenv,					/* 周囲温度 [℃] */
 		xin,					/* 入口絶対湿度 [kg/kg'] */
 		xout,					/* 出口絶対湿度 [kg/kg'] */
@@ -319,7 +321,7 @@ typedef struct stheat
 		Qlossdy,				/* 日積算熱損失 [kWh] */
 		Qstody ;				/* 日積算蓄熱量 [kWh] */
 	double	mPCM;				// 電気蓄熱暖房器内臓PCMの容量[m3]
-	double	Hcap;				// 熱容量（PCM潜熱も含む）
+	double	Hcap;				// 熱容量(PCM潜熱も含む）
 	ROOM	*room ;				/* 蓄熱暖房器設置室構造体 */
 	SVDAY	Tidy,				/* 入口温度日集計 */
 		Tody,					/* 出口温度日集計 */
@@ -343,7 +345,7 @@ typedef struct stheat
 // --------------------------------------------
 /*---- Satoh Debug VAV  2000/10/30 ----*/
 
-//@brief VAV ユニット（機器カタログデータ）
+///@brief VAVユニット(機器カタログデータ）
 typedef struct vavca
 {
 	char* name,			/* カタログ名 */
@@ -353,7 +355,7 @@ typedef struct vavca
 		dTset;				/* VWV用設定温度差　[℃] */
 } VAVCA;
 
-//@brief VAV ユニット(システム構成要素)
+///@brief VAVユニット(システム構成要素)
 typedef struct vav
 {
 	char	chmode ;		/* 冷房用、暖房用の設定 */
@@ -383,7 +385,7 @@ typedef struct vav
 // --------------------------------------------
 // Satoh OMVAV  2010/12/16
 
-//@breif 屋根一体型空気集熱器の出口温度設定変風量制御ユニット（機器カタログデータ）
+//@breif 屋根一体型空気集熱器の出口温度設定変風量制御ユニット(機器カタログデータ）
 typedef struct omvavca
 {
 	char* name;
@@ -391,7 +393,7 @@ typedef struct omvavca
 		Gmin;			// 最小風量[kg/s]
 } OMVAVCA;
 
-//@brief 屋根一体型空気集熱器の出口温度設定変風量制御ユニット(システム構成要素)
+///@brief 屋根一体型空気集熱器の出口温度設定変風量制御ユニット(システム構成要素)
 typedef struct omvav
 {
 	char	*name ;
@@ -409,7 +411,7 @@ typedef struct omvav
 // HCC 冷温水コイル
 // --------------------------------------------
 
-//@brief 冷温水コイル（機器カタログデータ）
+///@brief 冷温水コイル(機器カタログデータ）
 typedef struct hccca
 {
 	char    *name;
@@ -418,7 +420,7 @@ typedef struct hccca
 		eh;               /*定格エンタルピ効率　　　*/
 } HCCCA;
 
-//@brief 冷温水コイル(システム構成要素)
+///@brief 冷温水コイル(システム構成要素)
 typedef struct hcc
 { 
 	char    *name, 
@@ -456,7 +458,7 @@ typedef struct hcc
 // BOI ボイラー
 // --------------------------------------------
 
-//@brief ボイラ－（機器カタログデータ）
+///@brief ボイラ－(機器カタログデータ）
 typedef struct boica
 { 
 	//! 名称
@@ -495,7 +497,7 @@ typedef struct boica
 	double	Ph;
 } BOICA;
 
-//@brief ボイラ－(システム構成要素)
+///@brief ボイラ－(システム構成要素)
 typedef struct boi
 {
 	char* name;
@@ -529,10 +531,10 @@ typedef struct boi
 
 
 // --------------------------------------------
-// REFA チラー、ヒートポンプチラー（空気熱源
+// REFA チラー、ヒートポンプチラー(空気熱源
 // --------------------------------------------
 
-//@brief 標準圧縮機特性
+///@brief 標準圧縮機特性
 typedef struct rfcmp
 {
 	//! 名称
@@ -560,44 +562,44 @@ typedef struct rfcmp
 	double Meff;
 } RFCMP;  
 
-//@brief ヒートポンプ定格能力
+///@brief ヒートポンプ定格能力
 typedef struct hpch
 {
-	//! 定格冷却能力（加熱能力）
+	//! 定格冷却能力(加熱能力）
 	double  Qo;
 
-	//! 定格冷（温）水量、風量
+	//! 定格冷(温）水量、風量
 	double	Go;
 
-	//! 定格冷（温）水出口温度（チラ－）
+	//! 定格冷(温）水出口温度(チラ－）
 	double	Two;
 
-	//! 定格水冷却（加熱）器、空調機コイル温度効率
+	//! 定格水冷却(加熱）器、空調機コイル温度効率
 	double	eo;
 
-	//! 定格排出（採取）熱量
+	//! 定格排出(採取）熱量
 	double	Qex;
 
 	//! 定格冷却風量、水量
 	double	Gex;
 
-	//! 定格外気温（冷却水入口水温）
+	//! 定格外気温(冷却水入口水温）
 	double	Tex;
 
-	//! 定格凝縮器（蒸発器）温度効率
+	//! 定格凝縮器(蒸発器）温度効率
 	double	eex;
 
 	//! 定格軸動力
 	double	Wo;
 } HPCH;
 
-//@brief ヒートポンプ（機器カタログデータ）
+///@brief ヒートポンプ(機器カタログデータ）
 typedef struct refaca
 { 
 	//! 名称
 	char* name;
 
-	//! 空冷（空気熱源）=a、冷却塔使用=w
+	//! 空冷(空気熱源）=a、冷却塔使用=w
 	char awtyp;
 
 	//! 部分負荷特性コ－ド
@@ -624,7 +626,7 @@ typedef struct refaca
 	struct hpch *heat;
 } REFACA;
 
-//@brief ヒートポンプ (システム構成要素)
+///@brief ヒートポンプ (システム構成要素)
 typedef struct refa
 { 
 	//! 名称
@@ -644,7 +646,7 @@ typedef struct refa
 	//! 冷房運転時蒸発器係数
 	double c_e[4];
 
-	//! 冷房運転時熱源側（凝縮器係数）
+	//! 冷房運転時熱源側(凝縮器係数）
 	double c_d[4];
 
 	//! 冷房運転時軸動力係数
@@ -653,7 +655,7 @@ typedef struct refa
 	//! 暖房運転時凝縮器係数
 	double	h_e[4];
 
-	//! 暖房運転時熱源側（蒸発器係数）
+	//! 暖房運転時熱源側(蒸発器係数）
 	double	h_d[4];
 
 	//! 暖房運転時軸動力係数
@@ -697,7 +699,7 @@ typedef struct refa
 // COL 太陽熱集熱器
 // --------------------------------------------
 
-//@brief 太陽熱集熱器（機器カタログデータ）
+///@brief 太陽熱集熱器(機器カタログデータ）
 typedef struct collca
 {
 	char* name;
@@ -707,7 +709,7 @@ typedef struct collca
 	
 	double   b0, b1;
 
-	//! 集熱器効率係数（=Kc / Ko）
+	//! 集熱器効率係数(=Kc / Ko）
 	double Fd;
 
 	//! 総合熱損失係数[W/(m2･K)]
@@ -718,7 +720,7 @@ typedef struct collca
 	double Ag;
 } COLLCA;
 
-//@brief 太陽熱集熱器 (システム構成要素)
+///@brief 太陽熱集熱器 (システム構成要素)
 typedef struct coll
 {
 	char     *name;
@@ -732,11 +734,11 @@ typedef struct coll
 		Te,					// 相当外気温度
 		Tcb,				// 集熱板温度
 		//Ko,					// 総合熱損失係数[W/(m2･K)]
-		//Fd,					// 集熱器効率係数（=Kc / Ko）
+		//Fd,					// 集熱器効率係数(=Kc / Ko）
 		Tin,				// 入口温度
 		Q,					// 集熱量[W]
 		Ac,					// 集熱器面積
-		Sol;				// 集熱面日射量[W]（短波のみ）
+		Sol;				// 集熱面日射量[W](短波のみ）
 	struct svday  Tidy;
 	struct qday   Qdy;
 	struct eday   Soldy;
@@ -750,7 +752,7 @@ typedef struct coll
 // PIPE 配管
 // --------------------------------------------
 
-//@brief 配管・ダクト仕様
+///@brief 配管・ダクト仕様
 typedef struct pipeca
 { 
 	char* name;
@@ -761,7 +763,7 @@ typedef struct pipeca
 	double  Ko;
 } PIPECA;
 
-//@brief システム使用配管・ダクト
+///@brief システム使用配管・ダクト
 typedef struct pipe
 {
 	char   *name,
@@ -796,7 +798,7 @@ typedef struct pipe
 // STANK 蓄熱槽
 // --------------------------------------------
 
-//@brief 蓄熱槽（機器カタログデータ）
+///@brief 蓄熱槽(機器カタログデータ）
 typedef struct stankca
 {
 	char    *name,
@@ -809,7 +811,7 @@ typedef struct stankca
 		gxr;
 } STANKCA;
 
-//@brief 蓄熱槽 (システム構成要素)
+///@brief 蓄熱槽 (システム構成要素)
 typedef struct stank
 {
 	char    *name,
@@ -879,7 +881,7 @@ typedef struct stkday
 // HEX 熱交換器
 // --------------------------------------------
 
-//@brief 熱交換器（機器カタログデータ）
+///@brief 熱交換器(機器カタログデータ）
 typedef struct hexca
 {
 	char   *name;
@@ -890,7 +892,7 @@ typedef struct hexca
 	double	KA ;
 } HEXCA;
 
-//@brief 熱交換器 (システム構成要素)
+///@brief 熱交換器 (システム構成要素)
 typedef struct hex
 {
 	int		id ;
@@ -918,7 +920,7 @@ typedef struct hex
 // PUMP/FUN ポンプ・ファン
 // --------------------------------------------
 
-//@brief ポンプ・ファンの部分負荷特性の近似式係数
+///@brief ポンプ・ファンの部分負荷特性の近似式係数
 typedef struct pfcmp
 {
 	char	pftype,		/* 'P' ポンプ  'F' ファン */
@@ -926,7 +928,7 @@ typedef struct pfcmp
 	double	dblcoeff[5] ;
 } PFCMP ;
 
-//@brief ポンプ・ファン機器仕様（機器カタログデータ）
+///@brief ポンプ・ファン機器仕様(機器カタログデータ）
 typedef struct pumpca
 {
 	char   *name,
@@ -935,12 +937,12 @@ typedef struct pumpca
 	
 	double  Wo,       /* モーター入力 */
 		Go,       /* 定格流量 */
-		qef,      /* 発熱比率（流体加熱量= gef * Wo）*/
+		qef,      /* 発熱比率(流体加熱量= gef * Wo）*/
 		*val;     /* 特性式係数など */	 
 	struct pfcmp  *pfcmp ;
 } PUMPCA;
 
-//@brief ポンプ・ファン (システム構成要素)
+///@brief ポンプ・ファン (システム構成要素)
 typedef struct pump
 {
 	char   *name;
@@ -964,20 +966,20 @@ typedef struct pump
 // 境界条件設定用仮想機器
 // --------------------------------------------
 
-//@brief 境界条件設定用仮想機器
+///@brief 境界条件設定用仮想機器
 //@sa Flinint, flindat,  Flinprt
 typedef struct flin
 {
 	char* name;
 
-	//! 変数名（温度、顕熱）
+	//! 変数名(温度、顕熱）
 	char* namet;   /*  */
 
-	//! 変数名（湿度、潜熱）
+	//! 変数名(湿度、潜熱）
 	char* namex;
 
-	//! 'W':１変数のとき（nametの変数名のみ使用）
-	//! 'A':２変数のとき（namexの変数も使用）
+	//! 'W':１変数のとき(nametの変数名のみ使用）
+	//! 'A':２変数のとき(namexの変数も使用）
 	char  awtype;
 
 	//! nametで示された変数の値
@@ -991,7 +993,7 @@ typedef struct flin
 
 /* -------------------------------------------- */ 
 
-//@brief 空調機負荷仮想機器
+///@brief 空調機負荷仮想機器
 typedef struct hcload
 { 
 	char    *name,
@@ -1028,9 +1030,9 @@ typedef struct hcload
 		Ql,
 		Qt;
 	double	Qcmax, Qhmax, Qc, Qh, Qcmin, Qhmin,
-		COPc, COPh,					// COP（定格）
+		COPc, COPh,					// COP(定格）
 		Ec, Eh, Ecmax, Ecmin,		// 消費電力[W]
-		COPcmax, COPcmin,			// COP（最大能力時、最小能力時
+		COPcmax, COPcmin,			// COP(最大能力時、最小能力時
 		Gi, Go ;					// 室内機、室外機風量[kg/s]
 	double	COPhmax, COPhmin, Ehmin, Ehmax ;
 	double	Rc[3], Rh[3],			// 理論COPと実働COPの比の2次式回帰係数
@@ -1048,7 +1050,7 @@ typedef struct hcload
 	struct compnt *cmp;      
 } HCLOAD;
 
-//@brief 入力負荷仮想機器
+///@brief 入力負荷仮想機器
 typedef struct gload
 {
 	char *name,
@@ -1067,7 +1069,7 @@ typedef struct gload
 // PV 太陽電池
 // --------------------------------------------
 
-//@brief 太陽電池（機器カタログデータ）
+///@brief 太陽電池(機器カタログデータ）
 typedef struct pvca
 {
 	char	*name ;
@@ -1083,19 +1085,19 @@ typedef struct pvca
 	char	type ;					// 結晶系：'C'  アモルファス系：'A'
 	double	A, B ;					// 設置方式別の太陽電池アレイ温度計算係数
 	char	InstallType ;			// 太陽電池パネル設置方法
-									// 'A':架台設置形、'B':屋根置き形、'C':屋根材形（裏面通風構造があるタイプ）
+									// 'A':架台設置形、'B':屋根置き形、'C':屋根材形(裏面通風構造があるタイプ）
 	//double	PVcap ;					// 太陽電池設置容量[W]
 } PVCA ;
 
 
-//@brief 太陽電池(システム構成要素)
+///@brief 太陽電池(システム構成要素)
 typedef struct pv
 {
 	char	*name ;
 	struct compnt  *cmp;
 	PVCA	*cat ;
 	double	KTotal,					// 太陽電池の総合設計係数[-]
-			KConst,					// 温度補正係数以外の補正係数の積（温度補正係数以外は時々刻々変化しない）
+			KConst,					// 温度補正係数以外の補正係数の積(温度補正係数以外は時々刻々変化しない）
 			KPT ;					// 温度補正係数[-]
 	double	TPV ;					// 太陽電池温度[℃]
 	double	Power ;					// 発電量[W]
@@ -1120,10 +1122,12 @@ typedef struct pv
 
 /*
  * @brief 機器仕様データ一覧
- * @sa Eqcadata
+ * @sa Eqcadata, Eqsysinit
  */
 typedef struct eqcat
 {
+	//============ 係数類 ============//
+
 	//------ 標準圧縮機特性 ------
 	//@sa Refcmpdat
 
@@ -1131,7 +1135,7 @@ typedef struct eqcat
 	int   Nrfcmp;
 
 	//! 標準圧縮機特性の動的配列
-	struct rfcmp *Rfcmp;
+	RFCMP *Rfcmp;
 
 	//------ ポンプ・ファンの部分負荷特性の近似式係数 ------
 	//@sa PFcmpdata
@@ -1140,7 +1144,10 @@ typedef struct eqcat
 	int   Npfcmp ;
 
 	//! ポンプ・ファンの部分負荷特性の近似式係数の動的配列
-	struct pfcmp *pfcmp ;
+	PFCMP *pfcmp ;
+
+
+	//============ 機器仕様 ============//
 
 	//------ 1) HCC 冷温水コイル ------
 	
@@ -1148,7 +1155,7 @@ typedef struct eqcat
 	int   Nhccca;
 
 	//! 冷温水コイルの動的配列
-	struct hccca  *Hccca;
+	HCCCA *Hccca;
 	
 	//------ 2) BOI ボイラー ------
 
@@ -1156,15 +1163,15 @@ typedef struct eqcat
 	int   Nboica;
 
 	//! ボイラーの動的配列
-	struct boica  *Boica;
+	BOICA *Boica;
 
-	//------ 3) REFA チラー、ヒートポンプチラー（空気熱源) ------
+	//------ 3) REFA チラー、ヒートポンプチラー(空気熱源) ------
 	
-	//! チラー、ヒートポンプチラー（空気熱源) のデータ数
+	//! チラー、ヒートポンプチラー(空気熱源) のデータ数
 	int   Nrefaca;
 
-	//! チラー、ヒートポンプチラー（空気熱源) の動的配列
-	struct refaca *Refaca;
+	//! チラー、ヒートポンプチラー(空気熱源) の動的配列
+	REFACA *Refaca;
 	
 	//------ 4) COL,ACOL 太陽熱集熱器 -----
 
@@ -1172,7 +1179,15 @@ typedef struct eqcat
 	int   Ncollca;
 
 	//! 太陽熱集熱器の動的配列
-	struct collca *Collca;
+	COLLCA *Collca;
+
+	//------ 5) 太陽電池 ------
+
+	//! 太陽電池のデータ数
+	int   Npvca;
+
+	//! 太陽電池の動的配列
+	PVCA* PVca;
 
 	//------ 6) PIPE,DUCT 配管とダクト -----
 	
@@ -1180,7 +1195,7 @@ typedef struct eqcat
 	int   Npipeca;
 
 	//! 配管とダクトの動的配列
-	struct pipeca *Pipeca;
+	PIPECA *Pipeca;
 	
 	//------ 7) STANK 蓄熱層 ------
 
@@ -1188,7 +1203,7 @@ typedef struct eqcat
 	int   Nstankca;
 
 	//! 蓄熱層の動的配列
-	struct stankca *Stankca;
+	STANKCA *Stankca;
 	
 	//------ 8) HEX 熱交換器(２流体式）------
 
@@ -1196,7 +1211,7 @@ typedef struct eqcat
 	int   Nhexca;
 
 	//! 熱交換器の動的配列
-	struct hexca *Hexca;
+	HEXCA *Hexca;
 
 	//------ 9) PUMP,FAN ポンプ・ファン ------
 	
@@ -1204,7 +1219,7 @@ typedef struct eqcat
 	int   Npumpca;
 
 	//! ポンプ・ファンの動的配列
-	struct pumpca *Pumpca;
+	PUMPCA *Pumpca;
 
 	//------ 10) VAV,VWV VAVユニット ------
 
@@ -1232,15 +1247,7 @@ typedef struct eqcat
 	//! 全熱交換器の動的配列
 	THEXCA	*Thexca ;
 
-	//------ 5) 太陽電池 ------
-
-	//! 太陽電池のデータ数
-	int   Npvca ;
-
-	//! 太陽電池の動的配列
-	PVCA		*PVca ;
-
-	//------ 13) ????? ------
+	//------ 13) 屋根一体型空気集熱器の出口温度設定変風量制御ユニット ------
 
 	// Satoh OMVAV  2010/12/16
 	int   Nomvavca ;
@@ -1265,76 +1272,100 @@ typedef struct eqcat
 	EVACCA	*Evacca ;
 } EQCAT;
 
-/*
+
+/**
  * @brief システム使用機器データ一覧 
+ * @sa Eqsysinit, Eqsysfree, mecsxprint
  */
 typedef struct eqsys
 {
-	int   Ncnvrg;
-	struct compnt **Cnvrg;
-	
-	
+	//------ 1) 冷温水コイル ------
 	int   Nhcc;
-	struct hcc  *Hcc;
-	
+	HCC  *Hcc;
+
+	//------ 2) ボイラー ------
 	int   Nboi;
-	struct boi  *Boi;
+	BOI  *Boi;
 	
+	//------ 3) ヒートポンプ ------
 	int   Nrefa;
-	struct refa *Refa;
+	REFA *Refa;
 	
+	//------ 4) 太陽熱集熱器 ------
 	int   Ncoll;
-	struct coll *Coll;
-	
+	COLL *Coll;
+
+	//------ 5) 太陽電池 ------
+	int		Npv;
+	PV* PVcmp;
+
+	//------ 6) 配管・ダクト ------
 	int   Npipe;
-	struct pipe *Pipe;
+	PIPE *Pipe;
 	
+	//------ 7) 蓄熱槽 ------
 	int   Nstank;
-	struct stank *Stank;
+	STANK *Stank;
 	
+	//------ 8) 熱交換器 ------
 	int   Nhex;
-	struct hex *Hex;
+	HEX *Hex;
 	
+	//------ 9) ポンプ・ファン ------
 	int   Npump;
-	struct pump *Pump;
+	PUMP *Pump;
 	
-	int   Nflin;
-	struct flin *Flin;
-	
-	int   Nhcload;
-	struct hcload *Hcload;
-	
-	int   Ngload;
-	struct gload *Gload;
-	
+	//------ 10) VAVユニット ------
 	/*---- Satoh Debug VAV  2000/10/30 ----*/
 	int   Nvav;
 	VAV	  *vav;
 
+	//------ 11) 電気蓄熱式暖房器 ------
 	/*---- Satoh Debug 電気蓄熱式暖房器 2001/1/21 ----*/
 	int   Nstheat ;
 	STHEAT	*stheat ;
 
+	//------ 12) 全熱交換器 ------
 	int	  Nthex ;
 	THEX	*Thex ;
 
-	int		Nvalv ;
-	VALV	*Valv ;
-
-	int		Nqmeas ;
-	QMEAS	*Qmeas ;
-
-	int		Npv ;
-	struct pv	*PVcmp ;
-
+	//------ 13) 屋根一体型空気集熱器の出口温度設定変風量制御ユニット ------
 	int		Nomvav ;
 	OMVAV	*OMvav ;
 
+	//------ 14) バッチ式デシカント空調機 ------
 	// Satoh追加 2013/10/20
 	int		Ndesi ;
 	DESI	*Desi ;
 
+	//------ 15) 気化冷却器 ------
 	// Satoh追加 2013/10/26
 	int		Nevac ;
 	EVAC	*Evac ;
+
+
+	int		Nvalv;
+	VALV* Valv;
+
+	int   Ncnvrg;
+	COMPNT** Cnvrg;
+
+	//------ カロリーメータ ------
+	int		Nqmeas;
+	QMEAS* Qmeas;
+
+	//============ 仮想装置 ============//
+
+	//------ 境界条件設定用仮想機器 ------
+	int   Nflin;
+	FLIN* Flin;
+
+	//------ 空調機負荷仮想機器 ------
+	int   Nhcload;
+	HCLOAD* Hcload;
+
+	//------ 入力負荷仮想機器 ------
+	int   Ngload;
+	GLOAD* Gload;
+
 } EQSYS;

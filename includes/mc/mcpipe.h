@@ -2,7 +2,20 @@
 
 //PIPE 配管
 
-#include "eqptyp.h"
+#include <stdio.h>
+
+//For COMPNT
+#include "model/eepath.h"
+
+//For PIPE, PIPECA
+#include "model/eqptyp.h"
+
+//For WDAT
+#include "model/wthrd.h"
+
+//For VPTR
+#include "model/control.h"
+
 
 int Pipedata(char *cattype, char *s, PIPECA *Pipeca);
 void Pipeint(int Npipe, PIPE *Pipe, 

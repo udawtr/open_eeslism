@@ -1,5 +1,8 @@
 ﻿#pragma once
 
+
+#include "model/eqptyp.h"
+
 void Hclelm(int Nhcload, HCLOAD *Hcload);
 void Hcldcfv(int Nhcload, HCLOAD *Hcload);
 void Hcldene(int Nhcload, HCLOAD *Hcload, int *LDrest, WDAT *Wd);

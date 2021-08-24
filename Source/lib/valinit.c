@@ -18,24 +18,22 @@
 #include <string.h>
 #include "esize.h"
 #include "common.h"
-#include "eps.h"
-#include "wthrd.h"
-#include "simcon.h"
-#include "eepath.h"
-#include "daysum.h"
-#include "build.h"
+#include "model/eps.h"
+#include "model/wthrd.h"
+#include "model/simcon.h"
+#include "model/eepath.h"
+#include "model/daysum.h"
+#include "model/build.h"
 #define	 ALO	23.0
-#include "eqptyp.h"
-#include "control.h"
-#include "sched.h"
+#include "model/eqptyp.h"
+#include "model/control.h"
+#include "model/sched.h"
 #include "fnlib.h"
 
 
-/*****  SIMCONTL の初期化  *****/
-
+///@brief SIMCONTL の初期化
 void	Simcinit ( SIMCONTL *S )
 {
-	int		i ;
 	int		*dw, *dp ;
 
 	strcpy ( S->title, "" ) ;
@@ -54,18 +52,17 @@ void	Simcinit ( SIMCONTL *S )
 
 	dw = S->daywk ;
 	dp = S->dayprn ;
-	for ( i = 0; i < 366; i++, dw++, dp++ )
-		dw = dp = 0 ;
+	for (int i = 0; i < 366; i++, dw++, dp++)
+	{
+		dw = dp = 0;
+	}
 }
 
 
-/*****  COMPNT の初期化  *****/
-
+///@brief COMPNT の初期化
 void	Compinit ( int N, COMPNT *C )
 {
-	int		i ;
-	
-	for (i=0; i<N; i++, C++)
+	for (int i=0; i<N; i++, C++)
 	{
 		C->name = NULL ;
 		C->roomname = NULL ;
@@ -100,13 +97,10 @@ void	Compinit ( int N, COMPNT *C )
 }
 
 
-/*****  ELOUT の初期化  *****/
-
+///@brief ELOUT の初期化
 void	Eloutinit ( ELOUT *Eo, int N )
 {
-	int		i ;
-
-	for (i=0; i < N; i++, Eo++)
+	for (int i=0; i < N; i++, Eo++)
 	{
 		Eo->Ni = 0 ;
 		Eo->G = 0.0 ;
@@ -129,29 +123,24 @@ void	Eloutinit ( ELOUT *Eo, int N )
 }
 
 
-/*****  ELIN の初期化  *****/
-
+///@brief ELIN
 void	Elininit ( int N, ELIN *Ei )
 {
-	int		i ;
-
-	for (i=0; i<N; i++, Ei++)
+	for (int i=0; i<N; i++, Ei++)
 	{
-		Ei->id = ' ' ;
-		Ei->sysvin = 0.0 ;
-		Ei->upo = Ei->upv = NULL ;
-		Ei->lpath = NULL ;
+		Ei->id     = ' ';
+		Ei->sysvin = 0.0;
+		Ei->upo    = NULL;
+		Ei->upv    = NULL;
+		Ei->lpath  = NULL;
 	}
 }
 
 
-/*****  PLIST の初期化  *****/
-
+///@brief PLIST の初期化 
 void	Plistinit ( int N, PLIST *Pl )
 {
-	int		i ;
-
-	for (i=0; i<N; i++, Pl++)
+	for (int i=0; i<N; i++, Pl++)
 	{
 		Pl->name = NULL ;
 		Pl->type = Pl->control = ' ' ;
@@ -179,15 +168,13 @@ void	Plistinit ( int N, PLIST *Pl )
 }
 
 
-/*****  PELM の初期化  ******/
-
+///! PELM の初期化
 void	Pelminit ( int N, PELM *Pe )
 {
-	int		i ;
-
-	for ( i = 0; i < N; i++, Pe++ )
+	for ( int i = 0; i < N; i++, Pe++ )
 	{
-		Pe->co = Pe->ci = ' ' ;
+		Pe->co = ' ';
+		Pe->ci = ' ';
 		Pe->cmp = NULL ;
 		Pe->out = NULL ;
 		Pe->in = NULL ;
@@ -196,13 +183,10 @@ void	Pelminit ( int N, PELM *Pe )
 }
 
 
-/*****  MPATH の初期化  *****/
-
+///@brief MPATH(経路)の初期化
 void	Mpathinit ( int N, MPATH *M )
 {
-	int		i ; // , j ;
-
-	for ( i=0; i<N; i++, M++ )
+	for ( int i=0; i<N; i++, M++ )
 	{
 		M->name = NULL ;
 		M->Nlpath = M->NGv = M->NGv2 = M->Ncv = M->lvcmx = 0 ;
@@ -223,16 +207,14 @@ void	Mpathinit ( int N, MPATH *M )
 }
 
 
-/*
+/**
  * @brief EXSF 外表面方位データの初期化
  * @param[IN]     Nd 外表面方位データのデータ数
  * @param[IN,OUT] e  外表面方位データの動的配列
  */
 void	Exsfinit ( int Nd, EXSF *e )
 {
-	int		i ;
-
-	for (  i = 0; i < Nd; i++, e++ )
+	for ( int i = 0; i < Nd; i++, e++ )
 	{
 		e->name = NULL ;
 		e->typ = 'S' ;
@@ -251,8 +233,7 @@ void	Exsfinit ( int Nd, EXSF *e )
 }
 
 
-/*****  SYSEQ の初期化  *****/
-
+///@brief SYSEQ の初期化 
 void	Syseqinit ( SYSEQ *S )
 {
 //	int		i ;
@@ -270,8 +251,7 @@ void	Syseqinit ( SYSEQ *S )
 }
 
 
-/*****  EQSYS の初期化  *****/
-
+///@brief EQSYS の初期化 
 void	Eqsysinit ( EQSYS *E )
 {
 	E->Ncnvrg = E->Nhcc = E->Nboi = E->Nrefa = E->Ncoll = 0 ;
@@ -302,8 +282,8 @@ void	Eqsysinit ( EQSYS *E )
 	E->OMvav = NULL ;
 }
 
-/*****  RMVLS の初期化  *****/
 
+///@brief RMVLS の初期化
 void	Rmvlsinit ( RMVLS *R )
 {
 //	int		i ; //, j ;
@@ -417,11 +397,15 @@ void	Rmvlsinit ( RMVLS *R )
 	*******************************************/
 }
 
+
+
+///@brief VPTR の初期化
 void	VPTRinit ( VPTR *v )
 {
 	v->type = ' ' ;
 	v->ptr = NULL ;
 }
+
 
 void	TMDTinit ( TMDT *t )
 {

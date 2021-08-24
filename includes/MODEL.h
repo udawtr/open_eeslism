@@ -31,7 +31,8 @@
 #define pmax 200               
 
 
-/*
+/**
+ * @file
  * @brief <入力データファイル>外部環境部分のモデルについて構造体の定義
  * @details
  * 
@@ -39,6 +40,7 @@
  * 
  * モデルの関連図
  * 
+ * <PRE>
  * *- COORDNT --- BDP --+-- RMP ----- WD
  * |                    |
  * |                    +-- SBRK
@@ -46,6 +48,7 @@
  * +- TREE
  * +- POLYGON
  * +- SHDSCHTB
+ * </PRE>
  * 
  * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
  * COORDNT : 外表面
@@ -62,13 +65,18 @@
 */
 
 
+/**
+ * @brief 
+ */
 typedef struct bektle{
      double **ps ;
 }bekt ;
 
 
-//付設障害物
-//ref: P.98 図 2.10.4 各種日よけの定義
+/**
+ * @brief 付設障害物
+ * ref: P.98 図 2.10.4 各種日よけの定義
+ */
 typedef struct sunbreak{
     //! 庇/バルコニー/袖壁/スクリーンの分類
     char *sbfname ;  /*HISASI or BARUKONI or SODEKABE or MADOHIYOKE*/
@@ -100,9 +108,8 @@ typedef struct sunbreak{
     double ref;
 }sunblk ;
 
-/*---窓---*/
 
-/*
+/** 
  * @brief 窓(WD)
  */
 typedef struct madomen
@@ -127,7 +134,7 @@ typedef struct madomen
 } MADO ;
 
 
-/*
+/**
  * @brief 室外表面(RMP)
  * @details
  * 室外表面(RMP)は任意の数の窓(WD)を持つ。
@@ -163,7 +170,7 @@ typedef struct exroomwall
 }RRMP ;
 
 
-/*
+/**
  * @brief BDP(方位別外表面)
  * @details
  * 方位別外表面(BDP)は、任意の数の室外表面(RMP)を持つ。
@@ -197,7 +204,10 @@ typedef struct exwall{
     char *exsfname;
 }BBDP ;
 
-/*---OBS 外部障害物---*/
+
+/**
+ * @brief OBS 外部障害物
+ */
 typedef struct obs{
     char *fname ;            /*--rect or cube or r_tri or i_tri--*/
     char *obsname ;          /*--名前--*/     
@@ -209,7 +219,10 @@ typedef struct obs{
     double rgb[3] ;             /*--色--*/     
 }OBS ;
 
-/*---樹木---*/
+
+/**
+ * @brief 樹木
+ */
 typedef struct tree{
     char *treetype ;            /*--樹木の形Ａ，Ｂ，Ｃ--*/
     char *treename ;           /*--名前--*/
@@ -218,7 +231,10 @@ typedef struct tree{
     double H1, H2, H3 ;           /*--H1=幹高さ,H2=葉部下側高さ,H3=葉部上側高さ--*/
 }TREE ;
 
-/*---日射遮蔽率---*/
+
+/**
+ * @brief 日射遮蔽率
+ */
 typedef struct shadtb{
     char *lpname ;              /*--対象ＬＰ名--*/
     int  indatn ;                  /*--入力データの数--*/
@@ -226,12 +242,18 @@ typedef struct shadtb{
     double shad[12] ;              /*--日射遮蔽率--*/
 }SHADTB ;                                
 
-/*--多角形の頂点座標--*/
-typedef struct tyoutenn{        
+
+/**
+ * @brief 多角形の頂点座標
+ */
+typedef struct tyoutenn{
    double X, Y, Z ;
 }XYZ ;
 
-/*--OPW:受照窓面--*/
+
+/**
+ * @brief OPW:受照窓面
+ */
 typedef struct menn{
    char *opwname ;           /*--名前--*/
    XYZ *P ;                     /*--頂点--*/
@@ -242,7 +264,10 @@ typedef struct menn{
    int polyd ;                  /*--何角形か？--*/
 }WD_MENN ;
 
-/*--OP（受照面）,LP（被受照面）,MP(OP+OPW)--*/
+
+/**
+ * @brief OP（受照面）,LP（被受照面）,MP(OP+OPW)
+ */
 typedef struct opmenn{
    char   *opname ;          /*--名前--*/
    double rgb[3] ;              /*--色--*/
@@ -269,7 +294,10 @@ typedef struct opmenn{
   int     wlflg ;               /*--外表面の種類 窓：1 壁：0 --*/
 }P_MENN ;
     
-/*--LP(ポリゴン)直接入力用--*/
+
+/**
+ * @brief LP(ポリゴン)直接入力用
+ */
 typedef struct polygon{
   char   polyknd[5] ;           /*--ポリゴン種類(RMP OBS WD)--*/
   char   *polyname ;         /*--名前--*/
@@ -281,12 +309,19 @@ typedef struct polygon{
   double rgb[3] ;               /*--色--*/
 }POLYGN ;
 
-/*---Sdstr 影面積のストア 110413 higuchi add---*/
+
+/**
+ * @brief Sdstr 影面積のストア 110413 higuchi add
+ */
 typedef struct Shadowsum{
     double *sdsum ;              /*--影面積--*/
 }SHADSTR ;
 /*--- 110413 higuchi end ----*/
 
+
+/**
+ * @brief
+ */
 typedef struct Noplpmp
 {
 	int	Nop, Nlp, Nmp;

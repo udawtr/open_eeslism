@@ -17,21 +17,41 @@
 
 #include "fesy.h"
 #include "fnmcs.h"
+#include "mc/mcxprmcs.h"
 
-/*  システム使用機器についての検討用出力  */
 
+///! @file
+///! @brief システム使用機器についての検討用出力
+
+
+//------ プライベート関数の宣言 ------
+
+void _boixprint(int Nboi, BOI* Boi);
+void _hccxprint(int Nhcc, HCC* Hcc);
+void _pipexprint(int Npipe, PIPE* Pipe);
+void _refaxprint(int Nrefa, REFA* Refa);
+void _collxprint(int Ncoll, COLL* Coll);
+
+
+//------ パブリック関数の宣言 ------
+
+
+/**
+ * @breif システム使用機器についての検討用出力
+ * @param[IN] Eqsys 出力するシステム使用機器データ
+ */
 void mecsxprint(EQSYS *Eqsys)
 {
-   hccxprint(Eqsys->Nhcc, Eqsys->Hcc);
-   boixprint(Eqsys->Nboi, Eqsys->Boi);
-   collxprint(Eqsys->Ncoll, Eqsys->Coll);
-   refaxprint(Eqsys->Nrefa, Eqsys->Refa);
-   pipexprint(Eqsys->Npipe, Eqsys->Pipe);
+   _hccxprint(Eqsys->Nhcc, Eqsys->Hcc);
+   _boixprint(Eqsys->Nboi, Eqsys->Boi);
+   _collxprint(Eqsys->Ncoll, Eqsys->Coll);
+   _refaxprint(Eqsys->Nrefa, Eqsys->Refa);
+   _pipexprint(Eqsys->Npipe, Eqsys->Pipe);
 }
 
 /* --------------------------- */
 
-void boixprint(int Nboi, BOI *Boi)
+void _boixprint(int Nboi, BOI *Boi)
 {
    int i;
    
@@ -47,7 +67,7 @@ void boixprint(int Nboi, BOI *Boi)
 }
 /* ------------------------------------------ */
       
-void hccxprint(int Nhcc, HCC *Hcc)
+void _hccxprint(int Nhcc, HCC *Hcc)
 {
    int i;
    ACS   E;
@@ -78,7 +98,7 @@ void hccxprint(int Nhcc, HCC *Hcc)
       
 /* --------------------------- */
 
-void pipexprint(int Npipe, PIPE *Pipe)
+void _pipexprint(int Npipe, PIPE *Pipe)
 {
 	int		i;
 	double	Te ;
@@ -101,7 +121,7 @@ void pipexprint(int Npipe, PIPE *Pipe)
 
 /* ------------------------------------------------------------- */
 
-void refaxprint(int Nrefa, REFA *Refa)
+void _refaxprint(int Nrefa, REFA *Refa)
 {
    int i;
    
@@ -122,7 +142,7 @@ void refaxprint(int Nrefa, REFA *Refa)
 
 /* ------------------------------------------------------------- */
 
-void collxprint(int Ncoll, COLL *Coll)
+void _collxprint(int Ncoll, COLL *Coll)
 {
    int i;
    

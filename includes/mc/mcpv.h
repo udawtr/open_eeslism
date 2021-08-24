@@ -2,7 +2,16 @@
 
 //PV 太陽電池
 
-#include "eqptyp.h"
+#include <stdio.h>
+
+//For PVCA, PV
+#include "model/eqptyp.h"
+
+//For WDAT
+#include "model/wthrd.h"
+
+//For EXFS
+#include "exs.h"
 
 int PVcadata (char *s, PVCA *PVca) ;
 void PVint(int Npv, PV *PV, int Nexsf, EXSF *Exs, WDAT *Wd) ;

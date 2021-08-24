@@ -40,20 +40,20 @@
 #define  RDPANEL_TYPE     "RPNL"
 //#define  AIRFLOW_TYPE     "AIRFLOW"
 
-//@brief 冷温水コイル
+///@brief 冷温水コイル
 #define  HCCOIL_TYPE      "HCC"
 
-//@brief 
+///@brief 
 //(マニュアル未定義)
 #define  DXCOIL_TYPE      "DXC"
 
-//@brief ボイラー
+///@brief ボイラー
 #define  BOILER_TYPE      "BOI"
 
-//@brief 太陽熱集熱器
+///@brief 太陽熱集熱器
 #define  COLLECTOR_TYPE   "COL"
 
-//@brief 
+///@brief 
 //(マニュアル未定義)
 #define  ACOLLECTOR_TYPE   "ACOL"
 
@@ -61,65 +61,65 @@
 #define  COLLECTOR_PDT    'w'
 #define  ACOLLECTOR_PDT   'a'
 
-//@brief チラー、ヒートポンプチラー（空気熱源)
+///@brief チラー、ヒートポンプチラー（空気熱源)
 #define  REFACOMP_TYPE    "REFA"
 
-//@brief 蓄熱層
+///@brief 蓄熱層
 #define  STANK_TYPE       "STANK"
 
-//@brief 熱交換器(２流体式）
+///@brief 熱交換器(２流体式）
 #define  HEXCHANGR_TYPE   "HEX"
 
-//@brief 電気蓄熱式暖房器
+///@brief 電気蓄熱式暖房器
 #define  STHEAT_TYPE      "STHEAT"
 
-//@brief 全熱交換器（換気の排気からの熱回収用の顕熱・潜熱熱交換器)
+///@brief 全熱交換器（換気の排気からの熱回収用の顕熱・潜熱熱交換器)
 #define	 THEX_TYPE		  "THEX"
 
-//@brief カロリ―メータ
+///@brief カロリ―メータ
 #define  QMEAS_TYPE		  "QMEAS"
 
-//@brief 
+///@brief 
 //(マニュアル未定義)
 #define  VALV_TYPE		  "V"
 
-//@brief 
+///@brief 
 //(マニュアル未定義)
 #define  TVALV_TYPE		  "VT"
 
-//@brief バッチ式デシカント(マニュアル未定義)
+///@brief バッチ式デシカント(マニュアル未定義)
 // Satoh追加 2013/10/20
 #define  DESI_TYPE		"DESICCANT"
 
-//@brief 気化冷却器(マニュアル未定義)
+///@brief 気化冷却器(マニュアル未定義)
 // Satoh追加 2013/10/26
 #define  EVAC_TYPE		"EVPCOOLING"
 
 /*---- Satoh Debug VAV  2000/10/30 ----*/
 
-//@brief VAV ユニット
+///@brief VAV ユニット
 #define  VAV_TYPE		  "VAV"
 
-//@brief 
+///@brief 
 //(マニュアル未定義)
 #define  VWV_TYPE		  "VWV"
 
 #define	 VAV_PDT		  'A'
 #define  VWV_PDT		  'W'
 
-//@brief 配管
+///@brief 配管
 #define  PIPEDUCT_TYPE    "PIPE"
 
-//@brief ダクト
+///@brief ダクト
 #define  DUCT_TYPE        "DUCT"
 
 #define   PIPE_PDT        'P'
 #define   DUCT_PDT        'D'
 
-//@brief ポンプ
+///@brief ポンプ
 #define  PUMP_TYPE        "PUMP"
 
-//@brief ファン（送風機）
+///@brief ファン（送風機）
 #define  FAN_TYPE	  "FAN"
 #define  PUMP_PF	  'P'
 #define  FAN_PF	 	  'F'
@@ -201,6 +201,11 @@
 #define SYSV_EQV   'v'
 #define LOAD_EQV   'L'
 
+
+/**
+ * @brief
+ * @sa Compinit
+ */
 typedef struct compnt
 {
 	char *name,			// 機器名称
@@ -247,7 +252,10 @@ typedef struct compnt
 }  COMPNT;
 
 
-//@brief 機器の出口構造体
+/**
+ * @brief 機器の出口構造体
+ * @sa Eloutinit
+ */
 typedef struct elout
 {
 	char   id,			// 出口の識別番号（熱交換器の'C'、'H'や全熱交換器の'E'、'O'など）
@@ -276,7 +284,10 @@ typedef struct elout
 }  ELOUT;
 
 
-//@brief 機器の入口構造体
+/**
+ * @brief 機器の入口構造体
+ * @sa Elininit
+ */
 typedef struct elin
 {
 	
@@ -289,7 +300,10 @@ typedef struct elin
 }  ELIN;
 
 
-//@brief SYSPTHに記載の機器
+/**
+ * @brief SYSPTHに記載の機器
+ * @sa Pelminit
+ */
 typedef struct pelm
 {
 	char  co,
@@ -300,7 +314,11 @@ typedef struct pelm
 	struct elin   *in;	// 機器の入口
 }  PELM;
 
-//@brief 末端経路
+
+/**
+ * @brief 末端経路 (`>`)
+ * @sa Plistinit
+ */
 typedef struct plist
 {
 	int	UnknownFlow ;	// 末端経路が流量未知なら1、既知なら0
@@ -337,7 +355,11 @@ typedef struct plist
 	struct omvav *OMvav ;
 }  PLIST;
 
-//@brief SYSPTHにおける';'で区切られる経路
+
+/**
+ * @brief SYSPTHにおける';'で区切られる経路
+ * @sa Mpathinit
+ */
 typedef struct mpath
 {
 	char  *name,		// 経路名称
@@ -361,6 +383,11 @@ typedef struct mpath
 	struct compnt	**cbcmp ;	// 流量連立方程式を解くときに使用する分岐・合流機器
 } MPATH;
 
+
+/**
+ * @brief 
+ * @sa Syseqinit
+ */
 typedef struct syseq
 {
 	char	a ;

@@ -41,7 +41,7 @@ typedef struct rmprt
 #endif
 
 
-/*
+/**
  * @brief シミュレーション結果に関する注釈
  */
 typedef struct estl
@@ -90,14 +90,22 @@ typedef struct estl
 	char vreq[VTYPEMAX];
 } ESTL;
 
-typedef struct catnm  /* 要素カタログ名データ */
+
+/**
+ * @brief 要素カタログ名データ
+ */
+typedef struct catnm
 {
 	char *name;
 	int  N,             /* 機器数 */
         Ncdata;        /* 全データ項目数 = 機器数 x 機器データ項目数 */
 } CATNM;
 
-typedef struct tmdt   /* 年、月、日、曜日、時刻データ */
+
+/**
+ * @brief 年、月、日、曜日、時刻データ
+ */
+typedef struct tmdt
 {
 	char year[3],
         mon[3], 
@@ -112,7 +120,7 @@ typedef struct tmdt   /* 年、月、日、曜日、時刻データ */
 		Time;
 } TMDT;
 
-/*
+/** 
  * @brief シミュレーション結果
  */
 typedef struct tlist 
@@ -156,7 +164,10 @@ typedef struct tlist
 } TLIST;
 
 
-typedef struct rqlist  /* 選択項目 */
+/**
+ * @brief 選択項目
+ */
+typedef struct rqlist
 {
 	char *rname,
         *name,

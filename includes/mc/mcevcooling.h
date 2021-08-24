@@ -3,7 +3,9 @@
 //EVAC 気化冷却器
 
 #include <stdio.h>
-#include "eqptyp.h"
+
+//For EVACCA, EVAC
+#include "model/eqptyp.h"
 
 int		Evacdata ( char *s, EVACCA *Evacca ) ;
 void	Evacint ( int Nevac, EVAC *Evac ) ;

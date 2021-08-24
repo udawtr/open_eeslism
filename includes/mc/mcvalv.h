@@ -1,6 +1,25 @@
 ﻿#pragma once
 
-#include "MODEL.h"
+#include <stdio.h>
+
+//For VALV
+#include "model/eqptyp.h"
+
+//For WDAT
+#include "model/wthrd.h"
+
+//For COMPNT, MPATH
+#include "model/eepath.h"
+
+//For SIMCONTL
+#include "model/simcon.h"
+
+//For SCHDL
+#include "model/sched.h"
+
+//For VPTR
+#include "model/control.h"
+
 
 void	Valvcountreset ( int Nvalv, VALV *Valv ) ;
 void	Valvcountinc ( int Nvalv, VALV *Valv ) ;

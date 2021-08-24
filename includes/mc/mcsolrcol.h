@@ -2,7 +2,17 @@
 
 //COL 太陽熱集熱器
 
-#include "eqptyp.h"
+#include <stdio.h>
+
+//For COLLCA. COLL
+#include "model/eqptyp.h"
+
+//For WDAT
+#include "model/wthrd.h"
+
+//For VPTR
+#include "model/control.h"
+
 
 int Colldata (char *type, char *s, COLLCA *Collca);
 void Collint(int Ncoll, COLL *Coll, int Nexsf, EXSF *Exs, WDAT *Wd);

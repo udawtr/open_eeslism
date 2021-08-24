@@ -62,7 +62,8 @@
 #define SYSV_EQV   'v'
 #define LOAD_EQV   'L'
 
-/*
+/**
+ * @file 
  * @brief <入力データファイル>システム経路のモデルについて構造体の定義
  * @details
  *
@@ -80,6 +81,11 @@
  * @sa Eeinput
  */
 
+
+/**
+ * @brief
+ * @sa Simcinit
+ */
 typedef struct simcontl
 {
 	//! 入力データファイル名
@@ -169,8 +175,8 @@ typedef struct flout
 } FLOUT;
 
 
-/*
- * @brief 境界条件・負荷設定用入力ファイル
+/**
+ * @brief 境界条件・負荷設定用入力ファイル(VCFILE)
  */
 typedef struct vcfile
 {

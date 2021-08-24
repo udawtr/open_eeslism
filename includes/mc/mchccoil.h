@@ -1,8 +1,9 @@
 ﻿#pragma once
 
-//@brief HCC 冷温水コイル
+///@brief HCC 冷温水コイル
 
-#include "eqptyp.h"
+//For HCCCA, HCC
+#include "model/eqptyp.h"
 
 int Hccdata(char *s, HCCCA *Hccca);
 void Hccdwint(int Nhcc, HCC *Hcc);

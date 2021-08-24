@@ -30,7 +30,7 @@
 #include "lib/u_psy.h"
 
 
-/*
+/**
  * @brief システム構成要素の入力 
  */
 void Compodata(FILE *f, char *errkey, RMVLS *Rmvls, EQCAT *Eqcat, 

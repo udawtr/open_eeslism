@@ -23,7 +23,7 @@
 
 #include <stdio.h>
 #include <math.h>
-#include "wthrd.h"
+#include "model/wthrd.h"
 #include "MODEL.h"
 #include "exs.h"
 #include "FUNC.h"

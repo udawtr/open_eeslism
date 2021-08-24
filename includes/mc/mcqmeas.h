@@ -1,7 +1,10 @@
 ﻿#pragma once
 
 #include <stdio.h>
-#include "MODEL.h"
+
+//For QMES
+#include "model/eqptyp.h"
+
 
 void	Qmeasene (int Nqmeas, QMEAS *Qmeas ) ;
 void	Qmeaselm ( int Nqmeas, QMEAS *Qmeas ) ;

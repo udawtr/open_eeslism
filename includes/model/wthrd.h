@@ -45,7 +45,7 @@ typedef struct locat
 } LOCAT ;
 
 
-//@brief 気象デ－タ
+///@brief 気象デ－タ
 typedef struct wdat
 {
 	//! 気温

@@ -27,7 +27,7 @@
 
 /*
  * @brief 外表面方位デ－タ
- * @sa Tearth, Exsfsol
+ * @sa Tearth, Exsfsol, Exsfinit
  */
 typedef struct exsf
 {

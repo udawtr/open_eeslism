@@ -2,7 +2,13 @@
 
 //PUMP ポンプ
 
-#include "eqptyp.h"
+#include <stdio.h>
+
+//For PUMP, PUMPCA
+#include "model/eqptyp.h"
+
+//For EXFS
+#include "exs.h"
 
 int Pumpdata (char *cattype, char *s, PUMPCA *Pumpca, int Npfcmp, PFCMP *pfcmp) ;
 void Pumpint(int Npump, PUMP *Pump, int Nexsf, EXSF *Exs);

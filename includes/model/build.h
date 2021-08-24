@@ -22,7 +22,8 @@
 #include "esize.h"
 #include "daysum.h"
 
-/*
+/**
+ * @file
  * @brief <入力データファイル>建築データのモデルについて構造体の定義
  * @details
  * 
@@ -30,6 +31,7 @@
  * 
  * モデルの関連図
  *
+ * <PRE>
  * *- WALL
  * +- WINDOW
  * +- SUNBRK
@@ -37,6 +39,7 @@
  * +- RESI
  * +- AAPL
  * +- VENT
+ * </PRE>
  *
  * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
  * WALL :    壁体構成：室構成データで使用する外壁、内壁、床、天井、屋根など材料構成の定義
@@ -51,7 +54,7 @@
  */
 
 
-/*
+/**
  * @brief 壁材料リスト
  */
 typedef struct bmlst
@@ -67,8 +70,8 @@ typedef struct bmlst
 } BMLST;
 
 
-/*
- * @brief 太陽電池パラメータ
+/**
+ * @brief 太陽電池一体型壁体カタログ
  * @sa PVwallcatinit, PVwallPreCalc
  */
 typedef struct pvwallcat
@@ -108,6 +111,9 @@ typedef struct pvwallcat
 } PVWALLCAT;
 
 
+/**
+ * @brief 太陽電池一体型壁体
+ */
 typedef struct pvwall
 {
 	double	KTotal;					// 太陽電池の総合設計係数[-]
@@ -154,6 +160,10 @@ typedef struct pvwall
 //	struct qday		Qdy ;			// エアフローウィンドウの除去熱量日集計
 //} AIRFLOW ;
 
+
+/**
+ * @brief PCMSTATE
+ */
 typedef struct pcmstate
 {
 	char	*name;
@@ -196,7 +206,7 @@ typedef struct pcmstate
 } PCMSTATE;
 
 
-/*
+/**
  * @brief 壁体　固定デ－タ
  */
 typedef struct rmsrf
@@ -496,7 +506,7 @@ typedef struct rmsrf
 } RMSRF;
 
 
-/*
+/**
  * @brief 壁体各層の熱抵抗と熱容量
  */
 typedef struct welm
@@ -520,7 +530,7 @@ typedef struct welm
 } WELM;
 
 
-//@brief PCM見かけの比熱計算用パラメータ
+///@brief PCM見かけの比熱計算用パラメータ
 typedef struct pcmparam
 {
 	double	T; 
@@ -538,6 +548,7 @@ typedef struct pcmparam
 }PCMPARAM;
 
 
+///@brief charttable
 typedef struct chartable
 {
 	//! テーブル形式ファイルのファイル名
@@ -572,7 +583,7 @@ typedef struct chartable
 }CHARTABLE;
 
 
-//@brief 潜熱蓄熱材
+///@brief 潜熱蓄熱材
 typedef struct pcm
 {
 	char	*name;			// PCM名称
@@ -599,7 +610,7 @@ typedef struct pcm
 } PCM;
 
 
-//@brief 壁体　定義デ－タ
+///@brief 壁体　定義デ－タ
 typedef struct wall
 {
 	//! 部位コ－ド
@@ -718,7 +729,8 @@ typedef struct wall
 	double	PCMrate[WELMMX], *PCMrateLyr;
 } WALL;
 
-/*
+
+/**
  * @brief 壁体定義番号既定値デ－タ
  */
 typedef struct Dfwl
@@ -742,7 +754,8 @@ typedef struct Dfwl
 	int f;
 } DFWL;
 
-/*
+
+/**
  * @brief 重量壁体デ－タ
  */
 typedef struct mwall
@@ -795,7 +808,8 @@ typedef struct mwall
 	int    end;
 } MWALL;
 
-/*
+
+/**
  * @brief 窓およびドア定義デ－タ
  */
 typedef struct window
@@ -838,7 +852,7 @@ typedef struct window
 } WINDOW;
 
 
-/*
+/**
  * @brief 日除けデータ
  * @sa Snbkdata
  * @detail ref: EESLISM7.2入力データ作成マニュアル.pdf P.31 図2.4.2 日除け入力方法
@@ -881,7 +895,7 @@ typedef struct snbk
 
 /* ---------------------------------------------------------- */
 
-/*
+/**
  * @brief 日射、室内発熱熱取得
  */
 typedef struct qrm
@@ -946,7 +960,7 @@ typedef struct qrm
 
 /* ---------------------------------------------------------- */
 
-/*
+/**
  * @brief 室間相互換気
  */
 typedef struct achir
@@ -959,7 +973,7 @@ typedef struct achir
 
 /* ---------------------------------------------------------- */
 
-/*
+/**
  * @brief 隣室
  */
 typedef struct trnx
@@ -972,7 +986,7 @@ typedef struct trnx
 
 /* ---------------------------------------------------------- */
 
-/*
+/**
  * @brief 室についての輻射パネル
  */
 typedef struct rpanel
@@ -986,7 +1000,7 @@ typedef struct rpanel
 
 /* ---------------------------------------------------------- */
 
-/*
+/**
  * @brief 輻射パネル
  */
 typedef struct rdpnl
@@ -1045,7 +1059,7 @@ typedef struct rdpnl
 
 /* ---------------------------------------------------------- */
 
-/*
+/**
  * @brief 室への冷温風供給熱量
  */
 typedef struct airsup
@@ -1069,7 +1083,7 @@ typedef struct airsup
 
 /* ---------------------------------------------------------- */
 
-/*
+/**
  * @brief 室負荷パネル
  */
 typedef struct rmload
@@ -1098,7 +1112,7 @@ typedef struct rmload
 
 /* ---------------------------------------------------------- */
 
-/*
+/**
  * @brief ゾーン集計
  */
 typedef struct rzone
@@ -1129,6 +1143,10 @@ typedef struct rzone
 /* ---------------------------------------------------------- */
 /* 要素別熱損失・熱取得計算用 */
 
+
+/**
+ * @brief
+ */
 typedef struct bhelm
 {
 	//! 貫流
@@ -1150,6 +1168,10 @@ typedef struct bhelm
 	double pnl;
 } BHELM;
 
+
+/**
+ * @brief
+ */
 typedef struct qhelm
 {
 	struct bhelm  qe;
@@ -1216,6 +1238,10 @@ typedef struct qhelm
 	double loadcl;
 } QHELM;
 
+
+/**
+ * @brief
+ */
 typedef struct rmqelm
 {
 	struct rmsb   *rmsb;
@@ -1224,6 +1250,10 @@ typedef struct rmqelm
 		qelmdy;
 } RMQELM;
 
+
+/**
+ * @brief
+ */
 typedef struct rmsb
 {
 	//! 'E':外気に接する面、'G':地面に接する面、'i':内壁
@@ -1233,6 +1263,10 @@ typedef struct rmsb
 		*Told;
 } RMSB;
 
+
+/**
+ * @brief 
+ */
 typedef struct qetotal
 {
 	char          *name;
@@ -1240,7 +1274,8 @@ typedef struct qetotal
 		qelmdy;
 } QETOTAL;
 
-/*
+
+/**
  * @brief 室デ－タ
  */
 typedef struct room
@@ -1508,6 +1543,10 @@ typedef struct room
 室計算用データ
 --------------------------------*/
 
+/*
+ * @brief 
+ * @sa Rmvlsinit
+ */
 typedef struct rmvls
 {
 	double			Twallinit;

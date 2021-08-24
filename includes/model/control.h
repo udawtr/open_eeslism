@@ -34,7 +34,11 @@
  * @sa Eeinput
  */
 
-/* 制御、スケジュール設定 */
+/**
+ * @file
+ * @brief 制御、スケジュール設定 
+ * @sa Compodata, Contrldata
+ */
 
 
 #define   VAL_CTYPE   'v'
@@ -43,14 +47,28 @@
 #define   LOCAL_CPTYPE 'L'
 
 
+/*
+ * @brief  
+ * @sa Contlschdlr
+ */
 typedef struct contl
 {
-   char  type;   /* 条件付き 'c'、無条件 ' ' */
-   int   lgv;
-   struct ctlif *cif;
-   struct ctlif *andcif, *andandcif;
-   struct ctlif *orcif ;
-   struct ctlst *cst;
+    ///! 制御種別(条件付き 'c'、無条件 ' ')
+    char  type;
+
+    ///! 制御情報(True:1、False:0)
+    int   lgv;
+    struct ctlif *cif;
+
+    ///! ANDで2条件の場合
+    struct ctlif* andcif;
+
+    ///! ANDで3条件の場合
+    struct ctlif *andandcif;
+
+    ///! or条件の場合
+    struct ctlif *orcif ;
+    struct ctlst *cst;
 } CONTL;
 
 
@@ -61,23 +79,34 @@ typedef union ctltyp
 } CTLTYP;
 
 
+///@brief 制御条件項目データ
 typedef struct ctlif
 {
-   char  type,    /* 'v', 's'  */
-         op;
-   int   Nlft;
-   union ctltyp  lft1, lft2, rgt;
+    ///! 'v', 's'
+    char  type;
+    char op;
+    int   Nlft;
+    union ctltyp  lft1, lft2, rgt;
 } CTLIF;
 
 
 typedef struct ctlst
 {
-   char  type,
-         pathtype;  /* 'M', 'L' */
-   void  *path;
-   union ctltyp  lft, rgt;
+    char  type;
+
+    ///! 'M', 'L'
+    char pathtype;
+
+    void  *path;
+
+    union ctltyp  lft, rgt;
 } CTLST;
 
+
+/**
+ * @brief 
+ * @sa VPTRinit
+ */
 typedef struct vptr
 {
    char  type;

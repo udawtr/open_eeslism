@@ -23,7 +23,7 @@
 
 #pragma once
 
-#include "wthrd.h"
+#include "model/wthrd.h"
 #include "exs.h"
 #include "MODEL.h"
 

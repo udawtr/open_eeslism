@@ -24,41 +24,40 @@
 #include "common.h"
 
 // TODO: 要説明
-#include "wthrd.h"
+#include "model/wthrd.h"
 
 // 2.4 建築データ
 // <入力データファイル>建築データのモデルについて構造体の定義
 // WALL, WINDOW, SUNBRK, ROOM, RESI, AAPL, VENT
-#include "build.h"
+#include "model/build.h"
 
 // 2.5 設備機器データ
 // <入力データファイル>設備機器データのモデルについて構造体の定義
 // EQPCAT, SYSCMP
-#include "eqptyp.h"
+#include "model/eqptyp.h"
 
 // 2.6 システム経路
 // <入力データファイル>システム経路のモデルについて構造体の定義
 // SYSPTH
-#include "eepath.h"
+#include "model/eepath.h"
 
 // 2.7 制御データ
 // <入力データファイル>システム経路のモデルについて構造体の定義
 // CONTL
-#include "control.h"
+#include "model/control.h"
 
 // 2.8 スケジュールデータ
 // <入力データファイル>スケジュールのモデルについて構造体の定義
 // SCHTB, SCHNM
-#include "sched.h"
+#include "model/sched.h"
 
 // 2.9 ファイル上のデータによる条件設定
 // <入力データファイル>システム経路のモデルについて構造体の定義
 // VCFILE
-#include "simcon.h"
+#include "model/simcon.h"
 
 // シミュレーション結果の構造体の定義
-#include "eps.h"
+#include "model/eps.h"
 
 // TODO: 要説明
-#include "daysum.h"
-
+#include "model/daysum.h"

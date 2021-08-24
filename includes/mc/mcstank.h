@@ -2,7 +2,16 @@
 
 //STANK 蓄熱槽
 
-#include "eqptyp.h"
+#include <stdio.h>
+
+//For SIMCONTL
+#include "model/simcon.h"
+
+//For WDAT
+#include "model/wthrd.h"
+
+//For STANKCA, STANK
+#include "model/eqptyp.h"
 
 int Stankdata(FILE *f, char *s, STANKCA *Stankca);
 void Stankmemloc(char *errkey, STANK *Stank);

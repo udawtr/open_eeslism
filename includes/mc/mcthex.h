@@ -2,6 +2,12 @@
 
 #include "MODEL.h"
 
+#include <stdio.h>
+
+//For THEXCA , THEX
+#include "model/eqptyp.h"
+
+
 int		Thexdata ( char *s, THEXCA *Thexca ) ;
 void	Thexint ( int Nthex, THEX *Thex ) ;
 void	Thexcfv ( int Nthex, THEX *Thex ) ;

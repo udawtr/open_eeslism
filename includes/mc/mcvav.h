@@ -2,7 +2,17 @@
 
 //VAV VAVユニット
 
-#include "eqptyp.h"
+#include <stdio.h>
+
+//For VAV, VAVCA
+#include "model/eqptyp.h"
+
+//For COMPNT
+#include "model/eepath.h"
+
+//For VPTR
+#include "model/control.h"
+
 
 int VAVdata (char *s, char *ss, VAVCA *vavca) ;
 void VAVcfv(int Nvav, VAV *vav) ;

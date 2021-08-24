@@ -1,7 +1,8 @@
 ﻿#pragma once
 
 #include <stdio.h>
-#include "eqptyp.h"
+
+#include "model/eqptyp.h"
 
 //---------------------------------------------------------------
 // 2.5.1 機器仕様（機器カタログデータ

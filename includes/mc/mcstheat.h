@@ -2,7 +2,26 @@
 
 //STHEAT 電気蓄熱式暖房器
 
-#include "eqptyp.h"
+#include <stdio.h>
+
+//For STHEATCA, STHEAT
+#include "model/eqptyp.h"
+
+//For PCM
+#include "model/build.h"
+
+//For WDAT
+#include "model/wthrd.h"
+
+//For COMPNT
+#include "model/eepath.h"
+
+//For VPTR
+#include "model/control.h"
+
+//For SIMCONTL
+#include "model/simcon.h"
+
 
 int Stheatdata(char *s, STHEATCA *stheatca) ;
 void Stheatint(int Nstheat, STHEAT *stheat, 

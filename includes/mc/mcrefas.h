@@ -1,5 +1,17 @@
 ﻿#pragma once
 
+//For REFACA, REFA
+#include "model/eqptyp.h"
+
+//For WDAT
+#include "model/wthrd.h"
+
+//For COMPNT
+#include "model/eepath.h"
+
+//For VPTR
+#include "model/control.h"
+
 int Refadata (char *s, REFACA *Refaca, int Nrfcmp, RFCMP *Rfcmp);
 void Refaint(int Nrefa, REFA *Refa, WDAT *Wd, int Ncompnt, COMPNT *Compnt);
 void Refacfv(int Nrefa, REFA *Refa);

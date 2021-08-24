@@ -3,7 +3,8 @@
 
 //HEX 熱交換器
 
-#include "eqptyp.h"
+//For HEX, HEXCA
+#include "model/eqptyp.h"
 
 int Hexdata(char *s, HEXCA *Hexca);
 void Hexcfv(int Nhex, HEX *Hex);

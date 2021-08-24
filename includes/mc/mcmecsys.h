@@ -1,6 +1,22 @@
 ﻿#pragma once
 
-#include "MODEL.h"
+//For COMPNT
+#include "model/eepath.h"
+
+//For EQSYS
+#include "model/eqptyp.h"
+
+//For WDAT
+#include "model/wthrd.h"
+
+//For RMVLS
+#include "model/build.h"
+
+//For EXFS
+#include "exs.h"
+
+//For SIMCONTL
+#include "model/simcon.h"
 
 void Mecsinit(double dTM, EQSYS *Eqsys,
 	      SIMCONTL *Simc, int Ncompnt,COMPNT *Compnt,
