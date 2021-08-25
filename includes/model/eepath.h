@@ -79,12 +79,10 @@
 ///@brief カロリ―メータ
 #define  QMEAS_TYPE		  "QMEAS"
 
-///@brief 
-//(マニュアル未定義)
+///@brief 温水弁の制御???
 #define  VALV_TYPE		  "V"
 
-///@brief 
-//(マニュアル未定義)
+///@brief 温調弁の制御
 #define  TVALV_TYPE		  "VT"
 
 ///@brief バッチ式デシカント(マニュアル未定義)
@@ -208,37 +206,83 @@
  */
 typedef struct compnt
 {
-	char *name,			// 機器名称
-		*roomname,		// 機器の設置室名称（-room）
-		*eqptype,		// 機器タイプ（"PIPE"など）
-		*envname,		// 配管等の周囲条件名称（-env）
-		*exsname,		// 方位名称
-		*hccname,		// VWV制御するときの制御対象熱交換器名称
-		*rdpnlname,		// VWV制御するときの制御対象床暖房（未完成）
-		*idi,			// 入口の識別記号
-		*ido,			// 出口の識別記号（熱交換器の'C'、'H'や全熱交換器の'E'、'O'など）
-		*tparm,			// SYSCMPで定義された"-S"や"-V"以降の文字列を収録する
-		*wetparm,		// 湿りコイルの除湿時出口相対湿度の文字列を収録
-		*omparm,		// 
-		//*pcmname,		// 電気蓄熱暖房器内臓PCMのスペック名称
-		airpathcpy,		// 空気経路の場合は'Y'（湿度経路用にpathをコピーする）
-        control;
-	void *eqp;			// 機器特有の構造体へのポインタ
-	int  neqp,
-        ncat,
-		Nout,			// 出口の数
-		Nin,			// 入口の数
-        nivar;
-	double Ac ;			// 集熱器面積[m2]
-	double PVcap ;		// 太陽電池容量[W]
-	double Area ;		// 太陽電池アレイ面積[m2]
+	//!@brief 機器名称
+	char *name;
+
+	//!@brief 機器の設置室名称（-room）
+	char	*roomname;
+
+	//!@brief 機器タイプ（"PIPE"など）
+	char	*eqptype;
+
+	//!@brief 配管等の周囲条件名称（-env）
+	char	*envname;		
+	
+	//!@brief 方位名称
+	char	*exsname;
+
+	//!@brief VWV制御するときの制御対象熱交換器名称
+	char* hccname;
+
+	//!@brief VWV制御するときの制御対象床暖房（未完成）
+	char	*rdpnlname;
+
+	//!@brief 入口の識別記号
+	char	*idi;
+
+	//!@brief 出口の識別記号（熱交換器の'C'、'H'や全熱交換器の'E'、'O'など）
+	char	*ido;
+
+	//!@brief SYSCMPで定義された"-S"や"-V"以降の文字列を収録する
+	char	*tparm;
+
+	//!@brief 湿りコイルの除湿時出口相対湿度の文字列を収録
+	char	*wetparm;
+
+	char	*omparm;		// 
+	//char	//*pcmname;		// 電気蓄熱暖房器内臓PCMのスペック名称
+
+	//!@brief 空気経路の場合は'Y'（湿度経路用にpathをコピーする）
+	char	airpathcpy;
+
+	//! @brief 制御情報???
+    char    control;
+
+	//! @brief 機器特有の構造体へのポインタ
+	void *eqp;
+
+	int  neqp;
+	int    ncat;
+
+	//! @brief 出口の数
+	int	Nout;
+
+	//! @brief 入口の数
+	int	Nin;
+
+	int    nivar;
+	
+	//! @brief 集熱器面積[m2]
+	double Ac ;
+
+	//! @brief 太陽電池容量[W]
+	double PVcap ;
+
+	//! @brief 太陽電池アレイ面積[m2]
+	double Area ;
+
 	double *ivparm;
-	double eqpeff;		/* ボイラ室内置き時の室内供給熱量率 [-] */
+
+	//! @brief 
+	double eqpeff;
+
+	//! @brief 機器出口の構造体へのポインタ（Nout個）
 	struct elout *elouts;
-						// 機器出口の構造体へのポインタ（Nout個）
+
+	//!@brief 機器入口の構造体へのポインタ（Nin個）
 	struct elin  *elins;
-						// 機器入口の構造体へのポインタ（Nin個）
-//	struct valv	*valv ;
+
+	//	struct valv	*valv ;
 	struct compnt *valvcmp ;
 						// 三方弁の対となるValvのCOMPNTへのポインタ
 	//					/* バルブ用機器構造体 */
@@ -246,9 +290,12 @@ typedef struct compnt
 	//		xinit ;
 	//char	org ;		/* CONTRLで指定されているとき'y' それ以外は'n' */
 	//char	*OMfanName ;	// Valvが参照するファン風量
+
+	//! @brief VALVで分岐などを流量比率で行う場合の観測対象のPlist名称
 	char	*monPlistName ;
-						// VALVで分岐などを流量比率で行う場合の観測対象のPlist名称
-	double	mPCM;				// 電気蓄熱暖房器内臓PCMの容量[m3]
+
+	//! @brief 電気蓄熱暖房器内臓PCMの容量[m3]
+	double	mPCM;
 }  COMPNT;
 
 
@@ -258,29 +305,58 @@ typedef struct compnt
  */
 typedef struct elout
 {
-	char   id,			// 出口の識別番号（熱交換器の'C'、'H'や全熱交換器の'E'、'O'など）
-		Pelmoid,			// 終端の割り当てが完了していれば '-', そうでなければ 'x'
-		fluid,			// 通過する流体の種類（a:空気（温度）、x:空気（湿度）、W:水））
-		control,		// 経路の制御
-		sysld;			// 負荷を計算する場合は'y'、成り行きの場合は'n'
-	double  G,			// 流量
-		Q,				// 熱量
-		sysv,			// 連立方程式の答え
-		load,
-		Co,				// 連立方程式の定数
-		coeffo,			// 出口の係数
-		*coeffin;		// 入口の係数（入口複数の場合はそれぞれの係数）
-	int    Ni,			// 入口の数
-		sv,				
-		sld;
+	//@brief 出口の識別番号（熱交換器の'C'、'H'や全熱交換器の'E'、'O'など）
+	char   id;
+
+	//!@brief 終端の割り当てが完了していれば '-'; そうでなければ 'x'
+	char	Pelmoid;
+
+	//! @brief 通過する流体の種類（a:空気（温度）、x:空気（湿度）、W:水））
+	//! @sa AIRa_FLD, AIRx_FLD, WATER_FLD 
+	char	fluid;			
+
+	//!@brief 経路の制御
+	char	control;
+
+	//!@brief 負荷を計算する場合は'y'、成り行きの場合は'n'
+	char	sysld;
+
+	//!@brief 流量
+	double  G;
+
+	//!@brief 熱量
+	double	Q;
+
+	//! @breif 連立方程式の答え
+	double	sysv;
+	double	load;
+
+	//! @brief 連立方程式の定数
+	double	Co;
+
+	//! @brief 出口の係数
+	double	coeffo;
+
+	//!@brief 入口の係数（入口複数の場合はそれぞれの係数）
+	double	*coeffin;
+
+	//@brief 
+	int    Ni;
+
+	int	sv;				
+
+	int	sld;
+
+	//!@brief 機器出口の構造体が属する機器
 	struct compnt  *cmp;
-						// 機器出口の構造体が属する機器
+
+	//!@brief 機器出口の構造体が関連する機器入口
 	struct elin    *elins;
-						// 機器出口の構造体が関連する機器入口
+
+	//!@brief 機器出口が属する末端経路
 	struct plist   *lpath;
-						// 機器出口が属する末端経路
-	struct elout   *eldobj,
-		*emonitr;
+	
+	struct elout   *eldobj, *emonitr;
 }  ELOUT;
 
 
@@ -290,13 +366,17 @@ typedef struct elout
  */
 typedef struct elin
 {
-	
-	char   id;			// 入口の識別番号（熱交換器の'C'、'H'や全熱交換器の'E'、'O'など）
-	double  sysvin;		// 連立方程式の答え
-	struct elout  *upo,	// 上流の機器の出口
-		*upv;
+	//! @brief 入口の識別番号（熱交換器の'C'、'H'や全熱交換器の'E'、'O'など）
+	char   id;
+
+	//! @brief 連立方程式の答え
+	double  sysvin;
+
+	//! @brief 上流の機器の出口
+	struct elout  *upo, *upv;
+
+	//! @brief 機器入口が属する末端経路
 	struct plist  *lpath;
-						// 機器入口が属する末端経路
 }  ELIN;
 
 
@@ -306,12 +386,19 @@ typedef struct elin
  */
 typedef struct pelm
 {
-	char  co,
-		ci;
-	struct compnt *cmp;	// SYSPTH記載の機器の構造体
+	char  co;
+	char  ci;
+
+	//! @brief SYSPTH記載の機器の構造体
+	struct compnt *cmp;
+
 //	struct pelm *Pelmx ;
-	struct elout  *out;	// 機器の出口
-	struct elin   *in;	// 機器の入口
+
+	// @brief 機器の出口
+	struct elout  *out; 
+
+	// @brief 機器の入口
+	struct elin   *in;
 }  PELM;
 
 
@@ -321,37 +408,77 @@ typedef struct pelm
  */
 typedef struct plist
 {
-	int	UnknownFlow ;	// 末端経路が流量未知なら1、既知なら0
-	char  *name,
-		type,			// 貫流経路か循環経路かの判定
-		control,		// 経路の制御情報
-		batch,    /* バッチ運転を行う蓄熱槽のあるとき'y'、無いとき 'n'*/
-				  org;      /* 入力された経路のとき'y'、
-	複写された経路（空気系統の湿度経路）のとき'n' */
-	char	*plistname ;	// 末端経路の名前
-	int   Nelm,			// 末端経路内の機器の数
-		lvc,
-		Nvalv,	/* 経路中のバルブ数 */
-		//Npump ,
-		/*---- Satoh Debug VAV  2000/12/6 ----*/
-		Nvav,	/* 経路中のVAVユニットの数 */
-		NOMVAV,	/* OM用変風量制御ユニット数 */
-		n ;	   /* 流量計算の時の番号 */
-	double *Go,
-		Gcalc,	// 温調弁によって計算された流量を記憶する変数
-		G;
+	//!@brief 末端経路が流量未知なら1、既知なら0
+	int	UnknownFlow;
+
+	char* name;
+
+	//!@brief 貫流経路か循環経路かの判定
+	char  type;
+
+	//!@brief 経路の制御情報
+	char  control;
+
+	//!@brief バッチ運転を行う蓄熱槽のあるとき'y'、無いとき 'n'
+	char  batch;
+
+	//!@brief 入力された経路のとき'y', 複写された経路（空気系統の湿度経路）のとき'n'
+	char  org;
+
+	//!@brief 末端経路の名前
+	char	*plistname ;
+
+	//@brief 末端経路内の機器の数
+	int   Nelm;
+
+	int	lvc;
+
+	//@brief 経路中のバルブ数
+	int	Nvalv;
+
+	//int Npump ,
+
+	/*---- Satoh Debug VAV  2000/12/6 ----*/
+
+	//!@brief 経路中のVAVユニットの数 */
+	int Nvav;
+
+	//!@brief OM用変風量制御ユニット数
+	int NOMVAV;
+
+	//!@brief 流量計算の時の番号
+	int n ;
+
+	double* Go;
+
+	//!@brief 温調弁によって計算された流量を記憶する変数
+	double Gcalc;
+
+	//!@brief  負荷計算用設定値???
+	double G;
+
+	//!@brief 流量分配比
 	double	*rate ;
-				// 流量分配比
 	
 	//struct pump  *Pump ;		// ポンプ、ファン構造体へのポインタ
 	struct pelm  *pelm,			// 末端経路内の機器
 		*plmvb;	
 	struct plist *lpair;
-	struct plist *plistt,		// 空気系当時の温度系統
-		*plistx ;				// 空気系当時の湿度系統
+
+	//!@brief 空気系当時の温度系統
+	struct plist* plistt; 
+
+	//!@brief 空気系当時の湿度系統
+	struct plist* plistx;
+
 	struct valv	*valv ;
+
 	struct mpath *Mpath ;
-	struct plist *upplist, *dnplist ;
+
+	struct plist* upplist;
+
+	struct plist* dnplist;
+
 	struct omvav *OMvav ;
 }  PLIST;
 
@@ -362,25 +489,44 @@ typedef struct plist
  */
 typedef struct mpath
 {
-	char  *name,		// 経路名称
-		sys,
-		type,
-		fluid,
-		control; 
-	int   Nlpath,
-		NGv,
-		NGv2,
-		Ncv,
-		lvcmx;
-	struct plist *plist,
+	//! @brief 経路名称
+	char* name;
+	char* sys;
+	char* type;
+	char* fluid;
+
+	//! @brief 経路の制御情報??
+	char* control;
+
+	//! @brief 経路要素の動的配列の要素数
+	int   Nlpath;
+
+	int   NGv;
+
+	int   NGv2;
+
+	int   Ncv;
+
+	int   lvcmx;
+
+	//! @brief 経路要素の動的配列
+	struct plist* plist;
 						// 末端経路
 //		*pl[PLMAX] ;
-	    **pl ;
-	char	rate ;		// 流量比率が入力されている経路なら'Y'
-	double	*G0 ;		// 流量比率設定時の既知流量へのポインタ
+	struct plist **pl ;
+	
+	//!@ brief 流量比率が入力されている経路なら'Y'
+	char	rate ;
+	
+	//! @brief 流量比率設定時の既知流量へのポインタ
+	double	*G0 ;
+
 	struct mpath	*mpair;
-//	struct compnt  *cbcmp[CBCMPMX] ;
-	struct compnt	**cbcmp ;	// 流量連立方程式を解くときに使用する分岐・合流機器
+
+	//	struct compnt  *cbcmp[CBCMPMX] ;
+
+	//! @brief 流量連立方程式を解くときに使用する分岐・合流機器
+	struct compnt	**cbcmp ;
 } MPATH;
 
 
@@ -397,16 +543,31 @@ typedef struct syseq
 //	struct elout	*elosv[SYSEQMX];
 } SYSEQ;
 
+
+/**
+ * @brief バルブ
+ */
 typedef struct valv
 {
 	char	*name ;
 	int		count ;
-	double	x,			/* バルブ開度 */
-		*xinit ;			/* バルブ開度の初期値 */
-	char	org ;		/* CONTRLで指定されているとき'y' それ以外は'n' */
+
+	//! @brief バルブ開度
+	//! 初期値=-999.0
+	double	x;
+
+	//!@ brief バルブ開度の初期値
+	double	*xinit ;
+
+	//!@brief CONTRLで指定されているとき'y' それ以外は'n'
+	char	org ;
+
 	struct compnt *cmp, *cmb, *mon ;
+
 	double	*Tin, *Tset, *Tout ;
+
 	double	*MGo ;
+
 	PLIST	*Plist, *monPlist ;
 	//struct omvav	*OMfan ;
 	//char	*OMfanName ;

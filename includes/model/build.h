@@ -445,8 +445,11 @@ typedef struct rmsrf
 	//! 室内表面の平均輻射温度
 	double	Tmrt;
 	double	Ei;
+
+	//! 表面温度[℃]
 	double	Ts;
-	/*設備機器発熱*/
+
+	//! 設備機器発熱
 	double	eqrd;
 	int     end;
 
@@ -1509,10 +1512,21 @@ typedef struct room
 	double	Trold;
 	double	xr;
 	double	xrold;
+
+	//! 室内空気相対湿度 [%]
 	double	RH;
+
+	//! 室内平均表面温度 [℃]
 	double	Tsav;
+
+	//! 室内作用温度の近似値[℃]
+	//! (室温と室内平均表面温度の平均値)
 	double	Tot;
-	double	hr;				// エンタルピー
+
+	//! エンタルピー
+	double	hr;
+
+	//! PMV
 	double	PMV;
 	double	SET;
 	int		setpri;

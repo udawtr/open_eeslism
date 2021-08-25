@@ -20,6 +20,17 @@
 
 /* 室及び関連システム変数、内部変数のポインター  */
 
+
+/**
+ * @brief 室の変数へのポインタを作成
+ * 
+ * 表 2.7.1 valkyname および ldsname で指定可能な項目
+ * 
+ * @param[IN]  Nk
+ * @param[IN]  key   
+ * @param[IN]  Room  参照される室への参照
+ * @param[OUT] vptr  設定されるポインタ
+ */
 int roomvptr(int Nk, char **key, ROOM *Room, VPTR *vptr)
 {
 	RMSRF *Sd;
@@ -29,36 +40,50 @@ int roomvptr(int Nk, char **key, ROOM *Room, VPTR *vptr)
 	
 	if (Nk == 2)
 	{
+		//室温（室内空気温度）[℃]
 		if (strcmp(key[1], "Tr") == 0)
 		{
 			vptr->ptr = &Room->Tr;
 			vptr->type = VAL_CTYPE;
 		}
+
+		//
 		else if (strcmp(key[1], "xr") == 0)
 		{	 
 			vptr->ptr = &Room->xr;
 			vptr->type = VAL_CTYPE;
 		}
+
+		//室内空気相対湿度 [%]
 		else if (strcmp(key[1], "RH") == 0)
 		{	 
 			vptr->ptr = &Room->RH;
 			vptr->type = VAL_CTYPE;
 		}
+
+		//室内 PMV
 		else if (strcmp(key[1], "PMV") == 0)
 		{	 
 			vptr->ptr = &Room->PMV;
 			vptr->type = VAL_CTYPE;
 		}
+
+		//室内平均表面温度 [℃]
 		else if (strcmp(key[1], "Tsav") == 0)
 		{	 
 			vptr->ptr = &Room->Tsav;
 			vptr->type = VAL_CTYPE;
 		}
+
+		//室内作用温度の近似値[℃]
+		//(室温と室内平均表面温度の平均値)
 		else if (strcmp(key[1], "Tot") == 0)
 		{	 
 			vptr->ptr = &Room->Tot;
 			vptr->type = VAL_CTYPE;
-		}      
+		}
+
+		//室空気のエンタルピ
 		else if (strcmp(key[1], "hr") == 0)
 		{
 			vptr->ptr = &Room->hr ;
@@ -72,16 +97,21 @@ int roomvptr(int Nk, char **key, ROOM *Room, VPTR *vptr)
 		{
 			if (Sd->name != NULL && strcmp(key[1], Sd->name) == 0)
 			{
+				//部位名 sdname の表面温度[℃]
 				if (strcmp(key[2], "Ts") == 0)
 				{
 					vptr->ptr = &Sd->Ts;
 					vptr->type = VAL_CTYPE;
 				}
+
+				//室内表面の平均輻射温度
 				else if (strcmp(key[2], "Tmrt") == 0)
 				{
 					vptr->ptr = &Sd->Tmrt;
 					vptr->type = VAL_CTYPE;
 				}
+				
+				//建材一体型空気集熱器の相当外気温度[℃]
 				else if (strcmp(key[2], "Te") == 0)
 				{
 					vptr->ptr = &Sd->Tcole ;

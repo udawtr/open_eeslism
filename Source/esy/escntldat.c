@@ -33,6 +33,19 @@ char Hload;  /* Hload = HEATING_LOAD */
 char Cload;  /* Cload = COOLING_LOAD */
 char HCload;  /* HCload = HEATCOOL_LOAD used in void Contrldata( )*/
 
+//------ プライベート関数の宣言 ------//
+
+void	_ContrlCount(FILE* fi, int* Nif, int* N);
+int _ctlrgtptr(char* s, CTLTYP* rgt,
+	SIMCONTL* Simc, int Ncompnt, COMPNT* Compnt,
+	int Nmpath, MPATH* Mpath, WDAT* Wd, EXSFS* Exsf, SCHDL* Schdl, char type);
+
+
+//------ 関数の実装 ------//
+
+/**
+ * @brief 制御、スケジュール設定式の入力
+ */
 void Contrldata(FILE *fi, CONTL **Ct, int *Ncontl, CTLIF **Ci, int *Nctlif,
 				CTLST **Cs, int *Nctlst, 
 				SIMCONTL *Simc, int Ncompnt, COMPNT *Compnt,
@@ -55,7 +68,7 @@ void Contrldata(FILE *fi, CONTL **Ct, int *Ncontl, CTLIF **Ci, int *Nctlif,
 	HCload = HEATCOOL_LOAD;
 	sprintf(Err, ERRFMT, "(Contrldata)");
 
-	ContrlCount ( fi, &Ni, &N ) ;
+	_ContrlCount ( fi, &Ni, &N ) ;
 
 	Nm = N ;
 	if ( Nm > 0 )
@@ -262,7 +275,7 @@ void Contrldata(FILE *fi, CONTL **Ct, int *Ncontl, CTLIF **Ci, int *Nctlif,
 					else
 						Ctlst->lft.s = (char *)vptr.ptr;
 
-					err = ctlrgtptr(st, &Ctlst->rgt, Simc, Ncompnt, Compnt, Nmpath, Mpath,
+					err = _ctlrgtptr(st, &Ctlst->rgt, Simc, Ncompnt, Compnt, Nmpath, Mpath,
 						Wd, Exsf, Schdl, Ctlst->type);
 				}
 				sprintf(Er, " %s = %s", s, st);
@@ -312,7 +325,8 @@ void Contrldata(FILE *fi, CONTL **Ct, int *Ncontl, CTLIF **Ci, int *Nctlif,
 	}
 }
 
-void	ContrlCount ( FILE *fi, int *Nif, int *N )
+
+void	_ContrlCount ( FILE *fi, int *Nif, int *N )
 {
 	long	ad ;
 	int		N1 = 0, N2 = 0 ;
@@ -340,10 +354,10 @@ void	ContrlCount ( FILE *fi, int *Nif, int *N )
 	fseek ( fi, ad, SEEK_SET ) ;
 }
 
-/* ------------------------------------------------------ */
 
-/*  制御条件式 (lft1 - lft2 ? rgt ) に関するポインター */
-
+/**
+ * @brief 制御条件式 (lft1 - lft2 ? rgt ) に関するポインター
+ */
 void ctifdecode(char *s, CTLIF *ctlif, 
 				SIMCONTL *Simc, int Ncompnt, COMPNT *Compnt,
 				int Nmpath, MPATH *Mpath, WDAT *Wd, EXSFS *Exsf, SCHDL *Schdl)
@@ -403,15 +417,15 @@ void ctifdecode(char *s, CTLIF *ctlif,
 		err = 1;
 	Errprint(err,"<ctifdecode>", s); 
 
-	ctlrgtptr(rgt, &ctlif->rgt, Simc, Ncompnt, Compnt, Nmpath, Mpath, Wd, Exsf,
+	_ctlrgtptr(rgt, &ctlif->rgt, Simc, Ncompnt, Compnt, Nmpath, Mpath, Wd, Exsf,
 		Schdl, ctlif->type);
 }
 
-/* ------------------------------------------------------ */
 
-/*  条件式、設定式の右辺（定数、またはスケジュール設定値のポインター） */
-
-int ctlrgtptr(char *s, CTLTYP *rgt, 
+/**
+ * @brief 条件式、設定式の右辺（定数、またはスケジュール設定値のポインター）
+ */
+int _ctlrgtptr(char *s, CTLTYP *rgt, 
 			  SIMCONTL *Simc, int Ncompnt, COMPNT *Compnt,
 			  int Nmpath, MPATH *Mpath, WDAT *Wd, EXSFS *Exsf, SCHDL *Schdl, char type)
 {
@@ -456,8 +470,10 @@ int ctlrgtptr(char *s, CTLTYP *rgt,
 			err = 0;
 		}
 	}
+
 	if (err)
 	{
+		//システム変数名、内部変数名、スケジュール名のポインターを取得　OUT=vptr
 		err = ctlvptr(s, Simc, Ncompnt, Compnt, Nmpath, Mpath, Wd, Exsf, Schdl, &vptr, &vpath);
 		if (type == vptr.type)
 		{
@@ -469,7 +485,9 @@ int ctlrgtptr(char *s, CTLTYP *rgt,
 		else
 			err = 1;
 	}
-	Errprint(err, "<ctlrgtptr>", s); 
+
+	Errprint(err, "<ctlrgtptr>", s);
+
 	return err;
 }
 

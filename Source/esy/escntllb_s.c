@@ -25,10 +25,35 @@
 #include "fnbld.h"
 #include "fnfio.h"
 
+/**
+ * @file
+ * @brief ポインター処理用関数の実装
+ */
+
 #define   NMKEYMX 50
 
-/*  システム変数名、内部変数名、スケジュール名のポインター  */
+//------ プライベート関数の宣言 ------//
 
+int _strkey(char* s, char** key);
+
+
+//------ 関数の実装 ------//
+
+
+/**
+ * @brief システム変数名、内部変数名、スケジュール名のポインター
+ * @param[IN] s
+ * @param[IN] Simc
+ * @param[IN] Ncompnt
+ * @param[IN] Compnt
+ * @param[IN] Nmpath
+ * @param[IN] Mpath
+ * @param[IN] Wd
+ * @param[IN] Exsf
+ * @param[IN] Schdl
+ * @param[IN] vptr
+ * @param[IN] vpath
+ */
 int ctlvptr(char *s, SIMCONTL *Simc, int Ncompnt, COMPNT *Compnt, int Nmpath, MPATH *Mpath,
 			WDAT *Wd, EXSFS *Exsf, SCHDL *Schdl, VPTR *vptr, VPTR *vpath)
 {
@@ -59,26 +84,40 @@ int ctlvptr(char *s, SIMCONTL *Simc, int Ncompnt, COMPNT *Compnt, int Nmpath, MP
 	
 	return err;
 }
-/* ----------------------------------------------------------------- */
 
-/* システム経路名、要素名、システム変数名、内部変数名の分離 */
 
-int strkey(char *s, char **key)
+/**
+ * @brief システム経路名、要素名、システム変数名、内部変数名の分離
+ * 
+ * ex) s = "A_B_C"
+ *     => return 3
+ *        key[] = {"A", "B", "C"}
+ * 
+ * @param[IN]  s   分離前の名前
+ * @param[OUT] key 分離された名前の動的配列
+ * @return 分離された名前の数
+ */
+int _strkey(char *s, char **key)
 {
 	char *st;
-	char ss[SCHAR];
 	int  i, nk;
 	
 	if ((i = (int)strlen(s)) == 0)
+	{
 		return 0;
+	}
 	else
 	{  
-		strcpy(ss, s); 
+		char ss[SCHAR];
+
+		//TODO: 変数ssが局所変数にも関わらず、そのポインタが keyに返されるので、ポインタが破損している。
+		strcpy(ss, s);
 		
 		key[0] = ss;
 		nk = 1;
 		for (st = ss + 1; st <ss + i; st++)
-		{	 
+		{
+			//区切り文字 `_` を見つけたら 終端文字を入れることで、文字列を分割。
 			if (*st == '_')
 			{
 				*st = '\0';
@@ -97,45 +136,72 @@ int strkey(char *s, char **key)
 		return nk;
 	}
 }
-/* ----------------------------------------------------------------- */
 
-/*  経路名、システム変数名、内部変数名のポインター  */
 
+/**
+ * @brief 経路名、システム変数名、内部変数名のポインター
+ * 
+ * 表 2.7.1 valkyname および ldsname で指定可能な項目
+ * 
+ * @param[IN] s
+ * @param[IN] Simc
+ * @param[IN] Ncompnt
+ * @param[IN] Compnt
+ * @param[IN] Nmpath
+ * @param[IN] Mpath
+ * @param[IN] Wd
+ * @param[IN] Exsf
+ * @param[IN] Schdl
+ * @param[IN] vptr
+ * @param[IN] vpath
+ */
 int kynameptr(char *s, SIMCONTL *Simc, int Ncompnt, COMPNT *Compnt, int Nmpath, MPATH *Mpath,
 			  WDAT *Wd, EXSFS *Exsf, VPTR *vptr, VPTR *vpath)
 {
 	char *e, *key[NMKEYMX];
-	int  i, nk, err = 0;
-	EXSF	*Exs ;
+	int  nk, err = 0;
 	
-	nk = strkey(s, key) ;
+	nk = _strkey(s, key) ;
 	if ( nk )
 	{
+		//************** 気象条件, 給水温度 **************//
+
+		//外気温 [℃]
 		if (strcmp(key[0], "Ta") == 0)
 		{
 			vptr->type = VAL_CTYPE;
 			vptr->ptr = &Wd->T;
 		}
+
+		//外気絶対湿度 [kg/kg]
 		else if (strcmp(key[0], "xa") == 0)
 		{
 			vptr->type = VAL_CTYPE;
 			vptr->ptr = &Wd->x;
 		}
+
+		//外気相対湿度 [%]
 		else if (strcmp(key[0], "RHa") == 0)
 		{
 			vptr->type = VAL_CTYPE;
 			vptr->ptr = &Wd->RH;
 		}
+
+		//屋外エンタルピ [J/kg]
 		else if (strcmp(key[0], "ha") == 0)
 		{
 			vptr->type = VAL_CTYPE ;
 			vptr->ptr = &Wd->h ;
 		}
+
+		//給水温度[℃]
 		else if (strcmp(key[0], "Twsup") == 0)
 		{
 			vptr->type = VAL_CTYPE;
 			vptr->ptr = &Wd->Twsup;
 		}
+
+		//水平面全日射   [W/m2]
 		else if (strcmp(key[0], "Ihol") == 0)
 		{
 			vptr->type = VAL_CTYPE;
@@ -143,11 +209,20 @@ int kynameptr(char *s, SIMCONTL *Simc, int Ncompnt, COMPNT *Compnt, int Nmpath, 
 		}
 		else 
 		{
+			//************** 窓 **************//
+
 			// 傾斜面名称の検索
+			// 
+			// `<ename>_Idre` : 傾斜面入射直達日射
+			// `<ename>_Idf`  : 傾斜面入射拡散日射
+			// `<ename>_Iw`   : 傾斜面入射全日射
+			// 
+			// ※ <ename> = 外表面名
+			//
 			if ( Exsf != NULL )
 			{
-				Exs = Exsf->Exs ;
-				for ( i = 0; i < Exsf->Nexs; i++, Exs++)
+				EXSF* Exs = Exsf->Exs ;
+				for ( int i = 0; i < Exsf->Nexs; i++, Exs++)
 				{
 					if (strcmp(key[0], Exs->name ) == 0)
 					{
@@ -177,9 +252,28 @@ int kynameptr(char *s, SIMCONTL *Simc, int Ncompnt, COMPNT *Compnt, int Nmpath, 
 			}
 
 			if (Nmpath > 0)
+			{
+				//************** 蓄熱槽,ボイラー,仮想熱源,仮想空調機,一般機器 **************//
+
+				// #蓄熱槽,ボイラー,仮想熱源,仮想空調機
+				// `<elmname>_Ts_x` : 槽内水温
+				// `<elmname>_Tin`  : 入口水温
+				// `<elmname>_Tout` : 出口水温
+				// `<elmname>_xout` : 出口絶対湿度
+				// 
+				// #一般機器
+				// `<elmname>_Twout` : 出口水温
+				// `<elmname>_Taout` : 出口空気湿度
+				// `<elmname>_xaout` : 出口空気絶対湿度
+				// 
+				// ※ <elmname> = 外表面名
+
 				err = pathvptr(nk, key, Nmpath, Mpath, vptr, vpath);
+			}
 			else
+			{
 				err = 1;
+			}
 
 			if (err)
 			{
@@ -191,7 +285,7 @@ int kynameptr(char *s, SIMCONTL *Simc, int Ncompnt, COMPNT *Compnt, int Nmpath, 
 
 			if (err)
 			{	 
-				for (i = 0; i < Ncompnt; i++, Compnt++)
+				for (int i = 0; i < Ncompnt; i++, Compnt++)
 				{	    
 					if (strcmp(key[0], Compnt->name) == 0)
 					{
@@ -201,8 +295,10 @@ int kynameptr(char *s, SIMCONTL *Simc, int Ncompnt, COMPNT *Compnt, int Nmpath, 
 						{
 							e = Compnt->eqptype;
 							if (strcmp(e, ROOM_TYPE) == 0)
+							{
 								/*** if (nk>1) ****/
-								err = roomvptr(nk,  key, (ROOM *)Compnt->eqp, vptr);
+								err = roomvptr(nk, key, (ROOM*)Compnt->eqp, vptr);
+							}
 							else if (strcmp(e, REFACOMP_TYPE) == 0)
 							{
 							/*****
@@ -250,10 +346,16 @@ int kynameptr(char *s, SIMCONTL *Simc, int Ncompnt, COMPNT *Compnt, int Nmpath, 
 	return err;
 }
 
-/* ----------------------------------------------------------------- */
 
-/*  経路名のポインター  */
-
+/**
+ * @brief 経路名のポインター
+ * @param[IN]  nk     分割後の名前の分割数
+ * @param[IN]  key    分割後の名前の文字列の配列
+ * @param[IN]  Nmpath SYSPTHにおける';'で区切られる経路の配列の要素数
+ * @param[IN]  Mpath  SYSPTHにおける';'で区切られる経路の配列
+ * @param[OUT] vptr   経路名へのポインタを出力先(refer to MPATH.control)
+ * @param[OUT] vpath  経路名へのポインタを出力先(refer to MPATH)
+ */
 int pathvptr(int nk, char **key, int Nmpath, MPATH *Mpath,  VPTR *vptr, VPTR *vpath)
 {
 	int i, err = 0;
@@ -262,6 +364,10 @@ int pathvptr(int nk, char **key, int Nmpath, MPATH *Mpath,  VPTR *vptr, VPTR *vp
 	
 	Mp = Mpath;
 	
+	//
+	// 1) 経路名の探索
+	//
+
 	for (i = 0; i < Nmpath; i++, Mpath++)
 	{      
 		if (strcmp(key[0], Mpath->name) == 0)
@@ -269,6 +375,7 @@ int pathvptr(int nk, char **key, int Nmpath, MPATH *Mpath,  VPTR *vptr, VPTR *vp
 			vpath->type = MAIN_CPTYPE;
 			vpath->ptr = Mpath;
 			
+			//制御情報への参照を取得
 			if (nk == 1 || strcmp(key[1], "control") == 0)
 			{
 				vptr->type = SW_CTYPE;
@@ -278,13 +385,21 @@ int pathvptr(int nk, char **key, int Nmpath, MPATH *Mpath,  VPTR *vptr, VPTR *vp
 		}
 	}
 
+	// 経路名を探索して見つからなかったら...
+	// 2) 経路要素の探索
+	//
+
 	err = (i == Nmpath) ;
 
 	if ( err )
 	{
+		//TODO: 手抜きして全経路の要素を探そうとしているように見える。
+		//      しかし、実際には探索すべきではない領域も含めて探索しており危険なコードに見える。
+		//
 		Mpe = Mp + Nmpath - 1;
 		Plie = Mpe->plist + Mpe->Nlpath;
 		
+		//経路要素を順に確認していく
 		for (Plist = Mp->plist; Plist < Plie; Plist++)
 		{
 			if (Plist->name != NULL)
@@ -299,11 +414,14 @@ int pathvptr(int nk, char **key, int Nmpath, MPATH *Mpath,  VPTR *vptr, VPTR *vp
 					vpath->type = LOCAL_CPTYPE;
 					vpath->ptr = Plist;
 					
+					//制御情報への参照を取得
 					if (nk == 1 || strcmp(key[1], "control") == 0)
 					{
 						vptr->type = SW_CTYPE;
 						vptr->ptr = &Plist->control;
 					}
+
+					//負荷計算用設定値の参照を取得
 					else if(strcmp(key[1], "G") == 0)
 					{
 						vptr->type = VAL_CTYPE;
@@ -316,16 +434,23 @@ int pathvptr(int nk, char **key, int Nmpath, MPATH *Mpath,  VPTR *vptr, VPTR *vp
 		if (Plist == Plie)
 			err = 1;     
 	}
+
+	//見つかれば0
 	return err;
 }
 
+
+/**
+ * @brief COMPNTの配列から指定の名前の要素への参照を取得
+ * @param[IN] name   探索する名前
+ * @param[IN] N      COMPNT配列の要素数
+ * @param[IN] Compnt COMPNT配列
+ * @return COMPNTへの参照。見つからなかった場合はNULL
+ */
 COMPNT	*Compntptr ( char *name, int N, COMPNT *Compnt )
 {
-	COMPNT	*C ;
-	int		i ;
-
-	C = NULL ;
-	for ( i = 0; i < N; i++, Compnt++ )
+	COMPNT	*C = NULL ;
+	for ( int i = 0; i < N; i++, Compnt++ )
 	{
 		if ( strcmp ( name, Compnt->name ) == 0 )
 			C = Compnt ;
@@ -334,34 +459,45 @@ COMPNT	*Compntptr ( char *name, int N, COMPNT *Compnt )
 	return C ;
 }
 
-/* ----------------------------------------------------------------- */
 
-/*  システム要素出口温度、湿度のポインター  */
-
+/**
+ * @brief システム要素出口温度、湿度のポインター
+ */
 int compntvptr(int nk, char **key, COMPNT *Compnt, VPTR *vptr)
 {
-	ELOUT *Eo;
-	int i, err = 0;
-	VALV	*v ;
-	char	*etype ;
+	int err = 0;
 	
+	// 制御情報へのポインタを取得
+	// (温水弁の場合はバルブ開度)
 	if (nk == 1 || strcmp(key[1], "control") == 0)
 	{
-		etype = Compnt->eqptype ;
+		//機器タイプ
+		char* etype = Compnt->eqptype ;
+
 		if ( strcmp ( etype, VALV_TYPE ) != 0 && strcmp ( etype, TVALV_TYPE ) != 0 )
 		{
+			// -- 温水弁の制御ではない --
+
 			// ボイラなど機器自体の停止ではなく、燃焼の停止とする
 			//vptr->ptr = &Compnt->control;
-			Eo = Compnt->elouts ;
+			ELOUT* Eo = Compnt->elouts ;
 			if (strcmp(etype, STHEAT_TYPE) == 0)
+			{
 				vptr->ptr = &Compnt->control;
+			}
 			else
+			{
 				vptr->ptr = &Eo->control;
+			}
 			vptr->type = SW_CTYPE;
 		}
 		else
 		{
-			v = ( VALV * ) Compnt->eqp ;
+			// -- 温水弁の制御である --
+
+			//バルブ開度へのポインタを返す
+
+			VALV* v = ( VALV * ) Compnt->eqp ;
 			vptr->ptr = &v->x ;
 			vptr->type = VAL_CTYPE ;
 			v->org = 'y' ;
@@ -369,7 +505,9 @@ int compntvptr(int nk, char **key, COMPNT *Compnt, VPTR *vptr)
 	}
 	else
 	{
-		Eo = Compnt->elouts;
+		int i;
+		ELOUT* Eo = Compnt->elouts;
+
 		for (i = 0; i < Compnt->Nout; i++, Eo++)
 		{
 			if ((Eo->fluid == AIRa_FLD && strcmp(key[1], "Taout") == 0)
@@ -387,10 +525,10 @@ int compntvptr(int nk, char **key, COMPNT *Compnt, VPTR *vptr)
 	return err;
 }
 
-/* ----------------------------------------------------------------- */
 
-/* 負荷計算を行うシステム要素の設定システム変数のポインター */
-
+/**
+ * @brief 負荷計算を行うシステム要素の設定システム変数のポインター
+ */
 int loadptr(COMPNT *loadcmp, char *load, char *s, int Ncompnt, COMPNT *Compnt,
 			VPTR *vptr)
 {
@@ -401,7 +539,7 @@ int loadptr(COMPNT *loadcmp, char *load, char *s, int Ncompnt, COMPNT *Compnt,
 	RMLOAD	*R ;
 	RDPNL	*Rdpnl ;
 	
-	nk = (strkey(s, key)) ;
+	nk = (_strkey(s, key)) ;
 
 	if ( nk )
 	{
@@ -450,7 +588,7 @@ int loadptr(COMPNT *loadcmp, char *load, char *s, int Ncompnt, COMPNT *Compnt,
 							Ercalloc(1, "roomldptr");
 
 						//原因不明だがkeyの内容が失われるので無理矢理復活させる処理//E.Togashi 2008.09.06*****
-						strkey(s, key);
+						_strkey(s, key);
 						//************************************************************************************
 
 						R = Room->rmld ;

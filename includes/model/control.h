@@ -17,7 +17,8 @@
 
 #pragma once
 
-/*
+/** 
+ * @file
  * @brief <入力データファイル>システム経路のモデルについて構造体の定義
  * @details
  *
@@ -40,14 +41,23 @@
  * @sa Compodata, Contrldata
  */
 
-
+//! @def 負荷計算用設定値のポインター
 #define   VAL_CTYPE   'v'
+
+//! @def 
+//! @brief SYSPTHにおける';'で区切られる経路の制御情報
 #define   SW_CTYPE    's'
+
+//! @def SYSPTHにおける';'で区切られる経路のポインター
+//! @sa MPATH
 #define   MAIN_CPTYPE  'M'
+
+//! @def 経路要素へのポインタ (plist)
+//! @sa plist
 #define   LOCAL_CPTYPE 'L'
 
 
-/*
+/**
  * @brief  
  * @sa Contlschdlr
  */
@@ -72,6 +82,9 @@ typedef struct contl
 } CONTL;
 
 
+/**
+ * @brief
+ */
 typedef union ctltyp
 {
    double *v;
@@ -79,7 +92,9 @@ typedef union ctltyp
 } CTLTYP;
 
 
-///@brief 制御条件項目データ
+/**
+ * @brief 制御条件項目データ
+ */
 typedef struct ctlif
 {
     ///! 'v', 's'
@@ -90,6 +105,9 @@ typedef struct ctlif
 } CTLIF;
 
 
+/**
+ * @brief
+ */
 typedef struct ctlst
 {
     char  type;
@@ -104,12 +122,16 @@ typedef struct ctlst
 
 
 /**
- * @brief 
+ * @brief  ポインタ
  * @sa VPTRinit
  */
 typedef struct vptr
 {
-   char  type;
-   void  *ptr;
+    ///! ポインタ型 (VAL_TYPE, SW_CTYPE, MAIN_CPTYPE, LOCAL_CPTYPE)    
+    ///! @deprecated すでに機能をはたしていないように見える
+    char  type;
+
+    //! ポインタ
+    void  *ptr;
 } VPTR;
 

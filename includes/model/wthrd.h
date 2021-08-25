@@ -54,6 +54,7 @@ typedef struct wdat
 	//! 絶対湿度  [kg/kg]
 	double   x;
 
+	//! 外気相対湿度 [%]
 	double	RH;
 
 	//! エンタルピ [J/kg]
@@ -97,7 +98,7 @@ typedef struct wdat
 	//! 給水温度を補完する場合は'Y'、しない場合は'N' (デフォルトは'N') (GDATA FILE -intgtsupw)
 	char	Intgtsupw ;
 
-	//! 給水温度
+	//! 給水温度 [℃]
 	double  Twsup;
 
 	//! 24*365日分の地表面温度[℃]
