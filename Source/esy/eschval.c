@@ -19,6 +19,10 @@
 #include "fesy.h"
 #include "fnesy.h"
 
+/**
+ * @file
+ * @brief スケジュール処理関数
+ */
 
 /*  １日スケジュ－ルから設定値の選択   */
 

@@ -13,7 +13,7 @@
 //You should have received a copy of the GNU General Public License
 //along with Foobar.If not, see < https://www.gnu.org/licenses/>.
 
-/* 
+/** 
  * @file
  * @brief システム要素の接続経路の入力
  */

@@ -13,7 +13,12 @@
 //You should have received a copy of the GNU General Public License
 //along with Foobar.If not, see < https://www.gnu.org/licenses/>.
 
-/*
+/**
+ * @file
+ * @brief 裏側の面を見つける
+ */
+
+ /*
 
                              裏側の面を見つける
                                  FILE=URA.c

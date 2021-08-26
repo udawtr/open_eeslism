@@ -17,6 +17,12 @@
 #include <math.h>
 #include "MODEL.h"
 
+
+/**
+ * @file
+ * @brief 直線と平面の交点を求める
+ */
+
 ///*
 //
 //                         直線と平面の交点を求める

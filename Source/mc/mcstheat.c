@@ -26,6 +26,10 @@
 #include "fnfio.h"
 #include "fnlib.h"
 
+/**
+ * @file
+ * @brief 電気蓄熱式暖房器の処理関数の定義
+ */
 
 /* ------------------------------------------ */
 
@@ -384,6 +388,9 @@ void stheatmonint(int Nstheat, STHEAT *stheat)
 	}
 }
 
+/**
+ * @brief 日集計、月集計
+ */
 void stheatday(int Mon, int Day, int ttmm, int Nstheat, STHEAT *stheat, int Nday, int SimDayend)
 {
 	int i;

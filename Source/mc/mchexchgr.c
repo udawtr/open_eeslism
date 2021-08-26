@@ -25,7 +25,12 @@
 #include "fnfio.h"
 #include "fnlib.h"
 
-/*  熱交換器  */
+
+/**
+ * @file
+ * @brief 熱交換器の処理関数の定義
+ */
+
 
 /*  仕様入力  */
 
@@ -231,6 +236,10 @@ void hexmonint(int Nhex, HEX *Hex)
 	}
 }
 
+
+/**
+ * @brief 日集計、月集計
+ */
 void hexday(int Mon, int Day, int ttmm, int Nhex, HEX *Hex, int Nday, int SimDayend)
 {
 	int i;

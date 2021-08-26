@@ -24,9 +24,12 @@
 
 //#define DPRINT 0
 
-/* システム方程式の作成およびシステム変数の計算 */
+/**
+ * @file
+ * @brief システム方程式の作成およびシステム変数の計算
+ */
 
-void Syseqv(int Nelout, ELOUT *Elout, SYSEQ *Syseq)
+void Syseqv(int Nelout, ELOUT *Elout)
 {
 	ELOUT	*elout, *elov, **eleq, **elosv ;
 	ELIN	*elin;
@@ -35,15 +38,6 @@ void Syseqv(int Nelout, ELOUT *Elout, SYSEQ *Syseq)
 	int		i, j, m = 0, n = 0, nn, Nsv;
 	char	*mrk, *st ;
 	
-	//	sysmcf = Syseq->eqcf;
-	//	syscv = Syseq->eqcv;
-	//	Y = Syseq->Y;
-	
-	//	matinit ( sysmcf, SYSEQMX*SYSEQMX ) ;
-	//	matinit ( syscv, SYSEQMX ) ;
-	//	matinit ( Y, SYSEQMX ) ;
-	
-	Syseq->a = ' ' ;
 	elout = elov = NULL ;
 	eleq = elosv = NULL ;
 	elin = NULL ;
@@ -78,9 +72,9 @@ void Syseqv(int Nelout, ELOUT *Elout, SYSEQ *Syseq)
 				Elout->cmp->name, Elout->control, Elout->sysld, i, Nelout);
 		}
 
-		if ( dayprn && ferr )
+		if ( dayprn && LOG_ENABLED )
 		{
-			ERR_PRINT("xxx syseqv  Eo name=%s control=%c sysld=%c i=%d MAX=%d\n",
+			LOG_PRINT("xxx syseqv  Eo name=%s control=%c sysld=%c i=%d MAX=%d\n",
 				Elout->cmp->name, Elout->control, Elout->sysld, i, Nelout);
 		}
 		
@@ -136,12 +130,7 @@ void Syseqv(int Nelout, ELOUT *Elout, SYSEQ *Syseq)
 		}
 	}
 	Nsv = n;
-	
-	//	if ( Nsv > SYSEQMX )
-	//	{
-	//		sprintf ( Err, "syseq=%d  SYSEQMX=%d\n", Nsv, SYSEQMX ) ;
-	//		Eprint ( "<Syseqv>", Err ) ;
-	//	}
+
 	
 	sysmcf = dcalloc ( Nsv * Nsv, "<Syseqv> sysmcf" ) ;
 	syscv = dcalloc ( Nsv, "<Syseqv> syscv" ) ;
@@ -161,9 +150,9 @@ void Syseqv(int Nelout, ELOUT *Elout, SYSEQ *Syseq)
 				i, elout->cmp->name, elout->Ni, elout->coeffo);
 		}
 
-		if ( dayprn && ferr )
+		if ( dayprn && LOG_ENABLED )
 		{  
-			ERR_PRINT("xxx syseqv Elout=%d %s Ni=%d cfo=%lf\n", 
+			LOG_PRINT("xxx syseqv Elout=%d %s Ni=%d cfo=%lf\n", 
 				i, elout->cmp->name, elout->Ni, elout->coeffo);
 		}
 		
@@ -215,9 +204,9 @@ void Syseqv(int Nelout, ELOUT *Elout, SYSEQ *Syseq)
 						elov->cmp->name, elov->control, elov->sysv);
 				}
 
-				if ( dayprn && ferr )
+				if ( dayprn && LOG_ENABLED )
 				{ 
-					ERR_PRINT("xxx syseqv Elout=%d %s  in=%d elov=%s  control=%c sys=%lf\n",
+					LOG_PRINT("xxx syseqv Elout=%d %s  in=%d elov=%s  control=%c sys=%lf\n",
 						i, elout->cmp->name, j, 
 						elov->cmp->name, elov->control, elov->sysv);
 				}
@@ -236,9 +225,9 @@ void Syseqv(int Nelout, ELOUT *Elout, SYSEQ *Syseq)
 							elov->cmp->name, elov->control, elov->sysv);
 					}
 
-					if ( dayprn && ferr )
+					if ( dayprn && LOG_ENABLED )
 					{   
-						ERR_PRINT("xxx syseqv elov=%s  control=%c sys=%lf\n",
+						LOG_PRINT("xxx syseqv elov=%s  control=%c sys=%lf\n",
 							elov->cmp->name, elov->control, elov->sysv);
 					}
 					
@@ -308,13 +297,13 @@ void Syseqv(int Nelout, ELOUT *Elout, SYSEQ *Syseq)
 		printf("\n");
 	}
 
-	if ( dayprn && ferr )
+	if ( dayprn && LOG_ENABLED )
 	{
 		st = mrk ;
 		for (i=0; i<Nsv; i++) 
-			ERR_PRINT("Y[%d]=%6.3lf  mrk=%c  Elo=%s\n", i, Y[i], *st, elosv[i]->cmp->name);
+			LOG_PRINT("Y[%d]=%6.3lf  mrk=%c  Elo=%s\n", i, Y[i], *st, elosv[i]->cmp->name);
 		//		Syseq->mrk[i], Syseq->elosv[i]->cmp->name);
-		ERR_PRINT("\n");
+		LOG_PRINT("\n");
 	}
 	
 	free ( sysmcf ) ;

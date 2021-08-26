@@ -18,6 +18,11 @@
 #include "waterandair.h"
 //#include "fnlib.h"
 
+/**
+ * @file
+ * @brief 水、空気の物性値の計算の関数の定義
+ */
+
 // 水、空気の物性値の計算
 // パソコンによる空気調和計算法より作成
 

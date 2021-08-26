@@ -18,6 +18,10 @@
 #include <string.h>
 #include "fesy.h"
 #include "fnfio.h"
+/**
+ * @file
+ * @brief 標題、注記の出力（時刻別計算値ファイル）
+ */
 
 
 /* 標題、注記の出力（時刻別計算値ファイル） */

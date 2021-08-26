@@ -20,9 +20,14 @@
 #include "fnlib.h"
 #include "fnfio.h"
 
+/**
+ * @file
+ * @brief 集熱器の相当外気温度を計算する
+ */
+
+
 void	CalcControlStatus(EQSYS *Eqsys, RMVLS *Rmvls, WDAT *Wd, EXSFS *Exsfs)
 {
-	void CalcCollTe(int Ncoll, COLL *Coll);
 	// 集熱器の相当外気温度を計算する
 	CalcCollTe( Eqsys->Ncoll, Eqsys->Coll ) ;
 	CalcSolarWallTe(Rmvls, Wd, Exsfs) ;

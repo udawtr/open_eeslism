@@ -22,6 +22,10 @@
 #include "fnbld.h"
 #include "fnlib.h"
 
+/**
+ * @file
+ * @brief 
+ */
 
 void Contlschdlr(double dTM, int Ncontl, CONTL *Contl, int Nmpath, MPATH *Mpath, 
 				 int Ncompnt, COMPNT *Compnt)
@@ -527,20 +531,20 @@ void	contlxprint(int Ncontl, CONTL *C)
 	}
 
 	Contl = C ;
-	if ( ferr )
+	if ( LOG_ENABLED )
 	{
-		ERR_PRINT("contlxprint --- Contlschdlr\n");
+		LOG_PRINT("contlxprint --- Contlschdlr\n");
 		
 		for (i = 0; i < Ncontl; i++, Contl++)
 		{
-			ERR_PRINT("[%d]\ttype=%c\tlgv=%d\n",
+			LOG_PRINT("[%d]\ttype=%c\tlgv=%d\n",
 				i, Contl->type, Contl->lgv);
 			cif = Contl->cif;
 			cst = Contl->cst;
 			
 			if (cif != NULL)
 			{
-				ERR_PRINT("\tiftype=%c\t[%c]", cif->type, cif->op);
+				LOG_PRINT("\tiftype=%c\t[%c]", cif->type, cif->op);
 				if (cif->type == VAL_CTYPE)
 				{
 					if (cif->Nlft > 1)
@@ -548,25 +552,25 @@ void	contlxprint(int Ncontl, CONTL *C)
 					else
 						V = 0.0 ;
 					
-					ERR_PRINT("\tlft1=%.2g\tlft2=%.2grgt=%.2g\n", 
+					LOG_PRINT("\tlft1=%.2g\tlft2=%.2grgt=%.2g\n", 
 						*cif->lft1.v, V, *cif->rgt.v);
 				}
 				else
 				{
-					ERR_PRINT("\tlft1=%c\tlft2=%c\trgt=%c\n", 
+					LOG_PRINT("\tlft1=%c\tlft2=%c\trgt=%c\n", 
 						*cif->lft1.s, *cif->lft2.s, *cif->rgt.s);
 				}
 			}
 			
-			ERR_PRINT("\tsttype=%c\tpathtype=%c", cst->type, cst->pathtype);
+			LOG_PRINT("\tsttype=%c\tpathtype=%c", cst->type, cst->pathtype);
 			if (cst->type == VAL_CTYPE)
 			{
-				ERR_PRINT("\tlft=%.2g\trgt=%.2g\n", 
+				LOG_PRINT("\tlft=%.2g\trgt=%.2g\n", 
 					*cst->lft.v,  *cst->rgt.v);
 			}
 			else
 			{
-				ERR_PRINT("\tlft=%c\trgt=%c\n", 
+				LOG_PRINT("\tlft=%c\trgt=%c\n", 
 					*cst->lft.s, *cst->rgt.s);
 			}
 		}

@@ -19,9 +19,10 @@
 #include "fnmcs.h"
 #include "mc/mcxprmcs.h"
 
-
-///! @file
-///! @brief システム使用機器についての検討用出力
+/**
+ * @file
+ * @brief システム使用機器についての検討用出力
+ */
 
 
 //------ プライベート関数の宣言 ------

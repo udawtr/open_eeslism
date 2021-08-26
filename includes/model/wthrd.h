@@ -17,6 +17,15 @@
 
 #pragma once
 
+/**
+ * @file
+ * @brief 気象データに関する構造体の定義
+ */
+
+/**
+ * @brief 気象データ
+ * @sa Locinit, gtsupw
+ */
 typedef struct locat
 {
 	//! 地名
@@ -105,7 +114,8 @@ typedef struct wdat
 	double	*EarthSurface ;
 } WDAT ;
 
-//気象データ項目のポインター(VCFILEからの入力時)
+
+///@brief 気象データ項目のポインター(VCFILEからの入力時)
 typedef struct wdpt
 {
 	//! 気温 [℃]

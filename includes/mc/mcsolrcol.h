@@ -26,3 +26,5 @@ void collmonint(int Ncoll, COLL *Coll);
 void collday(int Mon, int Day, int ttmm, int Ncoll, COLL *Coll, int Nday, int SimDayend);
 void colldyprt(FILE *fo, int id, int Ncoll, COLL *Coll);
 void collmonprt(FILE *fo, int id, int Ncoll, COLL *Coll);
+void CalcCollTe(int Ncoll, COLL* Coll);
+

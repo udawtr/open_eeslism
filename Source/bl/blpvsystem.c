@@ -24,9 +24,10 @@
 #include "fnlib.h"
 
 
-//
-///@brief 太陽電池の計算
-//
+/**
+ * @file
+ * @brief 太陽電池の計算
+ */
 
 
 /*

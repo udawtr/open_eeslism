@@ -50,6 +50,11 @@
 
 #define  ALO  23.0
 
+/**
+ * @file
+ * @brief メイン関数の定義
+ */
+
 /*-------------------higuchi add----------------start*/
 //#define MAXBDP 100       
 //#define MAXOBS 100   
@@ -70,6 +75,10 @@ void set_VAV_Count_MAX(int count) {
 
 char	_Fbmlist[1024];	//壁体の材料定義リストのファイル名
 double	dTM, cff_kWh;
+
+/**
+ * @brief 当該日が出力対象日であるかどうかの真偽値
+ */
 int		dayprn;
 
 void set_fbm_list_filename(char* fname) {
@@ -86,7 +95,11 @@ const char* DAYweek(int i) {
 	return _DAYweek[i];
 }
 
-FILE	*ferr = NULL;
+/**
+ * @brief ログ出力用ファイルポインタ
+ */
+FILE	*flog = NULL;
+
 int		_NSTOP = 0, _DISPLAY_DELAY = 0;
 int		_SETprint = 0;
 
@@ -133,7 +146,7 @@ int main(int Narg, char **File)
 	int		Nflout;
 	LOCAT	Loc;
 	WDAT	Wd, Wdd, Wdm;
-	int	day, nday, tt, mm, mt, mta, mtb, dminute;
+	int	day;
 	SCHDL	Schdl;
 	RMVLS	Rmvls;
 	ROOM	*Rm;
@@ -157,7 +170,6 @@ int main(int Narg, char **File)
 	COMPNT	*Compnt;
 	ELOUT	*Elout;
 	ELIN	*Elin;
-	SYSEQ	Syseq;
 	int	Nmpath, Npelm, Nplist;
 	MPATH	*Mpath;
 	PLIST	*Plist;
@@ -228,8 +240,7 @@ int main(int Narg, char **File)
 	P_MENN	*dummy;
 	NOPLPMP Noplpmp;	// OP、LP、MPの定義数
 
-	int Datintvl = 10;      /*--110413 higuchi add 影計算の間隔（日）--*/
-	int dcnt;          /*--110413 higuchi add カウンター--*/
+	const int Datintvl = 10;      /*--110413 higuchi add 影計算の間隔（日）--*/
 	SHADSTR *Sdstr;   /*--110413 higuchi add 影面積ストア--*/
 
 	//char *st ;
@@ -255,6 +266,9 @@ int main(int Narg, char **File)
 	//	fprintf(fset,"%.0lf,%.0lf,%.1lf,%.0lf,%.1lf,%.1lf,%.2lf\n", TA, TR, Vel, RH, Met, Clo, SET_star(TA, TR, Vel, RH, Met, Clo, 0., 101.3));
 	//fclose(fset);
 
+	//
+	// 1) 初期化
+	//
 
 	BDP = NULL;
 	obs = NULL;
@@ -299,7 +313,7 @@ int main(int Narg, char **File)
 	Pelm = NULL;
 	Elout = NULL;
 	Elin = NULL;
-	ferr = NULL;
+	flog = NULL;
 
 	Wd.EarthSurface = NULL;
 	Exsf.EarthSrfFlg = 'N';
@@ -676,9 +690,9 @@ int main(int Narg, char **File)
 	printf("<<main>>  Simc->wfname=%s\n", Simc.wfname);
 	printf("<<main>>   dTM=%d\n", Simc.dTm);*****/
 
-	dTM = Simc.dTm;
-	dminute = Simc.dTm / 60;
-	cff_kWh = dTM / 3600. / 1000.;
+	dTM = Simc.dTm;				//計算時間間隔[s]
+	int dminute = Simc.dTm / 60;	//計算時間間隔[m]
+	cff_kWh = dTM / 3600. / 1000.;	//kWhへの換算係数??
 
 	Rm = Rmvls.Room;
 	for (rm = 0; rm < Rmvls.Nroom; rm++, Rm++)
@@ -697,6 +711,7 @@ int main(int Narg, char **File)
 	HeapCheck(hptest);
 	/////////////////////////////////
 
+	//ファイルを開く
 	eeflopen(&Simc, Nflout, Flout);
 
 	if (DEBUG())
@@ -704,8 +719,8 @@ int main(int Narg, char **File)
 		printf("<<main>> eeflopen \n");
 	}
 
-	if (ferr)
-		ERR_PRINT("\n<<main>> eeflopen end\n");
+	if ( LOG_ENABLED )
+		LOG_PRINT("\n<<main>> eeflopen end\n");
 
 	Tinit(Rmvls.Twallinit, Rmvls.Nroom, Rmvls.Room,
 		Rmvls.Nsrf, Rmvls.Sd, Rmvls.Nmwall, Rmvls.Mw);
@@ -715,8 +730,8 @@ int main(int Narg, char **File)
 		printf("<<main>> Tinit\n");
 	}
 
-	if (ferr)
-		ERR_PRINT("\n<<main>> Tinit\n");
+	if ( LOG_ENABLED )
+		LOG_PRINT("\n<<main>> Tinit\n");
 
 
 	// ボイラ機器仕様の初期化
@@ -728,8 +743,8 @@ int main(int Narg, char **File)
 		printf("<<main>> Mecsinit\n");
 	}
 
-	if (ferr)
-		ERR_PRINT("\n<<main>> Mecsinit\n");
+	if ( LOG_ENABLED )
+		LOG_PRINT("\n<<main>> Mecsinit\n");
 
 	/*******************
 
@@ -743,15 +758,18 @@ int main(int Narg, char **File)
 
 	/* --------------------------------------------------------- */
 
+	//日積算値出力 = 無し(0)
 	Daytm.ddpri = 0;
 
 	if (Simc.sttmm < 0)
 		Simc.sttmm = dminute;
 
-	tt = Simc.sttmm / 100;
-	mm = Simc.sttmm % 100;
-	mta = (tt * 60 + mm) / dminute;
-	mtb = (24 * 60) / dminute;
+	int tt = Simc.sttmm / 100;	//計算開始時
+	int mm = Simc.sttmm % 100;	//計算開始分
+	//TODO: 計算時間間隔の制限の確認。おそらく60秒単位であることが期待されている。
+	int mta = (tt * 60 + mm) / dminute;		//計算開始tick(1日内)
+	int mtb = (24 * 60) / dminute;			//1日の計算tick数
+
 	//mtb = 12;
 	// 110413 higuchi add  影面積をストアして、影計算を10日おきにする
 	Sdstr = (SHADSTR*)malloc(sizeof (SHADSTR)* mpn);
@@ -763,18 +781,29 @@ int main(int Narg, char **File)
 			Sdstr[i].sdsum[jj] = 0.0;
 	}
 
-	dcnt = 0;
+	int dcnt = 0;
 
-	for (nday = Simc.daystartx; nday <= Simc.dayend; nday++)
+	//
+	// 2) 計算
+	//
+
+	//計算ループ(日単位)
+	for (int nday = Simc.daystartx; nday <= Simc.dayend; nday++)
 	{
+		//
+		// 2-1) 日陰計算???
+		//
 		if (dcnt == Datintvl) {
 			dcnt = 0;
 			MATINIT_sdstr(mpn, mtb, Sdstr);  // 110413 higuchi add
 		}
 		dcnt = dcnt + 1;  // 110413 higuchi add
 
-		if (dayprn && ferr)
-			ERR_PRINT("\n\n\t===== Dayly Loop =====\n\n");
+		if ( dayprn && LOG_ENABLED )
+		{
+			//TODO: スペルミス Daily Loop
+			LOG_PRINT("\n\n\t===== Dayly Loop =====\n\n");
+		}
 
 		// 計算する日付の決定
 		day = (nday > 365 ? nday - 365 : nday);
@@ -789,20 +818,39 @@ int main(int Narg, char **File)
 		dayprn = Simc.dayprn[day];
 
 		if (Simc.perio != 'y' && nday > Simc.daystartx)
+		{
 			monthday(&Daytm.Mon, &Daytm.Day, Daytm.Mon, Daytm.Day);
+		}
 
+		//
+		// 日積算値出力の判断
+		//
 		if (nday >= Simc.daystart)
+		{
+			//計算開始日になったので、日積算値出力を開始
 			Daytm.ddpri = 1;
+		}
 		if (Simc.perio == 'y' && nday != Simc.dayend)
+		{
+			//周期定常計算の場合、計算終了日のみ日積算値出力を行う
 			Daytm.ddpri = 0;
+		}
 
+
+		//2日目以降は、開始tickを1に固定
 		if (nday > Simc.daystartx)
 			mta = 1;
 
-		for (mt = mta; mt <= mtb; mt++)
+
+		//
+		// 2-X) tick単位での計算ループ
+		//
+
+		//計算ループ(tick単位)
+		for (int mt = mta; mt <= mtb; mt++)
 		{
-			if (dayprn && ferr)
-				ERR_PRINT("\n\n\t===== Timely Loop =====\n\n");
+			if ( dayprn && LOG_ENABLED )
+				LOG_PRINT("\n\n\t===== Timely Loop =====\n\n");
 
 			//printf("dcnt=%d,nday=%d,mt=%d, mta=%d, mtb=%d, dminute=%d, mm=%d, tt=%d\n",dcnt,nday,mt,mta,mtb,dminute,mm,tt) ;
 
@@ -833,9 +881,9 @@ int main(int Narg, char **File)
 			Vcfinput(&Daytm, Simc.Nvcfile, Simc.Vcfile, Simc.perio);
 			Weatherdt(&Simc, &Daytm, &Loc, &Wd, Exsf.Exs, Exsf.EarthSrfFlg);
 
-			if (dayprn && ferr)
+			if ( dayprn && LOG_ENABLED )
 			{
-				ERR_PRINT("\n\n\n---- date=%2d/%2d nday=%d day=%d time=%5.2lf ----\n",
+				LOG_PRINT("\n\n\n---- date=%2d/%2d nday=%d day=%d time=%5.2lf ----\n",
 					Daytm.Mon, Daytm.Day, nday, day, Daytm.time);
 			}
 
@@ -845,7 +893,7 @@ int main(int Narg, char **File)
 					Daytm.Mon, Daytm.Day, nday, day, Daytm.time);
 			}
 
-			if (dayprn && ferr)
+			if ( dayprn && LOG_ENABLED )
 				Flinprt(Eqsys.Nflin, Eqsys.Flin);
 
 			/***   if (Daytm.ttmm == 100 )****/
@@ -1000,7 +1048,7 @@ int main(int Narg, char **File)
 
 			/*===============higuchi 070918============================end*/
 
-			if (dayprn && ferr)
+			if ( dayprn && LOG_ENABLED )
 				xprsolrd(Exsf.Nexs, Exsf.Exs);
 
 			if (DEBUG())
@@ -1043,8 +1091,8 @@ int main(int Narg, char **File)
 			{
 				if (DEBUG())
 					printf("\n\n====== VAV LOOP Count=%d ======\n\n\n", j);
-				if (dayprn && ferr)
-					ERR_PRINT("\n\n====== VAV LOOP Count=%d ======\n\n\n", j);
+				if ( dayprn && LOG_ENABLED )
+					LOG_PRINT("\n\n====== VAV LOOP Count=%d ======\n\n\n", j);
 
 				VAVreset = 0;
 				Valvreset = 0;
@@ -1056,8 +1104,8 @@ int main(int Narg, char **File)
 					printf("<<main>> Pumpflow\n");
 				}
 
-				if (Simc.dayprn[day] && ferr)
-					ERR_PRINT("<<main>> Pumpflow\n");
+				if (Simc.dayprn[day] && flog)
+					LOG_PRINT("<<main>> Pumpflow\n");
 
 				Pflow(Nmpath, Mpath, &Wd);
 
@@ -1066,8 +1114,8 @@ int main(int Narg, char **File)
 					printf("<<main>> Pflow\n");
 				}
 
-				if (dayprn && ferr)
-					ERR_PRINT("<<main>> Pflow\n");
+				if ( dayprn && LOG_ENABLED )
+					LOG_PRINT("<<main>> Pflow\n");
 
 				/************
 				eloutprint(0, Nelout, Elout, Compnt);
@@ -1080,8 +1128,8 @@ int main(int Narg, char **File)
 					printf("<<main>> Sysupv\n");
 				}
 
-				if (dayprn && ferr)
-					ERR_PRINT("<<main>> Sysupv\n");
+				if ( dayprn && LOG_ENABLED )
+					LOG_PRINT("<<main>> Sysupv\n");
 
 				/*****
 				elinprint(0, Ncompnt, Compnt, Elout, Elin);
@@ -1135,9 +1183,9 @@ int main(int Narg, char **File)
 					elinprint(1, Ncompnt, Compnt, Elout, Elin);
 				}
 
-				if (dayprn && ferr)
+				if ( dayprn && LOG_ENABLED )
 				{
-					ERR_PRINT("<<main>>  Roomvar\n");
+					LOG_PRINT("<<main>>  Roomvar\n");
 					eloutfprint(1, Nelout, Elout, Compnt);
 					elinfprint(1, Ncompnt, Compnt, Elout, Elin);
 				}
@@ -1157,8 +1205,8 @@ int main(int Narg, char **File)
 					if (DEBUG())
 						printf("再計算が必要な機器のループ %d\n", i);
 
-					if (dayprn && ferr)
-						ERR_PRINT("再計算が必要な機器のループ %d\n\n\n", i);
+					if ( dayprn && LOG_ENABLED )
+						LOG_PRINT("再計算が必要な機器のループ %d\n\n\n", i);
 
 					LDreset = 0;
 					DWreset = 0;
@@ -1179,7 +1227,7 @@ int main(int Narg, char **File)
 					Hcldcfv(Eqsys.Nhcload, Eqsys.Hcload);
 					HeapCheck("Hcldcfv End");
 
-					Syseqv(Nelout, Elout, &Syseq);
+					Syseqv(Nelout, Elout);
 
 					Sysvar(Ncompnt, Compnt);
 
@@ -1322,17 +1370,21 @@ int main(int Narg, char **File)
 			if (DEBUG())
 				printf("xxxmain 6\n");
 
+			//------ 日積算値出力 ------
 			if (Daytm.ddpri)
 			{
 				// 室の日集計、月集計
 				Roomday(Daytm.Mon, Daytm.Day, day, Daytm.ttmm, Rmvls.Nroom, Rmvls.Room, Rmvls.Nrdpnl, Rmvls.Rdpnl, Simc.dayend);
 				if (Simc.helmkey == 'y')
+				{
+					// 要素別熱損失・熱取得（日積算値）
 					Helmdy(day, Rmvls.Nroom, Rmvls.Room, &Rmvls.Qetotal);
+				}
 
+				// システム要素機器の日集計処理
 				Compoday(Daytm.Mon, Daytm.Day, day, Daytm.ttmm, &Eqsys, Simc.dayend);
-				/**   if (Nqrmpri > 0)  **/
-				Qrmsum(Daytm.Day, Rmvls.Nroom, Rmvls.Room, Rmvls.Qrm,
-					Rmvls.Trdav, Rmvls.Qrmd);
+
+				Qrmsum(Daytm.Day, Rmvls.Nroom, Rmvls.Room, Rmvls.Qrm, Rmvls.Trdav, Rmvls.Qrmd);
 
 				if (DEBUG())
 					printf("xxxmain 7\n");
@@ -1357,24 +1409,36 @@ int main(int Narg, char **File)
 			// 時刻ループの最後
 			HeapCheck("Time Loop End");
 		}
-		// 日集計の出力
+
+		//
+		// 2-X) 集計出力 `outfile_{d|m}*.es`
+		//
+
+		// 日集計の出力 `outfile_d*.es`
 		Eeprintd(&Daytm, &Simc, Nflout, Flout, &Rmvls, Exsf.Nexs, Exsf.Exs, Soldy, &Eqsys, &Wdd);
 		/*****printf ("xxxmain 9\n");/****/
 
-		//if (Daytm.Mon == 4 && Daytm.Day == 25)
-		//	printf("debug\n");
-
-		// 月集計の出力
+		// 月集計の出力 `outfile_m*.es` (月末のみ)
+		// TODO: シミュレーション終了日が月末ではない場合は大丈夫だろうか？
 		if (isEndDay(Daytm.Mon, Daytm.Day, Daytm.day, Simc.dayend) == 1 && Daytm.ddpri)
 		{
-			//printf("月集計出力\n") ;
 			Eeprintm(&Daytm, &Simc, Nflout, Flout, &Rmvls, Exsf.Nexs, Exsf.Exs, Solmon, &Eqsys, &Wdm);
 		}
 	}
 	//free(Exsf.Exs[6].name);
 
+
+	//
+	// 3) 結果出力
+	//
+
 	// 月－時刻別集計値の出力
 	Eeprintmt(&Simc, Nflout, Flout, &Eqsys, Rmvls.Nrdpnl, Rmvls.Rdpnl);
+
+
+	//
+	// 4) 終了処理
+	//
 
 	if (DEBUG())
 	{

@@ -30,6 +30,12 @@
 #include "fnesy.h"
 #include "winerror.h"
 
+/**
+ * @file
+ * @brief バルブの処理関数の定義
+ */
+
+
 /* ------------------------------------------ */
 
 void	Valvcountreset ( int Nvalv, VALV *Valv )

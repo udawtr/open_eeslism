@@ -26,6 +26,10 @@
 #include "fnfio.h"
 #include "fnlib.h"
 
+/**
+ * @file
+ * @brief 太陽熱集熱器の処理関数の定義
+ */
 
 /*　太陽熱集熱器
 
@@ -293,6 +297,10 @@ void collmonint(int Ncoll, COLL *Coll)
 	}
 }
 
+
+/**
+ * @brief 日集計、月集計
+ */
 void collday(int Mon, int Day, int ttmm, int Ncoll, COLL *Coll, int Nday, int SimDayend)
 {
 	int  i;

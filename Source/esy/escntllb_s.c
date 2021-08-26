@@ -25,6 +25,7 @@
 #include "fnbld.h"
 #include "fnfio.h"
 
+
 /**
  * @file
  * @brief ポインター処理用関数の実装

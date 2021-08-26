@@ -31,7 +31,6 @@ void	Plistinit ( int N, PLIST *Pl ) ;
 void	Pelminit ( int N, PELM *Pe ) ;
 void	Mpathinit ( int N, MPATH *M ) ;
 void	Exsfinit ( int Nd, EXSF *e ) ;
-void	Syseqinit ( SYSEQ *S ) ;
 void	Eqsysinit ( EQSYS *E ) ;
 void	VPTRinit ( VPTR *v ) ;
 void	TMDTinit ( TMDT *t ) ;

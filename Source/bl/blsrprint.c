@@ -20,6 +20,12 @@
 #include "fesy.h"
 #include "fnbld.h"
 
+
+/**
+ * @file
+ * @brief 出力
+ */
+
 /*  時間別PMVの出力  */
 
 void	Pmvprint ( FILE *fpout, char *title, ROOM *Room, int Mon, int Day, double time ) 

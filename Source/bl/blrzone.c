@@ -20,6 +20,11 @@
 #include "fnfio.h"
 #include "fnlib.h"
 
+/**
+ * @file
+ * @brief ゾーン
+ */
+
 /* ゾーン集計実施室の指定  */
 
 void	Rzonedata(FILE *fi, char *dsn, int Nroom, ROOM *Room, int *Nrzone, RZONE *Rzone)

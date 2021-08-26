@@ -15,7 +15,10 @@
 
 /*   ee_cmpdat_s.c    */
 
-/*   システム要素の入力 */
+/**
+ * @file
+ * @brief システム要素の入力
+ */
 
 #define _CRT_SECURE_NO_WARNINGS
 #include <string.h>

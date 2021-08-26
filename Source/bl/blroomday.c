@@ -20,6 +20,11 @@
 #include "fnfio.h"
 #include "fnlib.h"
 
+/**
+ * @file
+ * @brief 
+ */
+
 void Roomday(int Mon, int Day, int Nday, int ttmm, int Nroom, ROOM *Rm, int Nrdpnl, RDPNL *Rdp, int Simdayend)
 {
 	ROOM   *Room;

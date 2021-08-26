@@ -21,6 +21,12 @@
 #include "fnbld.h"
 #include "fnlib.h"
 
+
+/**
+ * @file
+ * @brief 日除け
+ */
+
 /*  -----------------------------------------------------  */
 double FNFsdw(int Ksdw, int Ksi, double Xazm, double Xprf,
 			  double D, double Wr, double Hr, 

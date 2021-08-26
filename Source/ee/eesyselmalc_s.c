@@ -15,8 +15,6 @@
 
 /* ee_syselmalc_s.c    */
 
-/* 機器使用データの割り付けおよびシステム要素から入力、出力要素の割り付け */
-
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
@@ -26,6 +24,11 @@
 #include "fnmcs.h"
 #include "fnlib.h"
 #include "fnfio.h"
+
+/**
+ * @file
+ * @brief 機器使用データの割り付けおよびシステム要素から入力、出力要素の割り付け
+ */
 
 
 void Elmalloc(char *errkey, 

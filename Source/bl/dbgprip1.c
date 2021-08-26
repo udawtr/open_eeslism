@@ -21,6 +21,12 @@
 #include "lib/u_sun.h"
 #include "common.h"
 
+
+/**
+ * @file
+ * @brief デバッグ出力
+ */
+
 /* -------------------------------- */
 
 void	dprdayweek ( int *daywk )
@@ -120,56 +126,56 @@ void	dprschtable ( SEASN *Ssn, WKDY *Wkd, DSCH *Dh, DSCW *Dw )
 	Dsch = Dh ;
 	Dscw = Dw ;
 	
-	if ( ferr )
+	if ( LOG_ENABLED )
 	{
-		ERR_PRINT("\n*** dprschtable  ***\n");
-		ERR_PRINT("\n=== Schtable end  is=%d  iw=%d  sc=%d  sw=%d\n", Ns, Nw, Nsc, Nsw ) ;
+		LOG_PRINT("\n*** dprschtable  ***\n");
+		LOG_PRINT("\n=== Schtable end  is=%d  iw=%d  sc=%d  sw=%d\n", Ns, Nw, Nsc, Nsw ) ;
 		
 		for ( is = 0; is < Ns; is++, Seasn++ )
 		{
-			ERR_PRINT("\n\t%s", Seasn->name ) ;
+			LOG_PRINT("\n\t%s", Seasn->name ) ;
 			
 			sday = Seasn->sday ;
 			eday = Seasn->eday ;
 			for ( js = 0; js < Seasn->N; js++, sday++, eday++ )
-				ERR_PRINT("\t%d-%d", *sday, *eday ) ;
+				LOG_PRINT("\t%d-%d", *sday, *eday ) ;
 		}
 		
 		for ( j = 0; j < 8; j++ )
-			ERR_PRINT("\t%s", DAYweek(j) ) ;
+			LOG_PRINT("\t%s", DAYweek(j) ) ;
 
 		for ( iw = 0; iw < Nw; iw++, Wkdy++ )
 		{
-			ERR_PRINT("\n%s", Wkdy->name ) ;
+			LOG_PRINT("\n%s", Wkdy->name ) ;
 			
 			wday = Wkdy->wday ;
 			for ( j = 0; j < 8; j++, wday++ )
-				ERR_PRINT("\t%d", *wday ) ;
+				LOG_PRINT("\t%d", *wday ) ;
 		}
 		
 		for ( sc = 0; sc < Nsc; sc++, Dsch++ )
 		{
-			ERR_PRINT("\nVL\t%s\t[%d]", Dsch->name, sc ) ;
+			LOG_PRINT("\nVL\t%s\t[%d]", Dsch->name, sc ) ;
 			
 			stime = Dsch->stime ;
 			val = Dsch->val ;
 			etime = Dsch->etime ;
 			for ( jsc = 0; jsc < Dsch->N; jsc++, stime++, val++, etime++ )
-				ERR_PRINT("\t%d-(%.2g)-%d", *stime, *val, *etime ) ;
+				LOG_PRINT("\t%d-(%.2g)-%d", *stime, *val, *etime ) ;
 		} 
 		
 		for ( sw = 0; sw < Nsw; sw++, Dscw++ )
 		{
-			ERR_PRINT("\nSW\t%s\t[%d]", Dscw->name, sw ) ;
+			LOG_PRINT("\nSW\t%s\t[%d]", Dscw->name, sw ) ;
 			
 			stime = Dscw->stime ;
 			mode = Dscw->mode ;
 			etime = Dscw->etime ;
 			for ( jsw = 0; jsw < Dscw->N; jsw++, stime++, mode++, etime++ )
-				ERR_PRINT("\t%d-(%c)-%d", *stime, *mode, *etime ) ;
+				LOG_PRINT("\t%d-(%c)-%d", *stime, *mode, *etime ) ;
 		}
 
-		ERR_PRINT("\n\n" ) ;
+		LOG_PRINT("\n\n" ) ;
 	}
 }
 /* ----------------------------------------------------------------- */
@@ -232,14 +238,14 @@ void	dprschdata ( SCH *Sh, SCH *Sw )
 	Sch = Sh ;
 	Scw = Sw ;
 
-	if ( ferr )
+	if ( LOG_ENABLED )
 	{
-		ERR_PRINT("\n*** dprschdata  ***\n" ) ;
-		ERR_PRINT("\n== Sch.end=%d   Scw.end=%d\n", Nsc, Nsw ) ;
+		LOG_PRINT("\n*** dprschdata  ***\n" ) ;
+		LOG_PRINT("\n== Sch.end=%d   Scw.end=%d\n", Nsc, Nsw ) ;
 		
 		for ( i = 0; i < Nsc; i++, Sch++ )
 		{
-			ERR_PRINT("\nSCH=%s\t[%d]\t", Sch->name, i);
+			LOG_PRINT("\nSCH=%s\t[%d]\t", Sch->name, i);
 			
 			k = 1 ;
 			day = Sch->day ;
@@ -248,16 +254,16 @@ void	dprschdata ( SCH *Sh, SCH *Sw )
 			{
 				if ( FNNday ( k, 1) == d )
 				{
-					ERR_PRINT("\n%2d - ", k ) ;
+					LOG_PRINT("\n%2d - ", k ) ;
 					k++ ;
 				}
-				ERR_PRINT("%2d", *day );
+				LOG_PRINT("%2d", *day );
 			}
 		}
 		
 		for ( i = 0; i < Nsw; i++, Scw++ )
 		{
-			ERR_PRINT("\nSCW= %s (%2d) ", Scw->name, i) ;
+			LOG_PRINT("\nSCW= %s (%2d) ", Scw->name, i) ;
 			k = 1 ;
 			day = Scw->day ;
 			day++ ;
@@ -265,13 +271,13 @@ void	dprschdata ( SCH *Sh, SCH *Sw )
 			{
 				if ( FNNday ( k, 1 ) == d )
 				{
-					ERR_PRINT("\n%2d - ", k ) ;
+					LOG_PRINT("\n%2d - ", k ) ;
 					k++ ;
 				}
-				ERR_PRINT("%2d", *day ) ;
+				LOG_PRINT("%2d", *day ) ;
 			}
 		}
-		ERR_PRINT("\n" ) ;
+		LOG_PRINT("\n" ) ;
 	}
 }
 /* ----------------------------------------------------------------- */
@@ -300,18 +306,18 @@ void	dprachv (int Nroom, ROOM *Room)
 	}
 	
 	Rm = Room ;
-	if ( ferr )
+	if ( LOG_ENABLED )
 	{
-		ERR_PRINT("\n*** dprachv***\n");
+		LOG_PRINT("\n*** dprachv***\n");
 		
 		for ( i = 0; i < Nroom; i++, Rm++ )
 		{
-			ERR_PRINT("to rm: %-10s   from rms(sch):", Rm->name);
+			LOG_PRINT("to rm: %-10s   from rms(sch):", Rm->name);
 			
 			A = Rm->achr ;
 			for (j=0; j< Rm->Nachr; j++, A++)
-				ERR_PRINT("  %-10s (%3d)", (Room+A->rm)->name, A->sch);
-			ERR_PRINT("\n");
+				LOG_PRINT("  %-10s (%3d)", (Room+A->rm)->name, A->sch);
+			LOG_PRINT("\n");
 		}
 	}
 }
@@ -338,14 +344,14 @@ void	dprexsf ( EXSF *E)
 		}
 		
 		Exs = E ;
-		if ( ferr )
+		if ( LOG_ENABLED )
 		{
-			ERR_PRINT("\n*** dprexsf ***\n");
-			ERR_PRINT("\tNo.\tName\ttyp\tWa\tWb\tRg\tz\tedf\n" );
+			LOG_PRINT("\n*** dprexsf ***\n");
+			LOG_PRINT("\tNo.\tName\ttyp\tWa\tWb\tRg\tz\tedf\n" );
 			
 			for ( i = 0; i < N; i++, Exs++)
 			{
-				ERR_PRINT("\t%d\t%s\t%c\t%.4g\t%.4g\t%.2g\t%.2g\t%.2g\n",
+				LOG_PRINT("\t%d\t%s\t%c\t%.4g\t%.4g\t%.2g\t%.2g\t%.2g\n",
 					i, Exs->name, Exs->typ, Exs->Wa, Exs->Wb, Exs->Rg, Exs->Z, Exs->erdff);
 			}
 		}
@@ -396,29 +402,29 @@ void	dprwwdata(WALL *Wa, WINDOW *Wi)
 	Wall = Wa ;
 	Window = Wi ;
 	
-	if ( ferr )
+	if ( LOG_ENABLED )
 	{
-		ERR_PRINT("\n*** dprwwdata ***\nWALLdata\n" ) ;
+		LOG_PRINT("\n*** dprwwdata ***\nWALLdata\n" ) ;
 		
 		N = Wall->end ;
 		for ( i = 0; i < N; i++, Wall++ )
 		{
-			ERR_PRINT("\nWall[%d]\t%s\tR=%.3g\tIP=%d\tEi=%.2g\tEo=%.2g\tas=%.2g\n", 
+			LOG_PRINT("\nWall[%d]\t%s\tR=%.3g\tIP=%d\tEi=%.2g\tEo=%.2g\tas=%.2g\n", 
 				i, Wall->name, Wall->Rwall, Wall->Ip, Wall->Ei, Wall->Eo, Wall->as ) ;
 			
-			ERR_PRINT("\tNo.\tcode\tL\tND\n" );
+			LOG_PRINT("\tNo.\tcode\tL\tND\n" );
 			w = Wall->welm ;
 			for ( j = 0; j < Wall->N; j++, w++ )
-				ERR_PRINT("\t%d\t%s\t%.3g\t%d\n", j, w->code, w->L, w->ND);
+				LOG_PRINT("\t%d\t%s\t%.3g\t%d\n", j, w->code, w->L, w->ND);
 		}
 		
-		ERR_PRINT("\nWINDOWdata\n" ) ;
+		LOG_PRINT("\nWINDOWdata\n" ) ;
 		
 		N = Window->end ;
 		for ( i = 0; i < N; i++, Window++ )
 		{
-			ERR_PRINT("windows[%d]\t%s\n", i, Window->name ) ;
-			ERR_PRINT("\tR=%.3g\tt=%.2g\tB=%.2g\tEi=%.2g\tEo=%.2g\n", Window->Rwall,
+			LOG_PRINT("windows[%d]\t%s\n", i, Window->name ) ;
+			LOG_PRINT("\tR=%.3g\tt=%.2g\tB=%.2g\tEi=%.2g\tEo=%.2g\n", Window->Rwall,
 				Window->tgtn, Window->Bn, Window->Ei, Window->Eo);
 		}
 	}
@@ -477,16 +483,16 @@ void	dprroomdata(ROOM *R, RMSRF *S)
 	Room = R ;
 	Sd = S ;
 
-	if ( ferr )
+	if ( LOG_ENABLED )
 	{
-		ERR_PRINT("\n*** dprroomdata ***\n" ) ;
+		LOG_PRINT("\n*** dprroomdata ***\n" ) ;
 		
 		N = Room->end ;
 		for ( i = 0; i < N; i++, Room++ )
 		{  
-			ERR_PRINT("\n==room=(%d)\t%s\tN=%d\tNtr=%d\tNrp=%d\tV=%.3g\tMRM=%.2g\n", 
+			LOG_PRINT("\n==room=(%d)\t%s\tN=%d\tNtr=%d\tNrp=%d\tV=%.3g\tMRM=%.2g\n", 
 				i, Room->name, Room->N, Room->Ntr, Room->Nrp, Room->VRM, Room->MRM ) ;
-			ERR_PRINT("\tFloor_area=%.3g\tTotal_surface_area=%.2g\n",
+			LOG_PRINT("\tFloor_area=%.3g\tTotal_surface_area=%.2g\n",
 				Room->FArea, Room->Area ) ;
 				/*******************
 				printf("   tasc=(%d)  tasclow=(%d)  taschi=(%d)  xasc=(%d)   \n",
@@ -495,24 +501,24 @@ void	dprroomdata(ROOM *R, RMSRF *S)
 				Room->tascsw, Room->tascswlow, Room->tascswhi, Room->xascsw);
 			*************************/
 			
-			ERR_PRINT("\tGve=%.2g\tGvi=%.2g\n",
+			LOG_PRINT("\tGve=%.2g\tGvi=%.2g\n",
 				Room->Gve, Room->Gvi ) ;
-			ERR_PRINT("\tLight=%.2g\tLtyp=%c", Room->Light, Room->Ltyp ) ;
-			ERR_PRINT("\tNhm=%.2g\n",
+			LOG_PRINT("\tLight=%.2g\tLtyp=%c", Room->Light, Room->Ltyp ) ;
+			LOG_PRINT("\tNhm=%.2g\n",
 				Room->Nhm ) ;
-			ERR_PRINT("\tApsc=%.2g\tApsr=%.2g",
+			LOG_PRINT("\tApsc=%.2g\tApsr=%.2g",
 				Room->Apsc, Room->Apsr ) ;
-			ERR_PRINT("\tApl=%.2g\n", Room->Apl ) ;
+			LOG_PRINT("\tApl=%.2g\n", Room->Apl ) ;
 
-			ERR_PRINT("\tNo.\tble\ttyp\tname\texs\tnxrmd\tnxn\t" ) ;
-			ERR_PRINT("wd\tNfn\tA\tmwside\tmwtype\tEi\tEo\n" ) ;
+			LOG_PRINT("\tNo.\tble\ttyp\tname\texs\tnxrmd\tnxn\t" ) ;
+			LOG_PRINT("wd\tNfn\tA\tmwside\tmwtype\tEi\tEo\n" ) ;
 			
 			Sdd = Sd + Room->brs ;
 			for ( j = Room->brs; j < Room->brs + Room->N; j++, Sdd++ ) 
 			{
-				ERR_PRINT("\t%d\t%c\t%c\t%s\t%d\t%d\t%d\t",
+				LOG_PRINT("\t%d\t%c\t%c\t%s\t%d\t%d\t%d\t",
 					j, Sdd->ble, Sdd->typ, Sdd->name, Sdd->exs, Sdd->nxrm, Sdd->nxn ) ;
-				ERR_PRINT("%d\t%d\t%.3g\t%c\t%c\t%.2lf\t%.2lf\n",
+				LOG_PRINT("%d\t%d\t%.3g\t%c\t%c\t%.2lf\t%.2lf\n",
 					Sdd->wd, Sdd->Nfn, Sdd->A, Sdd->mwside, Sdd->mwtype,
 					Sdd->Ei, Sdd->Eo ) ;
 			}
@@ -544,16 +550,16 @@ void	dprballoc ( MWALL *M, RMSRF *S )
 
 	Sd = S ;
 	Mw = M ;
-	if ( ferr )
+	if ( LOG_ENABLED )
 	{
-		ERR_PRINT("\n*** dprballoc ***\n" ) ;
-		ERR_PRINT("\tNo.\tn\trm\tnxrm\twd\twall\tM\tA\n" ) ; 
+		LOG_PRINT("\n*** dprballoc ***\n" ) ;
+		LOG_PRINT("\tNo.\tn\trm\tnxrm\twd\twall\tM\tA\n" ) ; 
 
 		N = Mw->end ;
 		for ( mw = 0; mw < N; mw++, Mw++ )
 		{
 			id = ( Sd + Mw->ns )->wd ;
-			ERR_PRINT("\t%d\t%d\t%d\t%d\t%d\t%s\t%d\t%.2g\n",
+			LOG_PRINT("\t%d\t%d\t%d\t%d\t%d\t%s\t%d\t%.2g\n",
 				mw, Mw->ns, Mw->rm, Mw->nxrm, id, Mw->wall->name, Mw->M, Mw->sd->A ) ; 
 		}
 	}

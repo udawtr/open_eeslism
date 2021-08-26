@@ -15,7 +15,11 @@
 
 /*  ee_pathlib_s.c   */
 
-/* 経路の定義用関数 */
+/**
+ * @file
+ * @brief 経路の定義用関数
+ */
+
 
 #define _CRT_SECURE_NO_WARNINGS
 #include <stdio.h>

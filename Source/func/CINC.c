@@ -17,6 +17,13 @@
 #include <math.h>
 #include "MODEL.h"
 
+
+/**
+ * @file
+ * @brief 壁面に対する入射日射角度
+ */
+
+
 ///*
 //
 //						   壁面に対する入射日射角度

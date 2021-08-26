@@ -18,7 +18,11 @@
 #include "fesy.h"
 #include "fnmcs.h"
 
-/* 合流要素 */
+
+/**
+ * @file
+ * @brief 合流要素の処理関数の定義
+ */
 
 void Cnvrgcfv(int Ncnvrg, COMPNT **Cnvrg)
 {

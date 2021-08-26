@@ -13,8 +13,12 @@
 //You should have received a copy of the GNU General Public License
 //along with Foobar.If not, see < https://www.gnu.org/licenses/>.
 
-/*  mcdessicant.c  */
-/*  バッチ式デシカント空調機 */
+
+/**
+ * @file
+ * @brief バッチ式デシカント空調機の処理関数の定義
+ */
+
 
 #define _CRT_SECURE_NO_WARNINGS
 #include <string.h>
@@ -526,6 +530,10 @@ void Desidyint(int Ndesi, DESI *Desi)
 //	}
 //}
 //
+
+/**
+ * @brief 日集計、月集計
+ */
 void Desiday(int Mon, int Day, int ttmm, int Ndesi, DESI *Desi, int Nday, int SimDayend)
 {
 	int i;

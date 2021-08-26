@@ -13,9 +13,10 @@
 //You should have received a copy of the GNU General Public License
 //along with Foobar.If not, see < https://www.gnu.org/licenses/>.
 
-/*  hcload.c  */
-
-/*  空調負荷仮想機器  */
+/**
+ * @file
+ * @brief 空調負荷仮想機器の処理関数の定義
+ */
 
 #define _CRT_SECURE_NO_WARNINGS
 #include <string.h>
@@ -1148,6 +1149,9 @@ void hcldmonint(int Nhcload, HCLOAD *Hcload)
 	}
 }
 
+/**
+ * @brief 日集計、月集計
+ */
 void hcldday(int Mon, int Day, int ttmm, int Nhcload, HCLOAD *Hcload, int Nday, int SimDayend)
 {
 	int i;

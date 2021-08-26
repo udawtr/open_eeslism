@@ -20,6 +20,11 @@
 #define MAXINT_DAY  -999.0
 #define MININT_DAY  999.0
 
+/**
+ * @file
+ * @brief 日付処理
+ */
+
 
 void svdyint(SVDAY *vd)
 {
@@ -40,7 +45,9 @@ void svdaysum(long time, char control, double v, SVDAY *vd)
 		maxmark(&vd->mx, &vd->mxtime, v, time);   
 	}
 	if (time == 2400 && vd->hrs > 0)
+	{
 		vd->m /= vd->hrs;
+	}
 }
 
 void svmonsum(int Mon, int Day, int time, char control, double v, SVDAY *vd, int Dayend, int SimDayend)

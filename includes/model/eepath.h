@@ -17,7 +17,8 @@
 #pragma once
 
 
-/*
+/** 
+ * @file 
  * @brief <入力データファイル>システム経路のモデルについて構造体の定義
  * @details
  *
@@ -528,20 +529,6 @@ typedef struct mpath
 	//! @brief 流量連立方程式を解くときに使用する分岐・合流機器
 	struct compnt	**cbcmp ;
 } MPATH;
-
-
-/**
- * @brief 
- * @sa Syseqinit
- */
-typedef struct syseq
-{
-	char	a ;
-//	double  eqcf[SYSEQMX*SYSEQMX], eqcv[SYSEQMX], Y[SYSEQMX];   
-//	char    mrk[SYSEQMX];   
-//	struct elout	*eleq[SYSEQMX] ;
-//	struct elout	*elosv[SYSEQMX];
-} SYSEQ;
 
 
 /**

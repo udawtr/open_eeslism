@@ -63,6 +63,5 @@
 //#define  ELMAX   1500
 //#define  PLMAX   500
 //#define  CBCMPMX  500
-//#define  SYSEQMX ELMAX
 
 #define  FLOUTMX  30

@@ -27,6 +27,13 @@
 #include "fnfio.h"
 #include "waterandair.h"
 
+
+/**
+ * @file
+ * @brief 集熱器
+ */
+
+
 // 集熱器の放射取得熱量
 double	FNScol(double ta, double I, double EffPV, double Ku, double ao, double Eo, double Fs, double RN )
 {

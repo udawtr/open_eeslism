@@ -26,6 +26,11 @@
 #include "fnlib.h"
 #include "lib/u_psy.h"
 
+/**
+ * @file
+ * @brief 配管・ダクトの処理関数の定義
+ */
+
 
 /*  配管・ダクト 仕様入力 */
 
@@ -317,6 +322,10 @@ void pipemonint(int Npipe, PIPE *Pipe)
 	}
 }
 
+
+/**
+ * @brief 日集計、月集計
+ */
 void pipeday(int Mon, int Day, int ttmm, int Npipe, PIPE *Pipe, int Nday, int SimDayend)
 {
 	int i;

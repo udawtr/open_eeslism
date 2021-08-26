@@ -20,6 +20,12 @@
 #include "exs.h"
 #include "FUNC.h"
 
+
+/**
+ * @file
+ * @brief 前面地面の代表点を求める
+ */
+
 ///*
 //
 //                      前面地面の代表点を求める

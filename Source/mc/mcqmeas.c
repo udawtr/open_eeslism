@@ -15,7 +15,10 @@
 
 /*  mcqmeas.c  */
 
-/*  QMEAS */
+/**
+ * @file
+ * @brief QMEASの処理関数の定義
+ */
 
 #include <string.h>
 #include <stdlib.h>
@@ -238,6 +241,9 @@ void	Qmeasmonint(int Nqmeas, QMEAS *Qmeas )
 	}
 }
 
+/**
+ * @brief 日集計、月集計
+ */
 void	Qmeasday(int Mon, int Day, int ttmm, int Nqmeas, QMEAS *Qmeas, int Nday, int SimDayend)
 {
 	int i;

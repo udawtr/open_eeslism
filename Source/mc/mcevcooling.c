@@ -28,6 +28,12 @@
 #include "lib/u_psy.h"
 #include "waterandair.h"
 
+/**
+ * @file
+ * @brief 気化冷却器の処理関数の定義
+ */
+
+
 /*  気化冷却器  */
 
 /*  仕様入力  */

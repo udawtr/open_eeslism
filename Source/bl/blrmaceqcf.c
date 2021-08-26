@@ -22,6 +22,13 @@
 #include "fnbld.h"
 //#include "build.h"
 
+
+/**
+ * @file
+ * @brief 室計算
+ */
+
+
 /* -------------------------------------- */
 
 void Rmhtrcf(EXSFS *Exs, char *Emrk, ROOM *Room, RMSRF *Sd, WDAT *Wd)

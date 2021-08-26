@@ -23,6 +23,11 @@
 #include "fnlib.h"
 #include "fnfio.h"
 
+/**
+ * @file
+ * @brief 要素別熱損失・熱取得
+ */
+
 /* 要素別熱損失・熱取得（記憶域確保） */
 
 void Helminit(char *errkey, char helmkey, int Nroom, ROOM *Room, QETOTAL *Qetotal)
@@ -385,8 +390,10 @@ void helmsfprint( FILE *fo, int id, int Nroom, ROOM *Room)
 }
 /* ----------------------------------------------------- */
 
-/* 要素別熱損失・熱取得（日積算値） */
 
+/**
+ * @brief 要素別熱損失・熱取得（日積算値）
+ */
 void Helmdy (int day, int Nroom, ROOM *Room, QETOTAL *Qetotal)
 {
 	int    i;

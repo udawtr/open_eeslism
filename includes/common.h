@@ -5,16 +5,26 @@
 int DEBUG();
 void EnterDebugMode();
 
-//エラー出力用ファイルポインタ
-extern FILE	*ferr;
+/**
+ * @brief ログ出力用ファイルポインタ
+ * @sa Gdata
+ */
+extern FILE	*flog;
 
 
 extern int	dayprn;
 
 
+/**
+ * @brief 計算時間間隔[s]
+ */
 extern  double  dTM;
 
-extern double  cff_kWh;	//dTM / 3600. / 1000
+/**
+ * @brief kWhへの換算係数
+ * cff_kWh = dTM / 3600. / 1000
+ */
+extern double  cff_kWh;
 
 int NSTOP();
 void NSTOPOn();
@@ -41,12 +51,28 @@ void set_VAV_Count_MAX(int count);
 
 #define CONST_PI 3.141592654
 #define CONST_SGM 5.67e-8
-#define CONST_CA 1005.0		// 乾き空気の比熱[J/kgK]
-#define CONST_CV 1846.0		// 水蒸気の低圧比熱[J/kgK]
+
+/**
+ * @def CONST_CA
+ * @brief 乾き空気の比熱[J/kgK].
+ */
+#define CONST_CA 1005.0
+
+/**
+ * @def CONST_CV
+ * @brief 水蒸気の低圧比熱[J/kgK]
+ */
+#define CONST_CV 1846.0
 #define CONST_ROA 1.29
 #define CONST_CW 4186.0
 #define CONST_ROW 1000.0
-#define CONST_RO 2501000.	// 水の蒸発潜熱[J/kg]
+
+/**
+ * @def CONST_RO
+ * @brief 水の蒸発潜熱[J/kg]
+ */
+#define CONST_RO 2501000.
+
 #define CONST_G 9.8
 
 // 月の末日かどうかをチェックする
@@ -71,5 +97,15 @@ int	isEndDay(int Mon, int Day, int Dayend, int SimDayend);
 //#define  ERSTR   101
 #define  ERRFMTA  "xxx %s xxx %s\n"
 
-//エラー出力用マクロ
-#define ERR_PRINT(...) if(ferr) { fprintf(ferr, "%s(L%d) %s:", __FILE__, __LINE__, __func__); fprintf(ferr, __VA_ARGS__); }
+//
+/**
+ * @def LOG_PRINT
+ * @brief ログ出力用マクロ(printfと同じ形式で使用)
+ */
+#define LOG_PRINT(...) if(flog) { fprintf(flog, __VA_ARGS__); }
+
+/**
+ * @def LOG_ENABLED
+ * @brief ログ出力が有効かどうかの真偽値
+ */
+#define LOG_ENABLED  (flog != NULL)

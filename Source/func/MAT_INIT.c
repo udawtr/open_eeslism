@@ -13,6 +13,11 @@
 //You should have received a copy of the GNU General Public License
 //along with Foobar.If not, see < https://www.gnu.org/licenses/>.
 
+/**
+ * @file
+ * @brief 構造体LP、OP`の初期化
+ */
+
 /*
 
                          構造体LP、OP`の初期化

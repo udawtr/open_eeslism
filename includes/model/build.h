@@ -1044,12 +1044,12 @@ typedef struct rdpnl
 	double Ew;
 
 	/* 日集計 */
-	struct svday  Tpody;
-	struct svday  Tpidy;
-	struct qday   Qdy;
-	struct qday	  Scoldy;
-	struct qday   PVdy;
-	struct svday  TPVdy;
+	SVDAY   Tpody;
+	SVDAY   Tpidy;
+	QDAY    Qdy;
+	QDAY    Scoldy;
+	QDAY    PVdy;
+	SVDAY   TPVdy;
 
 	// 月集計
 	SVDAY	mTpody, mTpidy, mTPVdy;
@@ -1075,13 +1075,13 @@ typedef struct airsup
 	double Xin;
 
 	//! 日積算暖冷房
-	struct qday Qdys;
-	struct qday Qdyl;
-	struct qday Qdyt;
+	QDAY Qdys;
+	QDAY Qdyl;
+	QDAY Qdyt;
 
-	struct qday	mQdys;
-	struct qday	mQdyl;
-	struct qday	mQdyt;
+	QDAY	mQdys;
+	QDAY	mQdyl;
+	QDAY	mQdyt;
 } AIRSUP;
 
 /* ---------------------------------------------------------- */

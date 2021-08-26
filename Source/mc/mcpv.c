@@ -25,7 +25,13 @@
 #include "fnfio.h"
 #include "fnlib.h"
 
-/*　太陽光発電システム
+/**
+ * @file
+ * @brief 太陽光発電システムの処理関数の定義
+ */
+
+ 
+ /*　
 
 機器仕様入力　　　　*/
 
@@ -261,6 +267,10 @@ void PVmonint(int Npv, PV *PV)
 	}
 }
 
+
+/**
+ * @brief 日集計、月集計
+ */
 void PVday(int Mon, int Day, int ttmm, int Npv, PV *PV, int Nday, int SimDayend)
 {
 	int  i;

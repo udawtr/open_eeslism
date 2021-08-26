@@ -21,7 +21,8 @@
 #include "build.h"
 #include "eepath.h"
 
-/*
+/** 
+ * @file 
  * @brief <入力データファイル>設備機器データのモデルについて構造体の定義
  * @details
  *
@@ -520,13 +521,32 @@ typedef struct boi
 	double Tin;
 	double Toset;
 	double  Q, E, Ph;
+
+	//!@brief 日積算値
 	struct svday  Tidy;
+
+	//!@brief 日積算値
 	struct qday   Qdy;
-	struct eday   Edy, Phdy;
+
+	//!@brief 日積算値
+	struct eday   Edy;
+
+	//!@brief 日積算値
+	struct eday   Phdy;
+
 	struct eday   mtEdy[12][24], mtPhdy[12][24] ;
+
+	//!@brief 月積算値
 	struct svday  mTidy;
+
+	//!@brief 月積算値
 	struct qday   mQdy;
-	struct eday   mEdy, mPhdy;
+
+	//!@brief 月積算値
+	struct eday   mEdy;
+
+	//!@brief 月積算値
+	struct eday   mPhdy;
 } BOI;
 
 
@@ -811,6 +831,17 @@ typedef struct stankca
 		gxr;
 } STANKCA;
 
+/**
+ * @brief 
+ * @sa stankdyint
+ */
+typedef struct stkday
+{
+	SVDAY  Tidy, Tsdy;
+	QDAY   Qdy;
+} STKDAY;
+
+
 ///@brief 蓄熱槽 (システム構成要素)
 typedef struct stank
 {
@@ -862,19 +893,14 @@ typedef struct stank
 		Qsto,           /*  槽蓄熱量 */
 		
 		*Tenv;         /* 周囲温度のアドレス */
-	struct stkday  *stkdy;
-	struct stkday  *mstkdy;
-	double   Qlossdy,
-		Qstody;
-	double   mQlossdy,
-		mQstody;
+	STKDAY  *stkdy;
+	STKDAY  *mstkdy;
+	double Qlossdy;
+	double Qstody;
+	double mQlossdy;
+	double mQstody;
 } STANK;
 
-typedef struct stkday
-{
-	struct svday  Tidy, Tsdy;
-	struct qday   Qdy;
-} STKDAY;
 
 
 // --------------------------------------------

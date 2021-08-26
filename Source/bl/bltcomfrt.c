@@ -23,6 +23,12 @@
 #include "lib/u_psy.h"
 #include "fnlib.h"
 
+
+/**
+ * @file
+ * @brief 作用温度
+ */
+
 /*   作用温度制御時の設定室内空気温度  */
 
 void Rmotset (int Nroom, ROOM *Room)

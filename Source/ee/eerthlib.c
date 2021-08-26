@@ -19,10 +19,10 @@
 #include "fesy.h"
 #include "fnfio.h"
 
-
-//
-// @brief 地下の温度または地表面温度の計算
-//
+/**
+ * @file
+ * @brief 地下の温度または地表面温度の計算
+ */
 
 
 /*

@@ -27,7 +27,10 @@
 #include "fnfio.h"
 #include "fnmcs.h"
 
-/*  制御、スケジュール設定式の入力  */
+/**
+ * @file
+ * @brief 制御、スケジュール設定式の入力
+ */
 
 char Hload;  /* Hload = HEATING_LOAD */
 char Cload;  /* Cload = COOLING_LOAD */

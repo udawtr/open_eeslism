@@ -20,6 +20,10 @@
 #include "fnmcs.h"
 #include "fnfio.h"
 
+/**
+ * @file
+ * @brief システム使用機器の処理関数の定義
+ */
 
 
 /*  システム使用機器の初期設定  */

@@ -13,6 +13,11 @@
 //You should have received a copy of the GNU General Public License
 //along with Foobar.If not, see < https://www.gnu.org/licenses/>.
 
+/**
+ * @file
+ * @brief LPとOPの位置をCGで確認するための入力ファイルを作成する
+ */
+
 /*
 
 						 LPとOPの位置をCGで確認するための入力ファイルを作成する

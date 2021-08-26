@@ -27,6 +27,11 @@
 #include "fnfio.h"
 #include "fnlib.h"
 
+/**
+ * @file
+ * @brief ポンプの処理関数の定義
+ */
+
 /* 機器仕様入力　　　　　　*/
 
 int Pumpdata (char *cattype, char *s, PUMPCA *Pumpca, int Npfcmp, PFCMP *pfcmp)
@@ -346,6 +351,9 @@ void pumpmonint(int Npump, PUMP *Pump)
 	}
 }
 
+/**
+ * @brief 日集計、月集計
+ */
 void pumpday(int Mon, int Day, int ttmm, int Npump, PUMP *Pump, int Nday, int SimDayend)
 {
 	int i;

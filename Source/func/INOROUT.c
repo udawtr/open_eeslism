@@ -13,6 +13,13 @@
 //You should have received a copy of the GNU General Public License
 //along with Foobar.If not, see < https://www.gnu.org/licenses/>.
 
+
+
+/**
+ * @file
+ * @brief 点と面の交点が平面の内か外かを判別する
+ */
+
 /*
 
 						 点と面の交点が平面の内か外かを判別する

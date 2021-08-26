@@ -25,6 +25,12 @@
 
 #define WPTOLE  1.0e-10
 
+
+/**
+ * @file
+ * @brief 輻射パネル
+ */
+
 /*  輻射パネル有効熱容量流量  */
 
 void panelwp(RDPNL *rdpnl)

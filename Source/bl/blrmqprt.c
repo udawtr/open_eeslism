@@ -20,6 +20,12 @@
 #include "fnfio.h"
 #include "fnbld.h"
 
+/**
+ * @file
+ * @brief 室供給熱量、放射パネルについての出力
+ */
+
+
 /* 室供給熱量、放射パネルについての出力 */
 
 void Rmpnlprint(FILE *fo, char *mrk, SIMCONTL *Simc, int mon, int day, double time,

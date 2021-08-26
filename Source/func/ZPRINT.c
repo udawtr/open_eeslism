@@ -13,6 +13,11 @@
 //You should have received a copy of the GNU General Public License
 //along with Foobar.If not, see < https://www.gnu.org/licenses/>.
 
+/**
+ * @file
+ * @brief OP,LPの座標出力（デバッグ用）
+ */
+
 /*
 
                       OP,LPの座標出力（デバッグ用）

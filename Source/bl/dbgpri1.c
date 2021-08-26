@@ -20,6 +20,11 @@
 #include "fnbld.h"
 #include "fnlib.h"
 
+/**
+ * @file
+ * @brief デバッグ出力
+ */
+
 /* -------------------------------------------- */
 
 void	xprtwallinit ( int Nmwall, MWALL *M )
@@ -52,24 +57,24 @@ void	xprtwallinit ( int Nmwall, MWALL *M )
 	}
 	
 	Mw = M ;
-	if ( ferr )
+	if ( LOG_ENABLED )
 	{
-		ERR_PRINT("--- xprtwallinit\n" ) ;
-		ERR_PRINT("\tNo." ) ;
+		LOG_PRINT("--- xprtwallinit\n" ) ;
+		LOG_PRINT("\tNo." ) ;
 
 		for ( j = 0; j < Max; j++ )
-			ERR_PRINT("\tT[%d]", j ) ;
-		ERR_PRINT("\n" ) ;
+			LOG_PRINT("\tT[%d]", j ) ;
+		LOG_PRINT("\n" ) ;
 		
 		for ( j = 0; j < Nmwall; j++, Mw++ )
 		{
-			ERR_PRINT("\t%d", j ) ;
+			LOG_PRINT("\t%d", j ) ;
 			
 			Told = Mw->Told ;
 			for ( m = 0; m < Mw->M; m++, Told++ )  
-				ERR_PRINT("\t%.3g", *Told ) ;
+				LOG_PRINT("\t%.3g", *Told ) ;
 			
-			ERR_PRINT("\n" ) ;
+			LOG_PRINT("\n" ) ;
 		}
 	}
 }
@@ -94,14 +99,14 @@ void	xprsolrd ( int Nexs, EXSF *E )
 	}
 
 	Exs = E ;
-	if ( ferr )
+	if ( LOG_ENABLED )
 	{
-		ERR_PRINT("--- xprsolrd\n" ) ;
-		ERR_PRINT("\tNo.\tName\tId\tIdif\tIw\tRN\tcinc\n" ) ;
+		LOG_PRINT("--- xprsolrd\n" ) ;
+		LOG_PRINT("\tNo.\tName\tId\tIdif\tIw\tRN\tcinc\n" ) ;
 
 		for ( i = 0; i < Nexs; i++, Exs++ )
 		{
-			ERR_PRINT("\t%d\t%s\t%.0lf\t%.0lf\t%.0lf\t%.0lf\t%.3lf\n",
+			LOG_PRINT("\t%d\t%s\t%.0lf\t%.0lf\t%.0lf\t%.0lf\t%.3lf\n",
 				i, Exs->name, Exs->Idre, Exs->Idf, Exs->Iw, Exs->rn, Exs->cinc ) ;
 		}
 	}
@@ -177,37 +182,37 @@ void	xprxas ( int Nroom, ROOM *R, RMSRF *S )
 	}
 	
 	Room = R ;
-	if ( ferr )
+	if ( LOG_ENABLED )
 	{
-		ERR_PRINT("--- xprxas\n" ) ;
+		LOG_PRINT("--- xprxas\n" ) ;
 		
 		for ( i = 0; i < Nroom; i++, Room++ )
 		{
 			N = Room->N ;
 			brs = Room->brs ;
 			
-			ERR_PRINT("Room=%s\tXA(i,j)\n", Room->name ) ;
-			matfiprint ( ferr, "\t%.1g", N, Room->XA ) ;
+			LOG_PRINT("Room=%s\tXA(i,j)\n", Room->name ) ;
+			matfiprint ( flog, "\t%.1g", N, Room->XA ) ;
 			
 			Sd = S + brs ;
 
 			for ( n = brs; n < brs + N; n++, Sd++ )
 			{
-				ERR_PRINT("\n\n\t%d\tK=%.2g\talo=%.2g\tFI=%.2g\tFO=%.2g\tFP=%.2g\tCF=%.2g\t",
+				LOG_PRINT("\n\n\t%d\tK=%.2g\talo=%.2g\tFI=%.2g\tFO=%.2g\tFP=%.2g\tCF=%.2g\t",
 					n, Sd->K, Sd->alo, Sd->FI, Sd->FO, Sd->FP, Sd->CF);
-				ERR_PRINT("\t\tWSR=%.3g\n\t", Sd->WSR ) ;
+				LOG_PRINT("\t\tWSR=%.3g\n\t", Sd->WSR ) ;
 				
 				WSRN = Sd->WSRN;
 				for ( j = 0; j < Room->Ntr; j++, WSRN++ )
-					ERR_PRINT("\tWSRN[%d]=%.3g", j, *WSRN ) ;
-				ERR_PRINT("\n\t" ) ;
+					LOG_PRINT("\tWSRN[%d]=%.3g", j, *WSRN ) ;
+				LOG_PRINT("\n\t" ) ;
 
 				WSPL = Sd->WSPL ;
 				for (j = 0; j < Room->Nrp; j++, WSPL++ )
-					ERR_PRINT("\tWSPL[%d]=%.3g", j, *WSPL ) ;
-				ERR_PRINT("\n" ) ;
+					LOG_PRINT("\tWSPL[%d]=%.3g", j, *WSPL ) ;
+				LOG_PRINT("\n" ) ;
 				
-				ERR_PRINT("\t\tWSC=%.3g\n", Sd->WSC ) ; 
+				LOG_PRINT("\t\tWSC=%.3g\n", Sd->WSC ) ; 
 			}
 		}
 	}

@@ -21,6 +21,11 @@
 #include "lib/u_mlib.h"
 #include "lib/u_ees3lib.h"
 
+/**
+ * @file
+ * @brief 水、空気の比熱
+ */
+
 
 /*  水、空気の比熱 */
 /* ---------------------- */

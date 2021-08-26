@@ -24,6 +24,11 @@
 #include "lib/u_psy.h"
 #include <math.h>
 
+/**
+ * @file
+ * @brief 圧縮式冷凍機の処理関数の定義
+ */
+
 
 /*  圧縮式冷凍機定格特性入力    */
 

@@ -30,6 +30,11 @@
 #include "lib/wdread.h"
 #include "lib/spline.h"
 
+/**
+ * @file
+ * @brief 気象データ読み取り
+ */
+
 /* 月日の設定（翌日の日時を設定する） */
 
 void monthday(int *Mon, int *Day, int mo, int dayo)
@@ -207,16 +212,16 @@ void Weatherdt(SIMCONTL *Simc, DAYTM *Daytm, LOCAT *Loc, WDAT *Wd, EXSF *Exs, ch
 		printf ( "\th=%.0lf\n==================\n", Wd->h ) ;
 	}
 
-	if ( dayprn && ferr )
+	if ( dayprn && LOG_ENABLED )
 	{
-		ERR_PRINT("\n\n<Weatherdt>  ***** Wdata *****\n\n=================\n" ) ;
-		ERR_PRINT("\tT=%.1lf\n\tx=%.4lf\n\tRH=%.0lf\n",
+		LOG_PRINT("\n\n<Weatherdt>  ***** Wdata *****\n\n=================\n" ) ;
+		LOG_PRINT("\tT=%.1lf\n\tx=%.4lf\n\tRH=%.0lf\n",
 			Wd->T, Wd->x, Wd->RH ) ;
-		ERR_PRINT("\tIdn=%.0lf\n\tIsky=%.0lf\n\tIhor=%.0lf\n",
+		LOG_PRINT("\tIdn=%.0lf\n\tIsky=%.0lf\n\tIhor=%.0lf\n",
 			Wd->Idn, Wd->Isky, Wd->Ihor ) ;
-		ERR_PRINT("\tRN=%.0lf\n\tCC=%.0lf\n\tWdre=%.0lf\n\tWv=%.1lf\n",
+		LOG_PRINT("\tRN=%.0lf\n\tCC=%.0lf\n\tWdre=%.0lf\n\tWv=%.1lf\n",
 			Wd->RN, Wd->CC, Wd->Wdre, Wd->Wv ) ;
-		ERR_PRINT("\th=%.0lf\n==================\n", Wd->h ) ;
+		LOG_PRINT("\th=%.0lf\n==================\n", Wd->h ) ;
 	}
 
 	ptt = tt;
@@ -296,10 +301,10 @@ void hspwdread(FILE *fp, int nday,
 			s, &Loc->Lat, &Loc->Lon, &Loc->Ls, &a,&b,&c);
 		Loc->name = stralloc ( s ) ;
 		
-		if ( ferr )
+		if ( LOG_ENABLED )
 		{
-			ERR_PRINT("\n------> <hspwdread> \n"); 
-			ERR_PRINT("\nName=%s\tLat=%.4g\tLon=%.4g\tLs=%.4g\ta=%.4g\tb=%.4g\tc=%.4g\n",
+			LOG_PRINT("\n------> <hspwdread> \n"); 
+			LOG_PRINT("\nName=%s\tLat=%.4g\tLon=%.4g\tLs=%.4g\ta=%.4g\tb=%.4g\tc=%.4g\n",
 				Loc->name, Loc->Lat, Loc->Lon, Loc->Ls, a,b,c); 
 		}
 

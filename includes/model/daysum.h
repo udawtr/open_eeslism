@@ -17,37 +17,79 @@
 
 #pragma once
 
-typedef struct svday /* システム変数の日集 */
+/**
+ * @file
+ * @brief 日集計用の構造体の定義
+ */
+
+/**
+ * @brief システム変数の日集
+ */
+typedef struct svday
 {
-   double  m,      /* 平均 */
-          mn,     /* 最高 */
-	  mx;     /* 最低 */
-   long    hrs,    /* 平均値の母数 */
-          mntime, /* 最高値発生時刻 */
-          mxtime; /* 最低値発生時刻 */
+    //!@brief 平均
+    double m;
+    
+    //!@brief 最高
+    double mn;
+
+    //!@brief 最低
+    double mx;
+
+    //!@brief 平均値の母数
+    long hrs;
+
+    //!@brief 最高値発生時刻
+    long mntime;
+
+    //!@brief 最低値発生時刻
+    long mxtime;
 } SVDAY;
 
 
+/**
+ * @brief 積算壁体貫流熱取得
+ */
 typedef struct qday
 {
-   double  h,    /* 加熱積算値 */
-          c,    /* 冷却積算値 */
-	  hmx,   /* 加熱最大値 */
-	  cmx;   /* 冷却最大値 */
-   
-   long   hhr,   /* 加熱時間回数 */
-          chr,   /* 冷却時間回数 */
-	  hmxtime,
-	  cmxtime;
+    //!@brief 加熱積算値
+    double h;
+
+    //!@brief 冷却積算値
+    double c;
+
+    //!@brief 加熱最大値
+    double hmx;
+
+    //!@brief 冷却最大値
+    double cmx;
+
+    //!@brief 加熱時間回数
+    long hhr;
+
+    //!@brief 冷却時間回数
+    long chr;
+
+    long hmxtime;
+
+    long cmxtime;
 } QDAY;
 
 
+/**
+ * @brief
+ */
 typedef struct eday
 {
-   double  d,     /* 積算値 */
-          mx;    /* 最大値 */
+    //!@brief 積算値
+    double d;
+
+    //!@brief 最大値
+    double mx;
    
-   long   hrs,   /* 運転時間回数 */
-          mxtime;
+   //!@brief 運転時間回数
+    long hrs;
+
+    long mxtime;
 } EDAY;
 

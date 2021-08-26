@@ -30,6 +30,10 @@
 #include "model/sched.h"
 #include "fnlib.h"
 
+/**
+ * @file
+ * @brief 構造体の初期化
+ */
 
 ///@brief SIMCONTL の初期化
 void	Simcinit ( SIMCONTL *S )
@@ -230,24 +234,6 @@ void	Exsfinit ( int Nd, EXSF *e )
 		//e->alosch = NULL ;
 		e->alotype = 'F' ;
 	}
-}
-
-
-///@brief SYSEQ の初期化 
-void	Syseqinit ( SYSEQ *S )
-{
-//	int		i ;
-	S->a = ' ' ;
-//	matinit ( S->eqcf, (int) SYSEQMX * SYSEQMX ) ;
-//	matinit ( S->eqcv, (int) SYSEQMX ) ;
-//	matinit ( S->Y, (int) SYSEQMX ) ;
-//	strcpy ( S->mrk, "" ) ;
-
-//	for ( i = 0; i < SYSEQMX; i++ )
-//	{
-//		S->eleq[i] = NULL ;
-//		S->elosv[i] = NULL ;
-//	}
 }
 
 

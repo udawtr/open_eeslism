@@ -31,6 +31,10 @@
 #include "fnlib.h"
 #include "waterandair.h"
 
+/**
+ * @file
+ * @brief 蓄熱槽仕様入力処理関数の定義
+ */
 
 /*　蓄熱槽仕様入力　　　　*/
 
@@ -500,7 +504,9 @@ void Stankene(int Nstank, STANK *Stank)
 		for (k = 0; k < Stank->Ndiv; k++)
 		{
 			if (Stank->dtankF[k] == TANK_EMPTY)
+			{
 				Stank->Tss[k] = TANK_EMPTMP;
+			}
 		}
 
 		// バッチ式の時の給水
@@ -517,7 +523,9 @@ void Stankene(int Nstank, STANK *Stank)
 					/***printf("<<Stankene>>  j=%d Twin=%lf\n",j, Stank->Twin[j]);
 						***/
 						if (*Stank->batchcon[j] == BTFILL)
+						{
 							Stank->Tss[k] = Stank->Twin[j];
+						}
 					}
 				}
 				Tsm += Stank->Tss[k];
@@ -555,8 +563,10 @@ void Stankene(int Nstank, STANK *Stank)
 			{
 				Stank->Qloss += Stank->KS[j] * ( Stank->Tss[j] - *Stank->Tenv);
 				if (Stank->Tssold[j] > -273.0)
-					Stank->Qsto += Stank->Mdt[j] * 
-					(Stank->Tss[j] - Stank->Tssold[j]);
+				{
+					Stank->Qsto += Stank->Mdt[j] *
+						(Stank->Tss[j] - Stank->Tssold[j]);
+				}
 			}
 			Stank->Tssold[j] = Stank->Tss[j];
 		}
@@ -584,7 +594,9 @@ void stankcmpprt (FILE *fo, int id, int Nstank, STANK *Stank)
 		{
             fprintf(fo, "%s:%d", Stank->name, Stank->Nin);
 			for (i = 0; i < Stank->Nin; i++)
+			{
 				fprintf(fo, "%c", Stank->cmp->idi[i]);
+			}
 			
 			fprintf(fo, " 1 %d\n", Stank->Nin * 5 + 2 + Stank->Ndiv + Stank->Ncalcihex);
 		}
@@ -598,13 +610,17 @@ void stankcmpprt (FILE *fo, int id, int Nstank, STANK *Stank)
 				c = Stank->cmp->idi[i];
 				fprintf(fo, "%s:%c_c c c %s:%c_G m f %s:%c_Ti t f %s:%c_To t f %s:%c_Q q f  ", 
 					Stank->name, c, Stank->name, c, Stank->name, c, Stank->name, c, Stank->name, c);
-				if(Stank->KAinput[i] == 'C')
-					fprintf(fo, "%s:%c_KA q f  ", Stank->name, c) ;
+				if (Stank->KAinput[i] == 'C')
+				{
+					fprintf(fo, "%s:%c_KA q f  ", Stank->name, c);
+				}
 				fprintf(fo, "\n" ) ;
 			}
 			fprintf(fo, "%s_Qls q f %s_Qst q f\n ", Stank->name, Stank->name);
 			for (i = 0; i < Stank->Ndiv; i++)
+			{
 				fprintf(fo, "%s_Ts[%d] t f ", Stank->name, i + 1);
+			}
 			fprintf(fo, "\n");
 		}
 		break;
@@ -623,17 +639,23 @@ void stankcmpprt (FILE *fo, int id, int Nstank, STANK *Stank)
 
 				if(Stank->KAinput[i] == 'C')
 				{
-					if ( Eo->G > 0.)
-						fprintf(fo, "%.2lf  ", Stank->KA[i]) ;
+					if (Eo->G > 0.)
+					{
+						fprintf(fo, "%.2lf  ", Stank->KA[i]);
+					}
 					else
-						fprintf(fo, "%.2lf  ", 0.) ;
+					{
+						fprintf(fo, "%.2lf  ", 0.);
+					}
 				}
 			}	 
 			fprintf(fo, "%2.0lf %3.0lf\n", Stank->Qloss, Stank->Qsto);
 
 			Tss = Stank->Tss ;
 			for (i = 0; i < Stank->Ndiv; i++, Tss++)
-				fprintf(fo, " %4.1lf", *Tss );
+			{
+				fprintf(fo, " %4.1lf", *Tss);
+			}
             fprintf(fo, "\n");
 		}
 		break;
@@ -673,15 +695,13 @@ void stankivprt (FILE *fo, int id, int Nstank, STANK *Stank)
 
 void stankdyint(int Nstank, STANK *Stank)
 {
-	int  i, j;
-	STKDAY *S;
-	
-	for (i = 0; i < Nstank; i++, Stank++)
+	for (int i = 0; i < Nstank; i++, Stank++)
 	{
 		Stank->Qlossdy = 0.0;
 		Stank->Qstody = 0.0;
-		S = Stank->stkdy;      
-		for (j = 0; j < Stank->Nin; j++, S++)
+
+		STKDAY* S = Stank->stkdy;
+		for (int j = 0; j < Stank->Nin; j++, S++)
 		{
 			svdyint(&S->Tidy);
 			svdyint(&S->Tsdy);
@@ -692,15 +712,13 @@ void stankdyint(int Nstank, STANK *Stank)
 
 void stankmonint(int Nstank, STANK *Stank)
 {
-	int  i, j;
-	STKDAY *S;
-	
-	for (i = 0; i < Nstank; i++, Stank++)
+	for (int i = 0; i < Nstank; i++, Stank++)
 	{
 		Stank->mQlossdy = 0.0;
 		Stank->mQstody = 0.0;
-		S = Stank->mstkdy;      
-		for (j = 0; j < Stank->Nin; j++, S++)
+
+		STKDAY* S = Stank->mstkdy;
+		for (int j = 0; j < Stank->Nin; j++, S++)
 		{
 			svdyint(&S->Tidy);
 			svdyint(&S->Tsdy);
@@ -709,82 +727,82 @@ void stankmonint(int Nstank, STANK *Stank)
 	}
 }
 
-// 日集計、月集計
+
+/**
+ * @brief 日集計、月集計
+ */
 void stankday(int Mon, int Day, int ttmm, int Nstank, STANK *Stank, int Nday, int SimDayend)
 {
-	int  i, j;
-	STKDAY *S;
-	ELIN   *Ei;
-	
-	for (i = 0; i < Nstank; i++, Stank++)
+	for (int i = 0; i < Nstank; i++, Stank++)
 	{
 		// 日集計
-		double Ts ;
-		Ts = 0.;
-
-		S = Stank->stkdy; 
-		for (j = 0; j < Stank->Ndiv; j++)
-			Ts += Stank->Tss[j] / (double) Stank->Ndiv ;
-		svdaysum(ttmm, ON_SW, Ts, &S->Tsdy) ;
+		STKDAY* Sday = Stank->stkdy;
+		double Ts = 0.0;
+		for (int j = 0; j < Stank->Ndiv; j++)
+		{
+			Ts += Stank->Tss[j] / (double)Stank->Ndiv;
+		}
+		svdaysum(ttmm, ON_SW, Ts, &Sday->Tsdy);
 
 		Stank->Qlossdy += Stank->Qloss;
 		Stank->Qstody += Stank->Qsto;
-		
-		Ei = Stank->cmp->elins;
-		for (j = 0; j < Stank->Nin; j++, S++, Ei++)
-		{	 
-			svdaysum(ttmm, Ei->lpath->control, Stank->Twin[j], &S->Tidy);
-			qdaysum(ttmm, Ei->lpath->control, Stank->Q[j], &S->Qdy);
+
+		ELIN* Eiday = Stank->cmp->elins;
+		for (int j = 0; j < Stank->Nin; j++, Sday++, Eiday++)
+		{
+			svdaysum(ttmm, Eiday->lpath->control, Stank->Twin[j], &Sday->Tidy);
+			qdaysum(ttmm, Eiday->lpath->control, Stank->Q[j], &Sday->Qdy);
 		}
 
 		// 月集計
-		S = Stank->mstkdy; 
-		svmonsum(Mon, Day, ttmm, ON_SW, Ts, &S->Tsdy, Nday, SimDayend) ;
+		STKDAY* Smon = Stank->mstkdy; 
+		svmonsum(Mon, Day, ttmm, ON_SW, Ts, &Smon->Tsdy, Nday, SimDayend) ;
 
 		Stank->mQlossdy += Stank->Qloss;
 		Stank->mQstody += Stank->Qsto;
 		
-		Ei = Stank->cmp->elins;
-		for (j = 0; j < Stank->Nin; j++, S++, Ei++)
+		ELIN* Eimon = Stank->cmp->elins;
+		for (int j = 0; j < Stank->Nin; j++, Smon++, Eimon++)
 		{	 
-			svmonsum(Mon, Day, ttmm, Ei->lpath->control, Stank->Twin[j], &S->Tidy, Nday, SimDayend);
-			qmonsum(Mon, Day, ttmm, Ei->lpath->control, Stank->Q[j], &S->Qdy, Nday, SimDayend);
+			svmonsum(Mon, Day, ttmm, Eimon->lpath->control, Stank->Twin[j], &Smon->Tidy, Nday, SimDayend);
+			qmonsum(Mon, Day, ttmm, Eimon->lpath->control, Stank->Q[j], &Smon->Qdy, Nday, SimDayend);
 		}
 	}
 }
 
-// 日集計の出力
+
+/**
+ * @brief 日集計の出力
+ */
 void stankdyprt(FILE *fo, int id, int Nstank, STANK *Stank)
 {
-	int  i, j, m;
-	char c;
-	STKDAY *S;   
-	
-	
 	switch (id)
 	{
 	case 0:
 		if (Nstank > 0)
             fprintf(fo, "%s %d\n", STANK_TYPE, Nstank);
 		
-		for (m = 0; m < Nstank; m++, Stank++)
+		for (int m = 0; m < Nstank; m++, Stank++)
 		{
             fprintf(fo, "%s:%d", Stank->name, Stank->Nin);
-			for (i = 0; i < Stank->Nin; i++)
+			for (int i = 0; i < Stank->Nin; i++)
+			{
 				fprintf(fo, "%c", Stank->cmp->idi[i]);
+			}
 			
 			fprintf(fo, " 1 %d\n", Stank->Nin * 14 + 2 + 1);
 		}
 		break;
 		
 	case 1:      
-		for (m = 0; m < Nstank; m++, Stank++)
+		for (int m = 0; m < Nstank; m++, Stank++)
 		{  
 			fprintf(fo,"%s_Ts t f \n", Stank->name) ;
 
-			for (i = 0; i < Stank->Nin; i++)
+			for (int i = 0; i < Stank->Nin; i++)
 			{
-				c = Stank->cmp->idi[i];
+				char c = Stank->cmp->idi[i];
+
 				fprintf(fo,"%s:%c_Ht H d %s:%c_T T f ", Stank->name, c, Stank->name, c);
 				fprintf(fo,"%s:%c_ttn h d %s:%c_Tn t f %s:%c_ttm h d %s:%c_Tm t f\n",
 					Stank->name, c, Stank->name, c, Stank->name, c, Stank->name, c) ;
@@ -798,12 +816,12 @@ void stankdyprt(FILE *fo, int id, int Nstank, STANK *Stank)
 		break;
 		
 	default:
-		for (i = 0; i < Nstank; i++, Stank++)
+		for (int i = 0; i < Nstank; i++, Stank++)
 		{
-            S = Stank->stkdy; 
+			STKDAY* S = Stank->stkdy;
 
 			fprintf(fo, "%.1lf\n", S->Tsdy.m) ;
-            for (j = 0; j < Stank->Nin; j++, S++)
+            for (int j = 0; j < Stank->Nin; j++, S++)
             {	 
 				fprintf(fo, "%1ld %3.1lf %1ld %3.1lf %1ld %3.1lf ", 
 					S->Tidy.hrs, S->Tidy.m, 
@@ -822,37 +840,41 @@ void stankdyprt(FILE *fo, int id, int Nstank, STANK *Stank)
 	}   
 }
 
-// 月集計の出力
+
+/**
+ * @brief 月集計の出力
+ */
 void stankmonprt(FILE *fo, int id, int Nstank, STANK *Stank)
 {
-	int  i, j, m;
-	char c;
-	STKDAY *S;   
-	
 	switch (id)
 	{
 	case 0:
 		if (Nstank > 0)
-            fprintf(fo, "%s %d\n", STANK_TYPE, Nstank);
+		{
+			fprintf(fo, "%s %d\n", STANK_TYPE, Nstank);
+		}
 		
-		for (m = 0; m < Nstank; m++, Stank++)
+		for (int m = 0; m < Nstank; m++, Stank++)
 		{
             fprintf(fo, "%s:%d", Stank->name, Stank->Nin);
-			for (i = 0; i < Stank->Nin; i++)
+			for (int i = 0; i < Stank->Nin; i++)
+			{
 				fprintf(fo, "%c", Stank->cmp->idi[i]);
+			}
 			
 			fprintf(fo, " 1 %d\n", Stank->Nin * 14 + 2 + 1);
 		}
 		break;
 		
 	case 1:      
-		for (m = 0; m < Nstank; m++, Stank++)
+		for (int m = 0; m < Nstank; m++, Stank++)
 		{  
 			fprintf(fo,"%s_Ts t f \n", Stank->name) ;
 
-			for (i = 0; i < Stank->Nin; i++)
+			for (int i = 0; i < Stank->Nin; i++)
 			{
-				c = Stank->cmp->idi[i];
+				char c = Stank->cmp->idi[i];
+
 				fprintf(fo,"%s:%c_Ht H d %s:%c_T T f ", Stank->name, c, Stank->name, c);
 				fprintf(fo,"%s:%c_ttn h d %s:%c_Tn t f %s:%c_ttm h d %s:%c_Tm t f\n",
 					Stank->name, c, Stank->name, c, Stank->name, c, Stank->name, c) ;
@@ -866,12 +888,12 @@ void stankmonprt(FILE *fo, int id, int Nstank, STANK *Stank)
 		break;
 		
 	default:
-		for (i = 0; i < Nstank; i++, Stank++)
+		for (int i = 0; i < Nstank; i++, Stank++)
 		{
-            S = Stank->mstkdy; 
+			STKDAY* S = Stank->mstkdy;
 
 			fprintf(fo, "%.1lf\n", S->Tsdy.m) ;
-            for (j = 0; j < Stank->Nin; j++, S++)
+            for (int j = 0; j < Stank->Nin; j++, S++)
             {	 
 				fprintf(fo, "%1ld %3.1lf %1ld %3.1lf %1ld %3.1lf ", 
 					S->Tidy.hrs, S->Tidy.m, 

@@ -20,6 +20,11 @@
 #include "fesy.h"
 #include "fnbld.h"
 
+/**
+ * @file
+ * @brief 熱伝達率の計算
+ */
+
 // 熱伝達率の計算
 void eeroomcf(WDAT *Wd, EXSFS *Exs, RMVLS *Rmvls, int nday, int mt)
 {

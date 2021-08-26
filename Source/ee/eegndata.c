@@ -29,7 +29,12 @@
 #include "lib/u_sun.h"
 #include "fnlib.h"
 
-/*   ファイル、計算期間、出力日の入力        */
+/**
+ * @file
+ * @brief ファイル、計算期間、出力日の入力
+ */
+
+
 
 //------------------------------------------------------------------
 //GDAT (P.17)
@@ -277,7 +282,7 @@ void Gdata (FILE *fi, char *dsn, char *File, char **wfname, char **ofname,
 				}
 				else if (strcmp(s, "*log") == 0)
 				{
-					//プログラムの実行による処理経過をファイルに出力
+					//プログラムの実行による処理経過をファイルに出力(ログ出力)
 					logprn = 1;
 				}
 				else if (strcmp(s, "*debug") == 0)
@@ -309,12 +314,17 @@ void Gdata (FILE *fi, char *dsn, char *File, char **wfname, char **ofname,
 			Eprint ( "<Gdata>", s );
    }
 
+
+   //
+   // ログファイルをオープン
+   //
+
    strcat ( strcpy ( s, *ofname ), ".log" ) ;
-   ferr = fopen ( s, "w" ) ;
+   flog = fopen ( s, "w" ) ;
 
    if ( logprn == 0 )
    {
-	   fclose ( ferr ) ;
-	   ferr = NULL ;
+	   fclose ( flog ) ;
+	   flog = NULL ;
    }
 }

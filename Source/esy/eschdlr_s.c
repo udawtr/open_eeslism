@@ -24,6 +24,11 @@
 #include "fnlib.h"
 #include "fnbld.h"
 
+/**
+ * @file
+ * @brief 
+ */
+
 /* -------------------------------------------------------------------------- */
 
 void	Eeschdlr(int day, int ttmm, SCHDL *Schdl, RMVLS *Rmvls)

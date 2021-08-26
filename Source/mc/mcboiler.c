@@ -13,9 +13,11 @@
 //You should have received a copy of the GNU General Public License
 //along with Foobar.If not, see < https://www.gnu.org/licenses/>.
 
-/*  boiler.c  */
 
-/*  ボイラ－   */
+/**
+ * @file
+ * @brief ボイラーの処理関数の定義
+ */
 
 #include <string.h>
 #include <stdlib.h>
@@ -444,6 +446,10 @@ void boimonint(int Nboi, BOI *Boi)
 	}
 }
 
+
+/**
+ * @brief 日集計、月集計
+ */
 void boiday(int Mon, int Day, int ttmm, int Nboi, BOI *Boi, int Nday, int SimDayend)
 {
 	int i;

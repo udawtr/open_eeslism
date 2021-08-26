@@ -13,9 +13,11 @@
 //You should have received a copy of the GNU General Public License
 //along with Foobar.If not, see < https://www.gnu.org/licenses/>.
 
-/*  hccoil.c  */
+/**
+ * @file
+ * @brief 冷温水コイルの処理関数の定義
+ */
 
-/*  冷温水コイル  */
 
 #include <string.h>
 #include <stdlib.h>
@@ -349,6 +351,10 @@ void hccmonint(int Nhcc, HCC *Hcc)
 	}
 }
 
+
+/**
+ * @brief 日集計、月集計
+ */
 void hccday(int Mon, int Day, int ttmm, int Nhcc, HCC *Hcc, int Nday, int SimDayend)
 {
 	int i;

@@ -25,7 +25,10 @@
 #include "fnlib.h"
 #include "winerror.h"
 
-/* 境界条件・負荷仮想機器の要素機器データ入力ファイル設定 */
+/**
+ * @file
+ * @brief 境界条件・負荷仮想機器の要素機器データ入力ファイル設定
+ */
 
 void Vcfdata(FILE *fi, SIMCONTL *Simcon)
 {
@@ -394,14 +397,14 @@ void	Flinprt ( int N, FLIN *Fl )
 	}
 
 	F = Fl ;
-	if ( ferr )
+	if ( LOG_ENABLED )
 	{
 		for ( i = 0; i < N; i++, F++)
 		{
-			ERR_PRINT("<< Flinprt >> Flin i=%d  %s %s = %.2g\n",
+			LOG_PRINT("<< Flinprt >> Flin i=%d  %s %s = %.2g\n",
 				i, F->name, F->namet, *F->vart);
 		}
 	}
 
-	ERR_PRINT("\n\n" ) ;
+	LOG_PRINT("\n\n" ) ;
 }

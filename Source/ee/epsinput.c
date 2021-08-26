@@ -23,6 +23,10 @@
 #include "fesy.h"
 #include "fnfio.h"
 #include "fnlib.h"
+/**
+ * @file
+ * @brief シミュレーション結果、標題、識別データの入力
+ */
 
 
 /*

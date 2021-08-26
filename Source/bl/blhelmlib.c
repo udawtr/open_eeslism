@@ -19,6 +19,11 @@
 #include "fesy.h"
 #include "fnbld.h"
 
+/**
+ * @file
+ * @brief 要素別熱損失・熱取得の関連処理
+ */
+
 /* 外乱要素別表面温度の計算 */
 
 void  helmrmsrt(ROOM *Room, double Ta)

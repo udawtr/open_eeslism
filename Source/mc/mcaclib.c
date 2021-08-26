@@ -18,6 +18,11 @@
 #include "lib/u_psy.h"
 #include "mc/mcaclib.h"
 
+/**
+ * @file
+ * @brief 冷温水コイルの処理関数の定義
+ */
+
 /************ #include "cmpref.h"
 *************/
 /*  冷媒コイルの処理熱量計算用係数   */

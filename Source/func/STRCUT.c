@@ -13,6 +13,11 @@
 //You should have received a copy of the GNU General Public License
 //along with Foobar.If not, see < https://www.gnu.org/licenses/>.
 
+/**
+ * @file
+ * @brief 文字列処理
+ */
+
 #define _CRT_SECURE_NO_WARNINGS
 #include <ctype.h>
 #include <stdio.h>

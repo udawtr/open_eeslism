@@ -26,6 +26,11 @@
 #include "fnlib.h"
 #include "fnfio.h"
 
+/**
+ * @file
+ * @brief データ読み取り
+ */
+
 /*  壁体デ－タの入力  */
 
 void Walldata (FILE *fi, FILE *fbmlist, char *dsn,

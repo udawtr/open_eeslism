@@ -13,6 +13,11 @@
 //You should have received a copy of the GNU General Public License
 //along with Foobar.If not, see < https://www.gnu.org/licenses/>.
 
+/**
+ * @file
+ * @brief 障害物に当たった点の合計をカウントする
+ */
+
 /*
 
 						 障害物に当たった点の合計をカウントする

@@ -1,3 +1,3 @@
 #pragma once
 
-void Syseqv(int Nelout, ELOUT *Elout, SYSEQ *Syseq);
+void Syseqv(int Nelout, ELOUT *Elout);

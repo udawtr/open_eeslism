@@ -15,7 +15,11 @@
 
 /*  pflow.c  */
 
-/* 流量の設定 */
+/**
+ * @file
+ * @brief 流量の設定
+ */
+
 #define _CRT_SECURE_NO_WARNINGS
 
 #include <string.h>
@@ -362,16 +366,16 @@ void Pflow(int Nmpath, MPATH *Mpath, WDAT *Wd)
 					}
 				}
 				
-				if ( dayprn && ferr )
+				if ( dayprn && LOG_ENABLED )
 				{
 					for ( i = 0; i < NG; i++ )
 					{
-						ERR_PRINT("%s\t", Mpath->cbcmp[i]->name ) ;
+						LOG_PRINT("%s\t", Mpath->cbcmp[i]->name ) ;
 						
 						for ( j = 0; j < NG; j++ )
-							ERR_PRINT("\t%.1g", A[i*NG+j] ) ;
+							LOG_PRINT("\t%.1g", A[i*NG+j] ) ;
 						
-						ERR_PRINT("\t\t%.2g\n", Y[i] ) ;
+						LOG_PRINT("\t\t%.2g\n", Y[i] ) ;
 					}
 				}
 				
@@ -390,10 +394,10 @@ void Pflow(int Nmpath, MPATH *Mpath, WDAT *Wd)
 						printf ( "\t%6.2lf\n", X[i] ) ;
 				}
 				
-				if ( dayprn && ferr )
+				if ( dayprn && LOG_ENABLED )
 				{
 					for ( i = 0; i < NG; i++ )
-						ERR_PRINT("\t\t%.2g\n", X[i] ) ;
+						LOG_PRINT("\t\t%.2g\n", X[i] ) ;
 				}
 			}
 			

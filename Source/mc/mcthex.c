@@ -27,7 +27,13 @@
 #include "fnlib.h"
 #include "lib/u_psy.h"
 
-/*  全熱交換器  */
+
+/**
+ * @file
+ * @brief 全熱交換器の処理関数の定義
+ */
+
+ /*  全熱交換器  */
 
 /*  仕様入力  */
 
@@ -408,6 +414,9 @@ void	Thexmonint(int Nthex, THEX *Thex)
 	}
 }
 
+/**
+ * @brief 日集計、月集計
+ */
 void	Thexday(int Mon, int Day, int ttmm, int Nthex, THEX *Thex, int Nday, int SimDayend)
 {
 	int i;

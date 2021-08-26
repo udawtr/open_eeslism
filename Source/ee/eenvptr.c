@@ -22,6 +22,11 @@
 #include "fnesy.h"
 #include "fnlib.h"
 
+/**
+ * @file
+ * @brief システム要素周囲条件（温度など）のポインター
+ */
+
 /*  システム要素周囲条件（温度など）のポインター  */
 
 double *envptr(char *s, 

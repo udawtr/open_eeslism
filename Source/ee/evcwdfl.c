@@ -24,6 +24,11 @@
 #include "fnlib.h"
 #include "lib/u_psy.h"
 
+/**
+ * @file
+ * @brief VCFILE からの気象データ入力
+ */
+
 /*
  * @brief VCFILE からの気象データ入力
  */

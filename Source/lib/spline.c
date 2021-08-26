@@ -17,7 +17,12 @@
 #include "lib/u_sun.h"
 #include "lib/spline.h"
 
-// 給水温度のスプライン補間
+
+/**
+ * @file
+ * @brief 給水温度のスプライン補間
+ */
+
 
 // 各月の給水温度は15日の給水温度として補間する
 // Nday:計算対象の通日、Tsupw:1～12月の給水温度

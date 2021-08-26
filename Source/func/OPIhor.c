@@ -13,6 +13,11 @@
 //You should have received a copy of the GNU General Public License
 //along with Foobar.If not, see < https://www.gnu.org/licenses/>.
 
+/**
+ * @file
+ * @brief 日射量、長波長放射量の計算
+ */
+
 /*
                                     日射量、長波長放射量の計算
                                     FILE=OPIhor.c

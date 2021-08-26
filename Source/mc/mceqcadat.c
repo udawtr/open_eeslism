@@ -24,6 +24,12 @@
 #include "fnmcs.h"
 #include "fnlib.h"
 
+/**
+ * @file
+ * @brief 機器カタログデータの読み込み関数の定義
+ */
+
+
 //------ プライベート関数の宣言 ------
 
 void _Eqpcount(FILE* fi, int* NBOI, int* NREFA, int* NCOL, int* NSTANK, int* NHCC,

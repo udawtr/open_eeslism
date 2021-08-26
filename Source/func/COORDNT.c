@@ -13,6 +13,12 @@
 //You should have received a copy of the GNU General Public License
 //along with Foobar.If not, see < https://www.gnu.org/licenses/>.
 
+
+/**
+ * @file
+ * @brief 入力データの計算用構造体への変換
+ */
+
 /*
 
 						入力データの計算用構造体への変換

@@ -20,6 +20,11 @@
 #include "fesy.h"
 #include "fnfio.h"
 
+/**
+ * @file
+ * @brief コンポーネントの出力
+ */
+
 
 void cmpprint(int id, int N,  COMPNT *cmp, ELOUT *Elout, ELIN *Elin)
 {
@@ -70,21 +75,21 @@ void eloutfprint(int id, int N, ELOUT *E, COMPNT *cmp)
 	double  *cfin;
 	
 	if (id == 1)
-		ERR_PRINT("ELOUT\n  n         id fld contl sysld Cmp   G      cfo    cfin\n");
+		LOG_PRINT("ELOUT\n  n         id fld contl sysld Cmp   G      cfo    cfin\n");
 	
 	for (i = 0; i < N; i++, E++)
 	{
-		ERR_PRINT("%3d (%-6s) %c   %c   %c    %c  %4ld [%5.3lf]  %6.3lf", 
+		LOG_PRINT("%3d (%-6s) %c   %c   %c    %c  %4ld [%5.3lf]  %6.3lf", 
 			i, E->cmp->name, E->id, E->fluid, E->control, E->sysld,
 			E->cmp - cmp, E->G, E->coeffo);
 		
 		cfin = E->coeffin;
 		for (j = 0; j < E->Ni; j++, cfin++)
 		{
-			ERR_PRINT(" %6.3lf", *cfin);
+			LOG_PRINT(" %6.3lf", *cfin);
 			//cfin++ ;
 		}
-		ERR_PRINT(" Co=%6.4lf\n", E->Co);
+		LOG_PRINT(" Co=%6.4lf\n", E->Co);
 	}
 }
 
@@ -136,7 +141,7 @@ void elinfprint(int id, int N, COMPNT *C, ELOUT *eo, ELIN *ei)
 	int i, ii, j, o, v;
 	
 	if (id == 1)
-		ERR_PRINT("ELIN\n  n  id   upo  upv\n");
+		LOG_PRINT("ELIN\n  n  id   upo  upv\n");
 	
 	for (i = 0; i < N; i++, C++)
 	{
@@ -158,13 +163,13 @@ void elinfprint(int id, int N, COMPNT *C, ELOUT *eo, ELIN *ei)
 				else
 					v = -999 ;
 
-				ERR_PRINT("%3ld (%-6s) %c   %3d   %3d", 
+				LOG_PRINT("%3ld (%-6s) %c   %3d   %3d", 
 					E - ei, C->name, E->id, o, v ); 
 				if (E->upo != NULL)
-					ERR_PRINT(" upo=(%-6s)", E->upo->cmp->name);
+					LOG_PRINT(" upo=(%-6s)", E->upo->cmp->name);
 				if (E->upv != NULL)
-					ERR_PRINT(" upv=(%-6s)", E->upv->cmp->name);
-				ERR_PRINT("\n");
+					LOG_PRINT(" upv=(%-6s)", E->upv->cmp->name);
+				LOG_PRINT("\n");
 			}
 		}
 	}    

@@ -21,7 +21,10 @@
 #include "fnesy.h"
 #include "fnlib.h"
 
-/* 経路に沿ったシステム要素の熱量計算 */
+/**
+ * @file
+ * @brief 経路に沿ったシステム要素の熱量計算
+ */
 
 void Pathheat(int Nmpath, MPATH *Mpath)
 {

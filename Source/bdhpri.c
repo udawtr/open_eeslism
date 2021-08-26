@@ -13,13 +13,11 @@
 //You should have received a copy of the GNU General Public License
 //along with Foobar.If not, see < https://www.gnu.org/licenses/>.
 
-/****************
 
- 熱損失係数出力ルーチン
- 1997.11.18
-	FILE=bdhpri.c
-	
-****************/
+/**
+ * @file
+ * @brief  熱損失係数出力ルーチン(1997.11.18)
+ */
 
 #define _CRT_SECURE_NO_WARNINGS
 #include <stdio.h>

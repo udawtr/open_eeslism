@@ -15,6 +15,7 @@
 
 /*  ees3lib.c  */
 
+
 #define _CRT_SECURE_NO_WARNINGS
 #include <ctype.h>
 #include <stdio.h>
@@ -28,6 +29,13 @@
 #include "fesy.h"
 #include "fnlib.h"
 #include "winerror.h"
+
+
+/**
+ * @file
+ * @brief ユーティリティ関数
+ */
+
 
 /* Check heap status */
 void HeapCheck(char *s)
@@ -340,8 +348,8 @@ void Errprint(int err, char *key, char *s)
 	if (err != 0)
 	{
 		printf(ERRFMTA, key, s);
-		if ( ferr )
-			ERR_PRINT(ERRFMTA, key, s);
+		if ( LOG_ENABLED )
+			LOG_PRINT(ERRFMTA, key, s);
 	}
 }
 
@@ -349,8 +357,8 @@ void Errprint(int err, char *key, char *s)
 void Eprint(char *key, char *s)
 {
 	printf(ERRFMTA, key, s);
-	if ( ferr )
-		ERR_PRINT(ERRFMTA, key, s);
+	if ( LOG_ENABLED )
+		LOG_PRINT(ERRFMTA, key, s);
 }
 
 /*  データの記憶域確保時のエラー出力 */

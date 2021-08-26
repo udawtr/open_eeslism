@@ -26,6 +26,11 @@
 #include "fnlib.h"
 #include "winerror.h"
 
+/**
+ * @file
+ * @brief 
+ */
+
 /* 曜日の設定  */
 
 void Dayweek(FILE *fi, char *Ipath, int *daywk, int key)

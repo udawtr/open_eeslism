@@ -29,6 +29,11 @@
 #define  Alidmy   9.3
 #define  ALITOLE  1.e-5
 
+/**
+ * @file
+ * @brief 
+ */
+
 /* -------------------------------------------------------------- */
 
 /*    熱伝達率に関する計算  */
@@ -162,9 +167,9 @@ void Htrcf (double *alc, double *alo, char alotype, EXSF *Exs, double Tr, int N,
 				n, Sd->ble, Sd->Ts, Tr, Sd->alic, Sd->alir, Sd->room->name);
 		}
 		
-		if ( dayprn && ferr )
+		if ( dayprn && LOG_ENABLED )
 		{
-			ERR_PRINT("----- Htrcf n=%2d ble=%c Ts=%.1lf Tr=%.1lf alic=%.3lf alir=%.3lf rmname=%s\n",
+			LOG_PRINT("----- Htrcf n=%2d ble=%c Ts=%.1lf Tr=%.1lf alic=%.3lf alir=%.3lf rmname=%s\n",
 				n, Sd->ble, Sd->Ts, Tr, Sd->alic, Sd->alir, Sd->room->name);           
 		}
 	}

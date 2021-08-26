@@ -30,7 +30,8 @@
 
 /* -------------------------------------------------- */
 
-/*
+/** 
+ * @file 
  * @brief 建築・設備システムデータ入力
  * @details
  *
@@ -657,36 +658,47 @@ void Eeinput(char *Ipath, SIMCONTL *Simc, SCHDL *Schdl,
 
 	flo = Flout;
 
+	// 毎時出力／システム要素の流量、機器出入口温度をシステム経路に沿った出力
 	Flout->idn = stralloc(PRTPATH);
 	Flout++;
 
+	// 毎時出力／機器ごとのシミュレーション結果(入口・出口水温、各種熱量、エネルギー消費量など)
 	Flout->idn = stralloc(PRTCOMP);
 	Flout++;
 
+	// 日集計出力／機器ごとのシミュレーション結果(入口・出口水温、各種熱量、エネルギー消費量などの日集計値)
 	Flout->idn = stralloc(PRTDYCOMP);
 	Flout++;
 
+	// 月集計出力／機器ごとのシミュレーション結果(月積算値、平均値、最高・最低値)
 	Flout->idn = stralloc(PRTMNCOMP);
 	Flout++;
 
+	// 月・時刻集計値出力／機器ごとのシミュレーション結果（エネルギー消費量の月・時刻集計値）
 	Flout->idn = stralloc(PRTMTCOMP);
 	Flout++;
 
+	// (マニュアル未記載)
 	Flout->idn = stralloc(PRTHRSTANK);
 	Flout++;
 
+	// (マニュアル未記載)
 	Flout->idn = stralloc(PRTWK);
 	Flout++;
 
+	// 毎時出力／建物シミュレーション結果 (室温、湿度、平均表面温度、相対湿度)
 	Flout->idn = stralloc(PRTREV);
 	Flout++;
 
+	// 毎時出力／建物シミュレーション結果 (室温、湿度、室内表面温度、熱負荷)
 	Flout->idn = stralloc(PRTHROOM);
 	Flout++;
 
+	// 日集計出力／建物シミュレーション結果(室温、湿度、室内表面温度、熱負荷日集計値)
 	Flout->idn = stralloc(PRTDYRM);
 	Flout++;
 
+	// 月集計出力／建物シミュレーション結果(月積算値、平均値、最高・最低値)
 	Flout->idn = stralloc(PRTMNRM);
 	Flout++;
 
@@ -732,33 +744,45 @@ void Eeinput(char *Ipath, SIMCONTL *Simc, SCHDL *Schdl,
 
 	if (pmvpri > 0)
 	{
+		// 毎時出力／建物シミュレーション結果 (室温、湿度、室内表面温度、熱負荷)
 		Flout->idn = stralloc(PRTPMV);
 		Flout++;
 	}
 
 	if (Nqrmpri > 0)
 	{
+		// 毎時出力／建物シミュレーション結果 (日射および室内発熱、すきま風による熱取得要素)
 		Flout->idn = stralloc(PRTQRM);
 		Flout++;
 
+		// 日集計出力／建物シミュレーション結果(日射および室内発熱熱取得要素日積算値)
 		Flout->idn = stralloc(PRTDQR);
 		Flout++;
 	}
 
 	if (Nrmspri > 0)
 	{
+		// 毎時出力／建物シミュレーション結果 (室内表面温度)
 		Flout->idn = stralloc(PRTRSF);
 		Flout++;
+
+		// 毎時出力／建物シミュレーション結果 (室内表面熱流)
 		Flout->idn = stralloc(PRTSFQ);
 		Flout++;
+
+		// 毎時出力／建物シミュレーション結果 (室内表面熱伝達率)
 		Flout->idn = stralloc(PRTSFA);
 		Flout++;
+
+		//(マニュアル未記載)
 		Flout->idn = stralloc(PRTDYSF);
 		Flout++;
 	}
 
+	// 壁体内温度の出力
 	if (Nwalpri > 0)
 	{
+		// 壁体内温度
 		Flout->idn = stralloc(PRTWAL);
 		Flout++;
 	}
@@ -766,24 +790,30 @@ void Eeinput(char *Ipath, SIMCONTL *Simc, SCHDL *Schdl,
 	// 日よけの影面積出力
 	if (Nshdpri > 0)
 	{
+		// 日よけの影面積出力
 		Flout->idn = stralloc(PRTSHD);
 		Flout++;
 	}
 
 	if (Npcmpri > 0)
 	{
+		//(マニュアル未記載)
 		Flout->idn = stralloc(PRTPCM);
 		Flout++;
 	}
 
+	// 気象データの出力
 	if (wdpri > 0)
 	{
+		// 毎時出力／気象データ(外気温、方位別日射量などの気象データ)
 		Flout->idn = stralloc(PRTHWD);
 		Flout++;
 
+		// 日集計出力／気象データ(気象データ日平均、日積算値)
 		Flout->idn = stralloc(PRTDWD);
 		Flout++;
 
+		// 月集計出力／気象データ(月積算値、平均値、最高・最低値) 
 		Flout->idn = stralloc(PRTMWD);
 		Flout++;
 	}

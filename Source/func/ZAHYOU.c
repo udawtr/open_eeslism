@@ -13,6 +13,12 @@
 //You should have received a copy of the GNU General Public License
 //along with Foobar.If not, see < https://www.gnu.org/licenses/>.
 
+
+/**
+ * @file
+ * @brief モンテカルロ法を用いる際の座標変換
+ */
+
 /*
 
                       モンテカルロ法を用いる際の座標変換

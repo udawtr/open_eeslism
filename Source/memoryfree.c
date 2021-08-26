@@ -30,7 +30,10 @@
 #include "model/simcon.h"
 #include "memoryfree.h"
 
-//using namespace std ;
+/**
+ * @file
+ * @brief メモリ開放処理用関数の実装
+ */
 
 void	SchdlFree(SCHDL* Schdl)
 {

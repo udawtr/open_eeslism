@@ -21,6 +21,11 @@
 #include "fnesy.h"
 #include "fnbld.h"
 
+/**
+ * @file
+ * @brief システム使用機器についての出力
+ */
+
 
 /*  システム使用機器についての出力  */
 

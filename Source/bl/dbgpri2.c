@@ -21,6 +21,11 @@
 #include "fesy.h"
 #include "fnbld.h"
 
+/**
+ * @file
+ * @brief デバッグ出力
+ */
+
 /* ----------------------------------------- */
 
 void	xprroom ( int Nroom, ROOM *R )
@@ -57,29 +62,29 @@ void	xprroom ( int Nroom, ROOM *R )
 	}
 
 	Room = R ;
-	if ( ferr )
+	if ( LOG_ENABLED )
 	{
-		ERR_PRINT("--- xprroom\n" ) ;
+		LOG_PRINT("--- xprroom\n" ) ;
 		for ( i = 0; i < Nroom; i++, Room++ )
 		{ 
-			ERR_PRINT("Room:\tname=%s\tMRM=%.4g\tGRM=%.4g\n", 
+			LOG_PRINT("Room:\tname=%s\tMRM=%.4g\tGRM=%.4g\n", 
 				Room->name, Room->MRM, Room->GRM);
 			
-			ERR_PRINT("\tRMt=%.4g\n", Room->RMt);
+			LOG_PRINT("\tRMt=%.4g\n", Room->RMt);
 			
 			ARN = Room->ARN;
 			for (j = 0; j < Room->Ntr; j++, ARN++ )
-				ERR_PRINT("\tARN[%d]=%.4g", j, *ARN ) ;
-			ERR_PRINT("\n" ) ;
+				LOG_PRINT("\tARN[%d]=%.4g", j, *ARN ) ;
+			LOG_PRINT("\n" ) ;
 
 			RMP = Room->RMP;
 			for ( j = 0; j < Room->Nrp; j++, RMP++ )
-				ERR_PRINT("\tRMP[%d]=%.4g", j, *RMP ) ;
-			ERR_PRINT("\n" ) ;
+				LOG_PRINT("\tRMP[%d]=%.4g", j, *RMP ) ;
+			LOG_PRINT("\n" ) ;
 
-			ERR_PRINT("\tRMC=%.4g\n", Room->RMC ) ;
+			LOG_PRINT("\tRMC=%.4g\n", Room->RMC ) ;
 			
-			ERR_PRINT("\tRMx=%.2g\t\tRMXC=%.2g\n",
+			LOG_PRINT("\tRMx=%.2g\t\tRMXC=%.2g\n",
 				Room->RMx, Room->RMXC ) ;
 		}
 	}
@@ -138,18 +143,18 @@ void	xprvent ( int Nroom, ROOM *R )
 	}
 
 	Room = R ;
-	if ( ferr )
+	if ( LOG_ENABLED )
 	{
-		ERR_PRINT("\n\n--- xprvent\n" ) ;
+		LOG_PRINT("\n\n--- xprvent\n" ) ;
 		
 		for ( i = 0; i < Nroom; i++, Room++ )
 		{ 
-			ERR_PRINT("\t[%d]\t%s\tGvent=%.3g\n\t\t", i, Room->name, Room->Gvent ) ;
+			LOG_PRINT("\t[%d]\t%s\tGvent=%.3g\n\t\t", i, Room->name, Room->Gvent ) ;
 			
 			A = Room->achr ;
 			for ( j = 0; j < Room->Nachr; j++, A++ )
-				ERR_PRINT("\t<%d>=%.2g", A->rm, A->Gvr ) ;
-			ERR_PRINT("\n" ) ;
+				LOG_PRINT("\t<%d>=%.2g", A->rm, A->Gvr ) ;
+			LOG_PRINT("\n" ) ;
 		}
 	}
 }

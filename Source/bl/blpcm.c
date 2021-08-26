@@ -28,6 +28,12 @@
 #include "fnlib.h"
 #include "fnfio.h"
 
+/**
+ * @file
+ * @brief 潜熱蓄熱材
+ */
+
+
 /*  壁体デ－タの入力  */
 
 void PCMdata(FILE *fi, char *dsn, PCM **pcm, int *Npcm, char *pcmiterate)

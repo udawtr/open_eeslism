@@ -22,6 +22,12 @@
 #include "fnlib.h"
 #define SCHAR 1024
 
+
+/**
+ * @file
+ * @brief  入力データの読み込み
+ */
+
 /*
 
 							  入力データの読み込み

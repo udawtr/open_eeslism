@@ -24,15 +24,32 @@
 #include "winerror.h"
 #include "fnlib.h"
 
+/**
+ * @file
+ * @brief ファイルポインタの管理
+ */
+
+
 /* ----------------------------------------------------- */
 
+/**
+ * @brief ファイルを開く
+ * @details
+ * 読み／書きする全てのファイルを開き、ファイルポインタを取得する。
+ * ※読込ファイルはHASP形式を使用する場合のみ
+ */
 void eeflopen(SIMCONTL *Simc, int Nflout, FLOUT *Flout)
 {
 	FLOUT *fl;
 	char  Fname[SCHAR], Err[SCHAR] ; 
 	
 	sprintf(Err, ERRFMT, "(eeflopen)");
-	
+
+	//
+	// 1) 入力ファイルを全て開く
+	//
+
+	//気象データをHASP形式で読み取る場合
 	if (Simc->wdtype == 'H')
 	{
 		if ((Simc->fwdata = fopen(Simc->wfname, "r")) == 0)
@@ -59,7 +76,12 @@ void eeflopen(SIMCONTL *Simc, int Nflout, FLOUT *Flout)
 	}
 	
 	//strcat ( strcpy ( Fname, Simc->ofname ), ".log" ) ;
-	//ferr = fopen ( Fname, "w" ) ;
+	//flog = fopen ( Fname, "w" ) ;
+
+
+	//
+	// 2) 出力ファイルを全て開く
+	//
 
 	for (fl = Flout; fl < Flout+Nflout; fl++)
 	{
@@ -77,8 +99,8 @@ void eeflclose(int Nflout, FLOUT *Flout)
 	//   fclose(Simc->fwdata);
 	//   fclose(Simc->ftsupw);
 	
-	if ( ferr )
-		fclose ( ferr ) ;
+	if ( LOG_ENABLED )
+		fclose ( flog ) ;
 	for (fl = Flout; fl < Flout+Nflout; fl++)
 	{
 		fprintf(fl->f, "-999\n");

@@ -17,7 +17,11 @@
 #include "fesy.h"
 #include "fnfio.h"
 
-/* 経路に沿ったシステム要素の出力 */
+/**
+ * @file
+ * @brief 経路に沿ったシステム要素の出力
+ */
+
 
 void Pathprint(FILE *fo, char *title, int mon, int day, double time,
 			   int Nmpath, MPATH *Mpath)

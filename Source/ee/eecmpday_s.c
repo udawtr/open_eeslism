@@ -23,9 +23,15 @@
 #include "fnfio.h"
 #include "fnbld.h"
 
+/**
+ * @file
+ * @brief システム要素機器の日集計
+ */
 
-/* システム要素機器の日集計処理 */
 
+/**
+ * @brief システム要素機器の日集計処理
+ */
 void Compoday(int Mon, int Day, int Nday, int ttmm, EQSYS *Eqsys, int SimDayend)
 {
 	static int oldday = 0;
@@ -52,6 +58,7 @@ void Compoday(int Mon, int Day, int Nday, int ttmm, EQSYS *Eqsys, int SimDayend)
 		oldday = Nday;
 	}
 
+	// 月集計
 	if (Mon != oldMon)
 	{
 		boimonint(Eqsys->Nboi, Eqsys->Boi);
@@ -70,8 +77,8 @@ void Compoday(int Mon, int Day, int Nday, int ttmm, EQSYS *Eqsys, int SimDayend)
 		
 		oldMon = Mon;
 	}
-	
-	// 日集計
+
+	// 日集計、月集計実行
 	boiday(Mon, Day, ttmm, Eqsys->Nboi, Eqsys->Boi, Nday, SimDayend);
 	refaday(Mon, Day, ttmm, Eqsys->Nrefa, Eqsys->Refa, Nday, SimDayend);
 	collday(Mon, Day, ttmm, Eqsys->Ncoll, Eqsys->Coll, Nday, SimDayend);
@@ -86,26 +93,12 @@ void Compoday(int Mon, int Day, int Nday, int ttmm, EQSYS *Eqsys, int SimDayend)
 	Qmeasday(Mon, Day, ttmm, Eqsys->Nqmeas, Eqsys->Qmeas, Nday, SimDayend) ;
 	PVday(Mon, Day, ttmm, Eqsys->Npv, Eqsys->PVcmp, Nday, SimDayend ) ;
 	Desiday(Mon, Day, ttmm, Eqsys->Ndesi, Eqsys->Desi, Nday, SimDayend) ;
-	
-	// 月集計
-	//boimon(Mon, Day, ttmm, Eqsys->Nboi, Eqsys->Boi);
-	//refamon(Mon, Day, ttmm, Eqsys->Nrefa, Eqsys->Refa);
-	//collmon(Mon, Day, ttmm, Eqsys->Ncoll, Eqsys->Coll);
-	//hccmon(Mon, Day, ttmm, Eqsys->Nhcc, Eqsys->Hcc);
-	//pipemon(Mon, Day, ttmm, Eqsys->Npipe, Eqsys->Pipe);
-	//hexmon(Mon, Day, ttmm, Eqsys->Nhex, Eqsys->Hex);
-	//stankmon(Mon, Day, ttmm, Eqsys->Nstank, Eqsys->Stank);
-	//pumpmon(Mon, Day, ttmm, Eqsys->Npump, Eqsys->Pump);
-	//hcldmon(Mon, Day, ttmm, Eqsys->Nhcload, Eqsys->Hcload);
-	//stheatmon(Mon, Day, ttmm, Eqsys->Nstheat, Eqsys->stheat) ;
-	//Thexmon(Mon, Day, ttmm, Eqsys->Nthex, Eqsys->Thex) ;
-	//Qmeasmon(Mon, Day, ttmm, Eqsys->Nqmeas, Eqsys->Qmeas) ;
-	//PVmon(Mon, Day, ttmm, Eqsys->Npv, Eqsys->PVcmp ) ;
 }
-/* ---------------------------------- */
 
-/* システム要素機器の日集計結果出力 */
 
+/**
+ * @brief システム要素機器の日集計結果出力
+ */
 void Compodyprt(FILE *fo, char *mrk, SIMCONTL *Simc, int mon, int day, 
 				EQSYS *Eqsys, int Nrdpnl, RDPNL *Rdpnl)
 {

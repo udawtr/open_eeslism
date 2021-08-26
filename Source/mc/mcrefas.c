@@ -25,6 +25,11 @@
 #include "fnlib.h"
 #include "winerror.h"
 
+/**
+ * @file
+ * @brief 圧縮式冷凍機の処理関数の定義
+ */
+
 
 /*  圧縮式冷凍機
 
@@ -561,6 +566,11 @@ void refamonint(int Nrefa, REFA *Refa)
 	}
 }
 
+
+
+/**
+ * @brief 日集計、月集計
+ */
 void refaday(int Mon, int Day, int ttmm, int Nrefa, REFA *Refa, int Nday, int SimDayend)
 {
 	int i;

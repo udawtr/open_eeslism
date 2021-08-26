@@ -13,6 +13,12 @@
 //You should have received a copy of the GNU General Public License
 //along with Foobar.If not, see < https://www.gnu.org/licenses/>.
 
+
+/**
+ * @file
+ * @brief 壁面の法線ベクトルを求める
+ */
+
 /*
 
                         壁面の法線ベクトルを求める
