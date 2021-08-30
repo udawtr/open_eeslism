@@ -16,7 +16,7 @@
 
 /**
  * @file
- * @brief ボイラーの処理関数の定義
+ * @brief BOI ボイラーの処理関数の定義
  */
 
 #include <string.h>

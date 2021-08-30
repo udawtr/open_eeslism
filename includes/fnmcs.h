@@ -17,10 +17,7 @@
 
 // 2.5 設備機器データ処理関数群
 
-//HCC 冷温水コイル
-#include "mc/mcaclib.h"
-
-//REFA 圧縮式冷凍機
+//REFA チラー、ヒートポンプチラー（空気熱源） ---- 機器仕様入力
 #include "mc/mcrefas.h"
 
 //BOI ボイラー
@@ -31,9 +28,6 @@
 
 //PV 太陽電池
 #include "mc/mcpv.h"
-
-//REFA チラー、ヒートポンプチラー（空気熱源） ---- 機器仕様入力
-#include "mc/mcrefas.h"
 
 //HCC 冷温水コイル
 #include "mc/mchccoil.h"

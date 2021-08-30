@@ -28,6 +28,19 @@
 #include "fnlib.h"
 #include "lib/u_psy.h"
 
+//------ プライベート関数の宣言 ------//
+
+#include "model/eqptyp.h"
+
+void _wcoil(char Air_SW, char Water_SW, char wet, double Gaet, double Gaeh,
+	double xai, double Twi, ACS* Et, ACS* Ex, ACS* Ew);
+double _Qcoils(ACS* Et, double Tai, double xai, double Twi);
+double _Qcoill(ACS* Ex, double Tai, double xai, double Twi);
+void _hstaircf(double Tw1, double Tw2, double* a, double* b);
+
+
+//------ パブリック関数の実装 ------//
+
 /*  機器仕様入力 */
 
 int Hccdata(char *s, HCCCA *Hccca)
@@ -137,7 +150,7 @@ void Hcccfv(int Nhcc, HCC *Hcc)
             
 			//printf ( "Air_SW=%c  Water_SW=%c\n", AirSW, WaterSW ) ;
 
-			wcoil(AirSW, WaterSW, Hcc->wet,  Hcc->Ga * Hcc->et,  Hcc->Ga * Hcc->eh, 
+			_wcoil(AirSW, WaterSW, Hcc->wet,  Hcc->Ga * Hcc->et,  Hcc->Ga * Hcc->eh, 
 				Hcc->xain, Hcc->Twin, &Hcc->Et, &Hcc->Ex, &Hcc->Ew);
 			
 
@@ -559,4 +572,144 @@ double	FNhccet ( double Wa, double Ww, double KA )
 		else
 			return (( 1.0 - exB ) / ( 1.0 - C * exB )) ;
 	}
+}
+
+
+
+/************ #include "cmpref.h"
+*************/
+/*  冷媒コイルの処理熱量計算用係数   */
+
+/********************
+void	dxcoil ( char wet, HPCH *Rf, double Toa, double Gaet, double Gaeh,
+				double Tai, double xai, ACS *Et, ACS *Ex )
+{ 
+	double  EGex, cs, ae,be, Do,Dt,Dx,Dc,Ee;
+	EGex= Rf->eex * ca *Rf->Gex;
+	
+	if (Rf->mode == 'C')
+		_Compca(Rf->e, Rf->d, EGex, Rf->Teo, Toa, &Rf->Ho, &Rf->He);
+	else
+		_Compha(Rf->e, Rf->d, EGex, Rf->Tco, Toa, &Rf->Ho, &Rf->He);
+	
+	if (wet == 'd')
+	{
+		Do= ca*Gaet + Rf->He;
+		Dt= ca*Gaet/Do;
+		Dc= Rf->Ho /Do;
+		Et->w = Et->x =0.0;
+		Et->t = ca*Gaet*(1.0-Dt);
+		Et->C = -ca*Gaet*Dc;
+		Ex->w = Ex->t = Ex->x = Ex->C =0.0; }
+	else
+	{
+		hstaircf(Rf->Teo[0]+3.0, Rf->Teo[1],&ae,&be);
+		cs=ca+cv*xai;
+		Do= Gaeh*be + Rf->He;
+		Dt= Gaeh*cs/Do;
+		Dx= Gaeh*ro/Do;
+		Dc= (Rf->Ho - Gaeh*ae)/Do;
+		
+		Ee= (Gaeh*be -Gaet*ca)/ro;
+		Et->w = 0.0;
+		Et->t = ca*Gaet*(1.0-Dt);
+		Et->x = -ca*Gaet*Dx;
+		Et->C = -ca*Gaet*Dc;
+		
+		Ex->w = 0.0;
+		Ex->t = (Gaeh*cs-Gaet*ca)/ro-Ee*Dt;
+		Ex->x = Gaeh-Ee*Dx; 
+		Ex->C = -(Gaeh*ae/ro + Ee*Dc); }
+}
+/**********************************/
+
+/* ------------------------------------------ */
+
+
+
+//------ プライベート関数の実装 ------//
+
+
+/*  冷温水コイルの処理熱量計算用係数   */
+
+
+void _wcoil(char Air_SW, char Water_SW, char wet, double Gaet, double Gaeh,
+		   double xai, double Twi, ACS *Et, ACS *Ex, ACS *Ew)
+{
+	double  aw, bw, cs;
+	if (wet == 'd' || Water_SW == OFF_SW || Air_SW == OFF_SW) 
+	{
+		// 片側系統が停止していたときに対応するように修正
+		// Satoh Debug 2009/1/9
+		if ( Water_SW != OFF_SW )
+		{
+			Et->w = Et->t = CONST_CA*Gaet;
+			Et->x = Et->C =0.0;
+		}
+		else
+			Et->w = Et->t = Et->x = Et->C = 0.0;
+			
+		Ex->w = Ex->t = Ex->x = Ex->C = 0.0; 
+
+		if ( Air_SW != OFF_SW )
+		{
+			Ew->w = Ew->t = Gaet*CONST_CA;
+			Ew->x = Ew->C = 0.0;
+		}
+		else
+			Ew->w = Ew->t = Ew->x = Ew->C = 0.0;
+	}
+	else
+	{
+		_hstaircf(Twi, Twi+5.0, &aw, &bw);
+		cs=CONST_CA+CONST_CV*xai;
+		Et->w = Et->t = CONST_CA*Gaet;
+		Et->x = Et->C =0.0;
+		
+		Ex->w = (Gaeh*bw-Gaet*CONST_CA)/CONST_RO;
+		Ex->t = (Gaeh*cs-Gaet*CONST_CA)/CONST_RO;
+		Ex->x = Gaeh;
+		Ex->C = -Gaeh*aw/CONST_RO; 
+		
+		Ew->w = Gaeh*bw;
+		Ew->t = Gaeh*cs;
+		Ew->x = Gaeh*CONST_RO;
+		Ew->C = -Gaeh*aw;
+	}
+}
+
+/* ------------------------------------------ */
+
+/*  コイル供給顕熱  */
+
+double _Qcoils(ACS *Et, double Tai, double xai, double Twi)
+{  
+	return (Et->w * Twi - Et->t * Tai - Et->x * xai - Et->C);
+}
+
+/* ------------------------------------------ */
+
+/*  コイル供給潜熱  */
+
+double _Qcoill(ACS *Ex, double Tai, double xai, double Twi)
+{ 
+	return (CONST_RO * (Ex->w * Twi - Ex->t * Tai - Ex->x * xai - Ex->C));
+}
+
+/* ------------------------------------------ */
+
+/*  水温に等しい飽和空気のエンタルピの一次式近似の係数 */
+
+void _hstaircf(double Tw1, double Tw2, double *a, double *b)
+{
+	double  h1, h2;
+	
+	h1 = FNH((double) Tw1, FNXtr((double) Tw1, 100.0));
+	h2 = FNH((double) Tw2, FNXtr((double) Tw2, 100.0));
+	*b = (h2-h1)/(Tw2-Tw1);
+	*a = h1 - *b * Tw1;
+	
+	/* -------------
+    printf("== hstaircf  Tw1,Tw2=%lf  %lf    a=%lf   b=%lf\n",Tw1,Tw2,*a,*b);
+	---------------- */
 }

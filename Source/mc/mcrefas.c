@@ -31,7 +31,7 @@
 
 /**
  * @file
- * @brief 圧縮式冷凍機の処理関数の定義
+ * @brief REFA 圧縮式冷凍機の処理関数の定義
  */
 
 //For RFCMP, REFA
