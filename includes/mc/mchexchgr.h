@@ -6,7 +6,7 @@
 //For HEX, HEXCA
 #include "model/eqptyp.h"
 
-int Hexdata(char *s, HEXCA *Hexca);
+int  Hexdata(char *s, HEXCA *Hexca);
 void Hexcfv(int Nhex, HEX *Hex);
 void Hexene(int Nhex, HEX *Hex);
 void hexprint(FILE *fo, int id, int Nhex, HEX *Hex);

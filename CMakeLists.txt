@@ -99,8 +99,8 @@ add_executable(eeslism
     Source/mc/mcboiler.c
     Source/mc/mccnvrg.c
     Source/mc/mcdesiccant.c
-    Source/mc/mceqcadat.c
-    Source/mc/mceqpcat.c
+    "Source/mc/mceqpcat.c"
+    
     Source/mc/mcevcooling.c
     Source/mc/mchccoil.c
     Source/mc/mchcload.c

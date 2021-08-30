@@ -15,7 +15,7 @@
 
 /**
  * @file
- * @brief 空調負荷仮想機器の処理関数の定義
+ * @brief HCLD 空調負荷仮想機器の処理関数の定義
  */
 
 #define _CRT_SECURE_NO_WARNINGS

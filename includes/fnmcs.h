@@ -17,6 +17,12 @@
 
 // 2.5 設備機器データ処理関数群
 
+//EQPCAT 機器カタログ
+#include "mc/mceqpcat.h"
+
+//COMPNT, EQSYS, WDAT, RMVLS, EXFS, SIMCONTL
+#include "mc/mcmecsys.h"
+
 //BOI ボイラー
 #include "mc/mcboiler.h"
 
@@ -56,26 +62,11 @@
 //OMVAV
 #include "mc/mcomvav.h"
 
-/*  hcload.c  */
+//HCLD 空調機負荷仮想機器
 #include "mc/hcload.h"
 
 //VALV
 #include "mc/mcvalv.h"
-
-/* mc_cnvrg.c  */
-#include "mc/mccnvrg.h"
-
-//EQDAT 機器カタログデータの読み込み
-#include "mc/mceqcadat.h"
-
-//COMPNT, EQCAT, EQSYS
-#include "mc/mceqpcat.h"
-
-//COMPNT, EQSYS, WDAT, RMVLS, EXFS, SIMCONTL
-#include "mc/mcmecsys.h"
-
-//QMEAS 
-#include "mc/mcqmeas.h"
 
 //DESI バッチ式デシカント空調機
 // mcdesiccant.c  Satoh追加 2013/10/20
@@ -84,3 +75,9 @@
 //EVAC 気化冷却器
 // mcevcooling.c Satoh追加 2013/10/26
 #include "mc/mcevcooling.h"
+
+/* mc_cnvrg.c  */
+#include "mc/mccnvrg.h"
+
+//QMEAS カロリーメータ
+#include "mc/mcqmeas.h"

@@ -13,7 +13,7 @@
 //For EXFS
 #include "exs.h"
 
-int PVcadata (char *s, PVCA *PVca) ;
+int  PVcadata (char *s, PVCA *PVca) ;
 void PVint(int Npv, PV *PV, int Nexsf, EXSF *Exs, WDAT *Wd) ;
 void PVene(int Npv, PV *PV) ;
 void PVprint(FILE *fo, int id, int Npv, PV *PV) ;

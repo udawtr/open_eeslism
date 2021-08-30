@@ -23,13 +23,12 @@
 #include "model/simcon.h"
 
 
-int Stheatdata(char *s, STHEATCA *stheatca) ;
-void Stheatint(int Nstheat, STHEAT *stheat, 
-	SIMCONTL *Simc, int Ncompnt, COMPNT *Compnt, WDAT *Wd, int Npcm, PCM *PCM);
+int  Stheatdata(char *s, STHEATCA *stheatca) ;
+void Stheatint(int Nstheat, STHEAT *stheat, SIMCONTL *Simc, int Ncompnt, COMPNT *Compnt, WDAT *Wd, int Npcm, PCM *PCM);
 void Stheatcfv(int Nstheat, STHEAT *stheat) ;
 void Stheatene(int Nstheat, STHEAT *stheat) ;
 //void Stheatene2(int Nstheat, STHEAT *stheat);
-int	stheatvptr(char **key, STHEAT *Stheat, VPTR *vptr, VPTR *vpath) ;
+int  stheatvptr(char **key, STHEAT *Stheat, VPTR *vptr, VPTR *vpath) ;
 void stheatprint(FILE *fo, int id, int Nstheat, STHEAT *stheat) ;
 void stheatdyint(int Nstheat, STHEAT *stheat) ;
 void stheatmonint(int Nstheat, STHEAT *stheat) ;
