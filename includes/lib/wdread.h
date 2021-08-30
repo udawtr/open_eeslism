@@ -17,7 +17,7 @@
 
 #include "model/simcon.h"
 #include "model/eepath.h"
-#include "model/eqptyp.h"
+#include "mc/eqptyp.h"
 #include "model/control.h"
 #include "model/sched.h"
 #include "model/wthrd.h"

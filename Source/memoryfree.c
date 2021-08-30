@@ -25,7 +25,7 @@
 #include "model/daysum.h"
 #include "model/build.h"
 #include "model/eepath.h"
-#include "model/eqptyp.h"
+#include "mc/eqptyp.h"
 #include "model/eps.h"
 #include "model/simcon.h"
 #include "memoryfree.h"
@@ -383,7 +383,7 @@ void	Eqsysfree(EQSYS* E)
 	PUMP* Pu;
 	FLIN* F;
 	HCLOAD* Hc;
-	GLOAD* G;
+	//GLOAD* G;
 	VAV* V;
 	STHEAT* St;
 	THEX* T;
@@ -484,20 +484,20 @@ void	Eqsysfree(EQSYS* E)
 	}
 	free(E->Hcload);
 
-	G = E->Gload;
-	N = E->Ngload;
-	for (i = 0; i < N; i++, G++)
-	{
-		//		free ( G->name ) ;
-		G->name = NULL;
-		free(G->nameql);
-		free(G->nameqs);
-		free(G->nameQt);
-		free(G->Qs);
-		free(G->Ql);
-		free(G->Qt);
-	}
-	free(E->Gload);
+	//G = E->Gload;
+	//N = E->Ngload;
+	//for (i = 0; i < N; i++, G++)
+	//{
+	//	//		free ( G->name ) ;
+	//	G->name = NULL;
+	//	free(G->nameql);
+	//	free(G->nameqs);
+	//	free(G->nameQt);
+	//	free(G->Qs);
+	//	free(G->Ql);
+	//	free(G->Qt);
+	//}
+	//free(E->Gload);
 
 	V = E->vav;
 	N = E->Nvav;

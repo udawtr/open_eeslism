@@ -25,7 +25,7 @@
 #include "model/daysum.h"
 #include "model/build.h"
 #define	 ALO	23.0
-#include "model/eqptyp.h"
+#include "mc/eqptyp.h"
 #include "model/control.h"
 #include "model/sched.h"
 #include "fnlib.h"
@@ -242,7 +242,7 @@ void	Eqsysinit ( EQSYS *E )
 {
 	E->Ncnvrg = E->Nhcc = E->Nboi = E->Nrefa = E->Ncoll = 0 ;
 	E->Npipe = E->Nstank = E->Nhex = E->Npump = E->Nflin = 0 ;
-	E->Nhcload = E->Ngload = E->Nvav = E->Nstheat = E->Ndesi = E->Nevac = 0 ;
+	E->Nhcload = E->Nvav = E->Nstheat = E->Ndesi = E->Nevac = 0 ;
 	E->Nthex = E->Nvalv = E->Nqmeas = 0 ;
 	E->Npv = 0 ;
 	E->Nomvav = 0 ;
@@ -258,7 +258,6 @@ void	Eqsysinit ( EQSYS *E )
 	E->Pump = NULL ;
 	E->Flin = NULL ;
 	E->Hcload = NULL ;
-	E->Gload = NULL ;
 	E->vav = NULL ;
 	E->stheat = NULL ;
 	E->Thex = NULL ;

@@ -18,6 +18,7 @@
 #pragma once
 
 #include "fesy.h"
+#include "model/eepath.h"
 #include "MODEL.h"
 
 void Eeinput(

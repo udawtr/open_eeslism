@@ -2,16 +2,20 @@
 
 #include <stdio.h>
 
+#include "model/control.h"
+#include "model/simcon.h"
+
 //For COMPNT
 #include "model/eepath.h"
 
 //For EQCAT, EQSYS
-#include "model/eqptyp.h"
+#include "mc/eqptyp.h"
 
 //---------------------------------------------------------------
 // 2.5.1 機器仕様（機器カタログデータ
 // 機器カタログデータの読み込み
 //---------------------------------------------------------------
+
 
 /*
  * @brief 機器カタログデータの読み込み

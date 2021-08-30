@@ -95,31 +95,27 @@ add_executable(eeslism
     Source/esy/escntrlfactor.c
     Source/esy/esidcode_s.c
     Source/ee/evcwdfl.c
-    
-    Source/mc/mcboiler.c
-    Source/mc/mccnvrg.c
-    Source/mc/mcdesiccant.c
+    "Source/mc/cmp/mcboi.c"
+    "Source/mc/cmp/mccnvrg.c"
+    "Source/mc/cmp/mcdesiccant.c"
     "Source/mc/mceqpcat.c"
-    
-    Source/mc/mcevcooling.c
-    Source/mc/mchccoil.c
-    Source/mc/mchcload.c
-    Source/mc/mchexchgr.c
-    Source/mc/mcmecsys.c
-    Source/mc/mcomvav.c
-    Source/mc/mcpipe.c
-    Source/mc/mcpump.c
-    Source/mc/mcpv.c
-    Source/mc/mcqmeas.c
-    Source/mc/mcrefas.c
-    Source/mc/mcsolrcol.c
-    Source/mc/mcstank.c
-    
-    Source/mc/mcstheat.c
-    Source/mc/mcthex.c
-    Source/mc/mcvalv.c
-    Source/mc/mcvav.c
-    
+    "Source/mc/cmp/mcevpcooling.c"
+    "Source/mc/cmp/mchcc.c"
+    "Source/mc/cmp/mchcload.c"
+    "Source/mc/cmp/mchex.c"
+    "Source/mc/cmp/mcmecsys.c"
+    "Source/mc/cmp/mcomvav.c"
+    "Source/mc/cmp/mcpipe.c"
+    "Source/mc/cmp/mcpump.c"
+    "Source/mc/cmp/mcpv.c"
+    "Source/mc/cmp/mcqmeas.c"
+    "Source/mc/cmp/mcrefa.c"
+    "Source/mc/cmp/mccoll.c"
+    "Source/mc/cmp/mcstank.c"    
+    "Source/mc/cmp/mcstheat.c"
+    "Source/mc/cmp/mcthex.c"
+    "Source/mc/cmp/mcvalv.c"
+    "Source/mc/cmp/mcvav.c"    
     Source/memoryfree.c
     Source/lib/spline.c
     Source/lib/u_ees3lb.c
@@ -132,7 +128,7 @@ add_executable(eeslism
     Source/waterandair.c
     Source/lib/wdprint.c
     Source/lib/wdread.c
-)
+ "Source/mc/ca/mcboica.c" "Source/mc/ca/mcpipeductca.c" "Source/mc/ca/mcpumpfanca.c" "Source/mc/ca/mcpvca.c" "Source/mc/ca/mcrefaca.c" "Source/mc/ca/mccollca.c" "Source/mc/ca/mcstankca.c" "Source/mc/ca/mcstheatca.c" "Source/mc/ca/mcthexca.c" "Source/mc/ca/mcvavca.c" "Source/mc/ca/mcevpcoolingca.c" "Source/mc/ca/mchccca.c" "Source/mc/ca/mcdesiccantca.c" "Source/mc/ca/mcomvavca.c" "Source/mc/ca/mchexca.c" "Source/mc/mcsyscmp.c" "Source/mc/cmp/mcflin.c" "includes/mc/cmp/mcflin.h")
 
 target_link_libraries(eeslism)
 
