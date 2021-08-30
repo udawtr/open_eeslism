@@ -17,3 +17,4 @@ void hccday(int Mon, int Day, int ttmm, int Nhcc, HCC *Hcc, int Nday, int SimDay
 void hccdyprt(FILE *fo, int id, int Nhcc, HCC *Hcc);
 void hccmonprt(FILE *fo, int id, int Nhcc, HCC *Hcc);
 double	FNhccet ( double Wa, double Ww, double KA ) ;
+void hccxprint(int Nhcc, HCC* Hcc);

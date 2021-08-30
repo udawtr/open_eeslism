@@ -134,6 +134,8 @@ void EnterDebugMode() {
 }
 
 
+void mecsxprint(EQSYS* Eqsys);
+
 /* -------------------------------------------------- */
 
 int main(int Narg, char **File)
@@ -1794,4 +1796,17 @@ void P_MENNinit(P_MENN *pm, int N)
 		pm->P = NULL;
 		pm->opw = NULL;
 	}
+}
+
+/**
+ * @breif システム使用機器についての検討用出力
+ * @param[IN] Eqsys 出力するシステム使用機器データ
+ */
+void mecsxprint(EQSYS* Eqsys)
+{
+	hccxprint(Eqsys->Nhcc, Eqsys->Hcc);
+	boixprint(Eqsys->Nboi, Eqsys->Boi);
+	collxprint(Eqsys->Ncoll, Eqsys->Coll);
+	refaxprint(Eqsys->Nrefa, Eqsys->Refa);
+	pipexprint(Eqsys->Npipe, Eqsys->Pipe);
 }

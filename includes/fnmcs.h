@@ -74,9 +74,6 @@
 //COMPNT, EQSYS, WDAT, RMVLS, EXFS, SIMCONTL
 #include "mc/mcmecsys.h"
 
-//EQSYS
-#include "mc/mcxprmcs.h"
-
 //QMEAS 
 #include "mc/mcqmeas.h"
 

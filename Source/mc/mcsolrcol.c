@@ -424,4 +424,21 @@ void collmonprt(FILE *fo, int id, int Ncoll, COLL *Coll)
 	}
 }
 
+void collxprint(int Ncoll, COLL* Coll)
+{
+	int i;
 
+	if (Ncoll > 0)
+	{
+		printf("%s N=%d\n", COLLECTOR_TYPE, Ncoll);
+
+		for (i = 0; i < Ncoll; i++, Coll++)
+		{
+			printf("[%d] %-10s Do=%6.3lf  D1=%6.3lf Tin=%5.2lf Tout=%5.2lf Q=%4.0lf Sol=%4.0lf Te=%5.1lf\n",
+				i, Coll->name, Coll->Do, Coll->D1, Coll->Tin,
+				Coll->cmp->elouts->sysv, Coll->Q, Coll->Sol, Coll->Te);
+			printf("   exs=%s  b0=%5.3lf  b1=%5.3lf ec=%5.3lf\n", Coll->sol->name,
+				Coll->cat->b0, Coll->cat->b1, Coll->ec);
+		}
+	}
+}

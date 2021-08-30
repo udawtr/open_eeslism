@@ -17,3 +17,4 @@ void boidyprt(FILE *fo, int id, int Nboi, BOI *Boi);
 void boimonprt(FILE *fo, int id, int Nboi, BOI *Boi);
 void boimtprt(FILE *fo, int id, int Nboi, BOI *Boi, int Mo, int tt) ;
 void	Boicaint(int NBoica, BOICA *Boica,  SIMCONTL *Simc, int Ncompnt, COMPNT *Compnt, WDAT *Wd, EXSFS *Exsf, SCHDL *Schdl) ;
+void boixprint(int Nboi, BOI* Boi);

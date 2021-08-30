@@ -31,3 +31,4 @@ void pipeday(int Mon, int Day, int ttmm, int Npipe, PIPE *Pipe, int Nday, int Si
 void pipedyprt(FILE *fo, int id, int Npipe, PIPE *Pipe);
 void pipemonprt(FILE *fo, int id, int Npipe, PIPE *Pipe);
 int pipevptr(char **key, PIPE *Pipe, VPTR *vptr) ;
+void pipexprint(int Npipe, PIPE* Pipe);

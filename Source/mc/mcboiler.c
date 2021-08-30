@@ -611,3 +611,20 @@ void boimtprt(FILE *fo, int id, int Nboi, BOI *Boi, int Mo, int tt)
 		break;
 	}
 }
+
+
+//@brief 検討用出力
+void boixprint(int Nboi, BOI* Boi)
+{
+	int i;
+
+	if (Nboi > 0)
+	{
+		printf("%s N=%d\n", BOILER_TYPE, Nboi);
+
+		for (i = 0; i < Nboi; i++, Boi++)
+			printf("[%d] %-10s Do=%5.3lf  D1=%5.3lf Tin=%5.2lf Tout=%5.2lf Q=%4.0lf E=%4.0lf\n",
+				i, Boi->name, Boi->Do, Boi->D1, Boi->Tin,
+				Boi->cmp->elouts->sysv, Boi->Q, Boi->E);
+	}
+}

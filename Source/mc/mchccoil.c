@@ -575,6 +575,34 @@ double	FNhccet ( double Wa, double Ww, double KA )
 }
 
 
+void hccxprint(int Nhcc, HCC* Hcc)
+{
+	int i;
+	ACS   E;
+	ELOUT* el;
+
+	if (Nhcc > 0)
+	{
+		printf("%s N=%d\n", HCCOIL_TYPE, Nhcc);
+
+		for (i = 0; i < Nhcc; i++, Hcc++)
+		{
+			printf("[%d] %-10s et=%5.3lf eh=%5.3lf\n", i, Hcc->name, Hcc->et, Hcc->eh);
+			E = Hcc->Et;
+			printf("     Et w=%7.3lf t=%7.3lf x=%7.3lf C=%7.3lf\n", E.w, E.t, E.x, E.C);
+			E = Hcc->Ex;
+			printf("     Et w=%7.3lf t=%7.3lf x=%7.3lf C=%7.3lf\n", E.w, E.t, E.x, E.C);
+			E = Hcc->Ew;
+			printf("     Et w=%7.3lf t=%7.3lf x=%7.3lf C=%7.3lf\n", E.w, E.t, E.x, E.C);
+			el = Hcc->cmp->elouts;
+			printf("     Tain=%5.2lf  Taout=%5.2lf  Qs=%4.0lf\n", Hcc->Tain, el->sysv, Hcc->Qs);
+			el++;
+			printf("     xain=%5.4lf  xaout=%5.4lf  Qs=%4.0lf\n", Hcc->xain, el->sysv, Hcc->Ql);
+			el++;
+			printf("     Wwin=%5.2lf  Twout=%5.4lf  Qt=%4.0lf\n", Hcc->Twin, el->sysv, Hcc->Qt);
+		}
+	}
+}
 
 /************ #include "cmpref.h"
 *************/

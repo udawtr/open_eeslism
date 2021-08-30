@@ -458,3 +458,25 @@ int pipevptr(char **key, PIPE *Pipe, VPTR *vptr)
 	
 	return err;
 }
+
+//@brief 検討用出力
+void pipexprint(int Npipe, PIPE* Pipe)
+{
+	int		i;
+	double	Te;
+
+	if (Npipe > 0)
+	{
+		printf("%s N=%d\n", PIPEDUCT_TYPE, Npipe);
+
+		if (Pipe->cmp->envname != NULL)
+			Te = *(Pipe->Tenv);
+		else
+			Te = Pipe->room->Tot;
+
+		for (i = 0; i < Npipe; i++, Pipe++)
+			printf("[%d] %-10s Do=%6.3lf  D1=%6.3lf Tin=%5.2lf Tout=%5.2lf ep=%5.3lf env=%4.1lf Q=%4.0lf\n",
+				i, Pipe->name, Pipe->Do, Pipe->D1, Pipe->Tin,
+				Pipe->cmp->elouts->sysv, Pipe->ep, Te, Pipe->Q);
+	}
+}

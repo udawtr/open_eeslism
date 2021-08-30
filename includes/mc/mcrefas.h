@@ -28,3 +28,4 @@ void refaday(int Mon, int Day, int ttmm, int Nrefa, REFA *Refa, int Nday, int Si
 void refadyprt(FILE *fo, int id, int Nrefa, REFA *Refa);
 void refamonprt(FILE *fo, int id, int Nrefa, REFA *Refa);
 void refamtprt(FILE *fo, int id, int Nrefa, REFA *Refa, int Mo, int tt) ;
+void refaxprint(int Nrefa, REFA* Refa);

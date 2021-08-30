@@ -754,6 +754,25 @@ void refamtprt(FILE *fo, int id, int Nrefa, REFA *Refa, int Mo, int tt)
 	}
 }
 
+//@brief 検討用出力
+void refaxprint(int Nrefa, REFA* Refa)
+{
+	int i;
+
+	if (Nrefa > 0)
+	{
+		printf("%s N=%d\n", REFACOMP_TYPE, Nrefa);
+
+		for (i = 0; i < Nrefa; i++, Refa++)
+		{
+			printf("[%d] %-10s Do=%6.3lf D1=%6.3lf Tin=%5.2lf Tout=%5.2lf Ta=%4.1lf\n",
+				i, Refa->name, Refa->Do, Refa->D1, Refa->Tin,
+				Refa->cmp->elouts->sysv, *Refa->Ta);
+			printf("     Te=%5.2lf  Tc=%5.2lf  Q=%6.0lf E=%6.0lf Ph=%3.0lf\n",
+				Refa->Te, Refa->Tc, Refa->Q, Refa->E, Refa->Ph);
+		}
+	}
+}
 
 //------ プライベート関数の実装 ------//
 
