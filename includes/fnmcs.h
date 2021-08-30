@@ -17,17 +17,23 @@
 
 // 2.5 設備機器データ処理関数群
 
-//REFA チラー、ヒートポンプチラー（空気熱源） ---- 機器仕様入力
-#include "mc/mcrefas.h"
-
 //BOI ボイラー
 #include "mc/mcboiler.h"
+
+//REFA チラー、ヒートポンプチラー（空気熱源）
+#include "mc/mcrefas.h"
 
 //COL 太陽熱集熱器
 #include "mc/mcsolrcol.h"
 
-//PV 太陽電池
-#include "mc/mcpv.h"
+//STANK 蓄熱槽
+#include "mc/mcstank.h"
+
+//HEX 熱交換器
+#include "mc/mchexchgr.h"
+
+//THEX 全熱交換器
+#include "mc/mcthex.h"
 
 //HCC 冷温水コイル
 #include "mc/mchccoil.h"
@@ -35,35 +41,29 @@
 //PIPE 配管
 #include "mc/mcpipe.h"
 
-//STANK 蓄熱槽
-#include "mc/mcstank.h"
-
 /* mcstanklb.c  */
 #include "mc/mcstanklb.h"
 
-//HEX 熱交換器
-#include "mc/mchexchgr.h"
-
-//PUMP ポンプ
+//DUCT, PUMP ポンプ
 #include "mc/mcpump.h"
-
-/*  hcload.c  */
-#include "mc/hcload.h"
-
-/* mcvalv.c */
-#include "mc/mcvalv.h"
 
 //VAV VAVユニット
 #include "mc/mcvav.h"
 
-// mcomvav.c
-#include "mc/mcomvav.h"
-
 //STHEAT 電気蓄熱式暖房器
 #include "mc/mcstheat.h"
 
-/* mcthex.c */
-#include "mc/mcthex.h"
+//PV 太陽電池
+#include "mc/mcpv.h"
+
+//OMVAV
+#include "mc/mcomvav.h"
+
+/*  hcload.c  */
+#include "mc/hcload.h"
+
+//VALV
+#include "mc/mcvalv.h"
 
 /* mc_cnvrg.c  */
 #include "mc/mccnvrg.h"
@@ -71,16 +71,16 @@
 //EQDAT 機器カタログデータの読み込み
 #include "mc/mceqcadat.h"
 
-/*  mceqpcat.c  */
+//COMPNT, EQCAT, EQSYS
 #include "mc/mceqpcat.h"
 
-/*  mcmecsys.c  */ 
+//COMPNT, EQSYS, WDAT, RMVLS, EXFS, SIMCONTL
 #include "mc/mcmecsys.h"
 
-/* mcxprmcs.c */
+//EQSYS
 #include "mc/mcxprmcs.h"
 
-/* mcqmeas.c */
+//QMEAS 
 #include "mc/mcqmeas.h"
 
 //DESI バッチ式デシカント空調機
