@@ -21,7 +21,7 @@
 
 /**
  * @file
- * @brief 合流要素の処理関数の定義
+ * @brief C 合流要素の処理関数の定義
  */
 
 void Cnvrgcfv(int Ncnvrg, COMPNT **Cnvrg)

@@ -20,7 +20,7 @@
 //EQPCAT 機器カタログ
 #include "mc/mceqpcat.h"
 
-//COMPNT, EQSYS, WDAT, RMVLS, EXFS, SIMCONTL
+//SYSCMP システム使用機器(システム構成要素)
 #include "mc/mcmecsys.h"
 
 //BOI ボイラー
@@ -76,7 +76,7 @@
 // mcevcooling.c Satoh追加 2013/10/26
 #include "mc/mcevcooling.h"
 
-/* mc_cnvrg.c  */
+//C 合流要素
 #include "mc/mccnvrg.h"
 
 //QMEAS カロリーメータ
