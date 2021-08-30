@@ -20,8 +20,8 @@
 //HCC 冷温水コイル
 #include "mc/mcaclib.h"
 
-//REFA ??? 圧縮式冷凍機
-#include "mc/mcreflib.h"
+//REFA 圧縮式冷凍機
+#include "mc/mcrefas.h"
 
 //BOI ボイラー
 #include "mc/mcboiler.h"

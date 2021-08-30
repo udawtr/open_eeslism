@@ -35,9 +35,9 @@ void	dxcoil ( char wet, HPCH *Rf, double Toa, double Gaet, double Gaeh,
 	EGex= Rf->eex * ca *Rf->Gex;
 	
 	if (Rf->mode == 'C')
-		Compca(Rf->e, Rf->d, EGex, Rf->Teo, Toa, &Rf->Ho, &Rf->He);
+		_Compca(Rf->e, Rf->d, EGex, Rf->Teo, Toa, &Rf->Ho, &Rf->He);
 	else
-		Compha(Rf->e, Rf->d, EGex, Rf->Tco, Toa, &Rf->Ho, &Rf->He);
+		_Compha(Rf->e, Rf->d, EGex, Rf->Tco, Toa, &Rf->Ho, &Rf->He);
 	
 	if (wet == 'd')
 	{

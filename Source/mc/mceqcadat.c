@@ -261,7 +261,7 @@ void Eqcadata (FILE *f, char *dsn, EQCAT *Eqcat)
 	}
 
 	// 3-3) 圧縮式冷凍機定格特性を読み込む
-	Refcmpdat(frf, &Eqcat->Nrfcmp, Eqcat->Rfcmp);
+	_Refcmpdat(frf, &Eqcat->Nrfcmp, Eqcat->Rfcmp);
     fclose (frf);
 
 

@@ -112,7 +112,6 @@ add_executable(eeslism
     Source/mc/mcpv.c
     Source/mc/mcqmeas.c
     Source/mc/mcrefas.c
-    Source/mc/mcreflib.c
     Source/mc/mcsolrcol.c
     Source/mc/mcstank.c
     Source/mc/mcstanklb.c

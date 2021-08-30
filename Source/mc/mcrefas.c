@@ -24,11 +24,30 @@
 #include "fnfio.h"
 #include "fnlib.h"
 #include "winerror.h"
+#include <stdio.h>
+#include "esize.h"
+#include "lib/u_psy.h"
+#include <math.h>
 
 /**
  * @file
  * @brief 圧縮式冷凍機の処理関数の定義
  */
+
+//For RFCMP, REFA
+#include "model/eqptyp.h"
+
+//------ プライベート関数の宣言 ------//
+
+void _Refcmpdat(FILE* frf, int* Nrfcmp, RFCMP* Rfcmp);
+void _Compca(double* e, double* d, double EGex, double* Teo, double Ta,
+	double* Ho, double* He);
+void _Compha(double* e, double* d, double EGex, double* Tco, double Ta,
+	double* Ho, double* He);
+double _Refpow(REFA* Rf, double QP);
+
+
+//------ パブリック関数の実装 ------//
 
 
 /*  圧縮式冷凍機
@@ -294,7 +313,7 @@ void refacoeff(REFA *Refa, int *err)
 		if (Refa->cat->cool != NULL)
 		{
 			EGex = Refa->cat->cool->eex * CONST_CA * Refa->cat->cool->Gex ;
-			Compca(Refa->c_e, Refa->c_d, EGex, Refa->cat->rfc->Teo, *Refa->Ta, 
+			_Compca(Refa->c_e, Refa->c_d, EGex, Refa->cat->rfc->Teo, *Refa->Ta, 
 				&Refa->Ho, &Refa->He);
 			E = Refa->cG * Refa->cat->cool->eo;
 		}
@@ -306,7 +325,7 @@ void refacoeff(REFA *Refa, int *err)
 		if (Refa->cat->heat != NULL)
 		{
 			EGex = Refa->cat->heat->eex * CONST_CA * Refa->cat->heat->Gex ;	
-			Compha(Refa->h_e, Refa->h_d, EGex, Refa->cat->rfc->Tco, *Refa->Ta, 
+			_Compha(Refa->h_e, Refa->h_d, EGex, Refa->cat->rfc->Tco, *Refa->Ta, 
 				&Refa->Ho, &Refa->He);
 			E = Refa->cG * Refa->cat->heat->eo;
 		}
@@ -366,7 +385,7 @@ void Refaene(int Nrefa, REFA *Refa, int *LDreset)
 				Refa->Qmax = Refa->Q;
 				
 				if (Refa->cat->Nmode > 0)
-					Refa->E = Refpow(Refa, Refa->Q) / Refa->cat->rfc->Meff;
+					Refa->E = _Refpow(Refa, Refa->Q) / Refa->cat->rfc->Meff;
 				
 			}
 			else
@@ -393,7 +412,7 @@ void Refaene(int Nrefa, REFA *Refa, int *LDreset)
 						if (err == 0)
 						{
 							Refa->Qmax =  Refa->Do - Refa->D1 * Refa->Tin;
-							Emax = Refpow(Refa, Refa->Qmax) / Refa->cat->rfc->Meff;	 
+							Emax = _Refpow(Refa, Refa->Qmax) / Refa->cat->rfc->Meff;	 
 							Refa->E = (Refa->Q / Refa->Qmax) * Emax;
 							
 							if (Refa->cat->unlimcap == 'n')
@@ -733,5 +752,128 @@ void refamtprt(FILE *fo, int id, int Nrefa, REFA *Refa, int Mo, int tt)
 		}
 		break;
 	}
+}
+
+
+//------ プライベート関数の実装 ------//
+
+
+/*  圧縮式冷凍機定格特性入力    */
+
+void _Refcmpdat(FILE* frf, int* Nrfcmp, RFCMP* Rfcmp)
+{
+	RFCMP* rfc;
+	char   s[SCHAR];
+	int i;
+
+	rfc = Rfcmp;
+
+	while (fscanf(frf, "%s", s), s[0] != '*')
+	{
+		Rfcmp->name = stralloc(s);
+
+		fscanf(frf, "%s", s);
+		Rfcmp->cname = stralloc(s);
+
+		for (i = 0; i < 4; i++)
+			fscanf(frf, "%lf", &Rfcmp->e[i]);
+		for (i = 0; i < 4; i++)
+			fscanf(frf, "%lf", &Rfcmp->d[i]);
+		for (i = 0; i < 4; i++)
+			fscanf(frf, "%lf", &Rfcmp->w[i]);
+		fscanf(frf, "%lf %lf %lf %lf", &Rfcmp->Teo[0], &Rfcmp->Teo[1],
+			&Rfcmp->Tco[0], &Rfcmp->Tco[1]);
+		fscanf(frf, "%lf", &Rfcmp->Meff);
+
+		Rfcmp++;
+	}
+	*Nrfcmp = (int)(Rfcmp - rfc);
+	if (*Nrfcmp >= RFCMPLSTMX)
+		printf("xxxxxxxxx Refcfi   reflist=%d [max=%d]\n", *Nrfcmp, RFCMPLSTMX);
+}
+/* ----------------------------------- */
+
+/*  冷凍機の蒸発温度と冷凍能力の一次式の係数  */
+
+void _Compca(double* e, double* d, double EGex, double* Teo, double Ta,
+	double* Ho, double* He)
+{
+	double  Tc, Te, Qo[2];
+	int    i;
+
+	for (i = 0; i < 2; i++)
+	{
+		Te = Teo[i];
+		Tc = (d[0] + d[1] * Te + EGex * Ta)
+			/ (EGex - d[2] - d[3] * Te);
+		Qo[i] = e[0] + e[1] * Te + (e[2] + e[3] * Te) * Tc;
+
+		/* ---------
+		printf("xxxx _Compca xxx Te=%lf  Tc=%lf   Qo[i]=%lf\n", Te,Tc,Qo[i]);
+		---------- */
+	}
+	*He = (Qo[0] - Qo[1]) / (Teo[1] - Teo[0]);
+	*Ho = Qo[0] + *He * Teo[0];
+}
+/* ------------------------------------------------------------ */
+
+/*  ヒ－トポンプの凝縮温度と冷凍能力の一次式の係数  */
+
+void _Compha(double* e, double* d, double EGex, double* Tco, double Ta,
+	double* Ho, double* He)
+{
+	double  Tc, Te, Qo[2];
+	int    i;
+
+	for (i = 0; i < 2; i++)
+	{
+		Tc = Tco[i];
+		Te = (e[0] + e[2] * Tc + EGex * Ta)
+			/ (EGex - e[1] - e[3] * Tc);
+		Qo[i] = d[0] + d[2] * Tc + (d[1] + d[3] * Tc) * Te;
+		/* -----
+		printf("xxx _Compha xxx Te=%lf  Tc=%lf   Qo[i]=%lf\n", Te,Tc,Qo[i]);
+		------------- */
+	}
+	*He = (Qo[0] - Qo[1]) / (Tco[1] - Tco[0]);
+	*Ho = Qo[0] + *He * Tco[0];
+}
+/* --------------------------------------- */
+
+/*  冷凍機／ヒ－トポンプの軸動力の計算　　 */
+
+
+double _Refpow(REFA* Rf, double QP)
+{
+	double  W = 0.0, Te = 0.0, Tc = 0.0;
+
+	/****   Tx = (Rf->Ho - QP)/Rf->He; ****/
+
+	if (fabs((double)QP) > 1.0)
+	{
+		if (Rf->chmode == COOLING_SW)
+		{
+			Te = QP / (Rf->cat->cool->eo * Rf->cG) + Rf->Tin;;
+			Tc = (QP - Rf->c_e[0] - Rf->c_e[1] * Te) / (Rf->c_e[2] + Rf->c_e[3] * Te);
+			W = Rf->c_w[0] + Rf->c_w[1] * Te + Rf->c_w[2] * Tc + Rf->c_w[3] * Te * Tc;
+		}
+		else if (Rf->chmode == HEATING_SW)
+		{
+			Tc = QP / (Rf->cat->heat->eo * Rf->cG) + Rf->Tin;
+			Te = (QP - Rf->h_d[0] - Rf->h_d[2] * Tc) / (Rf->h_d[1] + Rf->h_d[3] * Tc);
+			W = Rf->h_w[0] + Rf->h_w[1] * Te + Rf->h_w[2] * Tc + Rf->h_w[3] * Te * Tc;
+		}
+
+		/*****
+		printf("xxx Refpow xxx Te=%lf  Tc=%lf   Qp=%lf\n", Te,Tc,QP);
+		*****/
+
+		Rf->Te = Te;
+		Rf->Tc = Tc;
+	}
+	else
+		W = 0.0;
+
+	return(W);
 }
 

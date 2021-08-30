@@ -1155,7 +1155,7 @@ typedef struct eqcat
 	//============ 係数類 ============//
 
 	//------ 標準圧縮機特性 ------
-	//@sa Refcmpdat
+	//@sa _Refcmpdat
 
 	//! 標準圧縮機特性のデータ数
 	int   Nrfcmp;
