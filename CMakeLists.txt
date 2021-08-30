@@ -114,7 +114,7 @@ add_executable(eeslism
     Source/mc/mcrefas.c
     Source/mc/mcsolrcol.c
     Source/mc/mcstank.c
-    Source/mc/mcstanklb.c
+    
     Source/mc/mcstheat.c
     Source/mc/mcthex.c
     Source/mc/mcvalv.c

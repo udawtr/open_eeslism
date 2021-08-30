@@ -41,9 +41,6 @@
 //PIPE 配管
 #include "mc/mcpipe.h"
 
-/* mcstanklb.c  */
-#include "mc/mcstanklb.h"
-
 //DUCT, PUMP ポンプ
 #include "mc/mcpump.h"
 
